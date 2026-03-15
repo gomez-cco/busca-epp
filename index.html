@@ -435,6 +435,7 @@
 
 <div class="tabs">
   <div class="tab active" onclick="showTab('epp')" id="tab-epp">🛡️ <span data-es="EPP & Seguridad" data-en="PPE & Safety">EPP & Seguridad</span></div>
+  <div class="tab" onclick="showTab('norm')" id="tab-norm">📋 <span data-es="Normativas" data-en="Standards">Normativas</span></div>
   <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B">Ropa Corporativa B2B</span></div>
   <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
 </div>
@@ -475,19 +476,7 @@
         <span class="isp-badge-date">Marzo 2025</span>
       </div>
     </a>
-    <a class="inn-banner" href="https://www.inn.cl/nch-aprobadas" target="_blank" rel="noopener">
-      <div class="isp-left">
-        <div class="isp-icon">📐</div>
-        <div>
-          <div class="inn-name">Instituto Nacional de Normalización — INN</div>
-          <div class="inn-sub">Normativas NCh vigentes para EPP en Chile — inn.cl</div>
-        </div>
-      </div>
-      <div class="inn-badge">
-        <span class="inn-badge-title">📋 Normas NCh</span>
-        <span class="inn-badge-sub">Catálogo oficial</span>
-      </div>
-    </a>
+
     <div id="modelSearchPanel" class="model-search-panel" style="display:none;"></div>
   </div>
 
@@ -502,6 +491,303 @@
       <div class="empty-icon">🔎</div>
       <h3 data-es="Sin resultados" data-en="No results">Sin resultados</h3>
       <p data-es="Intenta con otro término o revisa los filtros" data-en="Try another term or check the filters">Intenta con otro término o revisa los filtros</p>
+    </div>
+  </div>
+</div>
+
+<!-- NORMATIVAS TAB -->
+<div id="pane-norm" style="display:none;">
+  <div class="hero">
+    <h1><span>NORMATIVAS</span> <span data-es="NCh VIGENTES EPP" data-en="CURRENT EPP STANDARDS">NCh VIGENTES EPP</span></h1>
+    <p data-es="Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas" data-en="Free summary of the main Chilean Standards applicable to PPE — no purchase required">Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas</p>
+  </div>
+  <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
+
+    <!-- Marco legal -->
+    <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.5rem;">⚖️ Marco Legal Obligatorio</div>
+      <div style="font-size:.85rem;color:var(--text);line-height:1.7;">
+        <b>Ley N°16.744</b> — Seguro de accidentes del trabajo y enfermedades profesionales. Obliga al empleador a proporcionar EPP certificados sin costo para el trabajador.<br>
+        <b>D.S. N°594/99 MINSAL</b> — Reglamento sobre condiciones sanitarias en lugares de trabajo. Exige EPP adecuados según riesgo.<br>
+        <b>D.S. N°44/2023 MINTRAB</b> — Vigente desde febrero 2025. Instruye gestión preventiva de riesgos laborales, incluyendo uso de EPP de calidad certificada.<br>
+        <b>D.S. N°173/82 MINSAL</b> — Define legalmente los EPP como dispositivos para preservar al trabajador de riesgos específicos.
+      </div>
+    </div>
+
+    <!-- Categorías de normas -->
+    <div style="display:grid;gap:1rem;">
+
+      <!-- Cabeza -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">⛑️</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE CABEZA</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 461</td>
+                <td style="padding:8px;color:var(--text);">Cascos de protección de uso industrial — requisitos y ensayos</td>
+                <td style="padding:8px;color:var(--muted);">Cascos industriales</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1358</td>
+                <td style="padding:8px;color:var(--text);">Protectores auditivos — terminología y clasificación</td>
+                <td style="padding:8px;color:var(--muted);">Protectores auditivos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Ojos y cara -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">🥽</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE OJOS Y CARA</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1301</td>
+                <td style="padding:8px;color:var(--text);">Protección personal — elementos protectores de los ojos, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Lentes de seguridad</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1562</td>
+                <td style="padding:8px;color:var(--text);">Protección personal — pantallas para soldadores, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Caretas de soldar</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1582</td>
+                <td style="padding:8px;color:var(--text);">Protección de los ojos — filtros ultravioleta, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Lentes UV</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1583</td>
+                <td style="padding:8px;color:var(--text);">Protección de los ojos — filtros infrarrojos, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Lentes IR / soldadura</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Respiración -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">😷</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN RESPIRATORIA</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 2175</td>
+                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — vocabulario</td>
+                <td style="padding:8px;color:var(--muted);">Todo respirador</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2176</td>
+                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — clasificación</td>
+                <td style="padding:8px;color:var(--muted);">Todo respirador</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2378</td>
+                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — máscaras, requisitos y métodos de ensayo</td>
+                <td style="padding:8px;color:var(--muted);">Máscaras completas / medias máscara</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1284</td>
+                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — medias máscaras y cuartos de máscaras, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Semimáscaras / cuarto máscara</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Manos -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">🧤</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE MANOS</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1115</td>
+                <td style="padding:8px;color:var(--text);">Cuero para guantes de protección — requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Guantes de cuero</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1805</td>
+                <td style="padding:8px;color:var(--text);">Guantes de protección — requisitos generales</td>
+                <td style="padding:8px;color:var(--muted);">Todo tipo de guante</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pies -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">🥾</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE PIES Y PIERNAS</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1584</td>
+                <td style="padding:8px;color:var(--text);">Protección personal — botín de seguridad, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Botines con puntera</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1796</td>
+                <td style="padding:8px;color:var(--text);">Calzado de seguridad — calzado de goma, requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Botas de goma</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/1</td>
+                <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 1: calzado antiestático</td>
+                <td style="padding:8px;color:var(--muted);">Calzado antiestático</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/2</td>
+                <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 2: calzado aislante hasta 600V</td>
+                <td style="padding:8px;color:var(--muted);">Calzado dieléctrico</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/3</td>
+                <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 3: calzado semiconductor</td>
+                <td style="padding:8px;color:var(--muted);">Calzado semiconductor</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Altura y caídas -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">🪝</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN CONTRA CAÍDAS</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1252</td>
+                <td style="padding:8px;color:var(--text);">Cinturones y arneses de seguridad para trabajos en altura — requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Arneses / cinturones</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2374</td>
+                <td style="padding:8px;color:var(--text);">Protección personal — equipos de protección contra caídas, requisitos y ensayos</td>
+                <td style="padding:8px;color:var(--muted);">Sistemas anticaída</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Ropa de protección -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">🦺</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">ROPA DE PROTECCIÓN</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1806</td>
+                <td style="padding:8px;color:var(--text);">Protección personal — ropa para soldadores, confección y requisitos</td>
+                <td style="padding:8px;color:var(--muted);">Ropa para soldadura</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1303</td>
+                <td style="padding:8px;color:var(--text);">Ropa de protección — requisitos generales</td>
+                <td style="padding:8px;color:var(--muted);">Toda ropa de protección</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Señalética -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">🚧</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">SEÑALIZACIÓN Y COLORES DE SEGURIDAD</span>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1410</td>
+                <td style="padding:8px;color:var(--text);">Prevención de riesgos — colores de seguridad</td>
+                <td style="padding:8px;color:var(--muted);">Señalética / colores</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1411/1</td>
+                <td style="padding:8px;color:var(--text);">Prevención de riesgos — letreros de seguridad, aspectos generales</td>
+                <td style="padding:8px;color:var(--muted);">Letreros y señales</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+
+    <div style="margin-top:1.5rem;text-align:center;font-size:.78rem;color:var(--muted);padding-bottom:2rem;">
+      Fuente: INN — Instituto Nacional de Normalización · SIGWEB · ISP Chile · Información de referencia, no reemplaza los textos oficiales.
     </div>
   </div>
 </div>
@@ -1213,7 +1499,7 @@ function showTab(tab, skipAuth=false) {
     showAdminLogin();
     return;
   }
-  ['epp','corp','admin'].forEach(t => {
+  ['epp','norm','corp','admin'].forEach(t => {
     document.getElementById('pane-'+t).style.display = t===tab?'block':'none';
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
   });
