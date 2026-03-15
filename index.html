@@ -326,6 +326,32 @@
   .inn-badge-title { font-size:.7rem; font-weight:700; color:#a3e635; text-transform:uppercase; letter-spacing:1px; }
   .inn-badge-sub { font-size:.78rem; color:#ecfccb; font-weight:600; margin-top:1px; }
 
+  /* MODAL NORMA */
+  .norm-row { cursor:pointer; transition:background .15s; }
+  .norm-row:hover td { background:rgba(245,158,11,.08) !important; }
+  .norm-row td:first-child { text-decoration:underline dotted; }
+  .norm-modal-overlay {
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.7);
+    z-index:1000; align-items:center; justify-content:center; padding:1rem;
+  }
+  .norm-modal-overlay.open { display:flex; }
+  .norm-modal-box {
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    max-width:560px; width:100%; max-height:85vh; overflow-y:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
+  }
+  .norm-modal-header {
+    padding:1.2rem 1.4rem; border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;
+  }
+  .norm-modal-code { font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:700; color:var(--accent); }
+  .norm-modal-title { font-size:.9rem; color:var(--text); margin-top:.2rem; line-height:1.4; }
+  .norm-modal-body { padding:1.2rem 1.4rem 1.6rem; }
+  .norm-section { margin-bottom:1rem; }
+  .norm-section-label { font-size:.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:.3rem; }
+  .norm-section-text { font-size:.85rem; color:var(--text); line-height:1.6; }
+  .norm-tag { display:inline-block; background:rgba(245,158,11,.1); color:var(--accent); border:1px solid rgba(245,158,11,.2); border-radius:20px; padding:2px 10px; font-size:.75rem; margin:2px; }
+
   .model-search-panel {
     max-width:700px; margin:0.8rem auto 0; 
     background: linear-gradient(135deg, rgba(245,158,11,.08), rgba(245,158,11,.03));
@@ -531,12 +557,12 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 461')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 461</td>
                 <td style="padding:8px;color:var(--text);">Cascos de protección de uso industrial — requisitos y ensayos</td>
                 <td style="padding:8px;color:var(--muted);">Cascos industriales</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1358')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1358</td>
                 <td style="padding:8px;color:var(--text);">Protectores auditivos — terminología y clasificación</td>
                 <td style="padding:8px;color:var(--muted);">Protectores auditivos</td>
@@ -560,22 +586,22 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1301')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1301</td>
                 <td style="padding:8px;color:var(--text);">Protección personal — elementos protectores de los ojos, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Lentes de seguridad</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1562')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1562</td>
                 <td style="padding:8px;color:var(--text);">Protección personal — pantallas para soldadores, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Caretas de soldar</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1582')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1582</td>
                 <td style="padding:8px;color:var(--text);">Protección de los ojos — filtros ultravioleta, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Lentes UV</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1583')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1583</td>
                 <td style="padding:8px;color:var(--text);">Protección de los ojos — filtros infrarrojos, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Lentes IR / soldadura</td>
@@ -599,22 +625,22 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 2175')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 2175</td>
                 <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — vocabulario</td>
                 <td style="padding:8px;color:var(--muted);">Todo respirador</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 2176')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2176</td>
                 <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — clasificación</td>
                 <td style="padding:8px;color:var(--muted);">Todo respirador</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 2378')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2378</td>
                 <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — máscaras, requisitos y métodos de ensayo</td>
                 <td style="padding:8px;color:var(--muted);">Máscaras completas / medias máscara</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1284')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1284</td>
                 <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — medias máscaras y cuartos de máscaras, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Semimáscaras / cuarto máscara</td>
@@ -638,12 +664,12 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1115')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1115</td>
                 <td style="padding:8px;color:var(--text);">Cuero para guantes de protección — requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Guantes de cuero</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1805')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1805</td>
                 <td style="padding:8px;color:var(--text);">Guantes de protección — requisitos generales</td>
                 <td style="padding:8px;color:var(--muted);">Todo tipo de guante</td>
@@ -667,27 +693,27 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1584')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1584</td>
                 <td style="padding:8px;color:var(--text);">Protección personal — botín de seguridad, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Botines con puntera</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1796')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1796</td>
                 <td style="padding:8px;color:var(--text);">Calzado de seguridad — calzado de goma, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Botas de goma</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 2147/1')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/1</td>
                 <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 1: calzado antiestático</td>
                 <td style="padding:8px;color:var(--muted);">Calzado antiestático</td>
               </tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 2147/2')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/2</td>
                 <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 2: calzado aislante hasta 600V</td>
                 <td style="padding:8px;color:var(--muted);">Calzado dieléctrico</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 2147/3')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/3</td>
                 <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 3: calzado semiconductor</td>
                 <td style="padding:8px;color:var(--muted);">Calzado semiconductor</td>
@@ -711,12 +737,12 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1252')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1252</td>
                 <td style="padding:8px;color:var(--text);">Cinturones y arneses de seguridad para trabajos en altura — requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Arneses / cinturones</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 2374')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2374</td>
                 <td style="padding:8px;color:var(--text);">Protección personal — equipos de protección contra caídas, requisitos y ensayos</td>
                 <td style="padding:8px;color:var(--muted);">Sistemas anticaída</td>
@@ -740,12 +766,12 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1806')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1806</td>
                 <td style="padding:8px;color:var(--text);">Protección personal — ropa para soldadores, confección y requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Ropa para soldadura</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1303')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1303</td>
                 <td style="padding:8px;color:var(--text);">Ropa de protección — requisitos generales</td>
                 <td style="padding:8px;color:var(--muted);">Toda ropa de protección</td>
@@ -769,12 +795,12 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+              <tr class="norm-row" onclick="openNormModal('NCh 1410')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1410</td>
                 <td style="padding:8px;color:var(--text);">Prevención de riesgos — colores de seguridad</td>
                 <td style="padding:8px;color:var(--muted);">Señalética / colores</td>
               </tr>
-              <tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1411/1')">
                 <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1411/1</td>
                 <td style="padding:8px;color:var(--text);">Prevención de riesgos — letreros de seguridad, aspectos generales</td>
                 <td style="padding:8px;color:var(--muted);">Letreros y señales</td>
@@ -908,6 +934,19 @@
       <div class="modal-providers-grid" id="modalProviders"></div>
       <div class="modal-tags" id="modalTags"></div>
     </div>
+  </div>
+</div>
+
+<div class="norm-modal-overlay" id="normModal" onclick="closeNormModalOnBg(event)">
+  <div class="norm-modal-box">
+    <div class="norm-modal-header">
+      <div>
+        <div class="norm-modal-code" id="normModalCode"></div>
+        <div class="norm-modal-title" id="normModalTitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeNormModal()">✕</button>
+    </div>
+    <div class="norm-modal-body" id="normModalBody"></div>
   </div>
 </div>
 
@@ -1581,6 +1620,232 @@ function openModal(id) {
   document.getElementById('productModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+// ─── NORMAS MODAL ────────────────────────────────────────────
+const NORMAS = {
+  'NCh 461': {
+    titulo: 'Cascos de protección de uso industrial',
+    objetivo: 'Establece los requisitos de materiales, construcción, dimensiones y ensayos que deben cumplir los cascos de protección para la industria, con el fin de proteger la cabeza del trabajador contra golpes, objetos que caen y salpicaduras.',
+    campo: 'Industria en general, construcción, minería, forestal y cualquier faena con riesgo de impacto en la cabeza.',
+    requisitos: 'El casco debe resistir impactos de al menos 50 J, penetración de objetos punzantes, y no debe transmitir fuerzas superiores a 5 kN al cráneo. Debe incluir sistema de suspensión interior ajustable.',
+    categorias: ['Casco tipo A', 'Casco tipo B (dieléctrico)', 'Casco tipo C (conducción eléctrica reducida)'],
+    tags: ['casco', 'cabeza', 'impacto', 'industria']
+  },
+  'NCh 1358': {
+    titulo: 'Protectores auditivos — terminología y clasificación',
+    objetivo: 'Define la terminología técnica y la clasificación de los protectores auditivos (orejeras y tapones) para uso en ambientes laborales con exposición a ruido.',
+    campo: 'Todos los ambientes de trabajo con niveles de ruido superiores a 85 dB(A).',
+    requisitos: 'Los protectores deben indicar el NRR (Noise Reduction Rating) o SNR. Los tapones desechables deben ser hipoalergénicos. Las orejeras deben sellar correctamente el pabellón auditivo.',
+    categorias: ['Tapones auditivos desechables', 'Tapones reutilizables', 'Orejeras de copa', 'Orejeras adosables a casco'],
+    tags: ['ruido', 'auditivo', 'tapones', 'orejeras', 'dB']
+  },
+  'NCh 1301': {
+    titulo: 'Protección personal — elementos protectores de los ojos',
+    objetivo: 'Establece los requisitos ópticos, mecánicos y de resistencia química que deben cumplir los lentes y gafas de seguridad para proteger los ojos de riesgos laborales.',
+    campo: 'Trabajos con partículas proyectadas, polvo, salpicaduras de líquidos, radiaciones ópticas y operaciones de pulido, esmerilado y corte.',
+    requisitos: 'Los lentes deben tener resistencia al impacto de alta velocidad (prueba de bola de acero a 45 m/s), distorsión óptica mínima, y marcación clara del fabricante y grado de protección.',
+    categorias: ['Lentes de seguridad', 'Gafas panorámicas', 'Gafas químicas', 'Protectores faciales'],
+    tags: ['lentes', 'ojos', 'impacto', 'partículas', 'química']
+  },
+  'NCh 1562': {
+    titulo: 'Protección personal — pantallas para soldadores',
+    objetivo: 'Define los requisitos de construcción, filtros y resistencia mecánica de las caretas y pantallas utilizadas en procesos de soldadura para proteger ojos, cara y cuello.',
+    campo: 'Soldadura al arco eléctrico, MIG, TIG, oxiacetilénica y corte por plasma.',
+    requisitos: 'Los filtros deben cumplir con el número de sombra (shade) adecuado al proceso: shade 9-11 para electrodo, 10-13 para MIG/TIG. Debe proteger contra radiación UV, IR y visible intensa.',
+    categorias: ['Careta de soldar de mano', 'Careta de soldar de cabeza', 'Careta de oscurecimiento automático'],
+    tags: ['soldadura', 'careta', 'arco', 'UV', 'IR', 'shade']
+  },
+  'NCh 1582': {
+    titulo: 'Protección de los ojos — filtros ultravioleta',
+    objetivo: 'Establece los requisitos que deben cumplir los filtros para radiación ultravioleta utilizados en lentes y pantallas de protección ocular en entornos laborales.',
+    campo: 'Trabajos al aire libre con exposición solar intensa, laboratorios con fuentes UV, lámparas germicidas y procesos de curado UV.',
+    requisitos: 'Los filtros deben bloquear al menos el 99,9% de la radiación UV-B (280–315 nm) y UV-A (315–380 nm). Deben mantener transmisión visual adecuada para la actividad.',
+    categorias: ['Filtros UV-A', 'Filtros UV-B', 'Filtros UV-A+B combinados'],
+    tags: ['UV', 'ultravioleta', 'lentes', 'filtro', 'solar']
+  },
+  'NCh 1583': {
+    titulo: 'Protección de los ojos — filtros infrarrojos',
+    objetivo: 'Especifica los requisitos de transmisión y clasificación de los filtros para radiación infrarroja utilizados en la protección ocular en procesos de alta temperatura.',
+    campo: 'Hornos industriales, fundición, acería, soldadura oxiacetilénica, vidriería y cualquier proceso con fuentes intensas de calor radiante.',
+    requisitos: 'Los filtros se clasifican por número de sombra (1.5 a 10) según la intensidad de la fuente IR. Deben bloquear la radiación IR sin comprometer excesivamente la visión.',
+    categorias: ['Filtros IR escala 1.5–4', 'Filtros IR escala 4–10'],
+    tags: ['infrarrojo', 'IR', 'calor', 'soldadura', 'fundición', 'filtro']
+  },
+  'NCh 2175': {
+    titulo: 'Aparatos de protección respiratoria — vocabulario',
+    objetivo: 'Establece y define los términos y definiciones utilizados en el campo de los equipos de protección respiratoria, asegurando un lenguaje técnico uniforme.',
+    campo: 'Aplicable a todos los ambientes laborales donde se requiera protección respiratoria contra partículas, gases, vapores o atmósferas deficientes en oxígeno.',
+    requisitos: 'Norma de referencia terminológica. Define conceptos como: factor de protección, hermeticidad, zona de respiración, flujo inspiratorio, resistencia respiratoria, entre otros.',
+    categorias: ['Respiradores filtrantes', 'Equipos de respiración autónoma', 'Líneas de aire'],
+    tags: ['vocabulario', 'terminología', 'respirador', 'EPR']
+  },
+  'NCh 2176': {
+    titulo: 'Aparatos de protección respiratoria — clasificación',
+    objetivo: 'Clasifica los distintos tipos de equipos de protección respiratoria según su principio de funcionamiento, tipo de contaminante y nivel de protección ofrecido.',
+    campo: 'Industria química, minería, construcción, laboratorios, agricultura y cualquier ambiente con contaminantes aéreos.',
+    requisitos: 'Divide los equipos en dependientes del ambiente (filtrantes) e independientes (autónomos). Cada clase debe indicar su factor de protección nominal (FPN) y los contaminantes para los que es efectivo.',
+    categorias: ['Clase P1 (baja eficiencia)', 'Clase P2 (media eficiencia)', 'Clase P3 (alta eficiencia)', 'Equipos autónomos'],
+    tags: ['clasificación', 'P1', 'P2', 'P3', 'filtro', 'autónomo']
+  },
+  'NCh 2378': {
+    titulo: 'Aparatos de protección respiratoria — máscaras completas',
+    objetivo: 'Establece los requisitos de construcción, materiales, sellado facial y ensayos para las máscaras completas de protección respiratoria que cubren ojos, nariz y boca.',
+    campo: 'Ambientes con concentraciones de gases o partículas peligrosas que superen los niveles permisibles, incluyendo atmósferas con riesgo para los ojos.',
+    requisitos: 'La máscara debe lograr un factor de protección ≥ 2000. El sello facial debe resistir fugas con valores menores al 0,05%. Los visores deben ser resistentes a impactos y productos químicos.',
+    categorias: ['Máscara completa con filtros de partículas', 'Máscara con filtros de gases y vapores', 'Máscara mixta'],
+    tags: ['máscara completa', 'full face', 'gases', 'partículas', 'sellado']
+  },
+  'NCh 1284': {
+    titulo: 'Aparatos de protección respiratoria — medias máscaras y cuartos de máscara',
+    objetivo: 'Define los requisitos de diseño, materiales, sellado y ensayos para las medias máscaras (nariz y boca) y cuartos de máscara (solo boca y nariz) reutilizables.',
+    campo: 'Operaciones de pintura, manejo de solventes, laboratorios, pulido, lijado y ambientes con partículas o gases en concentraciones moderadas.',
+    requisitos: 'Factor de protección nominal ≥ 10 para cuarto de máscara y ≥ 100 para media máscara. Los filtros deben ser intercambiables y codificados por color según tipo de contaminante.',
+    categorias: ['Cuarto de máscara', 'Media máscara reutilizable', 'Media máscara desechable (tipo N95/FFP2)'],
+    tags: ['media máscara', 'N95', 'FFP2', 'filtro', 'gases', 'vapores']
+  },
+  'NCh 1115': {
+    titulo: 'Cuero para guantes de protección — requisitos',
+    objetivo: 'Establece los requisitos físicos y mecánicos que debe cumplir el cuero utilizado en la fabricación de guantes de protección laboral.',
+    campo: 'Industria metalmecánica, construcción, forestal, soldadura y cualquier faena con riesgo de cortes, abrasión o calor moderado.',
+    requisitos: 'El cuero debe tener resistencia a la tracción ≥ 15 N/mm², elongación mínima del 40%, espesor uniforme y ausencia de defectos que reduzcan su resistencia. Se prohíbe el uso de cuero con tratamientos que reduzcan su resistencia.',
+    categorias: ['Cuero vaca (vacuno)', 'Cuero cerdo (cabritilla)', 'Cuero carnaza'],
+    tags: ['cuero', 'guante', 'vacuno', 'cabritilla', 'resistencia']
+  },
+  'NCh 1805': {
+    titulo: 'Guantes de protección — requisitos generales',
+    objetivo: 'Establece los requisitos generales de diseño, materiales, marcación y ensayos que deben cumplir todos los tipos de guantes de protección personal.',
+    campo: 'Aplicable a todos los sectores industriales que requieran protección de manos contra riesgos mecánicos, químicos, térmicos o eléctricos.',
+    requisitos: 'Los guantes deben indicar talla, nivel de protección, pictogramas de riesgo y límites de uso. Resistencia al corte según EN 388 (niveles 1–5), resistencia a químicos según permeación y penetración.',
+    categorias: ['Guantes mecánicos', 'Guantes químicos', 'Guantes térmicos', 'Guantes dieléctricos'],
+    tags: ['guante', 'mecánico', 'químico', 'dieléctrico', 'térmico', 'corte']
+  },
+  'NCh 1584': {
+    titulo: 'Protección personal — botín de seguridad',
+    objetivo: 'Establece los requisitos de construcción, materiales y ensayos para botines de seguridad con puntera de protección destinados a uso industrial.',
+    campo: 'Industria en general, construcción, minería, manufactura y logística donde existe riesgo de caída de objetos sobre el pie.',
+    requisitos: 'La puntera metálica o composite debe resistir una fuerza de aplastamiento de 15 kN y un impacto de 200 J. La suela debe ser antideslizante, resistente al aceite y a la abrasión. Resistencia del corte superior a la separación.',
+    categorias: ['Botín punta acero (S1, S2, S3)', 'Botín punta composite', 'Botín con plantilla antiperforación'],
+    tags: ['botín', 'zapato', 'puntera', 'acero', 'composite', 'antiperforación']
+  },
+  'NCh 1796': {
+    titulo: 'Calzado de seguridad — calzado de goma',
+    objetivo: 'Establece los requisitos para botas de goma o PVC con protección de seguridad, destinadas a uso en ambientes húmedos, con barro, agua o agentes químicos.',
+    campo: 'Agricultura, pesca, industria alimentaria, minería en zonas húmedas, construcción en terrenos inundados y manipulación de agentes corrosivos diluidos.',
+    requisitos: 'La goma debe ser vulcanizada, resistente al envejecimiento y a productos químicos básicos. La puntera debe cumplir los mismos requisitos de impacto que NCh 1584.',
+    categorias: ['Bota de goma sin puntera', 'Bota de goma con puntera metálica', 'Bota PVC con puntera'],
+    tags: ['bota', 'goma', 'PVC', 'húmedo', 'química', 'agua']
+  },
+  'NCh 2147/1': {
+    titulo: 'Calzado de seguridad — calzado antiestático',
+    objetivo: 'Especifica los requisitos para calzado que disipa la electricidad estática acumulada en el cuerpo del trabajador, previniendo descargas que puedan causar ignición o daño en equipos electrónicos.',
+    campo: 'Industria electrónica, petroquímica, fabricación de explosivos, salas limpias y cualquier ambiente con riesgo de ignición por estática.',
+    requisitos: 'Resistencia eléctrica entre 100 kΩ y 1000 MΩ. Debe garantizar la disipación de la carga estática pero ofrecer cierta resistencia al paso de corriente para proteger al trabajador.',
+    categorias: ['Calzado antiestático (ESD)', 'Zapato con suela disipativa'],
+    tags: ['antiestático', 'ESD', 'estática', 'electrónica', 'explosivos']
+  },
+  'NCh 2147/2': {
+    titulo: 'Calzado de seguridad — calzado aislante hasta 600V',
+    objetivo: 'Define los requisitos para calzado dieléctrico que aísla al trabajador de corrientes eléctricas de hasta 600V, protegiéndolo contra descargas eléctricas accidentales.',
+    campo: 'Trabajos eléctricos en baja tensión, instalaciones eléctricas domiciliarias e industriales, mantenimiento de equipos energizados.',
+    requisitos: 'El calzado debe superar la prueba de rigidez dieléctrica a 15 kV durante 1 minuto sin corriente de fuga superior a 1 mA. No debe contener partes metálicas expuestas.',
+    categorias: ['Bota dieléctrica 600V', 'Zapato dieléctrico liviano'],
+    tags: ['dieléctrico', 'eléctrico', '600V', 'aislante', 'baja tensión']
+  },
+  'NCh 2147/3': {
+    titulo: 'Calzado de seguridad — calzado semiconductor',
+    objetivo: 'Establece los requisitos para calzado con conductividad eléctrica controlada, diseñado para entornos donde se necesita disipar carga estática con mayor eficiencia que el calzado antiestático.',
+    campo: 'Industria de semiconductores, salas blancas de alta tecnología y entornos donde la carga estática representa riesgo para componentes ultrasensibles.',
+    requisitos: 'Resistencia eléctrica inferior a 100 kΩ. Mayor conductividad que el calzado antiestático. No apto para trabajos con riesgo de contacto con tensión eléctrica.',
+    categorias: ['Calzado conductor semiconductor'],
+    tags: ['semiconductor', 'conductor', 'ESD', 'sala blanca', 'electrónica']
+  },
+  'NCh 1252': {
+    titulo: 'Cinturones y arneses de seguridad para trabajos en altura',
+    objetivo: 'Establece los requisitos de diseño, materiales, resistencia mecánica y ensayos para cinturones y arneses de seguridad utilizados en trabajos en altura.',
+    campo: 'Construcción, montaje industrial, trabajos en techos, torres de comunicación, faenas forestales y cualquier tarea a más de 1,8 m de altura.',
+    requisitos: 'Los arneses de cuerpo completo deben resistir una carga de prueba estática de 15 kN. La cuerda de vida debe absorber la energía de caída libre de 1,8 m con fuerza de choque no mayor a 6 kN.',
+    categorias: ['Cinturón de posicionamiento', 'Arnés de cuerpo completo', 'Arnés con absorvedor de impacto'],
+    tags: ['arnés', 'altura', 'caída', 'cuerda de vida', 'construcción']
+  },
+  'NCh 2374': {
+    titulo: 'Protección personal — equipos de protección contra caídas',
+    objetivo: 'Establece los requisitos y métodos de ensayo para los sistemas completos de protección contra caídas, incluyendo arneses, conectores, absorbedores y líneas de vida.',
+    campo: 'Todo trabajo en altura donde exista riesgo de caída libre, incluyendo construcción, minería, mantenimiento industrial y trabajo en espacios confinados con desnivel.',
+    requisitos: 'El sistema debe limitar la fuerza de choque sobre el trabajador a máximo 6 kN. La distancia de detención total no debe superar 1 m. Los mosquetones deben tener resistencia de apertura ≥ 15 kN.',
+    categorias: ['Sistemas de detención de caídas', 'Líneas de vida horizontales', 'Conectores y mosquetones', 'Absorbedores de energía'],
+    tags: ['anticaída', 'línea de vida', 'mosquetón', 'absorbedor', 'altura']
+  },
+  'NCh 1806': {
+    titulo: 'Protección personal — ropa para soldadores',
+    objetivo: 'Establece los requisitos de confección, materiales ignífugos y resistencia al calor de la ropa de protección destinada específicamente a trabajos de soldadura.',
+    campo: 'Soldadura al arco, MIG, TIG, oxiacetilénica, corte por plasma y cualquier proceso que genere chispas, salpicaduras de metal fundido o calor intenso.',
+    requisitos: 'La tela debe ser 100% algodón o fibra ignífuga tratada. No se permite el uso de materiales sintéticos que puedan derretirse. Debe pasar prueba de propagación de llama (no debe arder más de 2 segundos tras retirar la fuente).',
+    categorias: ['Coleto de cuero', 'Chaqueta de soldador', 'Pantalón ignífugo', 'Polainas y mangas de cuero'],
+    tags: ['soldador', 'ignífugo', 'chispas', 'cuero', 'algodón', 'llama']
+  },
+  'NCh 1303': {
+    titulo: 'Ropa de protección — requisitos generales',
+    objetivo: 'Define los requisitos generales de diseño, fabricación, marcación y ensayos que debe cumplir toda ropa de protección personal, independiente del riesgo específico.',
+    campo: 'Aplicable a toda ropa de protección usada en entornos laborales: química, biológica, mecánica, térmica o de visibilidad.',
+    requisitos: 'La ropa debe indicar talla según EN 340, instrucciones de lavado y mantenimiento, pictograma de riesgo y nivel de protección. No debe restringir movimientos ni generar riesgos adicionales.',
+    categorias: ['Ropa química (Tipo 1–6)', 'Ropa térmica', 'Ropa de alta visibilidad', 'Ropa biológica'],
+    tags: ['ropa', 'protección', 'talla', 'química', 'térmica', 'visibilidad']
+  },
+  'NCh 1410': {
+    titulo: 'Prevención de riesgos — colores de seguridad',
+    objetivo: 'Establece los colores de seguridad y sus significados para la señalización de riesgos, equipos de emergencia y rutas de evacuación en instalaciones laborales.',
+    campo: 'Toda instalación industrial, comercial o de servicio donde sea necesario comunicar peligros, obligaciones, prohibiciones o información de seguridad.',
+    requisitos: 'Rojo: peligro/prohibición/equipos contra incendio. Amarillo: precaución/riesgo. Verde: seguridad/primeros auxilios/evacuación. Azul: obligación/información. Los colores deben cumplir con coordenadas cromáticas específicas.',
+    categorias: ['Rojo (peligro)', 'Amarillo (precaución)', 'Verde (seguridad)', 'Azul (obligación)'],
+    tags: ['color', 'señalización', 'peligro', 'evacuación', 'rojo', 'verde', 'azul']
+  },
+  'NCh 1411/1': {
+    titulo: 'Prevención de riesgos — letreros de seguridad, aspectos generales',
+    objetivo: 'Establece los principios generales de diseño, dimensiones, colores y simbología para los letreros y señales de seguridad utilizados en lugares de trabajo.',
+    campo: 'Toda instalación donde se requiera informar sobre peligros, rutas de evacuación, uso obligatorio de EPP, prohibiciones o ubicación de equipos de emergencia.',
+    requisitos: 'Los letreros deben ser visibles a una distancia mínima de 10 metros. El contraste entre fondo y símbolo debe ser ≥ 0,70. Deben ser resistentes a la intemperie si se usan en exteriores.',
+    categorias: ['Señales de prohibición', 'Señales de advertencia', 'Señales de obligación', 'Señales de evacuación'],
+    tags: ['letrero', 'señal', 'evacuación', 'prohibición', 'advertencia', 'obligación']
+  }
+};
+
+function openNormModal(code) {
+  const n = NORMAS[code];
+  if (!n) return;
+  document.getElementById('normModalCode').textContent = code;
+  document.getElementById('normModalTitle').textContent = n.titulo;
+  document.getElementById('normModalBody').innerHTML = `
+    <div class="norm-section">
+      <div class="norm-section-label">🎯 Objetivo</div>
+      <div class="norm-section-text">${n.objetivo}</div>
+    </div>
+    <div class="norm-section">
+      <div class="norm-section-label">🏭 Campo de aplicación</div>
+      <div class="norm-section-text">${n.campo}</div>
+    </div>
+    <div class="norm-section">
+      <div class="norm-section-label">✅ Requisitos principales</div>
+      <div class="norm-section-text">${n.requisitos}</div>
+    </div>
+    <div class="norm-section">
+      <div class="norm-section-label">📦 Categorías / tipos</div>
+      <div class="norm-section-text">${n.categorias.map(c=>`<span class="norm-tag">${c}</span>`).join('')}</div>
+    </div>
+  `;
+  document.getElementById('normModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeNormModal() {
+  document.getElementById('normModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeNormModalOnBg(e) {
+  if (e.target === document.getElementById('normModal')) closeNormModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeNormModal(); } });
 
 function closeModal() {
   document.getElementById('productModal').classList.remove('open');
