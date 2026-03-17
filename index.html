@@ -481,6 +481,7 @@
   <div class="tab" onclick="showTab('calc')" id="tab-calc">🧮 <span data-es="Calculadora EPP" data-en="PPE Calculator">Calculadora EPP</span></div>
   <div class="tab" onclick="showTab('vida')" id="tab-vida">⏱️ <span data-es="Vida Útil" data-en="Service Life">Vida Útil</span></div>
   <div class="tab" onclick="showTab('prov')" id="tab-prov">🏪 <span data-es="Proveedores" data-en="Suppliers">Proveedores</span></div>
+  <div class="tab" onclick="showTab('certcomp')" id="tab-certcomp">🔎 <span data-es="Certificaciones" data-en="Certifications">Certificaciones</span></div>
   <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B">Ropa Corporativa B2B</span></div>
   <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
 </div>
@@ -1450,6 +1451,40 @@
   </div>
 </div>
 
+<!-- COMPARADOR CERTIFICACIONES TAB -->
+<div id="pane-certcomp" style="display:none;">
+  <div class="hero">
+    <h1><span>COMPARADOR</span> <span data-es="DE CERTIFICACIONES" data-en="CERTIFICATIONS COMPARATOR">DE CERTIFICACIONES</span></h1>
+    <p data-es="Verifica si la certificación de un EPP importado es válida en Chile según el ISP" data-en="Verify if the certification of an imported PPE is valid in Chile">Verifica si la certificación de un EPP importado es válida en Chile según el ISP</p>
+  </div>
+  <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
+
+    <!-- Selector de tipo EPP -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">Selecciona el tipo de EPP</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem;" id="certEppBtns">
+        <button onclick="mostrarCert(this,'casco')" class="calc-btn">⛑️ Casco</button>
+        <button onclick="mostrarCert(this,'lentes')" class="calc-btn">🥽 Lentes</button>
+        <button onclick="mostrarCert(this,'respirador')" class="calc-btn">😷 Respirador</button>
+        <button onclick="mostrarCert(this,'guantes')" class="calc-btn">🧤 Guantes</button>
+        <button onclick="mostrarCert(this,'calzado')" class="calc-btn">🥾 Calzado</button>
+        <button onclick="mostrarCert(this,'arnes')" class="calc-btn">🪝 Arnés</button>
+        <button onclick="mostrarCert(this,'auditivo')" class="calc-btn">🎧 Auditivo</button>
+        <button onclick="mostrarCert(this,'ropa')" class="calc-btn">🦺 Ropa</button>
+      </div>
+    </div>
+
+    <!-- Tabla comparativa -->
+    <div id="certResultado" style="display:none;"></div>
+
+    <!-- Info general ISP -->
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:1rem 1.3rem;margin-top:1.2rem;font-size:.8rem;color:var(--text);line-height:1.7;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--accent);margin-bottom:.4rem;">⚖️ Marco legal — ¿Cuándo acepta el ISP una certificación extranjera?</div>
+      El ISP acepta certificaciones extranjeras (CE, NIOSH, AS/NZS, etc.) cuando <strong>no existe un laboratorio nacional autorizado</strong> para ese tipo de EPP. El importador debe registrarse en el <strong>Registro RFI del ISP</strong> y presentar el certificado original con traducción oficial si está en otro idioma. La validez siempre la determina el ISP caso a caso.
+    </div>
+  </div>
+</div>
+
 <!-- CORPORATE TAB -->
 <div id="pane-corp" style="display:none;">
   <div class="hero">
@@ -1633,7 +1668,6 @@ const PROVIDERS = {
   ppe:        { name:'PPE Chile',         url:'https://ppe.cl' },
   rac:        { name:'RAC',               url:'https://rac.cl' },
   gsp:        { name:'GSP Chile',         url:'https://www.gsp-chile.com' },
-  isesa:      { name:'ISESA',             url:'https://www.isesa.cl' },
   impsafety:  { name:'Importadora Safety',url:'https://importadorasafety.cl' },
   qsupply:    { name:'Q Supply',          url:'https://qsupply.cl' },
   atm:        { name:'ATM Safety',        url:'https://www.atmsafety.cl' },
@@ -1642,10 +1676,7 @@ const PROVIDERS = {
   segindustrial:{ name:'Seguridad Industrial', url:'https://www.seguridadindustrial.cl' },
   eppchile:   { name:'EPP Chile',         url:'https://www.eppchile.cl' },
   hseguridad: { name:'H Seguridad',       url:'https://www.hseguridad.cl' },
-  protpers:   { name:'Protección Personal',url:'https://www.proteccionpersonal.cl' },
   eppindustrial:{ name:'EPP Industrial',  url:'https://www.eppindustrial.cl' },
-  segtotal:   { name:'Seguridad Total',   url:'https://www.seguridadtotal.cl' },
-  segurycom:  { name:'Segurycom',         url:'https://www.segurycom.cl' },
   safetyfirst:{ name:'Safety First',      url:'https://www.safetyfirst.cl' },
   proteknica: { name:'Proteknica',        url:'https://www.proteknica.cl' },
   acetogen:   { name:'Acetogen',          url:'https://acetogen.cl' },
@@ -1663,7 +1694,6 @@ const PROVIDERS = {
   cbs:        { name:'CBS',               url:'https://www.cbs.cl' },
   chelech:    { name:'Comercial Chelech', url:'https://www.chelech.cl' },
   huayu:      { name:'Comercial Huayu',   url:'https://www.huayu.cl' },
-  dabed:      { name:'Dabed',             url:'https://www.dabed.cl' },
   dabenco:    { name:'Dabenco',           url:'https://www.dabenco.cl' },
   desclean:   { name:'Desclean',          url:'https://www.desclean.cl' },
   dimasur:    { name:'Dimasur',           url:'https://www.dimasur.cl' },
@@ -1680,208 +1710,197 @@ const PROVIDERS = {
   foryseg:    { name:'Foryseg',           url:'https://www.foryseg.cl' },
   gya:        { name:'G y A',             url:'https://www.gya.cl' },
   gygthomashn:{ name:'G y G Thomas Hollstein', url:'https://www.gygthomas.cl' },
-  impmatta:   { name:'Imp. Matta',        url:'https://www.impmatta.cl' },
   implementos:{ name:'Implementos',       url:'https://www.implementos.cl' },
-  innovacion: { name:'Innovación',        url:'https://www.innovacion.cl' },
   insuseg:    { name:'Insuseg',           url:'https://www.insuseg.cl' },
-  mak:        { name:'KS Mak Seguridad',  url:'https://www.mak.cl' },
-  glorias:    { name:'Manufacturas Glorias', url:'https://www.glorias.cl' },
   metalmar:   { name:'Metalmar',          url:'https://www.metalmar.cl' },
   newfire:    { name:'New Fire',          url:'https://www.newfire.cl' },
   newseg:     { name:'Newseg',            url:'https://www.newseg.cl' },
-  pmgoutlet:  { name:'PMG Outlet',        url:'https://www.pmgoutlet.cl' },
   prosec:     { name:'Prosec',            url:'https://www.prosec.cl' },
   protege:    { name:'Protege',           url:'https://www.protege.cl' },
   raptor:     { name:'Raptor',            url:'https://www.raptor.cl' },
-  safe:       { name:'Safe',              url:'https://www.safe.cl' },
-  santamaria: { name:'Santa María',       url:'https://www.santamaria.cl' },
-  solucenter: { name:'Solucenter',        url:'https://www.solucenter.cl' },
-  teiba:      { name:'Teiba',             url:'https://www.teiba.cl' },
   texam:      { name:'Texam',             url:'https://www.texam.cl' },
   texora:     { name:'Texora',            url:'https://www.texora.cl' },
-  uberlinda:  { name:'Uberlinda Ovando',  url:'https://www.uberlindaovando.cl' },
-  workingapparel:{ name:'Working Apparel', url:'https://www.workingapparel.cl' },
 };
 
 // ─── PRODUCT DATABASE ────────────────────────────────────────
 let products = [
   // CALZADO
   { id:1,  name:'Botín de seguridad punta de acero', family:'calzado', desc:'Cuero vacuno, punta de acero, suela antideslizante, resistente a hidrocarburos', tags:['botin','acero','cuero','negro','seguridad','calzado'],
-    providers:['apro','treck','safetystore','eppchile','kupfer','novaseg','segurycel','maxservice','ksltda','cespal','garmendia','vicsa','kuppel','ppe','isesa','impsafety','qsupply','prosafety','segindustrial','hseguridad','protpers','eppindustrial','segtotal','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','treck','safetystore','eppchile','kupfer','novaseg','segurycel','maxservice','ksltda','cespal','garmendia','vicsa','kuppel','ppe',,'impsafety','qsupply','prosafety','segindustrial','hseguridad',,'eppindustrial',,,'safetyfirst','proteknica'] },
   { id:2,  name:'Botín anticlavo', family:'calzado', desc:'Plantilla de acero anticlavos, cuero flor, norma ISO 20345', tags:['botin','anticlavo','plantilla acero','cuero flor','seguridad'],
-    providers:['apro','treck','segurycel','kupfer','safetystore','prosafety','eppchile','novaseg','maxservice','ksltda','cespal','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','vicsa','garmendia'] },
+    providers:['apro','treck','segurycel','kupfer','safetystore','prosafety','eppchile','novaseg','maxservice','ksltda','cespal',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','vicsa','garmendia'] },
   { id:3,  name:'Botín dieléctrico', family:'calzado', desc:'Sin partes metálicas, aislante eléctrico, cuero vacuno, suela PU', tags:['botin','dielectrico','electrico','aislante','cuero'],
-    providers:['apro','treck','safetystore','eppindustrial','safetyfirst','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','segindustrial','protpers','segurycom','proteknica','hseguridad'] },
+    providers:['apro','treck','safetystore','eppindustrial','safetyfirst','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','segindustrial',,'proteknica','hseguridad'] },
   { id:4,  name:'Botín de goma (rubber boot)', family:'calzado', desc:'PVC/Goma, resistente a líquidos y químicos, uso industrial', tags:['botin','goma','pvc','agua','quimico','rubber'],
-    providers:['kupfer','safetystore','protpers','apro','treck','novaseg','eppchile','segurycel','prosafety','isesa','impsafety','segindustrial','eppindustrial','segurycom','safetyfirst','hseguridad','qsupply'] },
+    providers:['kupfer','safetystore',,'apro','treck','novaseg','eppchile','segurycel','prosafety',,'impsafety','segindustrial','eppindustrial',,'safetyfirst','hseguridad','qsupply'] },
   { id:5,  name:'Zapato de seguridad bajo', family:'calzado', desc:'Punta de acero, perfil bajo, cómodo para trabajo en planta', tags:['zapato','seguridad','punta acero','bajo','planta'],
-    providers:['apro','eppchile','segindustrial','treck','safetystore','kupfer','novaseg','segurycel','prosafety','maxservice','isesa','impsafety','qsupply','protpers','eppindustrial','segurycom','safetyfirst','proteknica','hseguridad','vicsa'] },
+    providers:['apro','eppchile','segindustrial','treck','safetystore','kupfer','novaseg','segurycel','prosafety','maxservice',,'impsafety','qsupply',,'eppindustrial',,'safetyfirst','proteknica','hseguridad','vicsa'] },
   { id:6,  name:'Bota de seguridad caña alta', family:'calzado', desc:'Cuero vacuno, caña alta, punta acero, resistente a humedad', tags:['bota','cana alta','cuero','acero','mineria','construccion'],
-    providers:['apro','treck','kupfer','novaseg','safetystore','segurycel','eppchile','prosafety','maxservice','ksltda','isesa','impsafety','qsupply','segindustrial','protpers','eppindustrial','segurycom','safetyfirst','proteknica','hseguridad'] },
+    providers:['apro','treck','kupfer','novaseg','safetystore','segurycel','eppchile','prosafety','maxservice','ksltda',,'impsafety','qsupply','segindustrial',,'eppindustrial',,'safetyfirst','proteknica','hseguridad'] },
   { id:7,  name:'Botín cuero napa', family:'calzado', desc:'Cuero napa suave, plantilla anticlavo, plantilla textil interior', tags:['botin','napa','cuero napa','suave','plantilla'],
-    providers:['safetystore','prosafety','garmendia','apro','treck','kupfer','novaseg','segurycel','eppchile','isesa','impsafety','qsupply','segindustrial','protpers','eppindustrial','segurycom','safetyfirst'] },
+    providers:['safetystore','prosafety','garmendia','apro','treck','kupfer','novaseg','segurycel','eppchile',,'impsafety','qsupply','segindustrial',,'eppindustrial',,'safetyfirst'] },
   { id:8,  name:'Botín cuero flor', family:'calzado', desc:'Cuero flor de primera calidad, puntera acero, suela TR', tags:['botin','cuero flor','flor','calidad','suela tr'],
-    providers:['apro','kupfer','treck','safetystore','novaseg','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','segindustrial','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','kupfer','treck','safetystore','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','segindustrial',,'eppindustrial',,'safetyfirst','proteknica'] },
 
   // GUANTES
   { id:9,  name:'Guante cabritilla', family:'guantes', desc:'Cuero cabritilla natural, flexible, para trabajos de precisión y manejo', tags:['guante','cabritilla','cuero','precision','manejo','delgado'],
-    providers:['apro','safetystore','eppchile','vicsa','kuppel','treck','kupfer','novaseg','segurycel','prosafety','maxservice','ksltda','cespal','isesa','impsafety','qsupply','atm','rac','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','safetystore','eppchile','vicsa','kuppel','treck','kupfer','novaseg','segurycel','prosafety','maxservice','ksltda','cespal',,'impsafety','qsupply','atm','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:10, name:'Guante de látex', family:'guantes', desc:'Látex natural, resistente a ácidos diluidos y bases, uso industrial', tags:['guante','latex','quimico','acido','base','industrial'],
-    providers:['apro','3m','safetystore','atm','rac','kupfer','novaseg','segurycel','vicsa','kuppel','prosafety','maxservice','isesa','impsafety','qsupply','eppchile','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','3m','safetystore','atm','rac','kupfer','novaseg','segurycel','vicsa','kuppel','prosafety','maxservice',,'impsafety','qsupply','eppchile','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:11, name:'Guante nitrilo', family:'guantes', desc:'Nitrilo resistente a aceites, grasas y solventes, mayor durabilidad que látex', tags:['guante','nitrilo','aceite','grasa','solvente','quimico'],
-    providers:['apro','3m','safetystore','atm','eppchile','kupfer','novaseg','segurycel','vicsa','kuppel','prosafety','maxservice','isesa','impsafety','qsupply','rac','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','3m','safetystore','atm','eppchile','kupfer','novaseg','segurycel','vicsa','kuppel','prosafety','maxservice',,'impsafety','qsupply','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:12, name:'Guante cuero vaqueta', family:'guantes', desc:'Cuero vacuno vaqueta, resistente a abrasión y calor moderado', tags:['guante','vaqueta','cuero vacuno','abrasion','calor','soldadura'],
-    providers:['apro','kupfer','safetystore','novaseg','treck','segurycel','eppchile','prosafety','maxservice','ksltda','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','vicsa'] },
+    providers:['apro','kupfer','safetystore','novaseg','treck','segurycel','eppchile','prosafety','maxservice','ksltda',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','vicsa'] },
   { id:13, name:'Guante anticorte nivel 5', family:'guantes', desc:'Fibra HPPE, máxima protección anticorte, certificación EN388', tags:['guante','anticorte','nivel 5','hppe','corte','vidrio'],
-    providers:['apro','3m','safetystore','atm','kupfer','novaseg','vicsa','kuppel','prosafety','isesa','impsafety','qsupply','eppchile','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','3m','safetystore','atm','kupfer','novaseg','vicsa','kuppel','prosafety',,'impsafety','qsupply','eppchile','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica'] },
   { id:14, name:'Guante soldador', family:'guantes', desc:'Cuero cromo, resistente a calor intenso y chispas, caña larga', tags:['guante','soldador','soldadura','calor','cromo','chispas'],
-    providers:['apro','kupfer','novaseg','safetystore','treck','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','acetogen'] },
+    providers:['apro','kupfer','novaseg','safetystore','treck','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','acetogen'] },
   { id:15, name:'Guante descarne', family:'guantes', desc:'Cuero vacuno descarne, resistente, para manipulación de materiales pesados', tags:['guante','descarne','cuero','pesado','construccion','carga'],
-    providers:['apro','safetystore','eppindustrial','protpers','kupfer','treck','novaseg','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','safetystore','eppindustrial',,'kupfer','treck','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'safetyfirst','proteknica'] },
   { id:16, name:'Guante PVC', family:'guantes', desc:'PVC resistente a químicos, aceites y agua, palma texturizada', tags:['guante','pvc','quimico','agua','aceite','texturizado'],
-    providers:['kupfer','safetystore','prosafety','apro','3m','novaseg','segurycel','eppchile','vicsa','isesa','impsafety','qsupply','atm','rac','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['kupfer','safetystore','prosafety','apro','3m','novaseg','segurycel','eppchile','vicsa',,'impsafety','qsupply','atm','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:17, name:'Guante de tela (hilo)', family:'guantes', desc:'Hilo de algodón o poliéster, uso general, lavable', tags:['guante','tela','hilo','algodon','poliester','general'],
-    providers:['safetystore','eppchile','protpers','segurycom','apro','treck','kupfer','novaseg','segurycel','prosafety','maxservice','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','vicsa'] },
+    providers:['safetystore','eppchile',,'apro','treck','kupfer','novaseg','segurycel','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','vicsa'] },
 
   // CABEZA
   { id:18, name:'Casco de seguridad tipo ratchet', family:'cabeza', desc:'Polietileno de alta densidad, ajuste ratchet, colores variados, clase A/E', tags:['casco','ratchet','seguridad','polietileno','clase a','clase e'],
-    providers:['apro','3m','safetystore','vicsa','kupfer','treck','novaseg','segurycel','eppchile','prosafety','maxservice','ksltda','cespal','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','kuppel'] },
+    providers:['apro','3m','safetystore','vicsa','kupfer','treck','novaseg','segurycel','eppchile','prosafety','maxservice','ksltda','cespal',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','kuppel'] },
   { id:19, name:'Casco con arnés textil', family:'cabeza', desc:'Casco liviano con arnés textil de 4 puntos, ventilado', tags:['casco','arnes','textil','liviano','ventilado','obra'],
-    providers:['apro','safetystore','eppchile','atm','3m','kupfer','novaseg','segurycel','vicsa','prosafety','maxservice','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','safetystore','eppchile','atm','3m','kupfer','novaseg','segurycel','vicsa','prosafety','maxservice',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:20, name:'Gorro de tela (soldar)', family:'cabeza', desc:'Tela ignífuga, protección térmica para soldadores', tags:['gorro','soldador','ignifugo','termico','tela','soldar'],
-    providers:['apro','kupfer','safetystore','treck','novaseg','segurycel','eppchile','prosafety','isesa','impsafety','atm','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica','acetogen'] },
+    providers:['apro','kupfer','safetystore','treck','novaseg','segurycel','eppchile','prosafety',,'impsafety','atm','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica','acetogen'] },
   { id:21, name:'Casco minero', family:'cabeza', desc:'Con linterna frontal integrable, resistente a impactos, clase E', tags:['casco','minero','linterna','impacto','clase e','mineria'],
-    providers:['atm','safetystore','prosafety','eppindustrial','3m','apro','kupfer','novaseg','vicsa','isesa','impsafety','qsupply','segindustrial','hseguridad','segurycom','safetyfirst','proteknica','gsp'] },
+    providers:['atm','safetystore','prosafety','eppindustrial','3m','apro','kupfer','novaseg','vicsa',,'impsafety','qsupply','segindustrial','hseguridad',,'safetyfirst','proteknica','gsp'] },
   { id:22, name:'Bumpcap / casco liviano', family:'cabeza', desc:'Protección ligera contra golpes en espacios reducidos, no reemplaza casco completo', tags:['bumpcap','casco liviano','golpe','ligero','planta'],
-    providers:['safetystore','3m','apro','kupfer','novaseg','eppchile','vicsa','atm','prosafety','isesa','impsafety','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['safetystore','3m','apro','kupfer','novaseg','eppchile','vicsa','atm','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica'] },
 
   // VISUAL
   { id:23, name:'Lente de seguridad claro', family:'visual', desc:'Policarbonato transparente, protección UV, resistente a impactos, ANSI Z87', tags:['lente','claro','transparente','uv','impacto','ansi','policarbonato'],
-    providers:['3m','apro','safetystore','vicsa','atm','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice','ksltda','cespal','isesa','impsafety','qsupply','rac','kuppel','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','vicsa','atm','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice','ksltda','cespal',,'impsafety','qsupply','rac','kuppel','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:24, name:'Lente de seguridad oscuro', family:'visual', desc:'Policarbonato tintado, uso exterior, protección UV 400', tags:['lente','oscuro','tintado','exterior','uv400','sol'],
-    providers:['3m','apro','safetystore','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','atm','rac','kuppel','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','atm','rac','kuppel','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:25, name:'Careta facial', family:'visual', desc:'Pantalla de policarbonato, protección total del rostro, para esmerilado y químicos', tags:['careta','facial','pantalla','policarbonato','esmerilado','quimico'],
-    providers:['3m','apro','safetystore','kupfer','novaseg','segurycel','eppchile','vicsa','prosafety','maxservice','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','kupfer','novaseg','segurycel','eppchile','vicsa','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:26, name:'Lentes panorámicos / goggle', family:'visual', desc:'Ajuste hermético, ventilación indirecta, protección química y polvos', tags:['google','lente panoramico','hermético','polvo','quimico','laboratorio'],
-    providers:['3m','apro','safetystore','atm','kupfer','novaseg','vicsa','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','rac','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','atm','kupfer','novaseg','vicsa','eppchile','prosafety','maxservice',,'impsafety','qsupply','rac','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica'] },
   { id:27, name:'Careta de soldar', family:'visual', desc:'Careta electrosoldadora, oscurecimiento automático, shade 9-13', tags:['careta soldar','soldador','oscurecimiento automatico','shade','electrodo','mig'],
-    providers:['kupfer','safetystore','novaseg','apro','3m','segurycel','eppchile','prosafety','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica','acetogen'] },
+    providers:['kupfer','safetystore','novaseg','apro','3m','segurycel','eppchile','prosafety',,'impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica','acetogen'] },
 
   // AUDITIVA
   { id:28, name:'Tapón auditivo espuma (3M 1100)', family:'auditiva', desc:'Espuma de poliuretano, NRR 29dB, desechable, par individual', tags:['tapon','auditivo','espuma','foam','3m','nrr','desechable','ruido'],
-    providers:['3m','apro','safetystore','atm','kupfer','novaseg','segurycel','vicsa','eppchile','prosafety','maxservice','ksltda','isesa','impsafety','qsupply','rac','kuppel','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','atm','kupfer','novaseg','segurycel','vicsa','eppchile','prosafety','maxservice','ksltda',,'impsafety','qsupply','rac','kuppel','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:29, name:'Tapón auditivo reutilizable con cordón', family:'auditiva', desc:'Silicona reutilizable, lavable, cordón de conexión, NRR 25dB', tags:['tapon','reutilizable','silicon','cordon','auditivo','ruido'],
-    providers:['3m','apro','safetystore','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','atm','rac','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','atm','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:30, name:'Orejeras de copa (earmuff)', family:'auditiva', desc:'Almohadillas de espuma, copa amplia, NRR 25-30dB, ajuste en casco o diadema', tags:['orejera','copa','earmuff','diadema','casco','ruido','nrr'],
-    providers:['3m','apro','safetystore','kupfer','novaseg','segurycel','vicsa','eppchile','prosafety','maxservice','ksltda','isesa','impsafety','qsupply','atm','rac','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','kupfer','novaseg','segurycel','vicsa','eppchile','prosafety','maxservice','ksltda',,'impsafety','qsupply','atm','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:31, name:'Protector auditivo para casco (slot)', family:'auditiva', desc:'Se acopla al casco de seguridad mediante ranuras, NRR 23dB', tags:['protector auditivo','casco','slot','acople','ruido','integral'],
-    providers:['3m','safetystore','apro','kupfer','novaseg','vicsa','eppchile','prosafety','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','safetystore','apro','kupfer','novaseg','vicsa','eppchile','prosafety',,'impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica'] },
 
   // PIEL
   { id:32, name:'Crema protectora solar SPF 50', family:'piel', desc:'Protección solar laboral, resistente al sudor, uso exterior, frasco 200ml', tags:['crema','solar','spf50','protector solar','exterior','piel'],
-    providers:['safetystore','prosafety','atm','eppchile','apro','3m','novaseg','kupfer','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','segurycom','safetyfirst','proteknica','rac'] },
+    providers:['safetystore','prosafety','atm','eppchile','apro','3m','novaseg','kupfer',,'impsafety','qsupply','segindustrial','hseguridad',,'safetyfirst','proteknica','rac'] },
   { id:33, name:'Crema barrera (protector piel química)', family:'piel', desc:'Barrera invisible contra aceites, solventes y químicos, uso industrial', tags:['crema barrera','quimico','solvente','aceite','protector piel','industrial'],
-    providers:['safetystore','atm','3m','apro','prosafety','novaseg','kupfer','isesa','impsafety','qsupply','eppchile','segindustrial','hseguridad','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['safetystore','atm','3m','apro','prosafety','novaseg','kupfer',,'impsafety','qsupply','eppchile','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica'] },
   { id:34, name:'Loción repelente de insectos industrial', family:'piel', desc:'Repelente industrial de larga duración, spray o loción, uso en terreno', tags:['repelente','insecto','mosquito','terreno','locion','spray'],
-    providers:['safetystore','prosafety','atm','apro','novaseg','isesa','impsafety','eppchile','segindustrial','hseguridad','protpers','segurycom','safetyfirst'] },
+    providers:['safetystore','prosafety','atm','apro','novaseg',,'impsafety','eppchile','segindustrial','hseguridad',,'safetyfirst'] },
 
   // ROPA
   { id:35, name:'Pantalón de trabajo industrial', family:'ropa', desc:'Tela durable, múltiples bolsillos, cintura reforzada, colores corporativos', tags:['pantalon','trabajo','industrial','bolsillos','ropa','corporativo'],
-    providers:['apro','treck','eppchile','novaseg','safetystore','kupfer','segurycel','prosafety','maxservice','ksltda','cespal','garmendia','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','vicsa'] },
+    providers:['apro','treck','eppchile','novaseg','safetystore','kupfer','segurycel','prosafety','maxservice','ksltda','cespal','garmendia',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','vicsa'] },
   { id:36, name:'Polera manga larga corporativa', family:'ropa', desc:'100% algodón o mixta, con logo bordado, resistente al lavado industrial', tags:['polera','manga larga','corporativo','algodon','logo','uniforme'],
-    providers:['apro','treck','safetystore','novaseg','kupfer','segurycel','eppchile','prosafety','maxservice','ksltda','garmendia','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','treck','safetystore','novaseg','kupfer','segurycel','eppchile','prosafety','maxservice','ksltda','garmendia',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:37, name:'Overol de trabajo', family:'ropa', desc:'Tela mixta, cuello redondo, cierre frontal, bolsillos laterales y pecho', tags:['overol','trabajo','cierre','bolsillos','uniforme','industrial'],
-    providers:['apro','treck','kupfer','novaseg','safetystore','segurycel','eppchile','prosafety','maxservice','ksltda','cespal','garmendia','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','vicsa'] },
+    providers:['apro','treck','kupfer','novaseg','safetystore','segurycel','eppchile','prosafety','maxservice','ksltda','cespal','garmendia',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','vicsa'] },
   { id:38, name:'Parka impermeable industrial', family:'ropa', desc:'Material impermeable, capucha desmontable, cinta reflectante, resistente al viento', tags:['parka','impermeable','lluvia','capucha','reflectante','frio'],
-    providers:['apro','treck','safetystore','novaseg','kupfer','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['apro','treck','safetystore','novaseg','kupfer','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
 
   // VIAL
   { id:39, name:'Chaleco reflectante (clase 2)', family:'vial', desc:'Franjas reflectantes 360°, clase 2 ANSI, colores alta visibilidad (amarillo/naranja)', tags:['chaleco','reflectante','clase 2','alta visibilidad','amarillo','naranja','vial'],
-    providers:['apro','safetystore','eppchile','vicsa','novaseg','safetyfirst','treck','kupfer','segurycel','prosafety','maxservice','ksltda','cespal','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','protpers','eppindustrial','segurycom','proteknica','gsp','segtotal'] },
+    providers:['apro','safetystore','eppchile','vicsa','novaseg','safetyfirst','treck','kupfer','segurycel','prosafety','maxservice','ksltda','cespal',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'proteknica','gsp'] },
   { id:40, name:'Chaleco vial clase 3', family:'vial', desc:'Máxima visibilidad, mangas largas reflectantes, clase 3 para trabajadores en ruta', tags:['chaleco','clase 3','ruta','carretera','reflectante','manga larga'],
-    providers:['apro','safetystore','eppindustrial','safetyfirst','novaseg','treck','kupfer','segurycel','eppchile','vicsa','prosafety','isesa','impsafety','qsupply','atm','segindustrial','hseguridad','protpers','segurycom','proteknica','gsp','segtotal'] },
+    providers:['apro','safetystore','eppindustrial','safetyfirst','novaseg','treck','kupfer','segurycel','eppchile','vicsa','prosafety',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'proteknica','gsp'] },
   { id:41, name:'Parka vial reflectante', family:'vial', desc:'Impermeable, cintas reflectantes, alta visibilidad, uso en carretera', tags:['parka vial','reflectante','impermeable','carretera','lluvia'],
-    providers:['apro','treck','safetystore','novaseg','kupfer','segurycel','eppchile','vicsa','prosafety','isesa','impsafety','qsupply','safetyfirst','segindustrial','hseguridad','eppindustrial','segurycom','proteknica','gsp'] },
+    providers:['apro','treck','safetystore','novaseg','kupfer','segurycel','eppchile','vicsa','prosafety',,'impsafety','qsupply','safetyfirst','segindustrial','hseguridad','eppindustrial',,'proteknica','gsp'] },
   { id:42, name:'Buzo completo reflectante', family:'vial', desc:'Cobertura total del cuerpo, cintas reflectantes, uso nocturno en ruta', tags:['buzo','reflectante','nocturno','carretera','cobertura'],
-    providers:['apro','safetystore','novaseg','treck','kupfer','segurycel','eppchile','vicsa','prosafety','isesa','impsafety','qsupply','safetyfirst','segindustrial','hseguridad','eppindustrial','segurycom','proteknica','gsp'] },
+    providers:['apro','safetystore','novaseg','treck','kupfer','segurycel','eppchile','vicsa','prosafety',,'impsafety','qsupply','safetyfirst','segindustrial','hseguridad','eppindustrial',,'proteknica','gsp'] },
 
   // GASES
   { id:43, name:'Detector de gas 4 en 1', family:'gases', desc:'Detecta O2, CO, H2S y gases explosivos simultáneamente, alarma visual/sonora', tags:['detector gas','4 en 1','oxigeno','co','h2s','explosivo','alarma'],
-    providers:['atm','safetystore','prosafety','gsp','apro','novaseg','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
+    providers:['atm','safetystore','prosafety','gsp','apro','novaseg',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
   { id:44, name:'Detector personal CO (monóxido)', family:'gases', desc:'Sensor electroquímico, alarma vibratoria y sonora, clip de cinturón', tags:['detector','co','monoxido','personal','sensor','electroquimico'],
-    providers:['atm','safetystore','gsp','prosafety','apro','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
+    providers:['atm','safetystore','gsp','prosafety','apro','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
   { id:45, name:'Detector de gas H2S', family:'gases', desc:'Sulfuro de hidrógeno, sensor electroquímico, alarma 10/15ppm', tags:['detector','h2s','sulfuro','hidrogeno','ppm','gas'],
-    providers:['atm','safetystore','prosafety','gsp','apro','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
+    providers:['atm','safetystore','prosafety','gsp','apro','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
   { id:46, name:'Equipo SCBA / respirador autónomo', family:'gases', desc:'Equipo de respiración autónoma, cilindro 30/45min, uso emergencia', tags:['scba','respirador','autonomo','emergencia','cilindro','aire'],
-    providers:['atm','prosafety','safetyfirst','gsp','safetystore','apro','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','proteknica','acetogen'] },
+    providers:['atm','prosafety','safetyfirst','gsp','safetystore','apro','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','proteknica','acetogen'] },
 
   // SEGURIDAD VIAL
   { id:47, name:'Conos de tránsito (75cm)', family:'svial', desc:'PVC flexible, franjas reflectantes, base lastrada, set 10 unidades', tags:['cono','transito','pvc','reflectante','vial','trafico'],
-    providers:['safetystore','segtotal','gsp','safetyfirst','apro','novaseg','kupfer','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','proteknica','prosafety','atm'] },
+    providers:['safetystore',,'gsp','safetyfirst','apro','novaseg','kupfer',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','proteknica','prosafety','atm'] },
   { id:48, name:'Disco PARE/SIGA (paleta)', family:'svial', desc:'Paleta señalización vial, impresión UV, mango telescópico', tags:['paleta','pare','siga','vial','señalizacion','mango'],
-    providers:['safetystore','gsp','segtotal','apro','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety'] },
+    providers:['safetystore','gsp',,'apro','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety'] },
   { id:49, name:'Delineador tubular flexible', family:'svial', desc:'Tubo flexible reflectante, base de goma, alta visibilidad, 1m altura', tags:['delineador','tubular','reflectante','goma','vial','flexible'],
-    providers:['safetystore','segtotal','gsp','apro','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica'] },
+    providers:['safetystore',,'gsp','apro','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica'] },
   { id:50, name:'Señalética de obra (señal triángulo)', family:'svial', desc:'Triángulo de advertencia, reflectante, plegable, cumple norma chilena', tags:['señalética','triangulo','obra','advertencia','reflectante','plegable'],
-    providers:['safetystore','gsp','novaseg','segtotal','apro','kupfer','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety','atm'] },
+    providers:['safetystore','gsp','novaseg',,'apro','kupfer',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety','atm'] },
 
   // ALCOTEST
   { id:51, name:'Alcoholímetro digital personal', family:'alco', desc:'Sensor electroquímico, pantalla LCD, resultado en <10seg, incluye boquillas', tags:['alcoholimetro','alcotest','alcohol','digital','personal','sensor'],
-    providers:['atm','safetystore','gsp','prosafety','apro','novaseg','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
+    providers:['atm','safetystore','gsp','prosafety','apro','novaseg',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
   { id:52, name:'Alcotest industrial / empresa', family:'alco', desc:'Uso empresarial, impresora integrada, memoria 1000 resultados, certificado', tags:['alcotest','industrial','empresa','impresora','certificado','alcohol'],
-    providers:['atm','safetystore','gsp','prosafety','apro','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
+    providers:['atm','safetystore','gsp','prosafety','apro','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','acetogen'] },
 
   // BARRERAS
   { id:53, name:'Barrera Jersey (plástico)', family:'barreras', desc:'HDPE, 1m longitud, sistema de encaje, color naranja/amarillo, apilable', tags:['barrera','jersey','plastico','hdpe','naranja','apilable','encaje'],
-    providers:['safetystore','segtotal','gsp','safetyfirst','apro','novaseg','kupfer','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','proteknica','prosafety','atm'] },
+    providers:['safetystore',,'gsp','safetyfirst','apro','novaseg','kupfer',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','proteknica','prosafety','atm'] },
   { id:54, name:'Malla de seguridad naranja (rollo)', family:'barreras', desc:'Polietileno, 1m x 50m, señalización de perímetros y zonas de riesgo', tags:['malla','seguridad','naranja','rollo','perimetro','zona riesgo'],
-    providers:['safetystore','segtotal','gsp','novaseg','apro','kupfer','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety'] },
+    providers:['safetystore',,'gsp','novaseg','apro','kupfer',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety'] },
   { id:55, name:'Cinta de peligro amarilla/negra', family:'barreras', desc:'Polipropileno 500m, "PELIGRO" / "NO PASAR", barricada policial estilo', tags:['cinta','peligro','barricada','amarillo','negro','500m','señalizacion'],
-    providers:['safetystore','gsp','segtotal','novaseg','apro','kupfer','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety','atm'] },
+    providers:['safetystore','gsp',,'novaseg','apro','kupfer',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety','atm'] },
 
   // ROPA IGNÍFUGA
   { id:56, name:'Pantalón ignífugo FR (flame resistant)', family:'ignifugo', desc:'Tela 100% algodón tratado o Nomex, resistente a llama, certificación NFPA 2112, colores variados', tags:['pantalon','ignifugo','fr','flame resistant','nomex','algodon','nfpa','llama','fuego'],
-    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
+    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
   { id:57, name:'Camisa / polera ignífuga FR', family:'ignifugo', desc:'Manga larga, tela FR certificada, con logo bordado, uso en faenas con riesgo de arco eléctrico o llama', tags:['camisa','polera','ignifugo','fr','manga larga','arco electrico','llama','nomex','certificado'],
-    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
+    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
   { id:58, name:'Overol ignífugo de una pieza', family:'ignifugo', desc:'Cobertura total, tela FR, cierre frontal, bolsillos múltiples, resistente a chispas y llamas directas', tags:['overol','ignifugo','una pieza','fr','chispa','llama','quimico','mineria','petroleo'],
-    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','gsp'] },
+    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','gsp'] },
   { id:59, name:'Chaqueta ignífuga FR', family:'ignifugo', desc:'Tela FR multicapa, protección térmica alta, costuras FR, uso en industria oil & gas, minería, eléctrica', tags:['chaqueta','ignifugo','fr','multicapa','oil gas','mineria','electrica','arco','termica'],
-    providers:['eikona','under','aracor','acetogen','apro','safetystore','novaseg','kupfer','prosafety','vicsa','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
+    providers:['eikona','under','aracor','acetogen','apro','safetystore','novaseg','kupfer','prosafety','vicsa',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
   { id:60, name:'Parka ignífuga impermeable', family:'ignifugo', desc:'Impermeable exterior + forro FR, cintas reflectantes, uso en clima extremo con riesgo de llama', tags:['parka','ignifugo','impermeable','reflectante','frio','lluvia','fr','mineria','construccion'],
-    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','prosafety','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
+    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
   { id:61, name:'Buzo ignífugo vial reflectante', family:'ignifugo', desc:'Tela FR con cintas reflectantes, alta visibilidad + protección llama, ideal para trabajo en carretera nocturna', tags:['buzo','ignifugo','vial','reflectante','fr','nocturno','carretera','alta visibilidad'],
-    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','vicsa','prosafety','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','gsp'] },
+    providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','vicsa','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','gsp'] },
 
   // PROTECCIÓN RESPIRATORIA
   { id:62, name:'Mascarilla desechable N95 / KN95', family:'respiratoria', desc:'Filtración ≥95% partículas, ajuste nasal metálico, uso en polvo, humo y aerosoles, certificación NIOSH/GB2626', tags:['mascarilla','n95','kn95','desechable','polvo','niosh','particulas','aerosol','covid'],
-    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice','isesa','impsafety','qsupply','rac','kuppel','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica','acetogen'] },
+    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','rac','kuppel','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','acetogen'] },
   { id:63, name:'Mascarilla desechable 3 pliegues (quirúrgica)', family:'respiratoria', desc:'Filtración básica de partículas y salpicaduras, uso general en faenas y espacios controlados', tags:['mascarilla','3 pliegues','quirurgica','desechable','basica','faena','general'],
-    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','eppchile','prosafety','isesa','impsafety','qsupply','rac','segindustrial','hseguridad','protpers','eppindustrial','segurycom','safetyfirst','proteknica'] },
+    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','eppchile','prosafety',,'impsafety','qsupply','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
   { id:64, name:'Respirador media cara con filtros', family:'respiratoria', desc:'Semi-máscara reutilizable, acepta cartuchos intercambiables para gases, vapores orgánicos y polvos', tags:['respirador','media cara','filtro','cartucho','vapor organico','gas','polvo','reutilizable'],
-    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety','maxservice','isesa','impsafety','qsupply','rac','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
+    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety','maxservice',,'impsafety','qsupply','rac','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
   { id:65, name:'Respirador cara completa', family:'respiratoria', desc:'Cobertura total del rostro, alta protección contra gases tóxicos, vapores y polvos, visor policarbonato', tags:['respirador','cara completa','gas','toxico','vapor','polvo','visor','mineria','quimico'],
-    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety','isesa','impsafety','qsupply','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
+    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety',,'impsafety','qsupply','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
   { id:66, name:'Cartucho / filtro para respirador (vapores orgánicos)', family:'respiratoria', desc:'Compatible con respiradores media cara y cara completa, para vapores orgánicos, solventes y pinturas', tags:['cartucho','filtro','vapor organico','solvente','pintura','respirador','recambio'],
-    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety','isesa','impsafety','qsupply','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen'] },
+    providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety',,'impsafety','qsupply','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen'] },
   { id:67, name:'Cartucho filtro para gases ácidos / amoniaco', family:'respiratoria', desc:'Protección contra ácido clorhídrico, sulfúrico, amoniaco y gases ácidos en industria química', tags:['cartucho','filtro','acido','amoniaco','quimico','gas acido','industrial'],
-    providers:['3m','apro','safetystore','atm','vicsa','prosafety','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
+    providers:['3m','apro','safetystore','atm','vicsa','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
   { id:68, name:'Mascarilla para soldadura con válvula', family:'respiratoria', desc:'Filtro para humo de soldadura, partículas metálicas y ozono, con válvula exhalación, clase FFP3', tags:['mascarilla','soldadura','humo','metal','ozono','ffp3','valvula','soldador'],
-    providers:['3m','apro','safetystore','atm','kupfer','novaseg','prosafety','isesa','impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen'] },
+    providers:['3m','apro','safetystore','atm','kupfer','novaseg','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen'] },
 
   // PROTECCIÓN CONTRA CAÍDAS
   { id:69, name:'Arnés de seguridad cuerpo completo', family:'caidas', desc:'Poliéster de alta tenacidad, 5 puntos de ajuste, argolla dorsal tipo D, cumple norma ANSI Z359 / EN361', tags:['arnes','seguridad','cuerpo completo','caida','altura','argolla','dorsal','ansi','en361'],
-    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen','rac'] },
+    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen','rac'] },
   { id:70, name:'Eslinga de posicionamiento doble (Y)', family:'caidas', desc:'Forma Y con dos ganchos de seguro, absorbedor de energía integrado, longitud 1.2m / 1.8m', tags:['eslinga','posicionamiento','doble','y','gancho','absorbedor','energia','altura','caida'],
-    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
+    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
   { id:71, name:'Retráctil / línea de vida auto-retráctil', family:'caidas', desc:'Cable de acero o cinta, retracción automática, bloqueo instantáneo en caída libre, 3m a 30m', tags:['retractil','linea de vida','auto','cable','acero','bloqueo','caida','altura','automatico'],
-    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg','isesa','impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
+    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
   { id:72, name:'Línea de vida horizontal (sistema)', family:'caidas', desc:'Cable tensado entre puntos de anclaje, permite desplazamiento horizontal en altura, acero galvanizado', tags:['linea de vida','horizontal','cable','anclaje','desplazamiento','altura','techos','estructura'],
-    providers:['apro','safetystore','atm','prosafety','vicsa','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp'] },
+    providers:['apro','safetystore','atm','prosafety','vicsa','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp'] },
   { id:73, name:'Absorbedor de energía / amortiguador de caída', family:'caidas', desc:'Reduce la fuerza de impacto en caída, se integra a eslinga o arnés, desgarra progresivo hasta 1.75m', tags:['absorbedor','energia','amortiguador','caida','eslinga','impacto','altura','seguridad'],
-    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
+    providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
   { id:74, name:'Punto de anclaje portátil para vigas', family:'caidas', desc:'Se instala en vigas de acero o concreto, carga mínima 22kN, uso temporal en faenas', tags:['anclaje','portatil','viga','acero','concreto','faena','altura','instalacion'],
-    providers:['apro','safetystore','atm','prosafety','vicsa','novaseg','isesa','impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp'] },
+    providers:['apro','safetystore','atm','prosafety','vicsa','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp'] },
 ];
 
 // ─── CORPORATE PROVIDERS ────────────────────────────────────
@@ -2218,7 +2237,7 @@ function showTab(tab, skipAuth=false) {
     showAdminLogin();
     return;
   }
-  ['epp','norm','calc','vida','prov','corp','admin'].forEach(t => {
+  ['epp','norm','calc','vida','prov','certcomp','corp','admin'].forEach(t => {
     document.getElementById('pane-'+t).style.display = t===tab?'block':'none';
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
   });
@@ -2300,6 +2319,150 @@ function openModal(id) {
 
   document.getElementById('productModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+// ─── COMPARADOR CERTIFICACIONES ────────────────────────────
+const CERT_DATA = {
+  casco: {
+    titulo: 'Casco de Seguridad', icono: '⛑️',
+    normaCL: 'NCh 461',
+    labCL: 'ISP autoriza: no hay laboratorio nacional → acepta certificaciones extranjeras vía RFI',
+    certs: [
+      { cert:'NCh 461', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Tipo A / B / C', obs:'Norma nacional. Exigida por DS 594.' },
+      { cert:'ANSI/ISEA Z89.1', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Clase E / G / C', obs:'Ampliamente aceptada. Clase E = dieléctrico.' },
+      { cert:'EN 397', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Estándar / EL (dieléctrico)', obs:'Norma europea. ISP la acepta para importaciones.' },
+      { cert:'AS/NZS 1801', origen:'🇦🇺 Australia/NZ', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Clase A / B', obs:'Reconocida en Chile para importaciones.' },
+      { cert:'Sin certificación', origen:'—', validezCL:'❌ No válida', nivel:'—', obs:'Ningún EPP sin certificación reconocida puede usarse legalmente en Chile.' },
+    ]
+  },
+  lentes: {
+    titulo: 'Lentes y Gafas de Seguridad', icono: '🥽',
+    normaCL: 'NCh 1301',
+    labCL: 'Cal-tex y CESMEC realizan algunos ensayos. ISP acepta certificaciones extranjeras vía RFI.',
+    certs: [
+      { cert:'NCh 1301', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Uso general', obs:'Norma nacional basada en ISO 16321.' },
+      { cert:'ANSI/ISEA Z87.1', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Impacto básico / alto', obs:'Marcación Z87+ = impacto alto. Muy común en importaciones.' },
+      { cert:'EN 166', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'1B / 1BT / 3 4 5', obs:'Especifica el tipo de protección con código numérico.' },
+      { cert:'AS/NZS 1337', origen:'🇦🇺 Australia/NZ', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Clase 1 / 2', obs:'Reconocida en Chile para importaciones.' },
+    ]
+  },
+  respirador: {
+    titulo: 'Respiradores y Mascarillas', icono: '😷',
+    normaCL: 'NCh 2175 / NCh 2378',
+    labCL: 'No hay laboratorio nacional autorizado. ISP acepta NIOSH, EN, AS/NZS vía RFI.',
+    certs: [
+      { cert:'NIOSH N95 / N99 / P100', origen:'🇺🇸 EE.UU.', validezCL:'✅ Ampliamente reconocida por ISP', nivel:'N95=95% / N99=99% / P100=99.97%', obs:'Certificación más reconocida en Chile. ISP la acepta directamente.' },
+      { cert:'EN 149 (FFP1/FFP2/FFP3)', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'FFP1=80% / FFP2=94% / FFP3=99%', obs:'FFP2 ≈ N95. FFP3 ≈ N99.' },
+      { cert:'AS/NZS 1716', origen:'🇦🇺 Australia/NZ', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'P1 / P2 / P3', obs:'P2 ≈ N95. Reconocida en importaciones.' },
+      { cert:'NCh 2378', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Máscaras completas', obs:'Norma chilena para máscaras reutilizables.' },
+      { cert:'Sin certificación / "KN95"', origen:'—', validezCL:'❌ No válida en Chile', nivel:'—', obs:'KN95 es norma china GB2626. ISP NO la reconoce como equivalente a N95.' },
+    ]
+  },
+  guantes: {
+    titulo: 'Guantes de Protección', icono: '🧤',
+    normaCL: 'NCh 1805',
+    labCL: 'No hay laboratorio nacional para guantes. ISP acepta EN, ANSI vía RFI.',
+    certs: [
+      { cert:'NCh 1805', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Requisitos generales', obs:'Norma base chilena para guantes.' },
+      { cert:'EN 388', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Nivel 1–5 (anticorte)', obs:'Estándar más usado. Código XXXX = abrasión/corte/desgarro/punción.' },
+      { cert:'EN 374', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Permeación química', obs:'Indica resistencia química. Tipo A/B/C según número de químicos.' },
+      { cert:'EN 60903', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Obligatoria para dieléctrico', nivel:'Clase 00 hasta Clase 4', obs:'Para guantes dieléctricos. Clase 00=500V / Clase 4=36.000V.' },
+      { cert:'ANSI/ISEA 105', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Nivel A1–A9 anticorte', obs:'Sistema americano de clasificación. Reconocida en importaciones.' },
+    ]
+  },
+  calzado: {
+    titulo: 'Calzado de Seguridad', icono: '🥾',
+    normaCL: 'NCh 1584 / NCh 2147',
+    labCL: 'CESMEC realiza algunos ensayos. ISP acepta ISO, EN, ANSI vía RFI.',
+    certs: [
+      { cert:'NCh 1584', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'S1 / S2 / S3', obs:'Norma nacional principal para calzado de seguridad.' },
+      { cert:'ISO 20345', origen:'🌐 Internacional', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'S1 / S1P / S2 / S3', obs:'Norma base internacional adoptada por NCh 1584. Ampliamente reconocida.' },
+      { cert:'EN ISO 20345', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'S1 / S1P / S2 / S3', obs:'Versión europea de ISO 20345. Equivalente en protección.' },
+      { cert:'ASTM F2413', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'PR / EH / MT', obs:'Norma americana. EH = dieléctrico. Reconocida en importaciones.' },
+      { cert:'AS/NZS 2210', origen:'🇦🇺 Australia/NZ', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'SB / S1 / S2 / S3', obs:'Reconocida en Chile para importaciones.' },
+    ]
+  },
+  arnes: {
+    titulo: 'Arnés y Equipos Anticaída', icono: '🪝',
+    normaCL: 'NCh 1252 / NCh 2374',
+    labCL: 'No hay laboratorio nacional. ISP acepta ISO, EN, ANSI vía RFI.',
+    certs: [
+      { cert:'NCh 2374', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Sistema anticaída completo', obs:'Norma chilena. Exigida por DS 594 para trabajo en altura.' },
+      { cert:'ISO 10333', origen:'🌐 Internacional', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Partes 1–6', obs:'Norma base internacional para sistemas anticaída.' },
+      { cert:'EN 361 / EN 363', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Arnés completo / Sistema', obs:'EN 361 = arnés. EN 363 = sistema completo. ISP la acepta.' },
+      { cert:'ANSI/ASSP Z359', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Series Z359.1 / .11 / .14', obs:'Serie completa de normas anticaída americanas.' },
+    ]
+  },
+  auditivo: {
+    titulo: 'Protectores Auditivos', icono: '🎧',
+    normaCL: 'NCh 1358',
+    labCL: 'ACHS: único laboratorio en Chile autorizado para tapones (PATT). ISP acepta ANSI, EN vía RFI.',
+    certs: [
+      { cert:'NCh 1358 + certificación ISP/ACHS', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'PATT (tapones tipo tapón)', obs:'ACHS es el único lab autorizado por ISP para tapones auditivos en Chile.' },
+      { cert:'ANSI S3.19 / ANSI S12.6', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'NRR (dB)', obs:'Indica el NRR en decibeles. Ampliamente usada en importaciones.' },
+      { cert:'EN 352-1 / EN 352-2', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'SNR (dB)', obs:'EN 352-1 = orejeras. EN 352-2 = tapones. Indica SNR en dB.' },
+      { cert:'AS/NZS 1270', origen:'🇦🇺 Australia/NZ', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'SLC80 / Clase 1–5', obs:'Sistema de clasificación por clases. Reconocida en importaciones.' },
+    ]
+  },
+  ropa: {
+    titulo: 'Ropa de Protección', icono: '🦺',
+    normaCL: 'NCh 1303 / NCh 1806',
+    labCL: 'Cal-tex: único laboratorio autorizado por ISP para ropa UV solar (NCh3273). Para ignífuga y química, ensayos en el extranjero.',
+    certs: [
+      { cert:'NCh 1806', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Ropa soldador', obs:'Norma chilena específica para ropa de soldadura.' },
+      { cert:'NCh 3273', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Protección UV solar', obs:'Cal-tex es el único lab autorizado por ISP en Chile.' },
+      { cert:'EN ISO 11612', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Códigos A/B/C/D/E/F', obs:'Para ropa ignífuga/FR. Cada código indica tipo de protección térmica.' },
+      { cert:'NFPA 2112', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Cal/cm² ATPV', obs:'Para ropa FR industrial. ATPV indica energía de arco tolerada.' },
+      { cert:'NFPA 70E', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Categorías HRC 1–4', obs:'Para ropa protección arco eléctrico. Muy usada en sector eléctrico.' },
+      { cert:'EN 13982 (Tyvek)', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Tipo 4 / Tipo 5 / Tipo 6', obs:'Para ropa química desechable. Tipo 5 = partículas. Tipo 6 = salpicaduras.' },
+    ]
+  }
+};
+
+function mostrarCert(btn, tipo) {
+  document.querySelectorAll('#certEppBtns .calc-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const d = CERT_DATA[tipo];
+  if (!d) return;
+  const resultDiv = document.getElementById('certResultado');
+  resultDiv.innerHTML = `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1rem;">
+      <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.3rem;">${d.icono}</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">${d.titulo.toUpperCase()}</span>
+        </div>
+        <span style="background:rgba(245,158,11,.1);color:var(--accent);border-radius:20px;padding:3px 12px;font-size:.75rem;">Norma CL: ${d.normaCL}</span>
+      </div>
+      <div style="padding:.8rem 1.2rem;font-size:.78rem;color:#38bdf8;background:rgba(56,189,248,.04);">
+        🔬 <strong>Laboratorio en Chile:</strong> ${d.labCL}
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+          <thead>
+            <tr style="background:rgba(245,158,11,.08);">
+              <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);color:var(--accent);">Certificación</th>
+              <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);color:var(--accent);">Origen</th>
+              <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);color:var(--accent);">Validez en Chile</th>
+              <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);color:var(--accent);">Nivel / Clasificación</th>
+              <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);color:var(--accent);">Observaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${d.certs.map((c,i) => `
+              <tr style="${i%2===0?'background:rgba(255,255,255,.02)':''}">
+                <td style="padding:8px 12px;border:1px solid var(--border);font-weight:700;color:#e0f2fe;white-space:nowrap;">${c.cert}</td>
+                <td style="padding:8px 12px;border:1px solid var(--border);white-space:nowrap;">${c.origen}</td>
+                <td style="padding:8px 12px;border:1px solid var(--border);white-space:nowrap;">${c.validezCL}</td>
+                <td style="padding:8px 12px;border:1px solid var(--border);color:var(--muted);font-size:.72rem;">${c.nivel}</td>
+                <td style="padding:8px 12px;border:1px solid var(--border);color:var(--muted);font-size:.72rem;">${c.obs}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+  resultDiv.style.display = 'block';
+  resultDiv.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
 // ─── PROVEEDORES DIRECTORIO ───────────────────────────────────
