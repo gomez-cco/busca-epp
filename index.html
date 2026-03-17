@@ -326,6 +326,22 @@
   .inn-badge-title { font-size:.7rem; font-weight:700; color:#a3e635; text-transform:uppercase; letter-spacing:1px; }
   .inn-badge-sub { font-size:.78rem; color:#ecfccb; font-weight:600; margin-top:1px; }
 
+  /* CALCULADORA */
+  .calc-btn {
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:.7rem .8rem; color:var(--text); font-size:.82rem; cursor:pointer;
+    transition:all .2s; text-align:center; font-family:'DM Sans',sans-serif;
+  }
+  .calc-btn:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-1px); }
+  .calc-btn.selected { background:rgba(245,158,11,.15); border-color:var(--accent); color:var(--accent); font-weight:700; }
+  .epp-resultado-card {
+    background:var(--card); border:1px solid rgba(163,230,53,.3); border-radius:12px;
+    padding:1.2rem 1.4rem; margin-bottom:.8rem;
+  }
+  .epp-resultado-card .epp-nombre { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; color:#ecfccb; margin-bottom:.3rem; }
+  .epp-resultado-card .epp-norma { font-size:.72rem; color:var(--accent); margin-bottom:.4rem; }
+  .epp-resultado-card .epp-motivo { font-size:.8rem; color:var(--muted); line-height:1.5; }
+
   /* MODAL NORMA */
   .norm-row { cursor:pointer; transition:background .15s; }
   .norm-row:hover td { background:rgba(245,158,11,.08) !important; }
@@ -462,6 +478,9 @@
 <div class="tabs">
   <div class="tab active" onclick="showTab('epp')" id="tab-epp">🛡️ <span data-es="EPP & Seguridad" data-en="PPE & Safety">EPP & Seguridad</span></div>
   <div class="tab" onclick="showTab('norm')" id="tab-norm">📋 <span data-es="Normativas" data-en="Standards">Normativas</span></div>
+  <div class="tab" onclick="showTab('calc')" id="tab-calc">🧮 <span data-es="Calculadora EPP" data-en="PPE Calculator">Calculadora EPP</span></div>
+  <div class="tab" onclick="showTab('vida')" id="tab-vida">⏱️ <span data-es="Vida Útil" data-en="Service Life">Vida Útil</span></div>
+  <div class="tab" onclick="showTab('prov')" id="tab-prov">🏪 <span data-es="Proveedores" data-en="Suppliers">Proveedores</span></div>
   <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B">Ropa Corporativa B2B</span></div>
   <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
 </div>
@@ -470,7 +489,7 @@
 <div id="pane-epp">
   <div class="hero">
     <h1><span data-es="ENCUENTRA TU" data-en="FIND YOUR">ENCUENTRA TU</span> <span>EPP</span></h1>
-    <p data-es="Busca por nombre, tipo, característica o modelo específico (ej: respirador 6200 3M, botín Nazca)" data-en="Search by name, type, feature or specific model (e.g: respirator 6200 3M, safety boot Nazca)">Busca por nombre, tipo, característica o modelo específico (ej: respirador 6200 3M, botín Nazca)</p>
+    <p data-es="Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)" data-en="Search by name, type or feature (e.g: N95 respirator, steel toe boot, dielectric helmet)">Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)</p>
     <div class="search-wrap">
       <div class="search-icon">🔍</div>
       <input type="text" class="search-input" id="searchInput"
@@ -1046,6 +1065,391 @@
   </div>
 </div>
 
+<!-- CALCULADORA EPP TAB -->
+<div id="pane-calc" style="display:none;">
+  <div class="hero">
+    <h1><span>CALCULADORA</span> <span data-es="DE EPP POR RIESGO" data-en="PPE BY RISK">DE EPP POR RIESGO</span></h1>
+    <p data-es="Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile" data-en="Select your industry and task — we tell you what PPE you need by Chilean law">Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile</p>
+  </div>
+  <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
+
+    <!-- Paso 1: Industria -->
+    <div style="margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 1 — ¿En qué industria trabajas?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;" id="calcIndustrias">
+        <button onclick="selectIndustria(this,'construccion')" class="calc-btn">🏗️ Construcción</button>
+        <button onclick="selectIndustria(this,'mineria')" class="calc-btn">⛏️ Minería</button>
+        <button onclick="selectIndustria(this,'manufactura')" class="calc-btn">🏭 Manufactura</button>
+        <button onclick="selectIndustria(this,'forestal')" class="calc-btn">🌲 Forestal</button>
+        <button onclick="selectIndustria(this,'quimica')" class="calc-btn">⚗️ Química/Lab</button>
+        <button onclick="selectIndustria(this,'electrico')" class="calc-btn">⚡ Eléctrico</button>
+        <button onclick="selectIndustria(this,'soldadura')" class="calc-btn">🔥 Soldadura</button>
+        <button onclick="selectIndustria(this,'agricultura')" class="calc-btn">🌾 Agricultura</button>
+        <button onclick="selectIndustria(this,'pesca')" class="calc-btn">🐟 Pesca/Mar</button>
+        <button onclick="selectIndustria(this,'salud')" class="calc-btn">🏥 Salud</button>
+        <button onclick="selectIndustria(this,'logistica')" class="calc-btn">📦 Logística/Bodega</button>
+        <button onclick="selectIndustria(this,'altura')" class="calc-btn">🏔️ Trabajo en Altura</button>
+      </div>
+    </div>
+
+    <!-- Paso 2: Faena -->
+    <div id="calcFaenaDiv" style="display:none;margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 2 — ¿Cuál es tu faena o tarea principal?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem;" id="calcFaenas"></div>
+    </div>
+
+    <!-- Resultado -->
+    <div id="calcResultado" style="display:none;"></div>
+
+  </div>
+</div>
+
+<!-- VIDA ÚTIL TAB -->
+<div id="pane-vida" style="display:none;">
+  <div class="hero">
+    <h1><span>VIDA ÚTIL</span> <span data-es="DE TUS EPP" data-en="OF YOUR PPE">DE TUS EPP</span></h1>
+    <p data-es="Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas" data-en="Guide on when to replace each piece of personal protective equipment">Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas</p>
+  </div>
+  <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
+
+    <!-- Advertencia principal -->
+    <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:1rem 1.3rem;margin-bottom:1rem;font-size:.82rem;color:#fca5a5;line-height:1.6;">
+      ⚠️ <strong>Importante:</strong> Siempre prima la indicación del fabricante sobre estos plazos. Un EPP dañado, deformado o que haya sufrido un impacto debe retirarse de inmediato, independiente de su antigüedad.
+    </div>
+
+    <!-- Leyenda de fuentes -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1.5rem;font-size:.8rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">🔍 LEYENDA — ORIGEN DE CADA DATO</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+        <span style="background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">✅ Norma obligatoria</span>
+        <span style="background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">📋 Norma referencial</span>
+        <span style="background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">🏭 Recomendación fabricante</span>
+        <span style="background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">⚠️ Sin norma en Chile — criterio visual</span>
+      </div>
+    </div>
+
+    <div style="display:grid;gap:1rem;">
+
+      <!-- Casco -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">⛑️</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">CASCO DE SEGURIDAD</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Reemplazar: 4–5 años</span>
+        </div>
+        <div style="padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.82rem;">
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">📅 Vida útil estimada</div>
+            <div style="color:var(--text);line-height:1.8;">
+              • Casco completo: <strong>4–5 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • Arnés interior: <strong>2–3 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • La fecha de fabricación está marcada en el interior del casco
+            </div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#fbbf24;background:rgba(251,191,36,.08);border-radius:6px;padding:.4rem .6rem;">
+              📋 NCh 461 / ANSI Z89.1 definen requisitos de resistencia pero <strong>no fijan plazo de vida útil</strong>. El plazo de 4–5 años es recomendación estándar de fabricantes como MSA, 3M y Honeywell.
+            </div>
+          </div>
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
+            <div style="color:var(--text);line-height:1.7;">• Sufrió un golpe o caída<br>• Tiene grietas o deformaciones<br>• El plástico se ve opaco o quebradizo<br>• El arnés interior está desgastado</div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+              ✅ Criterio de retiro visual avalado por DS 594 Art. 53: el EPP en mal estado debe ser reemplazado de inmediato.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lentes -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">🥽</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">LENTES Y GAFAS DE SEGURIDAD</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Reemplazar: 2–3 años</span>
+        </div>
+        <div style="padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.82rem;">
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">📅 Vida útil estimada</div>
+            <div style="color:var(--text);line-height:1.8;">
+              • Policarbonato uso diario: <strong>1–2 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • Policarbonato uso esporádico: <strong>3 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • Careta de soldar (carcasa): <strong>3–5 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span>
+            </div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#c4b5fd;background:rgba(168,85,247,.08);border-radius:6px;padding:.4rem .6rem;">
+              ⚠️ NCh 1301 y ANSI Z87.1 <strong>no fijan plazo de vida útil</strong>. El criterio principal es el estado visual del lente. Estos plazos son orientativos.
+            </div>
+          </div>
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
+            <div style="color:var(--text);line-height:1.7;">• Lente rayado que afecte la visión<br>• Marco deformado o roto<br>• Filtro de careta dañado o sin marcación shade<br>• Elástico o patillas deterioradas</div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+              ✅ ANSI Z87.1 establece que un lente rayado o dañado pierde su certificación y debe retirarse.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Respirador -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">😷</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">RESPIRADORES Y MASCARILLAS</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Variable según tipo</span>
+        </div>
+        <div style="padding:1rem 1.2rem;font-size:.82rem;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Tipo</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Vida útil</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Fuente</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">N95 / FFP2 desechable</td>
+                <td style="padding:8px;color:#fca5a5;font-weight:700;">1 turno / 8 hrs</td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ NIOSH / EN 149</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Media máscara reutilizable</td>
+                <td style="padding:8px;color:#a3e635;font-weight:700;">3–5 años (cuerpo)</td>
+                <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">🏭 Fabricante</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Filtro partículas P100</td>
+                <td style="padding:8px;color:#fbbf24;font-weight:700;">Hasta obstruirse o 40 hrs</td>
+                <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">🏭 Fabricante</span></td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--text);">Filtro gases/vapores (OV)</td>
+                <td style="padding:8px;color:#fbbf24;font-weight:700;">6 meses abierto / 5 años cerrado</td>
+                <td style="padding:8px;"><span style="background:rgba(251,191,36,.1);color:#fbbf24;border-radius:4px;padding:2px 7px;font-size:.7rem;">📋 EN 14387</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Guantes -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">🧤</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">GUANTES DE PROTECCIÓN</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Variable según tipo</span>
+        </div>
+        <div style="padding:1rem 1.2rem;font-size:.82rem;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Tipo</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Vida útil</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Fuente</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Cuero / cabritilla</td>
+                <td style="padding:8px;color:#a3e635;font-weight:700;">3–6 meses</td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — criterio visual</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Nitrilo / látex desechable</td>
+                <td style="padding:8px;color:#fca5a5;font-weight:700;">1 uso</td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 374 / ISO 374</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Dieléctrico (goma)</td>
+                <td style="padding:8px;color:#fbbf24;font-weight:700;">6 meses en servicio</td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 60903 — prueba semestral obligatoria</span></td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--text);">Anticorte (fibra)</td>
+                <td style="padding:8px;color:#a3e635;font-weight:700;">6–12 meses</td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — criterio visual</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Calzado -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">🥾</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">CALZADO DE SEGURIDAD</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Reemplazar: 1–2 años</span>
+        </div>
+        <div style="padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.82rem;">
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">📅 Vida útil estimada</div>
+            <div style="color:var(--text);line-height:1.8;">
+              • Uso diario en faena: <strong>12–18 meses</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • Uso ocasional: <strong>2–3 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • Bota de goma: <strong>1–2 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span>
+            </div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#c4b5fd;background:rgba(168,85,247,.08);border-radius:6px;padding:.4rem .6rem;">
+              ⚠️ NCh 1584 define requisitos de fabricación pero <strong>no establece vida útil</strong>. El retiro se basa en criterios visuales de deterioro.
+            </div>
+          </div>
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
+            <div style="color:var(--text);line-height:1.7;">• Suela sin antideslizante visible<br>• Puntera expuesta o deformada<br>• Corte superior separado de suela<br>• Humedad interior permanente</div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+              ✅ DS 594 Art. 53 obliga reemplazar EPP en mal estado sin importar antigüedad.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arnés — CRÍTICO -->
+      <div style="background:var(--card);border:1px solid rgba(239,68,68,.4);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(239,68,68,.12);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">🪝</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#fecaca;">ARNÉS Y EQUIPOS ANTICAÍDA — ⚠️ CRÍTICO</span>
+          </div>
+          <span style="background:rgba(239,68,68,.3);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Máx. 5 años o 1 sola caída</span>
+        </div>
+        <div style="padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.82rem;">
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">📅 Vida útil estimada</div>
+            <div style="color:var(--text);line-height:1.8;">
+              • Arnés cuerpo completo: <strong>máx. 10 años</strong> fab. / <strong>5 años</strong> en servicio <span style="background:rgba(251,191,36,.1);color:#fbbf24;border-radius:4px;padding:1px 6px;font-size:.68rem;">📋 ISO 10333</span><br>
+              • Absorbedor de impacto: <strong>retiro tras 1 caída</strong> <span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:1px 6px;font-size:.68rem;">✅ NCh 2374</span><br>
+              • Línea de vida textil: <strong>3–5 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
+              • Mosquetones de acero: <strong>10 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span>
+            </div>
+          </div>
+          <div>
+            <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
+            <div style="color:var(--text);line-height:1.7;">• Sufrió una caída (aunque sea leve)<br>• Cortes, quemaduras o desgaste en correas<br>• Costuras abiertas o hebillas deformadas<br>• Absorbedor desplegado parcialmente</div>
+            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+              ✅ NCh 2374 e ISO 10333 establecen explícitamente el retiro obligatorio tras cualquier caída arrestada.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Protectores auditivos -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">🎧</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">PROTECTORES AUDITIVOS</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Variable según tipo</span>
+        </div>
+        <div style="padding:1rem 1.2rem;font-size:.82rem;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Tipo</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Vida útil</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Fuente</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Tapones desechables</td>
+                <td style="padding:8px;color:#fca5a5;font-weight:700;">1 turno — uso único</td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ ANSI S3.19 / EN 352-2</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Tapones reutilizables</td>
+                <td style="padding:8px;color:#fbbf24;font-weight:700;">3–6 meses</td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — criterio táctil</span></td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--text);">Orejeras de copa</td>
+                <td style="padding:8px;color:#a3e635;font-weight:700;">2–5 años (cuerpo) / almohadillas 6–12 meses</td>
+                <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">🏭 Fabricante</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Ropa de protección -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(56,189,248,.08);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1.3rem;">🦺</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">ROPA DE PROTECCIÓN</span>
+          </div>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⏰ Variable según tipo</span>
+        </div>
+        <div style="padding:1rem 1.2rem;font-size:.82rem;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;">
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Tipo</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Vida útil</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Fuente</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Ropa ignífuga FR</td>
+                <td style="padding:8px;color:#fbbf24;font-weight:700;">50–100 lavados</td>
+                <td style="padding:8px;"><span style="background:rgba(251,191,36,.1);color:#fbbf24;border-radius:4px;padding:2px 7px;font-size:.7rem;">📋 NFPA 2112 / EN ISO 11612</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Ropa química Tyvek</td>
+                <td style="padding:8px;color:#fca5a5;font-weight:700;">1 uso desechable</td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 13982 (Tipo 5)</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <td style="padding:8px;color:var(--text);">Chaleco alta visibilidad</td>
+                <td style="padding:8px;color:#fbbf24;font-weight:700;">1–2 años / 25 lavados</td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — reflectividad visual</span></td>
+              </tr>
+              <tr>
+                <td style="padding:8px;color:var(--text);">Ropa cuero soldador</td>
+                <td style="padding:8px;color:#a3e635;font-weight:700;">1–3 años</td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma específica — criterio visual</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;line-height:1.8;">
+      Fuentes: DS 594/99 MINSAL · NCh 461, 1301, 1584, 2374 · ISO 10333 · EN 60903, EN 149, EN 374, EN 14387, EN 13982, NFPA 2112 · NIOSH · ANSI Z87.1, S3.19<br>
+      Los datos marcados como 🏭 o ⚠️ son referenciales — consulte siempre al fabricante y a su organismo administrador (ACHS, IST, Mutual).
+    </div>
+  </div>
+</div>
+
+<!-- PROVEEDORES TAB -->
+<div id="pane-prov" style="display:none;">
+  <div class="hero">
+    <h1><span>DIRECTORIO</span> <span data-es="DE PROVEEDORES" data-en="OF SUPPLIERS">DE PROVEEDORES</span></h1>
+    <p data-es="Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web" data-en="All PPE suppliers in Chile — click to visit their website">Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web</p>
+  </div>
+  <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
+
+    <!-- Buscador interno -->
+    <div style="margin-bottom:1.5rem;position:relative;">
+      <input id="provSearch" type="text" placeholder="🔍 Filtrar proveedores..."
+        oninput="renderProveedores()"
+        style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+    </div>
+
+    <!-- Contador -->
+    <div id="provCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
+
+    <!-- Grid de tarjetas -->
+    <div id="provGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;"></div>
+
+    <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
+      ⚠️ Los links son referenciales. Algunos proveedores pueden no tener sitio web activo. Verifica antes de visitar.
+    </div>
+  </div>
+</div>
+
 <!-- CORPORATE TAB -->
 <div id="pane-corp" style="display:none;">
   <div class="hero">
@@ -1249,6 +1653,54 @@ const PROVIDERS = {
   eikona:     { name:'Eikona',            url:'https://eikona.cl' },
   under:      { name:'Under / Matrix World Group', url:'https://www.matrixworldgroup.cl' },
   aracor:     { name:'ARACOR',            url:'https://www.aracor.cl' },
+  abaindus:   { name:'Abaindus',          url:'https://www.abaindus.cl' },
+  ara:        { name:'ARA',               url:'https://www.ara.cl' },
+  arcam:      { name:'Arcam',             url:'https://www.arcam.cl' },
+  ataindus:   { name:'Ataindus',          url:'https://www.ataindus.cl' },
+  balut:      { name:'Balut',             url:'https://www.balut.cl' },
+  bsseg:      { name:'BS Seguridad Industrial', url:'https://www.bsseguridad.cl' },
+  castronova: { name:'Castro y Nova',     url:'https://www.castroynova.cl' },
+  cbs:        { name:'CBS',               url:'https://www.cbs.cl' },
+  chelech:    { name:'Comercial Chelech', url:'https://www.chelech.cl' },
+  huayu:      { name:'Comercial Huayu',   url:'https://www.huayu.cl' },
+  dabed:      { name:'Dabed',             url:'https://www.dabed.cl' },
+  dabenco:    { name:'Dabenco',           url:'https://www.dabenco.cl' },
+  desclean:   { name:'Desclean',          url:'https://www.desclean.cl' },
+  dimasur:    { name:'Dimasur',           url:'https://www.dimasur.cl' },
+  dinaseg:    { name:'Dinaseg',           url:'https://www.dinaseg.cl' },
+  eppminerals:{ name:'EPP Minerals',      url:'https://www.eppminerals.cl' },
+  fabmoises:  { name:'Fábrica Moises',    url:'https://www.fabricamoises.cl' },
+  ferrefor:   { name:'Ferrefor',          url:'https://www.ferrefor.cl' },
+  ferrallipen:{ name:'Ferretería Allipén', url:'https://www.ferreteriaallipен.cl' },
+  ferrcj:     { name:'Ferretería C & J',  url:'https://www.ferreteriacyj.cl' },
+  ferrfrontera:{ name:'Ferretería Frontera', url:'https://www.ferreteriafrontera.cl' },
+  ferrhiguerillas:{ name:'Ferretería Higuerillas', url:'https://www.ferreteriahiguerillas.cl' },
+  ferrjaramillo:{ name:'Ferretería Jaramillo', url:'https://www.ferreteriajaramillo.cl' },
+  fetec:      { name:'Fetec',             url:'https://www.fetec.cl' },
+  foryseg:    { name:'Foryseg',           url:'https://www.foryseg.cl' },
+  gya:        { name:'G y A',             url:'https://www.gya.cl' },
+  gygthomashn:{ name:'G y G Thomas Hollstein', url:'https://www.gygthomas.cl' },
+  impmatta:   { name:'Imp. Matta',        url:'https://www.impmatta.cl' },
+  implementos:{ name:'Implementos',       url:'https://www.implementos.cl' },
+  innovacion: { name:'Innovación',        url:'https://www.innovacion.cl' },
+  insuseg:    { name:'Insuseg',           url:'https://www.insuseg.cl' },
+  mak:        { name:'KS Mak Seguridad',  url:'https://www.mak.cl' },
+  glorias:    { name:'Manufacturas Glorias', url:'https://www.glorias.cl' },
+  metalmar:   { name:'Metalmar',          url:'https://www.metalmar.cl' },
+  newfire:    { name:'New Fire',          url:'https://www.newfire.cl' },
+  newseg:     { name:'Newseg',            url:'https://www.newseg.cl' },
+  pmgoutlet:  { name:'PMG Outlet',        url:'https://www.pmgoutlet.cl' },
+  prosec:     { name:'Prosec',            url:'https://www.prosec.cl' },
+  protege:    { name:'Protege',           url:'https://www.protege.cl' },
+  raptor:     { name:'Raptor',            url:'https://www.raptor.cl' },
+  safe:       { name:'Safe',              url:'https://www.safe.cl' },
+  santamaria: { name:'Santa María',       url:'https://www.santamaria.cl' },
+  solucenter: { name:'Solucenter',        url:'https://www.solucenter.cl' },
+  teiba:      { name:'Teiba',             url:'https://www.teiba.cl' },
+  texam:      { name:'Texam',             url:'https://www.texam.cl' },
+  texora:     { name:'Texora',            url:'https://www.texora.cl' },
+  uberlinda:  { name:'Uberlinda Ovando',  url:'https://www.uberlindaovando.cl' },
+  workingapparel:{ name:'Working Apparel', url:'https://www.workingapparel.cl' },
 };
 
 // ─── PRODUCT DATABASE ────────────────────────────────────────
@@ -1766,12 +2218,13 @@ function showTab(tab, skipAuth=false) {
     showAdminLogin();
     return;
   }
-  ['epp','norm','corp','admin'].forEach(t => {
+  ['epp','norm','calc','vida','prov','corp','admin'].forEach(t => {
     document.getElementById('pane-'+t).style.display = t===tab?'block':'none';
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
   });
   if (tab==='admin') renderAdminTable();
   if (tab==='corp') renderCorp();
+  if (tab==='prov') renderProveedores();
 }
 
 function addProduct() {
@@ -1847,6 +2300,246 @@ function openModal(id) {
 
   document.getElementById('productModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+// ─── PROVEEDORES DIRECTORIO ───────────────────────────────────
+function renderProveedores() {
+  const q = (document.getElementById('provSearch')?.value || '').toLowerCase().trim();
+  const grid = document.getElementById('provGrid');
+  const countEl = document.getElementById('provCount');
+  if (!grid) return;
+
+  const todos = Object.entries(PROVIDERS)
+    .filter(([k]) => k !== 'ispch')
+    .sort((a, b) => a[1].name.localeCompare(b[1].name, 'es'))
+    .filter(([k, p]) => !q || p.name.toLowerCase().includes(q));
+
+  countEl.textContent = `${todos.length} proveedor${todos.length !== 1 ? 'es' : ''} encontrado${todos.length !== 1 ? 's' : ''}`;
+
+  grid.innerHTML = todos.map(([k, p]) => {
+    const domain = p.url.replace(/https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+    const initial = p.name.charAt(0).toUpperCase();
+    const colors = ['#f59e0b','#38bdf8','#a3e635','#f472b6','#818cf8','#34d399','#fb923c'];
+    const color = colors[p.name.charCodeAt(0) % colors.length];
+    return `
+      <a href="${p.url}" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;
+          display:flex;flex-direction:column;gap:.5rem;height:100%;box-sizing:border-box;
+          transition:all .2s;cursor:pointer;"
+          onmouseover="this.style.borderColor='${color}';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.3)'"
+          onmouseout="this.style.borderColor='var(--border)';this.style.transform='none';this.style.boxShadow='none'">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <div style="width:36px;height:36px;border-radius:8px;background:${color}22;border:1px solid ${color}44;
+              display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;
+              font-size:1.1rem;font-weight:700;color:${color};flex-shrink:0;">${initial}</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);line-height:1.2;">${p.name}</div>
+          </div>
+          <div style="font-size:.72rem;color:var(--muted);word-break:break-all;">${domain}</div>
+          <div style="margin-top:auto;font-size:.7rem;color:${color};font-weight:600;">Visitar sitio →</div>
+        </div>
+      </a>`;
+  }).join('');
+}
+
+// ─── CALCULADORA EPP ─────────────────────────────────────────
+const CALC_DATA = {
+  construccion: {
+    faenas: {
+      'Obra gruesa (hormigón, moldajes)': ['casco','lentes','guantes_mecanicos','calzado','chaleco_av','tapones'],
+      'Demolición': ['casco','lentes_panoramicas','respirador_p100','guantes_mecanicos','calzado','chaleco_av','tapones'],
+      'Techado / cubiertas': ['casco','lentes','arnés','calzado','chaleco_av','guantes_mecanicos'],
+      'Excavación y movimiento de tierra': ['casco','lentes_panoramicas','calzado','chaleco_av','guantes_mecanicos','respirador_polvo'],
+      'Instalaciones eléctricas': ['casco_dielectrico','lentes','guantes_dielectricos','calzado_dielectrico','chaleco_av'],
+    }
+  },
+  mineria: {
+    faenas: {
+      'Tronadura y manipulación de explosivos': ['casco','lentes_panoramicas','tapones','calzado','guantes_mecanicos','chaleco_av','respirador_gases'],
+      'Operación de maquinaria pesada': ['casco','lentes','tapones','calzado','chaleco_av','guantes_mecanicos'],
+      'Interior mina (túneles)': ['casco_lampara','lentes_panoramicas','respirador_p100','tapones','calzado','chaleco_av','arnés'],
+      'Procesamiento de minerales': ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','calzado','chaleco_av','tapones'],
+    }
+  },
+  manufactura: {
+    faenas: {
+      'Operación de prensas y troqueles': ['casco','lentes','guantes_anticorte','calzado','tapones'],
+      'Línea de ensamblaje': ['lentes','guantes_mecanicos','calzado','tapones'],
+      'Trabajo con solventes y pinturas': ['lentes_panoramicas','respirador_gases','guantes_quimicos','calzado','chaleco_av'],
+      'Almacenamiento y bodega': ['casco','lentes','calzado','chaleco_av','guantes_mecanicos'],
+    }
+  },
+  forestal: {
+    faenas: {
+      'Motosierra y tala': ['casco_forestal','lentes','tapones','guantes_anticorte','calzado_anticorte','chaleco_av','pantalon_anticorte'],
+      'Plantación y raleo': ['casco','lentes','calzado','guantes_mecanicos','chaleco_av','respirador_polvo'],
+      'Aplicación de pesticidas': ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','ropa_quimica','calzado'],
+      'Trabajo en altura (poda)': ['casco','lentes','arnés','calzado','guantes_mecanicos'],
+    }
+  },
+  quimica: {
+    faenas: {
+      'Manejo de ácidos y cáusticos': ['mascara_completa','guantes_quimicos','ropa_quimica','calzado_quimico','lentes_panoramicas'],
+      'Laboratorio de análisis': ['lentes_panoramicas','guantes_nitrilo','bata_lab','calzado','respirador_gases'],
+      'Almacenamiento de productos químicos': ['lentes_panoramicas','guantes_quimicos','calzado','chaleco_av','respirador_gases'],
+      'Gases industriales': ['mascara_completa','guantes_criogenicos','calzado','ropa_antiflama'],
+    }
+  },
+  electrico: {
+    faenas: {
+      'Trabajo en baja tensión (<600V)': ['casco_dielectrico','lentes','guantes_dielectricos','calzado_dielectrico','ropa_algodon'],
+      'Trabajo en alta tensión (>600V)': ['casco_dielectrico','lentes','guantes_dielectricos_at','calzado_dielectrico','ropa_arco_electrico','arnés'],
+      'Subestaciones eléctricas': ['casco_dielectrico','lentes_panoramicas','guantes_dielectricos_at','calzado_dielectrico','ropa_arco_electrico'],
+      'Mantención tableros': ['casco_dielectrico','lentes','guantes_dielectricos','calzado_dielectrico'],
+    }
+  },
+  soldadura: {
+    faenas: {
+      'Soldadura al arco (electrodo)': ['careta_soldar','guantes_soldador','ropa_soldador','calzado','tapones','coleto'],
+      'Soldadura MIG/TIG': ['careta_soldar_auto','guantes_soldador','ropa_soldador','calzado','tapones'],
+      'Corte oxiacetilénico': ['careta_oxicorte','guantes_soldador','ropa_soldador','calzado','tapones','coleto'],
+      'Corte por plasma': ['careta_soldar_auto','guantes_soldador','ropa_soldador','calzado','tapones','lentes_extra'],
+    }
+  },
+  agricultura: {
+    faenas: {
+      'Aplicación de pesticidas/herbicidas': ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','ropa_quimica','calzado','chaleco_av'],
+      'Cosecha manual': ['sombrero_uv','lentes','guantes_mecanicos','calzado','chaleco_av','ropa_uv'],
+      'Operación de maquinaria agrícola': ['casco','tapones','lentes','calzado','chaleco_av'],
+      'Trabajo en altura (frutales)': ['casco','arnés','calzado','guantes_mecanicos'],
+    }
+  },
+  pesca: {
+    faenas: {
+      'Trabajo en cubierta': ['casco','calzado_goma','chaleco_salvavidas','guantes_mecanicos','lentes'],
+      'Procesamiento de pescado': ['casco','lentes_panoramicas','guantes_anticorte','calzado_goma','delantal_impermeable','tapones'],
+      'Buceo industrial': ['equipo_buceo','guantes_neopreno','chaleco_salvavidas'],
+      'Reparación de redes': ['lentes','guantes_mecanicos','calzado_goma','chaleco_salvavidas'],
+    }
+  },
+  salud: {
+    faenas: {
+      'Atención de pacientes': ['guantes_nitrilo','mascarilla_quirurgica','lentes_panoramicas','calzado'],
+      'Cirugía / procedimientos': ['guantes_latex_esteril','mascarilla_n95','lentes_panoramicas','gorro','calzado'],
+      'Manejo de residuos hospitalarios': ['guantes_nitrilo_grueso','mascarilla_n95','lentes_panoramicas','calzado','ropa_quimica'],
+      'Laboratorio clínico': ['guantes_latex','mascarilla_n95','lentes_panoramicas','bata_lab','calzado'],
+    }
+  },
+  logistica: {
+    faenas: {
+      'Operación de grúa horquilla': ['casco','lentes','calzado','chaleco_av'],
+      'Carga y descarga manual': ['casco','lentes','guantes_mecanicos','calzado','chaleco_av','faja_lumbar'],
+      'Trabajo en altura (racks)': ['casco','arnés','calzado','chaleco_av','guantes_mecanicos'],
+      'Bodega frigorífica': ['casco','lentes','calzado','guantes_termicos','ropa_termica','chaleco_av'],
+    }
+  },
+  altura: {
+    faenas: {
+      'Techos y cubiertas inclinadas': ['casco','arnés','calzado','guantes_mecanicos','lentes'],
+      'Torres y estructuras metálicas': ['casco','arnés','calzado','guantes_mecanicos','lentes','chaleco_av'],
+      'Andamios y plataformas': ['casco','arnés','calzado','guantes_mecanicos','lentes','chaleco_av'],
+      'Espacios confinados en altura': ['casco','arnés','respirador_gases','lentes','guantes_mecanicos','chaleco_av'],
+    }
+  }
+};
+
+const EPP_INFO = {
+  casco: { nombre:'Casco de seguridad', icono:'⛑️', norma:'NCh 461 / ANSI Z89.1', motivo:'Obligatorio por DS 594 en toda faena con riesgo de impacto en cabeza.' },
+  casco_dielectrico: { nombre:'Casco dieléctrico (Clase E)', icono:'⛑️', norma:'NCh 461 Tipo B / ANSI Z89.1 Class E', motivo:'Obligatorio en trabajos eléctricos, resiste hasta 20.000V.' },
+  casco_forestal: { nombre:'Casco forestal con pantalla y orejeras', icono:'⛑️', norma:'NCh 461 / EN 397', motivo:'Integra protección facial y auditiva para faenas con motosierra.' },
+  casco_lampara: { nombre:'Casco con lámpara de minero', icono:'⛑️', norma:'NCh 461', motivo:'Obligatorio en interior mina para visibilidad y protección craneal.' },
+  lentes: { nombre:'Lentes de seguridad', icono:'🥽', norma:'NCh 1301 / ANSI Z87.1', motivo:'Protegen contra partículas proyectadas, polvo y salpicaduras.' },
+  lentes_panoramicas: { nombre:'Gafas panorámicas', icono:'🥽', norma:'NCh 1301 / EN 166', motivo:'Sellado perimetral para protección química o en ambientes con polvo intenso.' },
+  lentes_extra: { nombre:'Lentes de seguridad adicionales bajo careta', icono:'🥽', norma:'NCh 1301', motivo:'Protección adicional contra destellos en corte por plasma.' },
+  careta_soldar: { nombre:'Careta de soldador (shade 10–13)', icono:'🪖', norma:'NCh 1562', motivo:'Obligatoria para soldar al arco, protege contra radiación UV/IR y salpicaduras.' },
+  careta_soldar_auto: { nombre:'Careta de oscurecimiento automático', icono:'🪖', norma:'NCh 1562 / EN 175', motivo:'Se oscurece automáticamente al iniciarse el arco. Recomendada para MIG/TIG.' },
+  careta_oxicorte: { nombre:'Careta para oxicorte (shade 5–6)', icono:'🪖', norma:'NCh 1562 / NCh 1583', motivo:'Protege contra llama y radiación IR del corte oxiacetilénico.' },
+  tapones: { nombre:'Tapones o protectores auditivos', icono:'🎧', norma:'NCh 1358 / ANSI S3.19', motivo:'Obligatorios cuando el ruido supera 85 dB(A) según DS 594.' },
+  guantes_mecanicos: { nombre:'Guantes de protección mecánica', icono:'🧤', norma:'NCh 1805 / EN 388', motivo:'Protegen contra cortes, abrasión y golpes en manejo de materiales.' },
+  guantes_anticorte: { nombre:'Guantes anticorte (nivel 4–5)', icono:'🧤', norma:'NCh 1805 / EN 388', motivo:'Obligatorios en operación de máquinas con riesgo de corte severo.' },
+  guantes_quimicos: { nombre:'Guantes químicos (nitrilo grueso o neopreno)', icono:'🧤', norma:'NCh 1805 / EN 374', motivo:'Resistencia a ácidos, bases y solventes. Tipo según ficha de datos de seguridad.' },
+  guantes_nitrilo: { nombre:'Guantes de nitrilo desechables', icono:'🧤', norma:'EN 374', motivo:'Protección básica contra químicos de laboratorio y fluidos biológicos.' },
+  guantes_nitrilo_grueso: { nombre:'Guantes de nitrilo grueso', icono:'🧤', norma:'EN 374', motivo:'Mayor resistencia para manejo de residuos con mayor concentración química.' },
+  guantes_latex: { nombre:'Guantes de látex (o nitrilo si alergia)', icono:'🧤', norma:'EN 374', motivo:'Protección en procedimientos clínicos. Usar nitrilo si hay alergia al látex.' },
+  guantes_latex_esteril: { nombre:'Guantes de látex estériles', icono:'🧤', norma:'ISO 10282', motivo:'Obligatorios en cirugía y procedimientos invasivos.' },
+  guantes_dielectricos: { nombre:'Guantes dieléctricos (hasta 600V)', icono:'🧤', norma:'NCh 2147 / EN 60903 Clase 00', motivo:'Aislamiento eléctrico en baja tensión. Prueba semestral obligatoria.' },
+  guantes_dielectricos_at: { nombre:'Guantes dieléctricos alta tensión (Clase 2–4)', icono:'🧤', norma:'EN 60903', motivo:'Para trabajos en alta tensión. Certificados según nivel de tensión de trabajo.' },
+  guantes_soldador: { nombre:'Guantes de soldador (cuero manga larga)', icono:'🧤', norma:'NCh 1115 / EN 12477', motivo:'Protegen de chispas, salpicaduras y calor radiante en soldadura.' },
+  guantes_termicos: { nombre:'Guantes térmicos (frío)', icono:'🧤', norma:'EN 511', motivo:'Aislamiento térmico para trabajos en cámaras frigoríficas bajo 0°C.' },
+  guantes_criogenicos: { nombre:'Guantes criogénicos', icono:'🧤', norma:'EN 511', motivo:'Para manejo de gases criogénicos (nitrógeno líquido, CO2). Protegen hasta -196°C.' },
+  guantes_neopreno: { nombre:'Guantes de neopreno impermeables', icono:'🧤', norma:'NCh 1805', motivo:'Para trabajo en ambiente marino con agua fría y riesgo de corte.' },
+  calzado: { nombre:'Botín de seguridad punta de acero', icono:'🥾', norma:'NCh 1584 / ANSI Z41', motivo:'Obligatorio en toda faena con riesgo de caída de objetos sobre el pie.' },
+  calzado_dielectrico: { nombre:'Calzado dieléctrico (hasta 600V)', icono:'🥾', norma:'NCh 2147/2', motivo:'Aísla al trabajador de corrientes eléctricas en baja tensión.' },
+  calzado_goma: { nombre:'Bota de goma o PVC', icono:'🥾', norma:'NCh 1796', motivo:'Para ambientes húmedos, barro o sustancias líquidas en el suelo.' },
+  calzado_quimico: { nombre:'Bota química resistente', icono:'🥾', norma:'NCh 1796 / EN 13832', motivo:'Impermeabilidad y resistencia química para manejo de ácidos y cáusticos.' },
+  calzado_anticorte: { nombre:'Bota forestal anticorte', icono:'🥾', norma:'EN ISO 17249', motivo:'Protección contra corte de motosierra en extremidades inferiores.' },
+  chaleco_av: { nombre:'Chaleco de alta visibilidad', icono:'🦺', norma:'NCh 1303 / ANSI 107 Clase 2', motivo:'Obligatorio en vías de tránsito y zonas con maquinaria en movimiento.' },
+  chaleco_salvavidas: { nombre:'Chaleco salvavidas / flotación', icono:'🛟', norma:'DS 430 / ISO 12402', motivo:'Obligatorio para trabajo en o sobre el agua según DS 430 MINTRAB.' },
+  arnés: { nombre:'Arnés de seguridad cuerpo completo', icono:'🪝', norma:'NCh 1252 / NCh 2374', motivo:'Obligatorio en trabajos sobre 1,8 m de altura sin protección colectiva (DS 594).' },
+  respirador_polvo: { nombre:'Respirador desechable (N95/P2)', icono:'😷', norma:'NCh 2378 / NIOSH N95', motivo:'Para polvo y partículas. Obligatorio si concentración supera límites DS 594.' },
+  respirador_p100: { nombre:'Respirador con filtro P100', icono:'😷', norma:'NCh 2378 / NIOSH P100', motivo:'Eficiencia 99,97%. Para polvos finos, sílice, asbesto y metales pesados.' },
+  respirador_gases: { nombre:'Respirador con filtro gases/vapores (OV/AG)', icono:'😷', norma:'NCh 1284 / EN 14387', motivo:'Para solventes, pesticidas, pinturas y gases tóxicos. Cambiar filtro cada 40 hrs.' },
+  mascara_completa: { nombre:'Máscara completa con filtro combinado', icono:'😷', norma:'NCh 2378', motivo:'Para exposición severa a gases o donde se requiere protección ocular integrada.' },
+  ropa_soldador: { nombre:'Ropa de soldador (algodón/FR)', icono:'🧥', norma:'NCh 1806 / EN ISO 11612', motivo:'Sin materiales sintéticos. Protege contra chispas y salpicaduras metálicas.' },
+  coleto: { nombre:'Coleto o delantal de cuero', icono:'🧥', norma:'NCh 1806', motivo:'Protección adicional del tronco en soldadura vertical o sobre la cabeza.' },
+  ropa_quimica: { nombre:'Traje de protección química (Tyvek / PVC)', icono:'🧥', norma:'NCh 1303 / EN 13982', motivo:'Barrera contra salpicaduras de químicos. Tipo según concentración y agente.' },
+  ropa_algodon: { nombre:'Ropa 100% algodón (sin sintéticos)', icono:'🧥', norma:'NCh 1303', motivo:'En trabajos eléctricos se prohíbe ropa sintética que pueda derretirse.' },
+  ropa_arco_electrico: { nombre:'Ropa protección arco eléctrico (FR/ARC)', icono:'🧥', norma:'NFPA 70E / IEC 61482', motivo:'Obligatoria en alta tensión. Certificada con valor ATPV según nivel de riesgo.' },
+  ropa_termica: { nombre:'Ropa térmica interior y exterior', icono:'🧥', norma:'EN 342', motivo:'Para trabajos en frío extremo bajo 0°C. Sistema de capas recomendado.' },
+  ropa_uv: { nombre:'Ropa de protección solar (UPF 40+)', icono:'🧥', norma:'NCh 3273 / AS/NZS 4399', motivo:'Para trabajos al aire libre con exposición solar prolongada (Ley Ricarte Soto).' },
+  pantalon_anticorte: { nombre:'Pantalón anticorte para motosierra', icono:'🧥', norma:'EN ISO 11393', motivo:'Obligatorio para operadores de motosierra. Capas de fibra que detienen la cadena.' },
+  bata_lab: { nombre:'Bata de laboratorio', icono:'🧥', norma:'EN 13034', motivo:'Barrera básica contra salpicaduras en laboratorio. Algodón o FR según riesgo.' },
+  delantal_impermeable: { nombre:'Delantal impermeable', icono:'🧥', norma:'NCh 1303', motivo:'Protección contra agua, sangre y fluidos en procesamiento de alimentos.' },
+  mascarilla_quirurgica: { nombre:'Mascarilla quirúrgica', icono:'😷', norma:'EN 14683 Tipo II', motivo:'Barrera contra fluidos y partículas grandes en atención sanitaria básica.' },
+  mascarilla_n95: { nombre:'Mascarilla N95 / FFP2', icono:'😷', norma:'NIOSH N95 / EN 149 FFP2', motivo:'Filtra ≥95% de partículas. Obligatoria en procedimientos aerosol-generadores.' },
+  faja_lumbar: { nombre:'Faja lumbar ergonómica', icono:'🩺', norma:'DS 594 / Guía MINSAL ergonomía', motivo:'Recomendada en manejo manual de cargas superiores a 25 kg (hombres) o 15 kg (mujeres).' },
+  equipo_buceo: { nombre:'Equipo de buceo industrial certificado', icono:'🤿', norma:'DS 430 MINTRAB', motivo:'Obligatorio para buceo industrial según reglamento específico.' },
+  sombrero_uv: { nombre:'Sombrero o casco con ala solar (UPF 50+)', icono:'👒', norma:'NCh 3273', motivo:'Protección UV para trabajo al aire libre. Complementar con ropa y bloqueador solar.' },
+  gorro: { nombre:'Gorro quirúrgico', icono:'👒', norma:'Reglamento MINSAL', motivo:'Control de contaminación biológica en pabellones y áreas estériles.' },
+};
+
+let calcIndustriaSelected = null;
+
+function selectIndustria(btn, industria) {
+  document.querySelectorAll('#calcIndustrias .calc-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  calcIndustriaSelected = industria;
+  const faenas = CALC_DATA[industria].faenas;
+  const div = document.getElementById('calcFaenas');
+  div.innerHTML = Object.keys(faenas).map(f =>
+    `<button onclick="calcularEPP(this,'${industria}','${f.replace(/'/g,"\\'")}','${Object.keys(faenas).indexOf(f)}')" class="calc-btn">${f}</button>`
+  ).join('');
+  document.getElementById('calcFaenaDiv').style.display = 'block';
+  document.getElementById('calcResultado').style.display = 'none';
+  div.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function calcularEPP(btn, industria, faenaKey, idx) {
+  document.querySelectorAll('#calcFaenas .calc-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const faenas = CALC_DATA[industria].faenas;
+  const faena = Object.keys(faenas)[parseInt(idx)];
+  const epps = faenas[faena];
+  const resultDiv = document.getElementById('calcResultado');
+  resultDiv.innerHTML = `
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#a3e635;margin-bottom:1rem;letter-spacing:.5px;">
+      ✅ EPP REQUERIDOS PARA: ${faena.toUpperCase()}
+    </div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;">Según DS 594/99 MINSAL y normativas vigentes en Chile — ${epps.length} elementos obligatorios</div>
+    ${epps.map(e => {
+      const info = EPP_INFO[e];
+      if (!info) return '';
+      return `<div class="epp-resultado-card">
+        <div class="epp-nombre">${info.icono} ${info.nombre}</div>
+        <div class="epp-norma">📋 ${info.norma}</div>
+        <div class="epp-motivo">${info.motivo}</div>
+      </div>`;
+    }).join('')}
+    <div style="margin-top:1rem;font-size:.75rem;color:var(--muted);padding:.8rem;background:rgba(255,255,255,.03);border-radius:8px;">
+      ⚠️ Esta lista es referencial. Siempre complemente con la evaluación de riesgos específica de su faena y la asesoría de su organismo administrador (ACHS, IST, Mutual, etc.).
+    </div>
+  `;
+  resultDiv.style.display = 'block';
+  resultDiv.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
 // ─── NORMAS MODAL ────────────────────────────────────────────
@@ -2127,7 +2820,11 @@ async function identifyFromPhoto(event) {
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 400,
@@ -2192,7 +2889,10 @@ Si no es un EPP o no puedes identificarlo, devuelve {"found": false}.`
     setTimeout(() => URL.revokeObjectURL(previewUrl), 10000);
 
   } catch(e) {
-    panel.innerHTML = `<div class="photo-result-header">❌ ${lang==='es' ? 'Error al analizar la imagen.' : 'Error analyzing image.'}</div>`;
+    panel.innerHTML = `<div class="photo-result-header" style="flex-direction:column;align-items:flex-start;gap:.5rem;">
+      ❌ ${lang==='es' ? 'No se pudo analizar la imagen.' : 'Could not analyze the image.'}
+      <span style="font-size:.75rem;color:var(--muted);">${lang==='es' ? 'Intenta con una foto más clara, bien iluminada y con el EPP visible.' : 'Try a clearer, well-lit photo with the PPE clearly visible.'}</span>
+    </div>`;
   }
 
   // Limpiar input para permitir subir la misma foto de nuevo
