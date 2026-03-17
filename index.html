@@ -118,6 +118,7 @@
   .fam-alco { background:rgba(20,184,166,.15); color:#2dd4bf; }
   .fam-barreras { background:rgba(251,191,36,.15); color:#fde68a; }
   .fam-ignifugo { background:rgba(239,68,68,.12); color:#fca5a5; }
+  .fam-soldador { background:rgba(180,83,9,.15); color:#fdba74; }
   .fam-respiratoria { background:rgba(56,189,248,.15); color:#38bdf8; }
   .fam-caidas { background:rgba(217,119,6,.15); color:#fbbf24; }
 
@@ -236,53 +237,7 @@
   }
   .btn-secondary:hover { border-color:var(--muted); color:var(--text); }
 
-  .search-input { padding-right: 90px; }
-  .photo-btn {
-    position:absolute; right:50px; top:50%; transform:translateY(-50%);
-    background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3);
-    color:var(--accent); width:34px; height:34px; border-radius:8px;
-    cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center;
-    transition:all .2s;
-  }
-  .photo-btn:hover { background:var(--accent); color:#000; }
-
-  /* PANEL IDENTIFICACIÓN POR FOTO */
-  .photo-result-panel {
-    max-width:700px; margin:.8rem auto 0;
-    background:linear-gradient(135deg, rgba(16,185,129,.08), rgba(16,185,129,.03));
-    border:1px solid rgba(16,185,129,.25); border-radius:12px;
-    overflow:hidden; transition:all .3s;
-  }
-  .photo-result-header {
-    display:flex; align-items:center; gap:10px;
-    padding:10px 16px; font-size:.82rem; color:var(--accent3); font-weight:600;
-  }
-  .photo-result-body { padding:0 16px 16px; }
-  .photo-preview-wrap {
-    display:flex; gap:14px; align-items:flex-start; margin-bottom:12px;
-  }
-  .photo-preview {
-    width:80px; height:80px; object-fit:cover; border-radius:8px;
-    border:1px solid var(--border); flex-shrink:0;
-  }
-  .photo-identified-name {
-    font-family:'Barlow Condensed',sans-serif; font-size:1.3rem;
-    font-weight:700; color:var(--text); margin-bottom:4px;
-  }
-  .photo-identified-desc { font-size:.82rem; color:var(--muted); line-height:1.5; }
-  .photo-search-btn {
-    display:inline-flex; align-items:center; gap:6px;
-    padding:8px 16px; border-radius:8px; border:none;
-    background:var(--accent3); color:#000; font-family:'Barlow Condensed',sans-serif;
-    font-size:.95rem; font-weight:700; cursor:pointer; transition:all .2s;
-    letter-spacing:.5px; margin-top:8px;
-  }
-  .photo-search-btn:hover { background:#059669; color:#fff; }
-  .photo-privacy {
-    font-size:.72rem; color:var(--muted); margin-top:8px;
-    padding-top:8px; border-top:1px solid var(--border);
-    display:flex; align-items:center; gap:4px;
-  }
+  .search-input { padding-right: 50px; }
 
   /* BANNER ISP */
   .isp-banner {
@@ -497,8 +452,6 @@
         placeholder="Ej: respirador, botín de seguridad, casco..." 
         oninput="onSearch()" autocomplete="off">
       <button class="search-clear" id="clearBtn" onclick="clearSearch()">✕</button>
-      <button class="photo-btn" id="photoBtn" onclick="document.getElementById('photoInput').click()" title="Identificar EPP por foto">📷</button>
-      <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="identifyFromPhoto(event)">
     </div>
     <div id="searchTip" style="font-size:.75rem;color:var(--muted);margin-top:.5rem;text-align:center;transition:all .2s;">
       💡 <span data-es="Usa * como comodín:" data-en="Use * as wildcard:">Usa * como comodín:</span>
@@ -508,7 +461,6 @@
       &nbsp;·&nbsp;
       <code style="background:rgba(245,158,11,.1);color:var(--accent);padding:1px 6px;border-radius:4px;font-size:.75rem;">*casco*ratchet*</code>
     </div>
-    <div id="photoResultPanel" class="photo-result-panel" style="display:none;"></div>
     <a class="isp-banner" href="https://www.ispch.gob.cl/listadoepp/" target="_blank" rel="noopener">
       <div class="isp-left">
         <div class="isp-icon">🏛️</div>
@@ -1125,7 +1077,8 @@
         <span style="background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">✅ Norma obligatoria</span>
         <span style="background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">📋 Norma referencial</span>
         <span style="background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">🏭 Recomendación fabricante</span>
-        <span style="background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">⚠️ Sin norma en Chile — criterio visual</span>
+        <span style="background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">👁️ Criterio visual</span>
+        <span style="background:rgba(236,72,153,.1);color:#f9a8d4;border:1px solid rgba(236,72,153,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">👆 Criterio táctil</span>
       </div>
     </div>
 
@@ -1255,7 +1208,7 @@
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Cuero / cabritilla</td>
                 <td style="padding:8px;color:#a3e635;font-weight:700;">3–6 meses</td>
-                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — criterio visual</span></td>
+                <td style="padding:8px;display:flex;flex-wrap:wrap;gap:3px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span><span style="background:rgba(236,72,153,.1);color:#f9a8d4;border-radius:4px;padding:2px 7px;font-size:.7rem;">👆 Criterio táctil</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Nitrilo / látex desechable</td>
@@ -1270,7 +1223,7 @@
               <tr>
                 <td style="padding:8px;color:var(--text);">Anticorte (fibra)</td>
                 <td style="padding:8px;color:#a3e635;font-weight:700;">6–12 meses</td>
-                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — criterio visual</span></td>
+                <td style="padding:8px;display:flex;flex-wrap:wrap;gap:3px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span><span style="background:rgba(236,72,153,.1);color:#f9a8d4;border-radius:4px;padding:2px 7px;font-size:.7rem;">👆 Criterio táctil</span></td>
               </tr>
             </tbody>
           </table>
@@ -1362,7 +1315,7 @@
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Tapones reutilizables</td>
                 <td style="padding:8px;color:#fbbf24;font-weight:700;">3–6 meses</td>
-                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — criterio táctil</span></td>
+                <td style="padding:8px;display:flex;flex-wrap:wrap;gap:3px;"><span style="background:rgba(236,72,153,.1);color:#f9a8d4;border-radius:4px;padding:2px 7px;font-size:.7rem;">👆 Criterio táctil</span><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span></td>
               </tr>
               <tr>
                 <td style="padding:8px;color:var(--text);">Orejeras de copa</td>
@@ -1404,12 +1357,12 @@
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Chaleco alta visibilidad</td>
                 <td style="padding:8px;color:#fbbf24;font-weight:700;">1–2 años / 25 lavados</td>
-                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma en Chile — reflectividad visual</span></td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span></td>
               </tr>
               <tr>
                 <td style="padding:8px;color:var(--text);">Ropa cuero soldador</td>
                 <td style="padding:8px;color:#a3e635;font-weight:700;">1–3 años</td>
-                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚠️ Sin norma específica — criterio visual</span></td>
+                <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span></td>
               </tr>
             </tbody>
           </table>
@@ -1522,6 +1475,7 @@
             <option value="alco">🍃 Alcoholímetro</option>
             <option value="barreras">🚧 Barreras / Jersey</option>
             <option value="ignifugo">🔥 Ropa Ignífuga</option>
+            <option value="soldador">🔩 Ropa Soldador (Cuero)</option>
             <option value="respiratoria">😷 Protección Respiratoria</option>
             <option value="caidas">🪝 Protección contra Caídas</option>
           </select>
@@ -1646,6 +1600,7 @@ const FAMILIES = {
   alco:     { es:'Alcoholímetro/Alcotest',en:'Breathalyzer',      icon:'🍃', cls:'fam-alco' },
   barreras: { es:'Barreras / Jersey',    en:'Barriers / Jersey',  icon:'🚧', cls:'fam-barreras' },
   ignifugo: { es:'Ropa Ignífuga',        en:'Flame Resistant Clothing', icon:'🔥', cls:'fam-ignifugo' },
+  soldador: { es:'Ropa Soldador (Cuero)', en:'Welder Leather Protection', icon:'🔩', cls:'fam-soldador' },
   respiratoria: { es:'Protección Respiratoria', en:'Respiratory Protection', icon:'😷', cls:'fam-respiratoria' },
   caidas:   { es:'Protección contra Caídas', en:'Fall Protection',    icon:'🪝', cls:'fam-caidas' },
 };
@@ -1725,41 +1680,41 @@ const PROVIDERS = {
 // ─── PRODUCT DATABASE ────────────────────────────────────────
 let products = [
   // CALZADO
-  { id:1,  name:'Botín de seguridad punta de acero', family:'calzado', desc:'Cuero vacuno, punta de acero, suela antideslizante, resistente a hidrocarburos', tags:['botin','acero','cuero','negro','seguridad','calzado'],
+  { id:1,  name:'Botín de seguridad punta de acero', family:'calzado', desc:'Cuero vacuno, punta de acero, suela antideslizante, resistente a hidrocarburos', tags:['botin','acero','cuero vacuno','negro','seguridad','calzado','s3','iso20345','punta acero','suela pu','antideslizante','hidrocarburos','obra','construccion','industria'],
     providers:['apro','treck','safetystore','eppchile','kupfer','novaseg','segurycel','maxservice','ksltda','cespal','garmendia','vicsa','kuppel','ppe',,'impsafety','qsupply','prosafety','segindustrial','hseguridad',,'eppindustrial',,,'safetyfirst','proteknica'] },
-  { id:2,  name:'Botín anticlavo', family:'calzado', desc:'Plantilla de acero anticlavos, cuero flor, norma ISO 20345', tags:['botin','anticlavo','plantilla acero','cuero flor','seguridad'],
+  { id:2,  name:'Botín anticlavo', family:'calzado', desc:'Plantilla de acero anticlavos, cuero flor, norma ISO 20345', tags:['botin','anticlavo','plantilla acero','cuero flor','flor','s3','iso20345','suela antideslizante','construccion','obra','forestal'],
     providers:['apro','treck','segurycel','kupfer','safetystore','prosafety','eppchile','novaseg','maxservice','ksltda','cespal',,'impsafety','qsupply','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','vicsa','garmendia'] },
-  { id:3,  name:'Botín dieléctrico', family:'calzado', desc:'Sin partes metálicas, aislante eléctrico, cuero vacuno, suela PU', tags:['botin','dielectrico','electrico','aislante','cuero'],
+  { id:3,  name:'Botín dieléctrico', family:'calzado', desc:'Sin partes metálicas, aislante eléctrico, cuero vacuno, suela PU', tags:['botin','dielectrico','electrico','aislante','cuero vacuno','sin metal','suela pu','600v','electricista','nch2147'],
     providers:['apro','treck','safetystore','eppindustrial','safetyfirst','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','segindustrial',,'proteknica','hseguridad'] },
-  { id:4,  name:'Botín de goma (rubber boot)', family:'calzado', desc:'PVC/Goma, resistente a líquidos y químicos, uso industrial', tags:['botin','goma','pvc','agua','quimico','rubber'],
+  { id:4,  name:'Botín de goma (rubber boot)', family:'calzado', desc:'PVC/Goma, resistente a líquidos y químicos, uso industrial', tags:['botin','goma','pvc','agua','quimico','rubber','liquidos','barro','lluvia','pesca','agricultura','alimentaria','impermeable'],
     providers:['kupfer','safetystore',,'apro','treck','novaseg','eppchile','segurycel','prosafety',,'impsafety','segindustrial','eppindustrial',,'safetyfirst','hseguridad','qsupply'] },
-  { id:5,  name:'Zapato de seguridad bajo', family:'calzado', desc:'Punta de acero, perfil bajo, cómodo para trabajo en planta', tags:['zapato','seguridad','punta acero','bajo','planta'],
+  { id:5,  name:'Zapato de seguridad bajo', family:'calzado', desc:'Punta de acero, perfil bajo, cómodo para trabajo en planta', tags:['zapato','seguridad','punta acero','bajo','planta','cuero vacuno','s1','s2','iso20345','industria','manufactura'],
     providers:['apro','eppchile','segindustrial','treck','safetystore','kupfer','novaseg','segurycel','prosafety','maxservice',,'impsafety','qsupply',,'eppindustrial',,'safetyfirst','proteknica','hseguridad','vicsa'] },
-  { id:6,  name:'Bota de seguridad caña alta', family:'calzado', desc:'Cuero vacuno, caña alta, punta acero, resistente a humedad', tags:['bota','cana alta','cuero','acero','mineria','construccion'],
+  { id:6,  name:'Bota de seguridad caña alta', family:'calzado', desc:'Cuero vacuno, caña alta, punta acero, resistente a humedad', tags:['bota','cana alta','cuero vacuno','acero','mineria','construccion','engrasado','nobuck','s3','iso20345','humedad','barro'],
     providers:['apro','treck','kupfer','novaseg','safetystore','segurycel','eppchile','prosafety','maxservice','ksltda',,'impsafety','qsupply','segindustrial',,'eppindustrial',,'safetyfirst','proteknica','hseguridad'] },
-  { id:7,  name:'Botín cuero napa', family:'calzado', desc:'Cuero napa suave, plantilla anticlavo, plantilla textil interior', tags:['botin','napa','cuero napa','suave','plantilla'],
+  { id:7,  name:'Botín cuero napa', family:'calzado', desc:'Cuero napa suave, plantilla anticlavo, plantilla textil interior', tags:['botin','napa','cuero napa','suave','plantilla','anticlavo','flexible','liviano','planta','industria liviana'],
     providers:['safetystore','prosafety','garmendia','apro','treck','kupfer','novaseg','segurycel','eppchile',,'impsafety','qsupply','segindustrial',,'eppindustrial',,'safetyfirst'] },
-  { id:8,  name:'Botín cuero flor', family:'calzado', desc:'Cuero flor de primera calidad, puntera acero, suela TR', tags:['botin','cuero flor','flor','calidad','suela tr'],
+  { id:8,  name:'Botín cuero flor', family:'calzado', desc:'Cuero flor de primera calidad, puntera acero, suela TR', tags:['botin','cuero flor','flor','calidad','suela tr','cuero full grain','s2','s3','iso20345','nobuck','engrasado'],
     providers:['apro','kupfer','treck','safetystore','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','segindustrial',,'eppindustrial',,'safetyfirst','proteknica'] },
 
   // GUANTES
-  { id:9,  name:'Guante cabritilla', family:'guantes', desc:'Cuero cabritilla natural, flexible, para trabajos de precisión y manejo', tags:['guante','cabritilla','cuero','precision','manejo','delgado'],
+  { id:9,  name:'Guante cabritilla', family:'guantes', desc:'Cuero cabritilla natural, flexible, para trabajos de precisión y manejo', tags:['guante','cabritilla','cuero cabritilla','precision','manejo','delgado','flexible','liviano','mecanico','tacto','costura'],
     providers:['apro','safetystore','eppchile','vicsa','kuppel','treck','kupfer','novaseg','segurycel','prosafety','maxservice','ksltda','cespal',,'impsafety','qsupply','atm','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
-  { id:10, name:'Guante de látex', family:'guantes', desc:'Látex natural, resistente a ácidos diluidos y bases, uso industrial', tags:['guante','latex','quimico','acido','base','industrial'],
+  { id:10, name:'Guante de látex', family:'guantes', desc:'Látex natural, resistente a ácidos diluidos y bases, uso industrial', tags:['guante','latex','latex natural','quimico','acido','base','industrial','laboratorio','resistencia quimica','en374'],
     providers:['apro','3m','safetystore','atm','rac','kupfer','novaseg','segurycel','vicsa','kuppel','prosafety','maxservice',,'impsafety','qsupply','eppchile','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
-  { id:11, name:'Guante nitrilo', family:'guantes', desc:'Nitrilo resistente a aceites, grasas y solventes, mayor durabilidad que látex', tags:['guante','nitrilo','aceite','grasa','solvente','quimico'],
+  { id:11, name:'Guante nitrilo', family:'guantes', desc:'Nitrilo resistente a aceites, grasas y solventes, mayor durabilidad que látex', tags:['guante','nitrilo','nitrilo grueso','aceite','grasa','solvente','quimico','mecanico','resistente','en374','en388','taller'],
     providers:['apro','3m','safetystore','atm','eppchile','kupfer','novaseg','segurycel','vicsa','kuppel','prosafety','maxservice',,'impsafety','qsupply','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
-  { id:12, name:'Guante cuero vaqueta', family:'guantes', desc:'Cuero vacuno vaqueta, resistente a abrasión y calor moderado', tags:['guante','vaqueta','cuero vacuno','abrasion','calor','soldadura'],
+  { id:12, name:'Guante cuero vaqueta', family:'guantes', desc:'Cuero vacuno vaqueta, resistente a abrasión y calor moderado', tags:['guante','vaqueta','cuero vacuno','cuero vaqueta','abrasion','calor','soldadura','manejo materiales','mineria','construccion','en388'],
     providers:['apro','kupfer','safetystore','novaseg','treck','segurycel','eppchile','prosafety','maxservice','ksltda',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','vicsa'] },
-  { id:13, name:'Guante anticorte nivel 5', family:'guantes', desc:'Fibra HPPE, máxima protección anticorte, certificación EN388', tags:['guante','anticorte','nivel 5','hppe','corte','vidrio'],
+  { id:13, name:'Guante anticorte nivel 5', family:'guantes', desc:'Fibra HPPE, máxima protección anticorte, certificación EN388', tags:['guante','anticorte','nivel 5','hppe','fibra hppe','corte','vidrio','metal','en388','a5','a6','industria vidrio','reciclaje'],
     providers:['apro','3m','safetystore','atm','kupfer','novaseg','vicsa','kuppel','prosafety',,'impsafety','qsupply','eppchile','segindustrial','hseguridad','eppindustrial',,'safetyfirst','proteknica'] },
-  { id:14, name:'Guante soldador', family:'guantes', desc:'Cuero cromo, resistente a calor intenso y chispas, caña larga', tags:['guante','soldador','soldadura','calor','cromo','chispas'],
+  { id:14, name:'Guante soldador', family:'guantes', desc:'Cuero cromo, resistente a calor intenso y chispas, caña larga', tags:['guante','soldador','soldadura','calor','cuero cromo','chispas','mig','tig','electrodo','cana larga','en12477','fr'],
     providers:['apro','kupfer','novaseg','safetystore','treck','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','acetogen'] },
-  { id:15, name:'Guante descarne', family:'guantes', desc:'Cuero vacuno descarne, resistente, para manipulación de materiales pesados', tags:['guante','descarne','cuero','pesado','construccion','carga'],
+  { id:15, name:'Guante descarne', family:'guantes', desc:'Cuero vacuno descarne, resistente, para manipulación de materiales pesados', tags:['guante','descarne','cuero descarne','cuero vacuno','pesado','construccion','carga','manejo','abrasion','split leather'],
     providers:['apro','safetystore','eppindustrial',,'kupfer','treck','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad',,'safetyfirst','proteknica'] },
-  { id:16, name:'Guante PVC', family:'guantes', desc:'PVC resistente a químicos, aceites y agua, palma texturizada', tags:['guante','pvc','quimico','agua','aceite','texturizado'],
+  { id:16, name:'Guante PVC', family:'guantes', desc:'PVC resistente a químicos, aceites y agua, palma texturizada', tags:['guante','pvc','quimico','agua','aceite','texturizado','impermeable','liquidos','resistencia quimica','en374','palma pvc'],
     providers:['kupfer','safetystore','prosafety','apro','3m','novaseg','segurycel','eppchile','vicsa',,'impsafety','qsupply','atm','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
-  { id:17, name:'Guante de tela (hilo)', family:'guantes', desc:'Hilo de algodón o poliéster, uso general, lavable', tags:['guante','tela','hilo','algodon','poliester','general'],
+  { id:17, name:'Guante de tela (hilo)', family:'guantes', desc:'Hilo de algodón o poliéster, uso general, lavable', tags:['guante','tela','hilo','algodon','poliester','general','liviano','lavable','uso general','semirrigido','punto'],
     providers:['safetystore','eppchile',,'apro','treck','kupfer','novaseg','segurycel','prosafety','maxservice',,'impsafety','qsupply','atm','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','vicsa'] },
 
   // CABEZA
@@ -1873,19 +1828,19 @@ let products = [
     providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','vicsa','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','gsp'] },
 
   // PROTECCIÓN RESPIRATORIA
-  { id:62, name:'Mascarilla desechable N95 / KN95', family:'respiratoria', desc:'Filtración ≥95% partículas, ajuste nasal metálico, uso en polvo, humo y aerosoles, certificación NIOSH/GB2626', tags:['mascarilla','n95','kn95','desechable','polvo','niosh','particulas','aerosol','covid'],
+  { id:62, name:'Mascarilla desechable N95 / KN95', family:'respiratoria', desc:'Filtración ≥95% partículas, ajuste nasal metálico, uso en polvo, humo y aerosoles, certificación NIOSH/GB2626', tags:['mascarilla','n95','kn95','desechable','polvo','niosh','particulas','aerosol','silice','amianto','metal','ffp2','pm25'],
     providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','segurycel','eppchile','prosafety','maxservice',,'impsafety','qsupply','rac','kuppel','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica','acetogen'] },
-  { id:63, name:'Mascarilla desechable 3 pliegues (quirúrgica)', family:'respiratoria', desc:'Filtración básica de partículas y salpicaduras, uso general en faenas y espacios controlados', tags:['mascarilla','3 pliegues','quirurgica','desechable','basica','faena','general'],
+  { id:63, name:'Mascarilla desechable 3 pliegues (quirúrgica)', family:'respiratoria', desc:'Filtración básica de partículas y salpicaduras, uso general en faenas y espacios controlados', tags:['mascarilla','3 pliegues','quirurgica','desechable','basica','faena','general','tipo iir','salpicaduras','fluidos'],
     providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','eppchile','prosafety',,'impsafety','qsupply','rac','segindustrial','hseguridad',,'eppindustrial',,'safetyfirst','proteknica'] },
-  { id:64, name:'Respirador media cara con filtros', family:'respiratoria', desc:'Semi-máscara reutilizable, acepta cartuchos intercambiables para gases, vapores orgánicos y polvos', tags:['respirador','media cara','filtro','cartucho','vapor organico','gas','polvo','reutilizable'],
+  { id:64, name:'Respirador media cara con filtros', family:'respiratoria', desc:'Semi-máscara reutilizable, acepta cartuchos intercambiables para gases, vapores orgánicos y polvos', tags:['respirador','media cara','semimascara','filtro','cartucho','vapor organico','gas','polvo','reutilizable','silicona','nch1284','ffp2','p100'],
     providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety','maxservice',,'impsafety','qsupply','rac','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
-  { id:65, name:'Respirador cara completa', family:'respiratoria', desc:'Cobertura total del rostro, alta protección contra gases tóxicos, vapores y polvos, visor policarbonato', tags:['respirador','cara completa','gas','toxico','vapor','polvo','visor','mineria','quimico'],
+  { id:65, name:'Respirador cara completa', family:'respiratoria', desc:'Cobertura total del rostro, alta protección contra gases tóxicos, vapores y polvos, visor policarbonato', tags:['respirador','cara completa','mascara completa','full face','gas','toxico','vapor','polvo','visor','mineria','quimico','nch2378','amoniaco','cloro','h2s'],
     providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety',,'impsafety','qsupply','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
-  { id:66, name:'Cartucho / filtro para respirador (vapores orgánicos)', family:'respiratoria', desc:'Compatible con respiradores media cara y cara completa, para vapores orgánicos, solventes y pinturas', tags:['cartucho','filtro','vapor organico','solvente','pintura','respirador','recambio'],
+  { id:66, name:'Cartucho / filtro para respirador (vapores orgánicos)', family:'respiratoria', desc:'Compatible con respiradores media cara y cara completa, para vapores orgánicos, solventes y pinturas', tags:['cartucho','filtro','vapor organico','ov','solvente','pintura','thinner','benceno','tolueno','xileno','respirador','recambio','en14387','p100'],
     providers:['3m','apro','safetystore','atm','vicsa','kupfer','novaseg','prosafety',,'impsafety','qsupply','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen'] },
-  { id:67, name:'Cartucho filtro para gases ácidos / amoniaco', family:'respiratoria', desc:'Protección contra ácido clorhídrico, sulfúrico, amoniaco y gases ácidos en industria química', tags:['cartucho','filtro','acido','amoniaco','quimico','gas acido','industrial'],
+  { id:67, name:'Cartucho filtro para gases ácidos / amoniaco', family:'respiratoria', desc:'Protección contra ácido clorhídrico, sulfúrico, amoniaco y gases ácidos en industria química', tags:['cartucho','filtro','acido','amoniaco','nh3','acido clorhidrico','hcl','acido sulfurico','so2','dioxido azufre','cloro','cl2','gas acido','industrial','en14387','ag','b'],
     providers:['3m','apro','safetystore','atm','vicsa','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen','gsp'] },
-  { id:68, name:'Mascarilla para soldadura con válvula', family:'respiratoria', desc:'Filtro para humo de soldadura, partículas metálicas y ozono, con válvula exhalación, clase FFP3', tags:['mascarilla','soldadura','humo','metal','ozono','ffp3','valvula','soldador'],
+  { id:68, name:'Mascarilla para soldadura con válvula', family:'respiratoria', desc:'Filtro para humo de soldadura, partículas metálicas y ozono, con válvula exhalación, clase FFP3', tags:['mascarilla','soldadura','humo soldadura','humo metal','particulas metalicas','ozono','ffp3','p3','valvula','soldador','mig','tig','electrodo'],
     providers:['3m','apro','safetystore','atm','kupfer','novaseg','prosafety',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica','acetogen'] },
 
   // PROTECCIÓN CONTRA CAÍDAS
@@ -1901,6 +1856,37 @@ let products = [
     providers:['apro','safetystore','atm','3m','prosafety','vicsa','kupfer','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp','acetogen'] },
   { id:74, name:'Punto de anclaje portátil para vigas', family:'caidas', desc:'Se instala en vigas de acero o concreto, carga mínima 22kN, uso temporal en faenas', tags:['anclaje','portatil','viga','acero','concreto','faena','altura','instalacion'],
     providers:['apro','safetystore','atm','prosafety','vicsa','novaseg',,'impsafety','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','gsp'] },
+
+  // ROPA SOLDADOR CUERO
+  { id:75, name:'Coleto de cuero soldador', family:'soldador', desc:'Cuero vacuno o descarne, protección pecho y abdomen, resistente a chispas y salpicaduras metálicas, tiras ajustables', tags:['coleto','cuero','soldador','soldadura','pecho','chispas','salpicaduras','metal','nch1806','descarne','vacuno','mig','tig','electrodo'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:76, name:'Chaqueta de cuero soldador', family:'soldador', desc:'Cuero vacuno curtido al cromo, manga larga, protección total tronco y brazos, costuras resistentes al calor, broches metálicos', tags:['chaqueta','cuero','soldador','soldadura','manga larga','cromo','vacuno','chispas','calor','salpicaduras','nch1806','mig','tig','electrodo','arco'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:77, name:'Pantalón de cuero soldador', family:'soldador', desc:'Cuero vacuno o descarne, cobertura total de piernas, resistente a chispas, salpicaduras y calor radiante, cinturón reforzado', tags:['pantalon','cuero','soldador','soldadura','piernas','chispas','calor','salpicaduras','descarne','vacuno','nch1806','arco','electrodo','mig'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:78, name:'Polainas de cuero soldador', family:'soldador', desc:'Cuero vacuno curtido, protección de pierna baja y empeine, impiden entrada de chispas al calzado, hebillas metálicas ajustables', tags:['polainas','cuero','soldador','soldadura','pierna','empeine','chispas','calzado','hebilla','descarne','vacuno','nch1806','escarpines'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:79, name:'Escarpines de cuero soldador', family:'soldador', desc:'Cuero vacuno, cubren pie y tobillo completo, protección contra salpicaduras metálicas y chispas en trabajo a nivel del suelo, cierre velcro o hebilla', tags:['escarpines','cuero','soldador','soldadura','pie','tobillo','chispas','salpicaduras','velcro','hebilla','vacuno','nch1806','polainas pie'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:80, name:'Mangas de cuero soldador', family:'soldador', desc:'Cuero vacuno o descarne, protección de brazos desde muñeca hasta hombro, se usan sobre ropa de trabajo, elástico superior ajustable', tags:['mangas','cuero','soldador','soldadura','brazos','muneca','hombro','chispas','calor','descarne','vacuno','nch1806','mig','tig','electrodo'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:81, name:'Overol de cuero soldador (completo)', family:'soldador', desc:'Cuero vacuno de una pieza, cobertura total del cuerpo, máxima protección contra chispas y salpicaduras, uso en soldadura intensa o en altura', tags:['overol','cuero','soldador','soldadura','una pieza','cuerpo completo','chispas','salpicaduras','altura','vacuno','nch1806','arco','mig','tig','electrodo'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:82, name:'Babero / pechera de cuero soldador', family:'soldador', desc:'Cuero vacuno o descarne, protege pecho y parte de abdomen, más liviano que coleto, uso en soldadura MIG/TIG de baja intensidad', tags:['babero','pechera','cuero','soldador','soldadura','pecho','abdomen','mig','tig','liviano','descarne','vacuno','nch1806','chispas'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:83, name:'Capucha de cuero soldador', family:'soldador', desc:'Cuero vacuno, protección de cuello, orejas y parte superior de cabeza, se usa bajo careta de soldar, resistente a chispas y calor', tags:['capucha','cuero','soldador','soldadura','cuello','orejas','cabeza','chispas','calor','vacuno','nch1806','careta','electrodo','arco'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
+
+  { id:84, name:'Guante soldador caña larga cuero cromo', family:'soldador', desc:'Cuero cromo curtido, caña extra larga hasta codo, máxima protección brazo y antebrazo, ideal soldadura al arco y electrodo', tags:['guante','cuero cromo','soldador','soldadura','cana larga','codo','antebrazo','arco','electrodo','chispas','calor','nch1806','nch1115','en12477'],
+    providers:['apro','safetystore','kupfer','novaseg','vicsa','eppchile','prosafety','segindustrial','atm','eppindustrial','safetyfirst','proteknica','cespal','maryun'] },
 ];
 
 // ─── CORPORATE PROVIDERS ────────────────────────────────────
@@ -2958,118 +2944,7 @@ document.addEventListener('keydown', e => {
 });
 
 // ─── IDENTIFICACIÓN POR FOTO ─────────────────────────────────
-async function identifyFromPhoto(event) {
-  const file = event.target.files[0];
-  if (!file) return;
 
-  const panel = document.getElementById('photoResultPanel');
-  panel.style.display = 'block';
-  panel.innerHTML = `
-    <div class="photo-result-header">
-      <div class="spin" style="width:16px;height:16px;border:2px solid rgba(16,185,129,.3);border-top-color:#10b981;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;"></div>
-      ${lang==='es' ? 'Analizando imagen con IA...' : 'Analyzing image with AI...'}
-    </div>`;
-
-  // Convertir imagen a base64 — solo en memoria, nunca se sube a servidor
-  const base64 = await new Promise(res => {
-    const reader = new FileReader();
-    reader.onload = e => res(e.target.result.split(',')[1]);
-    reader.readAsDataURL(file);
-  });
-
-  // Preview local de la imagen
-  const previewUrl = URL.createObjectURL(file);
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        messages: [{
-          role: 'user',
-          content: [
-            {
-              type: 'image',
-              source: { type: 'base64', media_type: file.type, data: base64 }
-            },
-            {
-              type: 'text',
-              text: `Eres experto en EPP (Elementos de Protección Personal) para el mercado chileno.
-Analiza esta imagen e identifica el producto de seguridad industrial que aparece.
-Responde SOLO con JSON válido sin texto extra:
-{
-  "found": true/false,
-  "productName": "nombre exacto del producto EPP",
-  "brand": "marca si es visible o null",
-  "model": "modelo si es visible o null",
-  "description": "descripción breve de 1 línea",
-  "searchQuery": "término de búsqueda recomendado para encontrarlo"
-}
-Si no es un EPP o no puedes identificarlo, devuelve {"found": false}.`
-            }
-          ]
-        }]
-      })
-    });
-
-    const data = await res.json();
-    const text = data.content?.map(b => b.text || '').join('').trim();
-    const clean = text.replace(/```json|```/g, '').trim();
-    const result = JSON.parse(clean);
-
-    // Revocar URL del objeto después de usarla (no queda en memoria)
-    if (!result.found) {
-      panel.innerHTML = `
-        <div class="photo-result-header">⚠️ ${lang==='es' ? 'No se pudo identificar un EPP en la imagen.' : 'Could not identify PPE in the image.'}</div>`;
-      return;
-    }
-
-    const brandModel = [result.brand, result.model].filter(Boolean).join(' ');
-    panel.innerHTML = `
-      <div class="photo-result-header">✅ ${lang==='es' ? 'Producto identificado' : 'Product identified'}</div>
-      <div class="photo-result-body">
-        <div class="photo-preview-wrap">
-          <img class="photo-preview" src="${previewUrl}" alt="EPP">
-          <div>
-            <div class="photo-identified-name">${result.productName}</div>
-            ${brandModel ? `<div style="font-size:.8rem;color:var(--accent);font-weight:600;margin-bottom:4px;">${brandModel}</div>` : ''}
-            <div class="photo-identified-desc">${result.description}</div>
-            <button class="photo-search-btn" onclick="applyPhotoSearch('${result.searchQuery.replace(/'/g,"\\'")}')">
-              🔍 ${lang==='es' ? 'Buscar este producto' : 'Search this product'}
-            </button>
-          </div>
-        </div>
-        <div class="photo-privacy">🔒 ${lang==='es' ? 'La imagen se analiza localmente y no queda almacenada.' : 'Image is analyzed locally and not stored.'}</div>
-      </div>`;
-
-    // Liberar memoria del objeto URL
-    setTimeout(() => URL.revokeObjectURL(previewUrl), 10000);
-
-  } catch(e) {
-    panel.innerHTML = `<div class="photo-result-header" style="flex-direction:column;align-items:flex-start;gap:.5rem;">
-      ❌ ${lang==='es' ? 'No se pudo analizar la imagen.' : 'Could not analyze the image.'}
-      <span style="font-size:.75rem;color:var(--muted);">${lang==='es' ? 'Intenta con una foto más clara, bien iluminada y con el EPP visible.' : 'Try a clearer, well-lit photo with the PPE clearly visible.'}</span>
-    </div>`;
-  }
-
-  // Limpiar input para permitir subir la misma foto de nuevo
-  event.target.value = '';
-}
-
-function applyPhotoSearch(query) {
-  const input = document.getElementById('searchInput');
-  input.value = query;
-  searchQuery = query;
-  document.getElementById('clearBtn').classList.add('show');
-  document.getElementById('photoResultPanel').style.display = 'none';
-  renderProducts();
-}
 
 // ─── INIT ────────────────────────────────────────────────────
 renderFilters();
