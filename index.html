@@ -437,6 +437,7 @@
   <div class="tab" onclick="showTab('vida')" id="tab-vida">⏱️ <span data-es="Vida Útil" data-en="Service Life">Vida Útil</span></div>
   <div class="tab" onclick="showTab('prov')" id="tab-prov">🏪 <span data-es="Proveedores" data-en="Suppliers">Proveedores</span></div>
   <div class="tab" onclick="showTab('certcomp')" id="tab-certcomp">🔎 <span data-es="Certificaciones" data-en="Certifications">Certificaciones</span></div>
+  <div class="tab" onclick="showTab('fab')" id="tab-fab">🏭 <span data-es="Fabricantes ISP" data-en="ISP Manufacturers">Fabricantes ISP</span></div>
   <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B">Ropa Corporativa B2B</span></div>
   <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
 </div>
@@ -1442,6 +1443,33 @@
   </div>
 </div>
 
+<!-- FABRICANTES ISP TAB -->
+<div id="pane-fab" style="display:none;">
+  <div class="hero">
+    <h1><span>FABRICANTES</span> <span data-es="REGISTRADOS ISP" data-en="ISP REGISTERED">REGISTRADOS ISP</span></h1>
+    <p data-es="Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web" data-en="PPE manufacturers and importers registered with ISP Chile">Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web</p>
+  </div>
+  <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
+
+    <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.5rem;font-size:.82rem;color:#e0f2fe;line-height:1.6;">
+      🏛️ Empresas con productos inscritos en el <strong>Registro de Fabricantes e Importadores de EPP (RFI)</strong> del ISP, conforme al D.S. N°594/99 y Res. Ex. N°45/2023. Para verificar productos específicos visita <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" style="color:#38bdf8;">ispch.gob.cl/listadoepp</a>
+    </div>
+
+    <!-- Buscador -->
+    <div style="margin-bottom:1rem;">
+      <input id="fabSearch" type="text" placeholder="🔍 Filtrar fabricantes..."
+        oninput="renderFabricantes()"
+        style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+    </div>
+    <div id="fabCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
+    <div id="fabGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;"></div>
+
+    <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
+      ⚠️ Links referenciales. Verifica el estado actual del registro en ispch.gob.cl/listadoepp
+    </div>
+  </div>
+</div>
+
 <!-- CORPORATE TAB -->
 <div id="pane-corp" style="display:none;">
   <div class="hero">
@@ -2231,12 +2259,13 @@ function showTab(tab, skipAuth=false) {
     showAdminLogin();
     return;
   }
-  ['epp','norm','calc','vida','prov','certcomp','corp','admin'].forEach(t => {
+  ['epp','norm','calc','vida','prov','certcomp','fab','corp','admin'].forEach(t => {
     document.getElementById('pane-'+t).style.display = t===tab?'block':'none';
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
   });
   if (tab==='admin') renderAdminTable();
   if (tab==='corp') renderCorp();
+  if (tab==='fab') renderFabricantes();
   if (tab==='prov') renderProveedores();
 }
 
@@ -2556,6 +2585,389 @@ function renderProveedores() {
           </div>
           <div style="font-size:.72rem;color:var(--muted);word-break:break-all;">${domain}</div>
           <div style="margin-top:auto;font-size:.7rem;color:${color};font-weight:600;">Visitar sitio →</div>
+        </div>
+      </a>`;
+  }).join('');
+}
+
+const FABRICANTES_ISP = [
+  { nombre:'3M Chile S.A.', url:'https://www.3mchile.cl' },
+  { nombre:'ABB S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'ABT Import SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Abasnorth Mining Supply Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Absorbentes Industriales Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Acetogen Gas Chile S.A.', url:'https://acetogen.cl' },
+  { nombre:'Albranding SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Alfa M.R. Guantes Ltda.', url:'https://www.alfamr.cl' },
+  { nombre:'Allergika Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Altapro SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Amsec SpA.', url:'https://www.amsec.cl' },
+  { nombre:'Ana del Carmen Quiroz Quiroz', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Aracor Safety SpA.', url:'https://www.aracor.cl' },
+  { nombre:'Artículos médicos y quirúrgicos Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Asesorías y Ventas Santa Inés SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Azlan SpA.', url:'https://www.azlan.cl' },
+  { nombre:'B. Braun Medical SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'BTL Chile Comercialización Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'BYB Health Care Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Barron Vieyra International SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Barseg Insumos Industriales Ltda.', url:'https://www.barseg.cl' },
+  { nombre:'Base Protection S.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Basf Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Baspa SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Bata Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Bcorp S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Bechtel Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Beckart Tecnología Ambiental S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Before Publicidad SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'BiiMed Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Biomédica Ingeniería Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Biosupplies SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Biotec Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Blaspaint SpA', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Bluemedical SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Blunding S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'CK Equipamiento Aeronauticos S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Calzados Robusta S.L. Chile', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Casanova Fire Equipment Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Cegamed Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Central de Compras del Extrasistema S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Chile Medical SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Chilemontaña SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Chilena Industrial de Protección Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Chilesin S.A.', url:'https://www.chilesin.cl' },
+  { nombre:'Christian Aquiles Mauricio Cuq Maggi', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Cleanspace Technology Pty Limited', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Cofaseg Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial A. Marshall Moffat Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Alma Spa.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Andexport Limitada', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Bajo Cero Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Basau Limitada', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Clásica Dos SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Deysa SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Euroscan Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Fernando Khamis Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Globtek Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial ISSO Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Importa Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Interfuego Servicios Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Kuppel SpA.', url:'https://kuppel.cl' },
+  { nombre:'Comercial LBF Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Lemma S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Macme Ltda.', url:'https://www.macme.cl' },
+  { nombre:'Comercial Mave S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Milwaukee Tool Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial PCL SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Pcelectric S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Satex Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Servicios e Ingeniería CSI SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Tecnisold Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Terrarauco Maria Soledad Hernandez Pino E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Vaisman Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial Zonetrade SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial e Industrial Nova Seguridad Ltda.', url:'https://novaseguridad.cl' },
+  { nombre:'Comercial y Distribuidora Ortopedic SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial y Representaciones Austral Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercial y Servicios Verne SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora ADG Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Ansell Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Articulos seguridad industrial', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora DP Trading Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Davimer Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Hanania Saba SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Helios SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Jorge Santos Palma San Martin E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Kezver Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Motouring Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Multinacional S.A.,Comercializadora Multinacional SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora OFC SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Out SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora RMH SpA', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Servi-All Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Textil Sergatex S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Top Shoe Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora Vitatex Limitada.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora de Artículos de Protección y Seguridad industrial Manquehue Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora de Máquinas Bordados y Textiles Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora de Productos Eléctricos y Servicios SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora de Productos e Insumos para la Minería Gutierrez y Arce Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora de alimentos especializados medicamentos y dispositivos médicos SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora y Distribuidora de Prendas de Vestir y Uniformes y Merchandising Publicitario SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora y Exportadora Rako Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comercializadora y Servicios Industriales Discenter Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Comtec Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Confecciones Butka Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Confecciones Sartre y Cía. Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Confecciones Textiles Algarrobo Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Confecciones Vargas & Sepúlveda Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Consultora Sephur Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Cooperativa Agrícola y de Servicios Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Cristobal Andrés Saavedra Escobar', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'DABENCO', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Dauvin Lapislázuli Shop Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Dekel SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Deltaplus Chile SpA', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Deutsche Pharma S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Deutsche Schaulung (Chile) S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Difem Laboratorios S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Distribuidora Fastmed SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Distribuidora Industrial y Técnica SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Distribuidora Koslan SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Distribuidora de Productos Industriales y Comerciales del Sur S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Diversity Pro Comercial Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Drimys Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Droguería Hormann S.A.C.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Dräger Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'DuPont Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'EPP Technology SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Edgewell Personal Care Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Eglovex Chile Comercial SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Eikona SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Elecnor Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Elson Benjamin González González', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Emaresa Ingenieros y Representaciones S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Embalajes Internacionales OSKUPACK SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Equipos Médicos Zepeda y Compañía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Equipos Médicos del Pacífico SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Equipos de Autorrescate y Seguridad Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Equipos de Seguridad Ltda.,Equipos de Seguridad y Suministros Industriales Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Equipos de Seguridad NLT Chile', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Esteban Guic y Compañía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Farmacéutica Xenius SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Fastenal Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Felipe Olivares Miranda', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Ferreteria Marsella SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Flexing Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Forus S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Full Safety Company Ltda', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'G y G Thomas Safety S. A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Galigrú Sistemas de Seguridad SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Gandara Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Garmendia Macus S.A.', url:'https://www.garmendia.cl' },
+  { nombre:'Genera Industrial Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Georgina Rodriguez Corco Importadora de Insumos Mineros E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Geovita S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Gestión y Seguridad SPA', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Global Healthcare Chile L.P.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Global Safety Products SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Global Solution In Mining Equipment Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Globalcare Wellness SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'HD Ópticas S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Hemisferio Sur S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Honeywell Chile S.A.', url:'https://www.honeywell.com' },
+  { nombre:'Hospitalia Productos Médicos Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Implementos S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importaciones Exportaciones e Inversiones Axion Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importaciones e Inversiones Puerto Viejo S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importaciones y Exportaciones Enzo Llanos Cifuentes E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importaciones y Exportaciones Louropark y Cia. Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Agrofor Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Exportadora y Distribuidora JIG Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Helico Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Industrial Safety SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora New Ark Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Santa Beatriz SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Save Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora Y Comercializadora Prestech SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercial Natmor Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercializadora Best Ware House Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercializadora Iron SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercializadora MEDRED S.p.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercializadora Re-Med Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercializadora Sheck Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Comercializadora Solimar Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Distribuidora Morales y Compañía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Exportadora Ajax Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Exportadora Ante SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Exportadora Clever Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Exportadora Fulltex Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Exportadora Impomak S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y Exportadora Rio Ebro SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Importadora y comercializadora Juan Bazaez E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Indura S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Industria de Alimentos Trendy S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Industria Óptica Rodenstock Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Industrial Supplier SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Ingeniería en Sistemas de Detención de Caídas ALTI-TEC Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Ingeniería y Gestión en Salud y Seguridad Ocupacional Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Ingeniería y Seguridad Industrial KS Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Insumos Industriales Hills & Macfarlane Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Insumos Industriales Macfarlane Ltda', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Inter-Partners E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Inversiones CHM SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Inversiones MaGo SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Inversiones Solis y Varas Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Inversiones Tech Pro SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Investigaciones Mineras y Geológicas Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Iturri S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Jenner Health Care SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Kimberly Clark Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Koller Equipos Forestales Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Ksam SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Kuarxo Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Küpfer Hermanos S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'LPS Operaciones SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Laboratorio Maver S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Laboratorio Opticaria SPA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Laboratorio de Productos Cosméticos S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Laboratorios Recalcine S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Lakeland Industries Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Levtec Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Libus Chile Spa', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Lidia Baeza Muñoz Artículos de Seguridad E.I.R.L.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Logística Internacional S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'M&H Comercial e Industrial Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'MBX Gobal S.P.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'MSA Chile Equipos de Seguridad Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'MWG Chile SpA.,Matrix World Group SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Macaya Insumos Industriales Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Manufactura Exportadora e Importadora Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Manufacturas RAC Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Manufacturas de Artículos de Goma S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Masprot S.C.E.I. Ltda.', url:'https://www.masprot.cl' },
+  { nombre:'Master Service SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Max Service Seguridad Industrial S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Megalux Chile S.p.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Menner & Cañete S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Mister Precio SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Moldex Metric International Oficina de Representación en Chile,Moldex-Metric International LLC.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Molnlycke Health Care Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Montecarlo S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Munnich Pharma Medical Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Nordicepp SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Novedades Médicas S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Novosalud S.p.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Oasis Corporate Intl. S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Ocho Fuegos SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Olmos y Compañía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'One Safety Sotutions SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Paftec Australia Pty Limited', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Paraclinics S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Patricio Lioi y Cía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Pentagon S.A. Artículos de Seguridad y Productos Industriales', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Perfect Technology Chile', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Performance Speciality Products Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Personal Protective Equipment Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Peña Spoerer Cía. S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Promintec SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Promoprint Impresores Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Pronect SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Proteknica S.A.', url:'https://www.proteknica.cl' },
+  { nombre:'R y S Industrial Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rafcom Tecnología Digital SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Raquel Herrera Manley y Cía. Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Resafe SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Reutter S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rheintek Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rhona S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rizzoli Stefano y Compañía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Roberto Canales Villarroel y Compañía Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rossignol S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rothoblaas Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Rudolf Chile S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'SLMED By Solumed SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Safetec Solutions SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Safey Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sagita SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Saint Tropez SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Salazar Armando Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Salfacorp Comercial S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Santa Andrea SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Segma S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Seguridad Industrial SpA', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Seguridad Industrial e Ingeniería Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Seguridad Industrial e Ingeniería Ltda.,Seguridad Industrial e Ingeniería SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Seguridad y Tecnología Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Segurycel S.A.,Sociedad Comercializadora de Productos de Seguridad Industrial Celume y González S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Segusa Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Servicios Asesorías y Soluciones Financieras Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Servicios y Asesorías Healthstore S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Servicios y Eventos Activar Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Simma S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sinermed SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Administradora de Transporte y Logística Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Anónima Manufacturera de Caucho Tejidos y Cueros CATECU S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Astorga y Castillo Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Comercial AMW S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Comercial Mihovilovic Hermanos y Otro Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Comercial Zona Cero SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Comercial de Marketing M&V Ltda.,Sociedad Comercial de Marketing RRPP y Promociones M&V Ltda.,Sociedad Comercial de Marketing M&V SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad Distribuidora Importadora y Exportadora AMULEN SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad ESI Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad de Importación y Exportación Improfor Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sociedad de Productos y Servicios Solava Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sodimac S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Soldaduc SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Soluciones Corporativas y Servicios SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Soluciones Tecnológicas para la Comunicación SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Soluciones Vestuario Integral Limitada', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Spark Logistics SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Sport Optic Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'TSCOM SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Tecnicables Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Tecnika S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Tecnisafe Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Tecnoboga Comercial Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Tecnología y Equipos Tecplan Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Tecnología y Seguridad SBS Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Texam SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Texora S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'The Cooper Company SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'The Uniform Company SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Thomas Workwear SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Topsafety S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Torino Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Torino SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Trading Solutions Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Treck S.A.', url:'https://www.treck.cl' },
+  { nombre:'Tressa Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Triple C International SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'V y S Proyectos Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Versus Productos Industriales S.A.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Vertisub Chile SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Vicsa Safety Comercial Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'WMP SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Work Mining SpA.', url:'https://www.ispch.gob.cl/listadoepp/' },
+  { nombre:'Würth Chile Ltda.', url:'https://www.ispch.gob.cl/listadoepp/' },
+];
+
+function renderFabricantes() {
+  const q = (document.getElementById('fabSearch')?.value || '').toLowerCase().trim();
+  const grid = document.getElementById('fabGrid');
+  const countEl = document.getElementById('fabCount');
+  if (!grid) return;
+
+  const todos = FABRICANTES_ISP
+    .filter(f => !q || f.nombre.toLowerCase().includes(q))
+    .sort((a,b) => a.nombre.localeCompare(b.nombre, 'es'));
+
+  countEl.textContent = `${todos.length} fabricante${todos.length !== 1 ? 's' : ''} encontrado${todos.length !== 1 ? 's' : ''}`;
+
+  const colors = ['#f59e0b','#38bdf8','#a3e635','#f472b6','#818cf8','#34d399','#fb923c'];
+  const hasWeb = f => f.url !== 'https://www.ispch.gob.cl/listadoepp/';
+
+  grid.innerHTML = todos.map(f => {
+    const domain = hasWeb(f) ? f.url.replace(/https?:\/\/(www\.)?/,'').replace(/\/$/,'') : 'Ver en registro ISP';
+    const initial = f.nombre.charAt(0).toUpperCase();
+    const color = colors[f.nombre.charCodeAt(0) % colors.length];
+    return `
+      <a href="${f.url}" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;
+          display:flex;flex-direction:column;gap:.5rem;height:100%;box-sizing:border-box;transition:all .2s;"
+          onmouseover="this.style.borderColor='${color}';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.3)'"
+          onmouseout="this.style.borderColor='var(--border)';this.style.transform='none';this.style.boxShadow='none'">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <div style="width:36px;height:36px;border-radius:8px;background:${color}22;border:1px solid ${color}44;
+              display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;
+              font-size:1.1rem;font-weight:700;color:${color};flex-shrink:0;">${initial}</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;color:var(--text);line-height:1.3;">${f.nombre}</div>
+          </div>
+          <div style="font-size:.7rem;color:var(--muted);word-break:break-all;">${domain}</div>
+          <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:.7rem;color:${color};font-weight:600;">${hasWeb(f) ? 'Visitar sitio →' : 'Ver en ISP →'}</span>
+            <span style="font-size:.65rem;background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.25);border-radius:4px;padding:1px 7px;">✅ RFI ISP</span>
+          </div>
         </div>
       </a>`;
   }).join('');
