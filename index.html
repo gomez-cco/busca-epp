@@ -1026,7 +1026,11 @@
   </div>
   <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
 
-    <!-- Paso 1: Industria -->
+    <!-- Leyenda legal -->
+    <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;">
+      <span style="font-size:1.4rem;flex-shrink:0;">👷</span>
+      <span style="font-size:.82rem;color:#fde68a;line-height:1.6;"><strong>Aviso legal:</strong> Esta herramienta es solo referencial. <strong>Siempre asesórate con un Prevencionista de Riesgos</strong> para determinar los EPP adecuados a tu faena específica.</span>
+    </div>
     <div style="margin-bottom:1.5rem;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 1 — ¿En qué industria trabajas?</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;" id="calcIndustrias">
@@ -1551,6 +1555,10 @@
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
+      <div id="modalMarcasSection" style="display:none;margin-bottom:1.2rem;">
+        <div class="modal-section-title">🌍 Fabricantes internacionales</div>
+        <div class="modal-providers-grid" id="modalMarcas"></div>
+      </div>
       <div class="modal-section-title" id="modalProvTitle">Proveedores que venden este producto</div>
       <div class="modal-providers-grid" id="modalProviders"></div>
       <div class="modal-tags" id="modalTags"></div>
@@ -1640,7 +1648,7 @@ const PROVIDERS = {
   under:      { name:'Under / Matrix World Group', url:'https://www.matrixworldgroup.cl' },
   aracor:     { name:'ARACOR',            url:'https://www.aracor.cl' },
   abaindus:   { name:'Abaindus',          url:'https://www.abaindus.cl' },
-  ara:        { name:'ARA',               url:'https://www.ara.cl' },
+  ara:        { name:'Comercial Ara - Todo en un solo lugar', url:'https://www.ara.cl' },
   arcam:      { name:'Arcam',             url:'https://www.arcam.cl' },
   ataindus:   { name:'Ataindus',          url:'https://www.ataindus.cl' },
   balut:      { name:'Balut',             url:'https://www.balut.cl' },
@@ -2269,6 +2277,49 @@ function showToast(msg) {
 }
 
 // ─── MODAL ───────────────────────────────────────────────────
+// ─── FABRICANTES INTERNACIONALES ───────────────────────────────
+const MARCAS = {
+  62: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'}],
+  63: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Kimberly-Clark',url:'https://www.kimberly-clark.com',pais:'🇺🇸'}],
+  64: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'}],
+  65: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
+  66: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'}],
+  67: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'}],
+  68: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'}],
+  18: [{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'}],
+  19: [{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
+  21: [{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'}],
+  23: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Bolle Safety',url:'https://www.bollesafety.com',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'}],
+  24: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'},{name:'Bolle Safety',url:'https://www.bollesafety.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  25: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  26: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'},{name:'Bolle Safety',url:'https://www.bollesafety.com',pais:'🇫🇷'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'}],
+  27: [{name:'3M / Speedglas',url:'https://www.3m.com/speedglas',pais:'🇺🇸'},{name:'Optrel',url:'https://www.optrel.com',pais:'🇨🇭'},{name:'Lincoln Electric',url:'https://www.lincolnelectric.com',pais:'🇺🇸'},{name:'ESAB',url:'https://www.esab.com',pais:'🇸🇪'}],
+  9:  [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  10: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Mapa Professional',url:'https://www.mapa-pro.com',pais:'🇫🇷'},{name:'Showa',url:'https://www.showa-group.com',pais:'🇯🇵'}],
+  11: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Showa',url:'https://www.showa-group.com',pais:'🇯🇵'},{name:'Kimberly-Clark',url:'https://www.kimberly-clark.com',pais:'🇺🇸'},{name:'Mapa Professional',url:'https://www.mapa-pro.com',pais:'🇫🇷'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'}],
+  12: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'}],
+  13: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'},{name:'Showa',url:'https://www.showa-group.com',pais:'🇯🇵'}],
+  14: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'}],
+  1:  [{name:'Bata Industrials',url:'https://www.bataindustrials.com',pais:'🇨🇿'},{name:'Caterpillar / CAT',url:'https://www.catfootwear.com',pais:'🇺🇸'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
+  2:  [{name:'Bata Industrials',url:'https://www.bataindustrials.com',pais:'🇨🇿'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
+  3:  [{name:'Bata Industrials',url:'https://www.bataindustrials.com',pais:'🇨🇿'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  69: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Honeywell / Miller',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Camp Safety',url:'https://www.campsafety.com',pais:'🇮🇹'},{name:'Tractel',url:'https://www.tractel.com',pais:'🇫🇷'}],
+  70: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Honeywell / Miller',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'}],
+  71: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Honeywell / Miller',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Tractel',url:'https://www.tractel.com',pais:'🇫🇷'}],
+  72: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Tractel',url:'https://www.tractel.com',pais:'🇫🇷'}],
+  28: [{name:'3M / E-A-R',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell / Howard Leight',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'}],
+  29: [{name:'3M',url:'https://www.3m.com',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'}],
+  30: [{name:'3M / Peltor',url:'https://www.3m.com/peltor',pais:'🇺🇸'},{name:'Moldex',url:'https://www.moldex.com',pais:'🇺🇸'},{name:'Honeywell / Howard Leight',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  43: [{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Honeywell / BW',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Industrial Scientific',url:'https://www.indsci.com',pais:'🇺🇸'},{name:'Crowcon',url:'https://www.crowcon.com',pais:'🇬🇧'}],
+  44: [{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Honeywell / BW',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'}],
+  45: [{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Industrial Scientific',url:'https://www.indsci.com',pais:'🇺🇸'}],
+  46: [{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Dräger',url:'https://www.draeger.com',pais:'🇩🇪'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'}],
+  56: [{name:'DuPont / Nomex',url:'https://www.dupont.com/nomex',pais:'🇺🇸'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Lakeland',url:'https://www.lakeland.com',pais:'🇺🇸'}],
+  57: [{name:'DuPont / Nomex',url:'https://www.dupont.com/nomex',pais:'🇺🇸'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'},{name:'NSA',url:'https://www.thinknsa.com',pais:'🇺🇸'}],
+  58: [{name:'DuPont / Nomex',url:'https://www.dupont.com/nomex',pais:'🇺🇸'},{name:'Lakeland',url:'https://www.lakeland.com',pais:'🇺🇸'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  59: [{name:'DuPont / Nomex',url:'https://www.dupont.com/nomex',pais:'🇺🇸'},{name:'Lakeland',url:'https://www.lakeland.com',pais:'🇺🇸'},{name:'NSA',url:'https://www.thinknsa.com',pais:'🇺🇸'}],
+};
+
 function openModal(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
@@ -2279,7 +2330,27 @@ function openModal(id) {
   document.getElementById('modalTitle').textContent = p.name;
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalProvTitle').textContent =
-    lang==='es' ? `Proveedores que venden este producto (${p.providers.length})` : `Suppliers selling this product (${p.providers.length})`;
+    lang==='es' ? `🇨🇱 Distribuidores en Chile (${p.providers.length})` : `🇨🇱 Chilean distributors (${p.providers.length})`;
+
+  // Fabricantes internacionales
+  const marcas = MARCAS[p.id] || [];
+  const marcasSection = document.getElementById('modalMarcasSection');
+  const marcasGrid = document.getElementById('modalMarcas');
+  if (marcas.length > 0) {
+    marcasGrid.innerHTML = marcas.map(m => {
+      const display = m.url.replace('https://','').replace('http://','').replace('www.','').replace(/\/$/,'');
+      return `<a class="modal-provider-link" href="${m.url}" target="_blank" rel="noopener" style="border-color:rgba(163,230,53,.2);">
+        <div>
+          <div class="prov-name">${m.pais} ${m.name}</div>
+          <div class="prov-url">${display}</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>`;
+    }).join('');
+    marcasSection.style.display = 'block';
+  } else {
+    marcasSection.style.display = 'none';
+  }
 
   const grid = document.getElementById('modalProviders');
   grid.innerHTML = [...p.providers]
