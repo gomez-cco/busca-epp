@@ -5304,12 +5304,13 @@ const EXPERTOS_INICIALES = [
     nombre: 'Pablo San Martín Bustos',
     cargo: 'Jefe de Negocios y Venta Técnica — Mavid SPA',
     epp: 'Sistemas LOTO — Bloqueo y Etiquetado',
-    comentario: 'El uso correcto de los sistemas LOTO se traduce directamente en salvar vidas. En Mavid SPA entendemos que la seguridad industrial requiere protocolos rigurosos, alineados con las normas vigentes y respaldados por una capacitación permanente del personal de mantenimiento. Nuestro objetivo es proporcionar las herramientas para detectar y neutralizar energías riesgosas, eliminando cualquier peligro que ponga en riesgo la integridad del colaborador. 📞 +56 9 3366 7029 · ✉️ psmartin@mavid.cl',
+    comentario: 'El uso correcto de los sistemas LOTO se traduce directamente en salvar vidas. En Mavid SPA entendemos que la seguridad industrial requiere protocolos rigurosos, alineados con las normas vigentes y respaldados por una capacitación permanente del personal de mantenimiento. Nuestro objetivo es proporcionar las herramientas para detectar y neutralizar energías riesgosas, eliminando cualquier peligro que ponga en riesgo la integridad del colaborador. 📞 +56 9 3366 7029 · ✉️ psanmartin@mavid.cl',
     fecha: 'Marzo 2026'
   }
 ];
-const _stored = JSON.parse(localStorage.getItem('buscaepp_expertos') || 'null');
-let expertosData = _stored !== null ? _stored : EXPERTOS_INICIALES;
+// Siempre parte desde los datos hardcodeados — localStorage solo agrega encima
+const _extraExpertos = JSON.parse(localStorage.getItem('buscaepp_expertos_extra') || '[]');
+let expertosData = [..._extraExpertos, ...EXPERTOS_INICIALES];
 
 function renderExpertos() {
   const list = document.getElementById('expertosList');
@@ -5363,7 +5364,9 @@ function publicarExperto() {
   };
   expertosData.unshift(nuevo);
   if (expertosData.length > 20) expertosData = expertosData.slice(0, 20);
-  localStorage.setItem('buscaepp_expertos', JSON.stringify(expertosData));
+  // Solo guardar los extras (no los hardcodeados)
+  const extras = expertosData.filter(e => !EXPERTOS_INICIALES.some(i => i.nombre === e.nombre && i.fecha === e.fecha));
+  localStorage.setItem('buscaepp_expertos_extra', JSON.stringify(extras));
 
   document.getElementById('expNombre').value = '';
   document.getElementById('expCargo').value = '';
@@ -5391,7 +5394,9 @@ function editarExperto(idx) {
       comentario: document.getElementById('expComentario').value.trim(),
       fecha: e.fecha
     };
-    localStorage.setItem('buscaepp_expertos', JSON.stringify(expertosData));
+    // Actualizar extras en localStorage
+    const extras2 = expertosData.filter(e => !EXPERTOS_INICIALES.some(i => i.nombre === e.nombre && i.fecha === e.fecha));
+    localStorage.setItem('buscaepp_expertos_extra', JSON.stringify(extras2));
     // Restaurar botón original
     btn.textContent = '✅ PUBLICAR';
     btn.onclick = publicarExperto;
@@ -5410,7 +5415,8 @@ function editarExperto(idx) {
 function eliminarExperto(idx) {
   if (!confirm('¿Eliminar este comentario?')) return;
   expertosData.splice(idx, 1);
-  localStorage.setItem('buscaepp_expertos', JSON.stringify(expertosData));
+  const extras3 = expertosData.filter(e => !EXPERTOS_INICIALES.some(i => i.nombre === e.nombre && i.fecha === e.fecha));
+  localStorage.setItem('buscaepp_expertos_extra', JSON.stringify(extras3));
   renderExpertos();
 }
 
