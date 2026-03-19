@@ -5327,7 +5327,11 @@ function renderExpertos() {
   const mostrar = expertosData.slice(0, 20);
   list.innerHTML = mostrar.map((e, i) => `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
-      ${adminUnlocked ? `<button onclick="eliminarExperto(${i})" style="position:absolute;top:.7rem;right:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>` : ''}
+      ${adminUnlocked ? `
+        <div style="position:absolute;top:.7rem;right:.7rem;display:flex;gap:.3rem;">
+          <button onclick="editarExperto(${i})" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✏️ Editar</button>
+          <button onclick="eliminarExperto(${i})" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>
+        </div>` : ''}
       <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.7rem;">
         <div style="width:40px;height:40px;border-radius:50%;background:rgba(163,230,53,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#a3e635;flex-shrink:0;">${e.nombre.charAt(0).toUpperCase()}</div>
         <div>
@@ -5364,6 +5368,40 @@ function publicarExperto() {
   document.getElementById('expComentario').value = '';
   renderExpertos();
   showToast('✅ Comentario publicado');
+}
+
+function editarExperto(idx) {
+  const e = expertosData[idx];
+  document.getElementById('expNombre').value = e.nombre;
+  document.getElementById('expCargo').value = e.cargo;
+  document.getElementById('expEpp').value = e.epp;
+  document.getElementById('expComentario').value = e.comentario;
+
+  // Cambiar botón publicar a guardar edición
+  const btn = document.querySelector('#expertoForm button');
+  btn.textContent = '💾 GUARDAR CAMBIOS';
+  btn.onclick = () => {
+    expertosData[idx] = {
+      nombre: document.getElementById('expNombre').value.trim(),
+      cargo: document.getElementById('expCargo').value.trim(),
+      epp: document.getElementById('expEpp').value.trim(),
+      comentario: document.getElementById('expComentario').value.trim(),
+      fecha: e.fecha
+    };
+    localStorage.setItem('buscaepp_expertos', JSON.stringify(expertosData));
+    // Restaurar botón original
+    btn.textContent = '✅ PUBLICAR';
+    btn.onclick = publicarExperto;
+    document.getElementById('expNombre').value = '';
+    document.getElementById('expCargo').value = '';
+    document.getElementById('expEpp').value = '';
+    document.getElementById('expComentario').value = '';
+    renderExpertos();
+    showToast('✅ Comentario actualizado');
+  };
+
+  // Scroll al formulario
+  document.getElementById('expertoForm').scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
 function eliminarExperto(idx) {
