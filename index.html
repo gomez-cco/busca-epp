@@ -1429,6 +1429,7 @@
         <button onclick="mostrarCert(this,'arnes')" class="calc-btn">🪝 Arnés</button>
         <button onclick="mostrarCert(this,'auditivo')" class="calc-btn">🎧 Auditivo</button>
         <button onclick="mostrarCert(this,'ropa')" class="calc-btn">🦺 Ropa</button>
+        <button onclick="mostrarCert(this,'gases')" class="calc-btn">☁️ Detector Gas</button>
       </div>
     </div>
 
@@ -4227,6 +4228,71 @@ const CERT_DATA = {
       { cert:'NFPA 70E', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Categorías HRC 1–4', obs:'Para ropa protección arco eléctrico. Muy usada en sector eléctrico.' },
       { cert:'EN 13982 (Tyvek)', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'Tipo 4 / Tipo 5 / Tipo 6', obs:'Para ropa química desechable. Tipo 5 = partículas. Tipo 6 = salpicaduras.' },
     ]
+  },
+  gases: {
+    titulo: 'Detectores de Gas — Certificación, Calibración y Mantención', icono: '☁️',
+    normaCL: 'DS 594 Art. 45 — No existe NCh específica para detectores de gas',
+    labCL: 'En Chile existen empresas con servicio técnico autorizado por fabricante y laboratorios acreditados ISO 17025 para calibración. La calibración periódica es obligatoria según DS 594 para equipos usados en ambientes con riesgo de gas.',
+    certs: [
+      { cert:'IEC 60079 (serie completa)', origen:'🌐 Internacional', validezCL:'✅ Referencia técnica obligatoria', nivel:'Métodos Ex d / Ex i / Ex e / Ex n', obs:'Serie base para equipos en atmósferas explosivas. Define tipos de protección Ex según zona de riesgo.' },
+      { cert:'ATEX (Directiva 2014/34/UE)', origen:'🇪🇺 Europa', validezCL:'✅ Reconocida — exigida en minería y petroquímica', nivel:'Zona 0/1/2 (gas) · Zona 20/21/22 (polvo)', obs:'Obligatoria en UE. Marca Ex + número organismo notificado. Ampliamente exigida en proyectos mineros en Chile.' },
+      { cert:'IECEx', origen:'🌐 Internacional', validezCL:'✅ Reconocida internacionalmente', nivel:'Zonas 0/1/2 · 20/21/22', obs:'Sistema IEC de alcance mundial. Equivalente técnico a ATEX. Reconocida en Chile, Australia, Asia y Medio Oriente.' },
+      { cert:'UL / FM (Factory Mutual)', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida en importaciones', nivel:'Clase I Div 1/2 · Clase II', obs:'Norma americana NEC/NFPA 70. Clase I = gases/vapores, Clase II = polvo. Común en equipos importados desde EE.UU.' },
+      { cert:'NIOSH / MSHA', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida en minería — SERNAGEOMIN', nivel:'Interior mina subterránea', obs:'MSHA es exigida para detectores en interior mina. Reconocida por SERNAGEOMIN en Chile.' },
+      { cert:'Sin certificación Ex / ATEX', origen:'—', validezCL:'❌ No apta para zonas clasificadas', nivel:'—', obs:'Un detector sin certificación Ex NO puede usarse en zona 0, 1 o 2. Representa riesgo de ignición en atmósferas explosivas.' },
+    ],
+    extra: `
+      <div style="margin-top:1rem;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:1rem 1.2rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#38bdf8;margin-bottom:.8rem;letter-spacing:.5px;">🔧 CALIBRACIÓN Y MANTENCIÓN EN CHILE</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem;">La calibración periódica es obligatoria según DS 594. Debe realizarse con gases patrón trazables y emitir certificado con número de serie del equipo.</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;">
+          <a href="https://www.treck.cl/calibracion" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-weight:700;color:var(--text);font-size:.82rem;">🔬 Treck S.A.</div>
+              <div style="font-size:.72rem;color:#38bdf8;margin:.2rem 0;">Service oficial MSA · Dräger · Honeywell</div>
+              <div style="font-size:.7rem;color:var(--muted);">Calibración detectores portátiles y ERA. Llenado cilindros 2216/4500 psi. Sistema Posi3.</div>
+            </div>
+          </a>
+          <a href="https://nltinc.cl" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-weight:700;color:var(--text);font-size:.82rem;">🔬 NLT Chile</div>
+              <div style="font-size:.72rem;color:#38bdf8;margin:.2rem 0;">Multimarca — GFG · MSA · BW · Dräger · Honeywell · Industrial Scientific</div>
+              <div style="font-size:.7rem;color:var(--muted);">Calibración, reparación y mantención. Servicio en terreno y en laboratorio. Ñuñoa, Santiago.</div>
+            </div>
+          </a>
+          <a href="https://www.apro.cl/servicio-tecnico" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-weight:700;color:var(--text);font-size:.82rem;">🔬 APRO</div>
+              <div style="font-size:.72rem;color:#38bdf8;margin:.2rem 0;">Servicio técnico detectores de gas</div>
+              <div style="font-size:.7rem;color:var(--muted);">Calibración y mantención de equipos detectores de gases y vapores industriales.</div>
+            </div>
+          </a>
+          <a href="https://gygthomas.cl/content/10-servicios" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-weight:700;color:var(--text);font-size:.82rem;">🔬 G y G Thomas Hollstein</div>
+              <div style="font-size:.72rem;color:#38bdf8;margin:.2rem 0;">Service autorizado Dräger · MSA</div>
+              <div style="font-size:.7rem;color:var(--muted);">Lab. calibración en vías acreditación ISO 17025. Detectores estáticos, autónomos y móviles (DS 594). Alcotest y ERA.</div>
+            </div>
+          </a>
+          <a href="https://www.ayt.cl/ayt-servicios/servicio-de-calibracion-de-analizadores-gases/" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-weight:700;color:var(--text);font-size:.82rem;">🔬 AyT — Ambiente y Tecnología</div>
+              <div style="font-size:.72rem;color:#38bdf8;margin:.2rem 0;">✅ Acreditado INN — Lab. Calibración LC 098</div>
+              <div style="font-size:.7rem;color:var(--muted);">Laboratorio acreditado ISO 17025 por INN. Certificados trazables al NIST. Analizadores de gases.</div>
+            </div>
+          </a>
+          <a href="https://cl.msasafety.com/service" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-weight:700;color:var(--text);font-size:.82rem;">🔬 MSA Chile (service oficial)</div>
+              <div style="font-size:.72rem;color:#38bdf8;margin:.2rem 0;">Service oficial MSA — piezas originales</div>
+              <div style="font-size:.7rem;color:var(--muted);">Calibración, mantención preventiva, reparación y certificación. ERA, detectores portátiles y fijos. Garantía de fábrica.</div>
+            </div>
+          </a>
+        </div>
+        <div style="margin-top:.8rem;font-size:.72rem;color:var(--muted);">
+          ⚠️ Exige siempre certificado de calibración con: N° serie equipo · Gases patrón utilizados · Trazabilidad · Fecha próxima calibración · Firma técnico responsable.
+        </div>
+      </div>`
   }
 };
 
@@ -4271,7 +4337,7 @@ function mostrarCert(btn, tipo) {
           </tbody>
         </table>
       </div>
-    </div>`;
+    </div>${d.extra || ''}`;
   resultDiv.style.display = 'block';
   resultDiv.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
