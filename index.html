@@ -4855,18 +4855,18 @@ const CALC_DATA = {
   },
   mineria: {
     faenas: {
-      'Tronadura y manipulación de explosivos': ['casco','lentes_panoramicas','tapones','calzado','guantes_mecanicos','chaleco_av','respirador_gases'],
-      'Operación de maquinaria pesada': ['casco','lentes','tapones','calzado','chaleco_av','guantes_mecanicos'],
-      'Interior mina (túneles)': ['casco_lampara','lentes_panoramicas','respirador_p100','tapones','calzado','chaleco_av','arnés'],
-      'Procesamiento de minerales': ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','calzado','chaleco_av','tapones'],
+      'Tronadura y manipulación de explosivos':   ['casco','lentes_panoramicas','tapones','bota_mina','guantes_mecanicos','chaleco_av','respirador_gases','zapatos_antistaticos'],
+      'Operación de maquinaria pesada':           ['casco','lentes','tapones','bota_mina','chaleco_reflectante_mina','guantes_impacto','detector_gas_portatil'],
+      'Interior mina subterránea (túneles)':      ['casco_lampara','lentes_panoramicas','respirador_p100','tapones','bota_mina','chaleco_reflectante_mina','arnés','autorescatador','detector_gas_portatil','ropa_impermeable_mina'],
+      'Procesamiento de minerales':               ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','bota_mina','chaleco_av','tapones','pantalla_facial'],
     }
   },
   manufactura: {
     faenas: {
-      'Operación de prensas y troqueles': ['casco','lentes','guantes_anticorte','calzado','tapones'],
-      'Línea de ensamblaje': ['lentes','guantes_mecanicos','calzado','tapones'],
-      'Trabajo con solventes y pinturas': ['lentes_panoramicas','respirador_gases','guantes_quimicos','calzado','chaleco_av'],
-      'Almacenamiento y bodega': ['casco','lentes','calzado','chaleco_av','guantes_mecanicos'],
+      'Operación de prensas y troqueles':         ['casco','lentes','guantes_anticorte','calzado','tapones','pantalla_facial'],
+      'Línea de ensamblaje':                      ['lentes','guantes_mecanicos','calzado','tapones_banda'],
+      'Trabajo con solventes y pinturas':         ['lentes_panoramicas','respirador_gases','guantes_quimicos','calzado','chaleco_av','ropa_antiflama'],
+      'Almacenamiento y bodega':                  ['casco','lentes','calzado','chaleco_av','guantes_mecanicos','protector_lumbar'],
     }
   },
   forestal: {
@@ -4881,8 +4881,8 @@ const CALC_DATA = {
     faenas: {
       'Manejo de ácidos y cáusticos': ['mascara_completa','guantes_quimicos','ropa_quimica','calzado_quimico','lentes_panoramicas'],
       'Laboratorio de análisis': ['lentes_panoramicas','guantes_nitrilo','bata_lab','calzado','respirador_gases'],
-      'Almacenamiento de productos químicos': ['lentes_panoramicas','guantes_quimicos','calzado','chaleco_av','respirador_gases'],
-      'Gases industriales': ['mascara_completa','guantes_criogenicos','calzado','ropa_antiflama'],
+      'Almacenamiento de productos químicos':     ['lentes_panoramicas','guantes_quimicos','calzado','chaleco_av','respirador_gases','detector_gas_portatil'],
+      'Gases industriales':                       ['mascara_completa','guantes_criogenicos','calzado','ropa_antiflama','detector_gas_portatil'],
     }
   },
   electrico: {
@@ -4895,7 +4895,7 @@ const CALC_DATA = {
   },
   soldadura: {
     faenas: {
-      'Soldadura al arco (electrodo)': ['careta_soldar','guantes_soldador','ropa_soldador','calzado','tapones','coleto'],
+      'Soldadura al arco (electrodo)':            ['careta_soldar','guantes_soldador','ropa_soldador','calzado','tapones','coleto','respirador_p100'],
       'Soldadura MIG/TIG': ['careta_soldar_auto','guantes_soldador','ropa_soldador','calzado','tapones'],
       'Corte oxiacetilénico': ['careta_oxicorte','guantes_soldador','ropa_soldador','calzado','tapones','coleto'],
       'Corte por plasma': ['careta_soldar_auto','guantes_soldador','ropa_soldador','calzado','tapones','lentes_extra'],
@@ -4904,7 +4904,7 @@ const CALC_DATA = {
   agricultura: {
     faenas: {
       'Aplicación de pesticidas/herbicidas': ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','ropa_quimica','calzado','chaleco_av'],
-      'Cosecha manual': ['sombrero_uv','lentes','guantes_mecanicos','calzado','chaleco_av','ropa_uv'],
+      'Cosecha manual':                           ['sombrero_uv','lentes','guantes_mecanicos','calzado','chaleco_av','ropa_uv','protector_lumbar'],
       'Operación de maquinaria agrícola': ['casco','tapones','lentes','calzado','chaleco_av'],
       'Trabajo en altura (frutales)': ['casco','arnés','calzado','guantes_mecanicos'],
     }
@@ -4928,7 +4928,7 @@ const CALC_DATA = {
   logistica: {
     faenas: {
       'Operación de grúa horquilla': ['casco','lentes','calzado','chaleco_av'],
-      'Carga y descarga manual': ['casco','lentes','guantes_mecanicos','calzado','chaleco_av','faja_lumbar'],
+      'Carga y descarga manual':                  ['casco','lentes','guantes_mecanicos','calzado','chaleco_av','protector_lumbar'],
       'Trabajo en altura (racks)': ['casco','arnés','calzado','chaleco_av','guantes_mecanicos'],
       'Bodega frigorífica': ['casco','lentes','calzado','guantes_termicos','ropa_termica','chaleco_av'],
     }
@@ -4938,7 +4938,7 @@ const CALC_DATA = {
       'Techos y cubiertas inclinadas': ['casco','arnés','calzado','guantes_mecanicos','lentes'],
       'Torres y estructuras metálicas': ['casco','arnés','calzado','guantes_mecanicos','lentes','chaleco_av'],
       'Andamios y plataformas': ['casco','arnés','calzado','guantes_mecanicos','lentes','chaleco_av'],
-      'Espacios confinados en altura': ['casco','arnés','respirador_gases','lentes','guantes_mecanicos','chaleco_av'],
+      'Espacios confinados en altura':            ['casco','arnés','respirador_gases','lentes','guantes_mecanicos','chaleco_av','detector_gas_portatil'],
     }
   }
 };
@@ -4996,6 +4996,19 @@ const EPP_INFO = {
   equipo_buceo: { nombre:'Equipo de buceo industrial certificado', icono:'🤿', norma:'DS 430 MINTRAB', motivo:'Obligatorio para buceo industrial según reglamento específico.' },
   sombrero_uv: { nombre:'Sombrero o casco con ala solar (UPF 50+)', icono:'👒', norma:'NCh 3273', motivo:'Protección UV para trabajo al aire libre. Complementar con ropa y bloqueador solar.' },
   gorro: { nombre:'Gorro quirúrgico', icono:'👒', norma:'Reglamento MINSAL', motivo:'Control de contaminación biológica en pabellones y áreas estériles.' },
+  autorescatador: { nombre:'Autorescatador de emergencia', icono:'🫁', norma:'DS 132 MINMINERÍA / MSHA / EN 13794', motivo:'Dispositivo de emergencia de uso único para evacuación en interior mina. NO es un ERA. Se activa solo cuando hay déficit de oxígeno o gases tóxicos durante la salida de emergencia. Proporciona entre 30 y 60 minutos de oxígeno. Obligatorio según DS 132 para todo trabajador en interior mina subterránea.' },
+  bota_mina: { nombre:'Bota de seguridad caña alta impermeable (uso mina)', icono:'🥾', norma:'NCh 1584 / NCh 1796', motivo:'En interior mina se usa bota (no botín) por la humedad y agua acumulada en galerías. Debe tener punta de acero, plantilla antiperforación y suela antideslizante en superficies húmedas.' },
+  detector_gas_portatil: { nombre:'Detector de gas portátil (4 en 1)', icono:'☁️', norma:'DS 594 Art. 45 / IEC 60079 / MSHA', motivo:'Obligatorio en espacios confinados y zonas con riesgo de gases tóxicos o explosivos. Detecta O2, CO, H2S y LEL simultáneamente.' },
+  ropa_impermeable_mina: { nombre:'Ropa impermeable para interior mina', icono:'🧥', norma:'DS 132 / DS 594', motivo:'Las galerías subterráneas presentan alta humedad y goteo constante. La ropa impermeable (chaqueta y pantalón PVC o similar) protege al trabajador de la humedad y el frío.' },
+  rodilleras: { nombre:'Rodilleras de protección', icono:'🦵', norma:'EN 14404', motivo:'Para trabajos que requieren arrodillarse en superficies duras o abrasivas.' },
+  protector_lumbar: { nombre:'Faja lumbar ergonómica', icono:'🩺', norma:'DS 594 / Guía MINSAL ergonomía', motivo:'Recomendada en manejo manual de cargas superiores a 25 kg (hombres) o 15 kg (mujeres) según ley de ergonomía.' },
+  chaleco_reflectante_mina: { nombre:'Chaleco reflectante clase 3 (uso minero)', icono:'🦺', norma:'ANSI 107 Clase 3 / NCh 1303', motivo:'En minas con tráfico de maquinaria, se exige clase 3 (máxima visibilidad) con mangas reflectantes para ser visible en condiciones de baja luminosidad.' },
+  pantalla_facial: { nombre:'Pantalla facial / careta de protección', icono:'🥽', norma:'NCh 1301 / ANSI Z87.1', motivo:'Protección total del rostro contra proyecciones, salpicaduras y esquirlas. Complementa los lentes de seguridad.' },
+  guantes_vibracion: { nombre:'Guantes anti-vibración', icono:'🧤', norma:'EN ISO 10819', motivo:'Para operadores de equipos vibratorios (martillos, compactadoras). Reducen la transmisión de vibraciones mano-brazo previniendo el síndrome de Raynaud.' },
+  tapones_banda: { nombre:'Tapones auditivos con banda (nivel 3)', icono:'🎧', norma:'NCh 1358 / EN 352-2', motivo:'Para zonas con ruido intermitente donde el trabajador debe quitarse y ponerse el protector frecuentemente. Más práctico que los tapones de espuma.' },
+  ropa_antiflama: { nombre:'Ropa ignífuga FR (uso minería / petroquímica)', icono:'🧥', norma:'NFPA 2112 / EN ISO 11612', motivo:'En faenas con riesgo de ignición, flash fire o arco eléctrico. La ropa FR no se derrite ni propaga la llama, dando tiempo de evacuación al trabajador.' },
+  zapatos_antistaticos: { nombre:'Calzado antiestático (ESD)', icono:'🥾', norma:'NCh 2147/1 / EN ISO 20345 S1', motivo:'Disocia la carga estática del cuerpo. Obligatorio en zonas con riesgo de ignición por electricidad estática (explosivos, petroquímica, electrónica).' },
+  guantes_impacto: { nombre:'Guantes con protección de impacto (TPR)', icono:'🧤', norma:'EN 388 / ANSI/ISEA 138', motivo:'Dorso con protectores TPR contra impactos y aplastamientos. Ideales para operadores de maquinaria pesada y mantenimiento mecánico.' },
 };
 
 let calcIndustriaSelected = null;
