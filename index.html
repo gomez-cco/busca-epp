@@ -438,6 +438,8 @@
   <div class="tab" onclick="showTab('prov')" id="tab-prov">🏪 <span data-es="Proveedores" data-en="Suppliers">Proveedores</span></div>
   <div class="tab" onclick="showTab('certcomp')" id="tab-certcomp">🔎 <span data-es="Certificaciones" data-en="Certifications">Certificaciones</span></div>
   <div class="tab" onclick="showTab('fab')" id="tab-fab">🏭 <span data-es="Fabricantes ISP" data-en="ISP Manufacturers">Fabricantes ISP</span></div>
+  <div class="tab" onclick="showTab('expertos')" id="tab-expertos">🎓 <span data-es="Zona Expertos" data-en="Expert Zone">Zona Expertos</span></div>
+  <div class="tab" onclick="showTab('talentos')" id="tab-talentos">💼 <span data-es="Bolsa Talentos" data-en="Job Board">Bolsa Talentos</span></div>
   <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B">Ropa Corporativa B2B</span></div>
   <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
 </div>
@@ -1468,6 +1470,77 @@
     <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
       ⚠️ Links referenciales. Verifica el estado actual del registro en ispch.gob.cl/listadoepp
     </div>
+  </div>
+</div>
+
+<!-- ZONA EXPERTOS TAB -->
+<div id="pane-expertos" style="display:none;">
+  <div class="hero">
+    <h1><span>ZONA</span> <span data-es="EXPERTOS" data-en="EXPERTS">EXPERTOS</span></h1>
+    <p data-es="Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP" data-en="Comments and recommendations from safety professionals on proper PPE use">Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP</p>
+  </div>
+  <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
+
+    <!-- Aviso -->
+    <div style="background:rgba(163,230,53,.06);border:1px solid rgba(163,230,53,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.5rem;font-size:.82rem;color:#d9f99d;line-height:1.6;">
+      🎓 Espacio para que profesionales de seguridad industrial, prevencionistas y expertos en EPP compartan su experiencia. Los comentarios son publicados por el equipo de BuscaEPP.
+    </div>
+
+    <!-- Formulario para admin -->
+    <div id="expertoForm" style="display:none;background:var(--card);border:1px solid rgba(163,230,53,.3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#a3e635;margin-bottom:.8rem;">➕ Publicar comentario de experto</div>
+      <input id="expNombre" type="text" placeholder="Nombre del experto" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+      <input id="expCargo" type="text" placeholder="Cargo / Especialidad (ej: Prevencionista de Riesgos, Ing. Seguridad)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+      <input id="expEpp" type="text" placeholder="EPP sobre el que comenta (ej: Respirador N95, Arnés anticaída)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+      <textarea id="expComentario" placeholder="Comentario del experto (máx. 5 líneas)..." rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
+      <button onclick="publicarExperto()" style="background:linear-gradient(135deg,#a3e635,#65a30d);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
+    </div>
+
+    <!-- Lista de comentarios -->
+    <div id="expertosList"></div>
+
+  </div>
+</div>
+
+<!-- BOLSA TALENTOS TAB -->
+<div id="pane-talentos" style="display:none;">
+  <div class="hero">
+    <h1><span>BOLSA</span> <span data-es="DE TALENTOS EPP" data-en="EPP JOB BOARD">DE TALENTOS EPP</span></h1>
+    <p data-es="Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales en seguridad industrial" data-en="Professionals offering services or seeking opportunities in industrial safety">Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales en seguridad industrial</p>
+  </div>
+  <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
+
+    <!-- Aviso -->
+    <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.5rem;font-size:.82rem;color:#e0f2fe;line-height:1.6;">
+      💼 Espacio gratuito para profesionales del sector EPP y seguridad industrial. Si quieres publicar tu perfil o una oferta, contáctanos a través de BuscaEPP. Las publicaciones son gestionadas por el equipo.
+    </div>
+
+    <!-- Filtros -->
+    <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;">
+      <button onclick="filtrarTalentos('todos',this)" class="calc-btn selected" style="font-size:.78rem;">🔍 Todos</button>
+      <button onclick="filtrarTalentos('ofrezco',this)" class="calc-btn" style="font-size:.78rem;">💼 Ofrezco servicios</button>
+      <button onclick="filtrarTalentos('busco',this)" class="calc-btn" style="font-size:.78rem;">🔎 Busco trabajo</button>
+    </div>
+
+    <!-- Formulario admin -->
+    <div id="talentoForm" style="display:none;background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#38bdf8;margin-bottom:.8rem;">➕ Publicar perfil</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+        <input id="talNombre" type="text" placeholder="Nombre" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        <input id="talEmail" type="email" placeholder="Email de contacto" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+      </div>
+      <input id="talEspecialidad" type="text" placeholder="Especialidad (ej: Prevencionista de Riesgos, Vendedor técnico EPP)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+      <select id="talTipo" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+        <option value="ofrezco">💼 Ofrezco mis servicios</option>
+        <option value="busco">🔎 Busco trabajo</option>
+      </select>
+      <textarea id="talDesc" placeholder="Descripción breve (máx. 3 líneas): experiencia, habilidades y qué ofreces o buscas..." rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
+      <button onclick="publicarTalento()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
+    </div>
+
+    <!-- Lista talentos -->
+    <div id="talentosList"></div>
+
   </div>
 </div>
 
@@ -3985,13 +4058,15 @@ function showTab(tab, skipAuth=false) {
     showAdminLogin();
     return;
   }
-  ['epp','norm','calc','vida','prov','certcomp','fab','corp','admin'].forEach(t => {
+  ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','corp','admin'].forEach(t => {
     document.getElementById('pane-'+t).style.display = t===tab?'block':'none';
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
   });
   if (tab==='admin') renderAdminTable();
   if (tab==='corp') renderCorp();
   if (tab==='fab') renderFabricantes();
+  if (tab==='expertos') renderExpertos();
+  if (tab==='talentos') renderTalentos();
   if (tab==='prov') renderProveedores();
 }
 
@@ -5219,6 +5294,170 @@ document.addEventListener('keydown', e => {
 
 // ─── IDENTIFICACIÓN POR FOTO ─────────────────────────────────
 
+
+// ─── ZONA EXPERTOS ───────────────────────────────────────────
+const EXPERTOS_INICIALES = [
+  {
+    nombre: 'Pablo San Martín Bustos',
+    cargo: 'Jefe de Negocios y Venta Técnica — Mavid SPA',
+    epp: 'Sistemas LOTO — Bloqueo y Etiquetado',
+    comentario: 'El uso correcto de los sistemas LOTO se traduce directamente en salvar vidas. En Mavid SPA entendemos que la seguridad industrial requiere protocolos rigurosos, alineados con las normas vigentes y respaldados por una capacitación permanente del personal de mantenimiento. Nuestro objetivo es proporcionar las herramientas para detectar y neutralizar energías riesgosas, eliminando cualquier peligro que ponga en riesgo la integridad del colaborador. 📞 +56 9 3366 7029 · ✉️ psmartin@mavid.cl',
+    fecha: 'Marzo 2026'
+  }
+];
+const _stored = JSON.parse(localStorage.getItem('buscaepp_expertos') || 'null');
+let expertosData = _stored !== null ? _stored : EXPERTOS_INICIALES;
+
+function renderExpertos() {
+  const list = document.getElementById('expertosList');
+  if (!list) return;
+
+  // Mostrar formulario solo si admin está desbloqueado
+  const form = document.getElementById('expertoForm');
+  if (form) form.style.display = adminUnlocked ? 'block' : 'none';
+
+  if (expertosData.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted);font-size:.9rem;">
+      🎓 Próximamente — Los primeros comentarios de expertos aparecerán aquí.
+    </div>`;
+    return;
+  }
+
+  // Mantener máx 20, eliminar los más antiguos
+  const mostrar = expertosData.slice(0, 20);
+  list.innerHTML = mostrar.map((e, i) => `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
+      ${adminUnlocked ? `<button onclick="eliminarExperto(${i})" style="position:absolute;top:.7rem;right:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>` : ''}
+      <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.7rem;">
+        <div style="width:40px;height:40px;border-radius:50%;background:rgba(163,230,53,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#a3e635;flex-shrink:0;">${e.nombre.charAt(0).toUpperCase()}</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">${e.nombre}</div>
+          <div style="font-size:.72rem;color:#a3e635;">${e.cargo}</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:1px;">📅 ${e.fecha}</div>
+        </div>
+      </div>
+      <div style="background:rgba(163,230,53,.05);border-left:3px solid #a3e635;padding:.6rem .9rem;border-radius:0 8px 8px 0;margin-bottom:.6rem;">
+        <div style="font-size:.72rem;color:#a3e635;font-weight:700;margin-bottom:.3rem;">🛡️ Sobre: ${e.epp}</div>
+        <div style="font-size:.83rem;color:var(--text);line-height:1.6;">${e.comentario}</div>
+      </div>
+    </div>`).join('');
+}
+
+function publicarExperto() {
+  const nombre = document.getElementById('expNombre').value.trim();
+  const cargo = document.getElementById('expCargo').value.trim();
+  const epp = document.getElementById('expEpp').value.trim();
+  const comentario = document.getElementById('expComentario').value.trim();
+  if (!nombre || !cargo || !epp || !comentario) { alert('Completa todos los campos'); return; }
+
+  const nuevo = {
+    nombre, cargo, epp, comentario,
+    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' })
+  };
+  expertosData.unshift(nuevo);
+  if (expertosData.length > 20) expertosData = expertosData.slice(0, 20);
+  localStorage.setItem('buscaepp_expertos', JSON.stringify(expertosData));
+
+  document.getElementById('expNombre').value = '';
+  document.getElementById('expCargo').value = '';
+  document.getElementById('expEpp').value = '';
+  document.getElementById('expComentario').value = '';
+  renderExpertos();
+  showToast('✅ Comentario publicado');
+}
+
+function eliminarExperto(idx) {
+  if (!confirm('¿Eliminar este comentario?')) return;
+  expertosData.splice(idx, 1);
+  localStorage.setItem('buscaepp_expertos', JSON.stringify(expertosData));
+  renderExpertos();
+}
+
+// ─── BOLSA TALENTOS ───────────────────────────────────────────
+let talentosData = JSON.parse(localStorage.getItem('buscaepp_talentos') || '[]');
+let filtroTalento = 'todos';
+
+function renderTalentos() {
+  const list = document.getElementById('talentosList');
+  if (!list) return;
+
+  const form = document.getElementById('talentoForm');
+  if (form) form.style.display = adminUnlocked ? 'block' : 'none';
+
+  const filtrados = filtroTalento === 'todos'
+    ? talentosData
+    : talentosData.filter(t => t.tipo === filtroTalento);
+
+  if (filtrados.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted);font-size:.9rem;">
+      💼 Próximamente — Los primeros perfiles aparecerán aquí.
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = filtrados.map((t, i) => {
+    const idx = talentosData.indexOf(t);
+    const esOfrezco = t.tipo === 'ofrezco';
+    const color = esOfrezco ? '#38bdf8' : '#f472b6';
+    const badge = esOfrezco ? '💼 Ofrezco servicios' : '🔎 Busco trabajo';
+    return `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
+      ${adminUnlocked ? `<button onclick="eliminarTalento(${idx})" style="position:absolute;top:.7rem;right:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>` : ''}
+      <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.7rem;">
+        <div style="width:40px;height:40px;border-radius:50%;background:${color}22;border:1px solid ${color}44;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:${color};flex-shrink:0;">${t.nombre.charAt(0).toUpperCase()}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">${t.nombre}</span>
+            <span style="font-size:.68rem;background:${color}22;color:${color};border:1px solid ${color}44;border-radius:20px;padding:1px 8px;">${badge}</span>
+          </div>
+          <div style="font-size:.75rem;color:${color};margin-top:2px;">🎯 ${t.especialidad}</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:1px;">📅 ${t.fecha}</div>
+        </div>
+      </div>
+      <div style="font-size:.83rem;color:var(--text);line-height:1.6;margin-bottom:.7rem;">${t.desc}</div>
+      <a href="mailto:${t.email}" style="display:inline-flex;align-items:center;gap:.4rem;background:${color}15;color:${color};border:1px solid ${color}33;border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">
+        ✉️ Contactar — ${t.email}
+      </a>
+    </div>`;
+  }).join('');
+}
+
+function filtrarTalentos(tipo, btn) {
+  filtroTalento = tipo;
+  document.querySelectorAll('#pane-talentos .calc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  renderTalentos();
+}
+
+function publicarTalento() {
+  const nombre = document.getElementById('talNombre').value.trim();
+  const email = document.getElementById('talEmail').value.trim();
+  const especialidad = document.getElementById('talEspecialidad').value.trim();
+  const tipo = document.getElementById('talTipo').value;
+  const desc = document.getElementById('talDesc').value.trim();
+  if (!nombre || !email || !especialidad || !desc) { alert('Completa todos los campos'); return; }
+
+  const nuevo = {
+    nombre, email, especialidad, tipo, desc,
+    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' })
+  };
+  talentosData.unshift(nuevo);
+  localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
+
+  document.getElementById('talNombre').value = '';
+  document.getElementById('talEmail').value = '';
+  document.getElementById('talEspecialidad').value = '';
+  document.getElementById('talDesc').value = '';
+  renderTalentos();
+  showToast('✅ Perfil publicado');
+}
+
+function eliminarTalento(idx) {
+  if (!confirm('¿Eliminar este perfil?')) return;
+  talentosData.splice(idx, 1);
+  localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
+  renderTalentos();
+}
 
 // ─── INIT ────────────────────────────────────────────────────
 renderFilters();
