@@ -4035,6 +4035,9 @@ async function checkAdminPass() {
       document.getElementById('tab-'+t).classList.toggle('active', t==='admin');
     });
     renderAdminTable();
+    // Re-renderizar expertos y talentos para mostrar botones de edición
+    renderExpertos();
+    renderTalentos();
   } else {
     const inp = document.getElementById('adminPassInput');
     const err = document.getElementById('adminErrorMsg');
