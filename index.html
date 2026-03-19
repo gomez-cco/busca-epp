@@ -1512,13 +1512,13 @@
 
     <!-- Aviso -->
     <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.5rem;font-size:.82rem;color:#e0f2fe;line-height:1.6;">
-      💼 Espacio gratuito para profesionales del sector EPP y seguridad industrial. Si quieres publicar tu perfil o una oferta, contáctanos a través de BuscaEPP. Las publicaciones son gestionadas por el equipo.
+      💼 Directorio de servicios profesionales y talentos del sector EPP y seguridad industrial en Chile. Si quieres publicar tu perfil o servicio, contáctanos a través de BuscaEPP.
     </div>
 
     <!-- Filtros -->
     <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;">
       <button onclick="filtrarTalentos('todos',this)" class="calc-btn selected" style="font-size:.78rem;">🔍 Todos</button>
-      <button onclick="filtrarTalentos('ofrezco',this)" class="calc-btn" style="font-size:.78rem;">💼 Ofrezco servicios</button>
+      <button onclick="filtrarTalentos('servicios',this)" class="calc-btn" style="font-size:.78rem;">⭐ Servicios Profesionales</button>
       <button onclick="filtrarTalentos('busco',this)" class="calc-btn" style="font-size:.78rem;">🔎 Busco trabajo</button>
     </div>
 
@@ -1531,12 +1531,15 @@
       </div>
       <input id="talEspecialidad" type="text" placeholder="Especialidad (ej: Prevencionista de Riesgos, Vendedor técnico EPP)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
       <select id="talTipo" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
-        <option value="ofrezco">💼 Ofrezco mis servicios</option>
+        <option value="servicios">⭐ Servicios Profesionales</option>
         <option value="busco">🔎 Busco trabajo</option>
       </select>
       <textarea id="talDesc" placeholder="Descripción breve (máx. 3 líneas): experiencia, habilidades y qué ofreces o buscas..." rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
       <button onclick="publicarTalento()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
     </div>
+
+    <!-- Anuncios Destacados -->
+    <div id="anunciosDestacados" style="margin-bottom:1.5rem;"></div>
 
     <!-- Lista talentos -->
     <div id="talentosList"></div>
@@ -5440,6 +5443,9 @@ function eliminarExperto(idx) {
   renderExpertos();
 }
 
+
+// ─── ANUNCIOS DESTACADOS ──────────────────────────────────────
+const ANUNCIOS_DESTACADOS = [];
 // ─── BOLSA TALENTOS ───────────────────────────────────────────
 let talentosData = JSON.parse(localStorage.getItem('buscaepp_talentos') || '[]');
 let filtroTalento = 'todos';
@@ -5451,9 +5457,14 @@ function renderTalentos() {
   const form = document.getElementById('talentoForm');
   if (form) form.style.display = adminUnlocked ? 'block' : 'none';
 
+  // Mostrar/ocultar anuncios destacados según filtro
+  const mostrarAnuncios = filtroTalento === 'todos' || filtroTalento === 'servicios';
+  if (mostrarAnuncios) renderAnunciosDestacados();
+  else { const d = document.getElementById('anunciosDestacados'); if(d) d.innerHTML = ''; }
+
   const filtrados = filtroTalento === 'todos'
     ? talentosData
-    : talentosData.filter(t => t.tipo === filtroTalento);
+    : talentosData.filter(t => t.tipo === filtroTalento || (filtroTalento === 'servicios' && t.tipo === 'ofrezco'));
 
   if (filtrados.length === 0) {
     list.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted);font-size:.9rem;">
@@ -5464,9 +5475,9 @@ function renderTalentos() {
 
   list.innerHTML = filtrados.map((t, i) => {
     const idx = talentosData.indexOf(t);
-    const esOfrezco = t.tipo === 'ofrezco';
-    const color = esOfrezco ? '#38bdf8' : '#f472b6';
-    const badge = esOfrezco ? '💼 Ofrezco servicios' : '🔎 Busco trabajo';
+    const esServicios = t.tipo === 'servicios' || t.tipo === 'ofrezco';
+    const color = esServicios ? '#38bdf8' : '#f472b6';
+    const badge = t.tipo === 'servicios' ? '⭐ Servicios Profesionales' : t.tipo === 'ofrezco' ? '⭐ Servicios Profesionales' : '🔎 Busco trabajo';
     return `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
       ${adminUnlocked ? `<button onclick="eliminarTalento(${idx})" style="position:absolute;top:.7rem;right:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>` : ''}
@@ -5487,6 +5498,42 @@ function renderTalentos() {
       </a>
     </div>`;
   }).join('');
+}
+
+function renderAnunciosDestacados() {
+  const div = document.getElementById('anunciosDestacados');
+  if (!div || ANUNCIOS_DESTACADOS.length === 0) return;
+
+  div.innerHTML = `
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;display:flex;align-items:center;gap:.5rem;">
+      ⭐ SERVICIOS PROFESIONALES
+      <span style="font-size:.65rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:20px;padding:2px 8px;font-family:'DM Sans',sans-serif;font-weight:400;">Anuncios destacados</span>
+    </div>
+    ${ANUNCIOS_DESTACADOS.map(a => `
+      <div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.03));border:1px solid rgba(245,158,11,.35);border-radius:14px;overflow:hidden;margin-bottom:.8rem;">
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:0;">
+          <!-- Imagen -->
+          <div style="overflow:hidden;max-height:200px;">
+            <img src="${a.imagen}" alt="${a.empresa}" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <!-- Contenido -->
+          <div style="padding:1.1rem 1.3rem;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
+                <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);">${a.empresa}</span>
+                <span style="font-size:.68rem;background:rgba(245,158,11,.2);color:var(--accent);border:1px solid rgba(245,158,11,.4);border-radius:20px;padding:1px 8px;">${a.badge}</span>
+              </div>
+              <div style="font-size:.75rem;color:#38bdf8;font-weight:600;margin-bottom:.6rem;">🎯 ${a.tipo}</div>
+              <div style="font-size:.8rem;color:var(--text);line-height:1.6;">${a.descripcion}</div>
+            </div>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;">
+              <a href="mailto:${a.contacto}" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">✉️ ${a.contacto}</a>
+              <a href="https://wa.me/${a.telefono.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">📱 ${a.telefono}</a>
+              <span style="font-size:.68rem;color:var(--muted);margin-left:auto;">📅 ${a.fecha}</span>
+            </div>
+          </div>
+        </div>
+      </div>`).join('')}`;
 }
 
 function filtrarTalentos(tipo, btn) {
