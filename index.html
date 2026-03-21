@@ -1628,7 +1628,7 @@
     <div class="vip-error" id="vipError">❌ Email o contraseña incorrectos</div>
     <button class="vip-btn" onclick="loginVIP()">🔓 INGRESAR</button>
     <div style="text-align:center;margin-top:1rem;font-size:.75rem;color:var(--muted);">
-      ¿Olvidaste tu contraseña? Contáctanos a <a href="mailto:contacto@buscaepp.cl" style="color:#f59e0b;">contacto@buscaepp.cl</a>
+      ¿Olvidaste tu contraseña? Contáctanos a <a href="/cdn-cgi/l/email-protection#46252928322725322906243335252723363668252a" style="color:#f59e0b;"><span class="__cf_email__" data-cfemail="ed8e8283998c8e9982ad8f989e8e8c889d9dc38e81">[email&#160;protected]</span></a>
     </div>
     <div style="text-align:center;margin-top:.5rem;">
       <button onclick="cerrarVIPModal()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;">✕ Cerrar</button>
@@ -1807,7 +1807,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── LANGUAGE ───────────────────────────────────────────────
 let lang = 'es';
 function setLang(l) {
@@ -4186,8 +4186,10 @@ function showTab(tab, skipAuth=false) {
     return;
   }
   ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin'].forEach(t => {
-    document.getElementById('pane-'+t).style.display = t===tab?'block':'none';
-    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+    const pane = document.getElementById('pane-'+t);
+    const tb = document.getElementById('tab-'+t);
+    if (pane) pane.style.display = t===tab?'block':'none';
+    if (tb) tb.classList.toggle('active', t===tab);
   });
   if (tab==='admin') renderAdminTable();
   if (tab==='corp') renderCorp();
@@ -5718,15 +5720,17 @@ const VIP_USUARIOS = [
 let vipUsuarioActual = null;
 
 function abrirVIP() {
-  // Si ya hay sesión activa, ir directo al pane
   const sesion = JSON.parse(sessionStorage.getItem('buscaepp_vip') || 'null');
   if (sesion) {
     vipUsuarioActual = sesion;
     mostrarPaneVIP();
     return;
   }
+  // Desmarcar tab activo (no navegar aún)
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-vip').classList.add('active');
   document.getElementById('vipLoginModal').classList.add('open');
-  setTimeout(() => document.getElementById('vipEmail').focus(), 100);
+  setTimeout(() => { const el = document.getElementById('vipEmail'); if(el) el.focus(); }, 100);
 }
 
 function cerrarVIPModal() {
@@ -5734,6 +5738,8 @@ function cerrarVIPModal() {
   document.getElementById('vipError').style.display = 'none';
   document.getElementById('vipEmail').value = '';
   document.getElementById('vipPass').value = '';
+  // Restaurar tab activo anterior
+  if (!vipUsuarioActual) showTab('epp');
 }
 
 async function loginVIP() {
@@ -5792,6 +5798,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('vipLoginModal').classList.contains('open')) {
     loginVIP();
   }
+
 });
 
 // ─── INIT ────────────────────────────────────────────────────
@@ -5801,5 +5808,23 @@ renderProducts();
 const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'oscuro';
 setTema(_temaGuardado);
 </script>
+
+<!-- BOTÓN WHATSAPP FLOTANTE -->
+<a href="https://wa.me/56954146523?text=Hola%2C%20te%20contacto%20desde%20BuscaEPP" 
+   target="_blank" rel="noopener"
+   style="position:fixed;bottom:24px;right:24px;z-index:9999;
+           background:#25D366;color:#fff;border-radius:50px;
+           padding:12px 20px;display:flex;align-items:center;gap:8px;
+           text-decoration:none;font-family:'DM Sans',sans-serif;
+           font-size:.88rem;font-weight:600;
+           box-shadow:0 4px 20px rgba(37,211,102,.5);
+           transition:transform .2s,box-shadow .2s;"
+   onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 6px 28px rgba(37,211,102,.7)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,.5)'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  Escríbenos
+</a>
 </body>
 </html>
