@@ -21,47 +21,230 @@
 
   /* TEMA CLARO */
   body.tema-claro {
-    --bg: #c8d4de;
-    --surface: #dce6ef;
-    --surface2: #b8c8d8;
-    --border: #7a9ab5;
-    --accent: #b45309;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface2: #f5f5f5;
+    --border: #d1d5db;
+    --accent: #d97706;
     --accent2: #dc2626;
     --accent3: #059669;
-    --text: #050e1a;
-    --muted: #1e3a52;
-    --card: #d0dce8;
+    --text: #111827;
+    --muted: #6b7280;
+    --card: #ffffff;
   }
-  body.tema-claro header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-  body.tema-claro .tab { color: #1e293b; font-weight:600; }
+  body.tema-claro header { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
+  body.tema-claro .tab-bar { background: #ffffff; border-bottom: 2px solid #e5e7eb; }
+  body.tema-claro .tab { color: #374151; font-weight:600; }
   body.tema-claro .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  body.tema-claro .tab-bar { background: #dde3ea; border-bottom: 2px solid var(--border); }
   body.tema-claro .hero { background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; }
-  body.tema-claro .hero h1, body.tema-claro .hero p { color: #f1f5f9 !important; }
-  body.tema-claro .search-input { background:#fff; color:#0f172a; border-color:#9aaabb; }
-  body.tema-claro .tag { background:rgba(0,0,0,.1); color:#1e293b; }
+  body.tema-claro .hero h1, body.tema-claro .hero p { color: #ffffff !important; }
+  body.tema-claro .search-input { background:#ffffff; color:#111827; border-color:#d1d5db; }
+  body.tema-claro .tag { background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; }
+  body.tema-claro .card, body.tema-claro .product-card { background:#ffffff; border-color:#e5e7eb; }
+  body.tema-claro .section-box { background:#ffffff; border-color:#e5e7eb; }
+  body.tema-claro h2, body.tema-claro h3, body.tema-claro h4 { color:#111827; }
+  body.tema-claro .results-area { background:#f9fafb; }
 
   /* TEMA BEIGE */
   body.tema-beige {
-    --bg: #d4b896;
-    --surface: #e4cdb0;
-    --surface2: #c4a87e;
-    --border: #9a7550;
-    --accent: #7a3f00;
-    --accent2: #dc2626;
-    --accent3: #059669;
-    --text: #100800;
-    --muted: #3d2000;
-    --card: #dcc8a8;
+    --bg: #fdf6ed;
+    --surface: #fdf6ed;
+    --surface2: #f5e8d5;
+    --border: #c9a87c;
+    --accent: #92400e;
+    --accent2: #b91c1c;
+    --accent3: #166534;
+    --text: #1c0f00;
+    --muted: #78350f;
+    --card: #fdf6ed;
   }
-  body.tema-beige header { background: linear-gradient(135deg, #1a0f05 0%, #3d2008 100%); }
-  body.tema-beige .tab { color: #3d2008; font-weight:600; }
+  body.tema-beige header { background: linear-gradient(135deg, #1c0f00 0%, #3d1f08 100%); }
+  body.tema-beige .tab-bar { background: #fdf6ed; border-bottom: 2px solid #c9a87c; }
+  body.tema-beige .tab { color: #3d1f08; font-weight:600; }
   body.tema-beige .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  body.tema-beige .tab-bar { background: #e8d5bc; border-bottom: 2px solid var(--border); }
-  body.tema-beige .hero { background: linear-gradient(135deg, #3d2008 0%, #5c3d1a 100%) !important; }
+  body.tema-beige .hero { background: linear-gradient(135deg, #3d1f08 0%, #78350f 100%) !important; }
   body.tema-beige .hero h1, body.tema-beige .hero p { color: #fdf6ed !important; }
-  body.tema-beige .search-input { background:#f2e4ce; color:#1a0f05; border-color:#b8956a; }
-  body.tema-beige .tag { background:rgba(0,0,0,.12); color:#1a0f05; }
+  body.tema-beige .search-input { background:#fdf6ed; color:#1c0f00; border-color:#c9a87c; }
+  body.tema-beige .tag { background:#f5e8d5; color:#3d1f08; border:1px solid #c9a87c; }
+  body.tema-beige .card, body.tema-beige .product-card { background:#fdf6ed; border-color:#c9a87c; }
+  body.tema-beige .section-box { background:#fdf6ed; border-color:#c9a87c; }
+  body.tema-beige h2, body.tema-beige h3, body.tema-beige h4 { color:#1c0f00; }
+  body.tema-beige .results-area { background:#f5e8d5; }
+  /* Sin colores fluor en beige — verde tierra para badges */
+  body.tema-beige .fam-ropa { background:#f5e8d5; color:#3d1f08; }
+  body.tema-beige .inn-badge-title { color:#92400e; }
+  body.tema-beige .corp-badge { background:#f5e8d5; color:#3d1f08; }
+
+  /* ══════════════════════════════════════════════════════════
+     TEMA CLARO — Paleta completa de contraste para fondo blanco
+     Todos los colores tienen ratio ≥ 4.5:1 contra #ffffff
+     Filosofía: azul para info, verde para positivo/normas,
+     ámbar para advertencia, gris para neutros
+  ════════════════════════════════════════════════════════════ */
+
+  /* — Familias de producto — */
+  body.tema-claro .fam-ropa      { background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; }
+  body.tema-claro .fam-auditiva  { background:#f5f3ff; color:#5b21b6; border:1px solid #ddd6fe; }
+  body.tema-claro .fam-barreras  { background:#fffbeb; color:#92400e; border:1px solid #fde68a; }
+  body.tema-claro .fam-piel      { background:#fff7ed; color:#9a3412; border:1px solid #fed7aa; }
+  body.tema-claro .fam-vial      { background:#fefce8; color:#713f12; border:1px solid #fef08a; }
+  body.tema-claro .fam-ignifugo  { background:#fff1f2; color:#9f1239; border:1px solid #fecdd3; }
+  body.tema-claro .fam-soldador  { background:#fff7ed; color:#7c2d12; border:1px solid #fed7aa; }
+  body.tema-claro .fam-caidas    { background:#fefce8; color:#78350f; border:1px solid #fde68a; }
+  body.tema-claro .fam-cabeza    { background:#eff6ff; color:#1e3a8a; border:1px solid #bfdbfe; }
+  body.tema-claro .fam-visual    { background:#f0f9ff; color:#0c4a6e; border:1px solid #bae6fd; }
+  body.tema-claro .fam-guantes   { background:#f0fdf4; color:#14532d; border:1px solid #bbf7d0; }
+  body.tema-claro .fam-calzado   { background:#fdf4ff; color:#6b21a8; border:1px solid #f5d0fe; }
+  body.tema-claro .fam-respiratoria { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; }
+  body.tema-claro .fam-arneses   { background:#fefce8; color:#713f12; border:1px solid #fef08a; }
+  body.tema-claro .fam-svial     { background:#fff1f2; color:#881337; border:1px solid #fecdd3; }
+
+  /* — Badges y etiquetas — */
+  body.tema-claro .inn-badge-title  { color:#1e40af !important; }
+  body.tema-claro .corp-badge       { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; }
+  body.tema-claro .corp-card:hover  { border-color:#1d4ed8; }
+  body.tema-claro .corp-link:hover  { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
+
+  /* — Clases de texto con colores claros — */
+  body.tema-claro .isp-name         { color:#1e3a8a !important; }
+  body.tema-claro .isp-badge-date   { color:#374151 !important; }
+  body.tema-claro .inn-name         { color:#14532d !important; }
+  body.tema-claro .inn-badge-sub    { color:#374151 !important; }
+  body.tema-claro .epp-resultado-card .epp-nombre { color:#111827 !important; }
+  body.tema-claro .vip-title        { color:#1e40af !important; }
+  body.tema-claro .filter-chip      { color:#374151; border-color:#d1d5db; background:#f9fafb; }
+  body.tema-claro .filter-chip.active { background:#1e40af; color:#fff; border-color:#1e40af; }
+
+  /* — Inline styles: colores claros/invisibles → azules oscuros — */
+  body.tema-claro [style*="color:#e0f2fe"]  { color:#1e40af !important; }
+  body.tema-claro [style*="color:#ecfccb"]  { color:#14532d !important; }
+  body.tema-claro [style*="color:#d9f99d"]  { color:#3f6212 !important; }
+  body.tema-claro [style*="color:#fecaca"]  { color:#991b1b !important; }
+  body.tema-claro [style*="color:#fca5a5"]  { color:#991b1b !important; }
+  body.tema-claro [style*="color:#f9a8d4"]  { color:#9d174d !important; }
+  body.tema-claro [style*="color:#c4b5fd"]  { color:#5b21b6 !important; }
+  body.tema-claro [style*="color:#fdba74"]  { color:#9a3412 !important; }
+  body.tema-claro [style*="color:#fbbf24"]  { color:#92400e !important; }
+  body.tema-claro [style*="color:#4ade80"]  { color:#15803d !important; }
+  body.tema-claro [style*="color:#22c55e"]  { color:#14532d !important; }
+  body.tema-claro [style*="color:#22d3ee"]  { color:#0e7490 !important; }
+  body.tema-claro [style*="color:#2dd4bf"]  { color:#0f766e !important; }
+  body.tema-claro [style*="color:#38bdf8"]  { color:#0369a1 !important; }
+  body.tema-claro [style*="color:#e879f9"]  { color:#7e22ce !important; }
+  body.tema-claro [style*="color:#fb923c"]  { color:#9a3412 !important; }
+  body.tema-claro [style*="color:#f59e0b"]  { color:#92400e !important; }
+  body.tema-claro [style*="color:#f97316"]  { color:#9a3412 !important; }
+  body.tema-claro [style*="color:#94a3b8"]  { color:#475569 !important; }
+  body.tema-claro [style*="color:#64748b"]  { color:#374151 !important; }
+  body.tema-claro [style*="color:#cbd5e1"]  { color:#475569 !important; }
+  body.tema-claro [style*="color:#f1f5f9"]  { color:#111827 !important; }
+  body.tema-claro [style*="color:#e2e8f0"]  { color:#374151 !important; }
+  body.tema-claro [style*="color:#c9a87c"]  { color:#78350f !important; }
+
+  /* — Fondos de tarjetas con color — remplazar por versiones claras — */
+  body.tema-claro [style*="background:rgba(34,197,94"]   { background:rgba(22,163,74,.1)  !important; }
+  body.tema-claro [style*="background:rgba(245,158,11"]  { background:rgba(146,64,14,.08) !important; }
+  body.tema-claro [style*="background:rgba(239,68,68"]   { background:rgba(153,27,27,.08) !important; }
+  body.tema-claro [style*="background:rgba(99,102,241"]  { background:rgba(30,64,175,.08) !important; }
+  body.tema-claro [style*="background:rgba(163,230,53"]  { background:rgba(22,163,74,.08) !important; }
+  body.tema-claro [style*="background:rgba(236,72,153"]  { background:rgba(157,23,77,.08) !important; }
+  body.tema-claro [style*="background:rgba(251,146,60"]  { background:rgba(154,52,18,.08) !important; }
+  body.tema-claro [style*="background:rgba(217,119,6"]   { background:rgba(120,53,15,.08) !important; }
+  body.tema-claro [style*="background:rgba(132,204,22"]  { background:rgba(22,163,74,.08) !important; }
+  body.tema-claro [style*="background:rgba(251,191,36"]  { background:rgba(146,64,14,.08) !important; }
+  body.tema-claro [style*="background:rgba(180,83,9"]    { background:rgba(154,52,18,.08) !important; }
+
+  /* — Secciones hero/destacadas con colores de acento — */
+  body.tema-claro [style*="color:#a3e635"] { color:#3f6212 !important; }
+  body.tema-claro [style*="color:#86efac"] { color:#15803d !important; }
+  body.tema-claro [style*="color:#fde68a"] { color:#92400e !important; }
+  body.tema-claro [style*="color:#f472b6"] { color:#9d174d !important; }
+
+  /* ══════════════════════════════════════════════════════════
+     TEMA BEIGE/TIERRA — Paleta completa contraste fondo crema
+     Fondo: #fdf6ed (brightness ~247). Todos los textos ≥ 4.5:1
+     Filosofía: tierra, madera, bosque, piedra — sin colores
+     neón ni pastel claro. Ámbar, vino, índigo, oliva, terracota.
+  ════════════════════════════════════════════════════════════ */
+
+  /* — Familias de producto — */
+  body.tema-beige .fam-ropa       { background:#f0fdf4; color:#14532d; border:1px solid #86efac; }
+  body.tema-beige .fam-auditiva   { background:#f5f3ff; color:#4c1d95; border:1px solid #c4b5fd; }
+  body.tema-beige .fam-barreras   { background:#fef3c7; color:#78350f; border:1px solid #fcd34d; }
+  body.tema-beige .fam-piel       { background:#fff7ed; color:#7c2d12; border:1px solid #fdba74; }
+  body.tema-beige .fam-vial       { background:#fefce8; color:#713f12; border:1px solid #fde68a; }
+  body.tema-beige .fam-ignifugo   { background:#fff1f2; color:#7f1d1d; border:1px solid #fecaca; }
+  body.tema-beige .fam-soldador   { background:#fff7ed; color:#7c2d12; border:1px solid #fed7aa; }
+  body.tema-beige .fam-caidas     { background:#fefce8; color:#713f12; border:1px solid #fde68a; }
+  body.tema-beige .fam-cabeza     { background:#eff6ff; color:#1e3a8a; border:1px solid #bfdbfe; }
+  body.tema-beige .fam-visual     { background:#f0f9ff; color:#0c4a6e; border:1px solid #bae6fd; }
+  body.tema-beige .fam-guantes    { background:#f0fdf4; color:#14532d; border:1px solid #86efac; }
+  body.tema-beige .fam-calzado    { background:#fdf4ff; color:#581c87; border:1px solid #e9d5ff; }
+  body.tema-beige .fam-respiratoria { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; }
+  body.tema-beige .fam-arneses    { background:#fefce8; color:#78350f; border:1px solid #fde68a; }
+  body.tema-beige .fam-svial      { background:#fff1f2; color:#881337; border:1px solid #fecdd3; }
+
+  /* — Badges y etiquetas — */
+  body.tema-beige .inn-badge-title  { color:#1e3a8a !important; }
+  body.tema-beige .isp-badge-title  { color:#1e40af !important; }
+  body.tema-beige .corp-badge       { background:#fef3c7; color:#78350f; border:1px solid #fcd34d; }
+  body.tema-beige .corp-card:hover  { border-color:#92400e; }
+  body.tema-beige .corp-link:hover  { background:#92400e; color:#fff; border-color:#92400e; }
+  body.tema-beige .filter-chip      { color:#44403c; border-color:#c9a87c; background:#f5e8d5; }
+  body.tema-beige .filter-chip.active { background:#78350f; color:#fdf6ed; border-color:#78350f; }
+
+  /* — Clases de texto con colores claros — */
+  body.tema-beige .isp-name         { color:#1e3a8a !important; }
+  body.tema-beige .isp-badge-date   { color:#44403c !important; }
+  body.tema-beige .inn-name         { color:#14532d !important; }
+  body.tema-beige .inn-badge-sub    { color:#44403c !important; }
+  body.tema-beige .epp-resultado-card .epp-nombre { color:#1c0f00 !important; }
+  body.tema-beige .vip-title        { color:#78350f !important; }
+
+  /* — Inline styles: todos los colores claros → tierra oscura — */
+  body.tema-beige [style*="color:#e0f2fe"]  { color:#1e3a8a !important; }
+  body.tema-beige [style*="color:#ecfccb"]  { color:#14532d !important; }
+  body.tema-beige [style*="color:#d9f99d"]  { color:#365314 !important; }
+  body.tema-beige [style*="color:#fecaca"]  { color:#7f1d1d !important; }
+  body.tema-beige [style*="color:#fca5a5"]  { color:#7f1d1d !important; }
+  body.tema-beige [style*="color:#f9a8d4"]  { color:#831843 !important; }
+  body.tema-beige [style*="color:#c4b5fd"]  { color:#4c1d95 !important; }
+  body.tema-beige [style*="color:#fdba74"]  { color:#7c2d12 !important; }
+  body.tema-beige [style*="color:#fbbf24"]  { color:#78350f !important; }
+  body.tema-beige [style*="color:#fde68a"]  { color:#713f12 !important; }
+  body.tema-beige [style*="color:#4ade80"]  { color:#14532d !important; }
+  body.tema-beige [style*="color:#22c55e"]  { color:#14532d !important; }
+  body.tema-beige [style*="color:#86efac"]  { color:#15803d !important; }
+  body.tema-beige [style*="color:#22d3ee"]  { color:#0e7490 !important; }
+  body.tema-beige [style*="color:#38bdf8"]  { color:#1e40af !important; }
+  body.tema-beige [style*="color:#2dd4bf"]  { color:#0f766e !important; }
+  body.tema-beige [style*="color:#818cf8"]  { color:#3730a3 !important; }
+  body.tema-beige [style*="color:#e879f9"]  { color:#6b21a8 !important; }
+  body.tema-beige [style*="color:#fb923c"]  { color:#9a3412 !important; }
+  body.tema-beige [style*="color:#f59e0b"]  { color:#78350f !important; }
+  body.tema-beige [style*="color:#f97316"]  { color:#7c2d12 !important; }
+  body.tema-beige [style*="color:#94a3b8"]  { color:#44403c !important; }
+  body.tema-beige [style*="color:#64748b"]  { color:#44403c !important; }
+  body.tema-beige [style*="color:#cbd5e1"]  { color:#44403c !important; }
+  body.tema-beige [style*="color:#f1f5f9"]  { color:#1c0f00 !important; }
+  body.tema-beige [style*="color:#e2e8f0"]  { color:#44403c !important; }
+  body.tema-beige [style*="color:#a3e635"]  { color:#365314 !important; }
+  body.tema-beige [style*="color:#f472b6"]  { color:#831843 !important; }
+
+  /* — Fondos rgba: adaptar a paleta tierra — */
+  body.tema-beige [style*="background:rgba(34,197,94"]   { background:rgba(20,83,45,.1)   !important; }
+  body.tema-beige [style*="background:rgba(56,189,248"]  { background:rgba(30,64,175,.08) !important; }
+  body.tema-beige [style*="background:rgba(245,158,11"]  { background:rgba(120,53,15,.1)  !important; }
+  body.tema-beige [style*="background:rgba(239,68,68"]   { background:rgba(127,29,29,.08) !important; }
+  body.tema-beige [style*="background:rgba(168,85,247"]  { background:rgba(76,29,149,.08) !important; }
+  body.tema-beige [style*="background:rgba(99,102,241"]  { background:rgba(30,58,138,.08) !important; }
+  body.tema-beige [style*="background:rgba(163,230,53"]  { background:rgba(20,83,45,.08)  !important; }
+  body.tema-beige [style*="background:rgba(236,72,153"]  { background:rgba(131,24,67,.08) !important; }
+  body.tema-beige [style*="background:rgba(251,146,60"]  { background:rgba(124,45,18,.08) !important; }
+  body.tema-beige [style*="background:rgba(217,119,6"]   { background:rgba(120,53,15,.08) !important; }
+  body.tema-beige [style*="background:rgba(132,204,22"]  { background:rgba(54,83,20,.08)  !important; }
+  body.tema-beige [style*="background:rgba(251,191,36"]  { background:rgba(113,63,18,.08) !important; }
+  body.tema-beige [style*="background:rgba(180,83,9"]    { background:rgba(124,45,18,.08) !important; }
 
   /* BOTÓN TEMA */
   .theme-btn {
@@ -106,8 +289,9 @@
   .logo-text { font-family:'Barlow Condensed',sans-serif; font-size:1.7rem; font-weight:900; letter-spacing:1px; }
   .logo-text span { color:var(--accent); }
   .lang-toggle { display:flex; gap:6px; }
-  .lang-btn { padding:4px 12px; border-radius:4px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; font-size:0.8rem; font-family:'DM Sans',sans-serif; transition:all .2s; }
-  .lang-btn.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight:600; }
+  .lang-btn { padding:4px 10px; border-radius:6px; border:1px solid var(--border); background:rgba(255,255,255,.08); color:#cbd5e1; cursor:pointer; font-size:0.78rem; font-family:'DM Sans',sans-serif; transition:all .2s; font-weight:500; }
+  .lang-btn.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight:700; box-shadow:0 2px 8px rgba(245,158,11,.4); }
+  .lang-btn:not(.active):hover { background:rgba(255,255,255,.15); color:#fff; }
 
   /* TABS */
   .tabs { display:flex; background:var(--surface); border-bottom:1px solid var(--border); padding:0 2rem; gap:0; }
@@ -179,14 +363,14 @@
   .fam-guantes { background:rgba(16,185,129,.15); color:var(--accent3); }
   .fam-cabeza { background:rgba(99,102,241,.15); color:#818cf8; }
   .fam-visual { background:rgba(6,182,212,.15); color:#22d3ee; }
-  .fam-auditiva { background:rgba(236,72,153,.15); color:#f472b6; }
+  .fam-auditiva { background:rgba(236,72,153,.15); color:#e879f9; }
   .fam-piel { background:rgba(251,146,60,.15); color:#fb923c; }
-  .fam-ropa { background:rgba(132,204,22,.15); color:#a3e635; }
+  .fam-ropa { background:rgba(132,204,22,.15); color:#4ade80; }
   .fam-vial { background:rgba(245,158,11,.15); color:#fbbf24; }
   .fam-gases { background:rgba(239,68,68,.15); color:var(--accent2); }
   .fam-svial { background:rgba(167,139,250,.15); color:#c4b5fd; }
   .fam-alco { background:rgba(20,184,166,.15); color:#2dd4bf; }
-  .fam-barreras { background:rgba(251,191,36,.15); color:#fde68a; }
+  .fam-barreras { background:rgba(251,191,36,.15); color:#fbbf24; }
   .fam-ignifugo { background:rgba(239,68,68,.12); color:#fca5a5; }
   .fam-soldador { background:rgba(180,83,9,.15); color:#fdba74; }
   .fam-respiratoria { background:rgba(56,189,248,.15); color:#38bdf8; }
@@ -239,12 +423,12 @@
     padding:1.5rem; transition:all .3s;
     display:flex; flex-direction:column; gap:.8rem;
   }
-  .corp-card:hover { border-color:#a3e635; transform:translateY(-3px); box-shadow:0 8px 30px rgba(163,230,53,.1); }
+  .corp-card:hover { border-color:#4ade80; transform:translateY(-3px); box-shadow:0 8px 30px rgba(34,197,94,.1); }
   .corp-name { font-family:'Barlow Condensed',sans-serif; font-size:1.3rem; font-weight:700; }
   .corp-desc { font-size:.83rem; color:var(--muted); line-height:1.5; }
-  .corp-badge { display:inline-block; padding:3px 10px; border-radius:4px; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; background:rgba(163,230,53,.15); color:#a3e635; }
+  .corp-badge { display:inline-block; padding:3px 10px; border-radius:4px; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; background:rgba(34,197,94,.15); color:#4ade80; }
   .corp-link { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:8px; background:var(--surface2); text-decoration:none; color:var(--text); font-size:.82rem; border:1px solid var(--border); transition:all .2s; }
-  .corp-link:hover { background:#a3e635; color:#000; border-color:#a3e635; }
+  .corp-link:hover { background:#22c55e; color:#000; border-color:#4ade80; }
 
   /* TOAST */
   .toast { position:fixed; bottom:2rem; right:2rem; background:var(--accent3); color:#000; padding:12px 20px; border-radius:8px; font-weight:600; font-size:.9rem; transform:translateY(100px); opacity:0; transition:all .3s; z-index:999; }
@@ -339,16 +523,16 @@
     padding:10px 18px; display:flex; align-items:center; justify-content:space-between;
     gap:12px; text-decoration:none; transition:all .2s;
   }
-  .inn-banner:hover { border-color:rgba(163,230,53,.5); box-shadow:0 4px 20px rgba(163,230,53,.1); }
+  .inn-banner:hover { border-color:rgba(163,230,53,.5); box-shadow:0 4px 20px rgba(34,197,94,.1); }
   .inn-name { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; color:#ecfccb; letter-spacing:.5px; }
   .inn-sub { font-size:.72rem; color:var(--muted); }
   .inn-badge {
     display:flex; flex-direction:column; align-items:center;
     padding:6px 14px; border-radius:8px;
-    background:rgba(163,230,53,.1); border:1px solid rgba(163,230,53,.3);
+    background:rgba(34,197,94,.1); border:1px solid rgba(163,230,53,.3);
     white-space:nowrap;
   }
-  .inn-badge-title { font-size:.7rem; font-weight:700; color:#a3e635; text-transform:uppercase; letter-spacing:1px; }
+  .inn-badge-title { font-size:.7rem; font-weight:700; color:#4ade80; text-transform:uppercase; letter-spacing:1px; }
   .inn-badge-sub { font-size:.78rem; color:#ecfccb; font-weight:600; margin-top:1px; }
 
   /* CALCULADORA */
@@ -502,28 +686,30 @@
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('es')">ES</button>
     <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('pt')">PT</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
   </div>
 </header>
 
 <div class="tabs">
-  <div class="tab active" onclick="showTab('epp')" id="tab-epp">🛡️ <span data-es="EPP & Seguridad" data-en="PPE & Safety">EPP & Seguridad</span></div>
-  <div class="tab" onclick="showTab('norm')" id="tab-norm">📋 <span data-es="Normativas" data-en="Standards">Normativas</span></div>
-  <div class="tab" onclick="showTab('calc')" id="tab-calc">🧮 <span data-es="Calculadora EPP" data-en="PPE Calculator">Calculadora EPP</span></div>
-  <div class="tab" onclick="showTab('vida')" id="tab-vida">⏱️ <span data-es="Vida Útil" data-en="Service Life">Vida Útil</span></div>
-  <div class="tab" onclick="showTab('prov')" id="tab-prov">🏪 <span data-es="Proveedores" data-en="Suppliers">Proveedores</span></div>
-  <div class="tab" onclick="showTab('certcomp')" id="tab-certcomp">🔎 <span data-es="Certificaciones" data-en="Certifications">Certificaciones</span></div>
-  <div class="tab" onclick="showTab('fab')" id="tab-fab">🏭 <span data-es="Fabricantes ISP" data-en="ISP Manufacturers">Fabricantes ISP</span></div>
-  <div class="tab" onclick="showTab('expertos')" id="tab-expertos">🎓 <span data-es="Zona Expertos" data-en="Expert Zone">Zona Expertos</span></div>
-  <div class="tab" onclick="showTab('talentos')" id="tab-talentos">💼 <span data-es="Bolsa Talentos" data-en="Job Board">Bolsa Talentos</span></div>
-  <div class="tab" onclick="abrirVIP()" id="tab-vip">⭐ <span data-es="Zona VIP" data-en="VIP Zone">Zona VIP</span></div>
-  <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B">Ropa Corporativa B2B</span></div>
+  <div class="tab active" onclick="showTab('epp')" id="tab-epp">🛡️ <span data-es="EPP & Seguridad" data-en="PPE & Safety" data-pt="EPI & Segurança" data-zh="个人防护" data-pt="EPI & Segurança" data-zh="个人防护装备">EPP & Seguridad</span></div>
+  <div class="tab" onclick="showTab('norm')" id="tab-norm">📋 <span data-es="Normativas" data-en="Standards" data-pt="Normas" data-zh="标准" data-pt="Normas" data-zh="标准规范">Normativas</span></div>
+  <div class="tab" onclick="showTab('calc')" id="tab-calc">🧮 <span data-es="Calculadora EPP" data-en="PPE Calculator" data-pt="Calculadora EPI" data-zh="防护计算" data-pt="Calculadora EPI" data-zh="防护计算器">Calculadora EPP</span></div>
+  <div class="tab" onclick="showTab('vida')" id="tab-vida">⏱️ <span data-es="Vida Útil" data-en="Service Life" data-pt="Vida Útil" data-zh="使用寿命" data-pt="Vida Útil" data-zh="使用寿命">Vida Útil</span></div>
+  <div class="tab" onclick="showTab('prov')" id="tab-prov">🏪 <span data-es="Proveedores" data-en="Suppliers" data-pt="Fornecedores" data-zh="供应商" data-pt="Fornecedores" data-zh="供应商">Proveedores</span></div>
+  <div class="tab" onclick="showTab('certcomp')" id="tab-certcomp">🔎 <span data-es="Certificaciones" data-en="Certifications" data-pt="Certificações" data-zh="认证" data-pt="Certificações" data-zh="认证">Certificaciones</span></div>
+  <div class="tab" onclick="showTab('fab')" id="tab-fab">🏭 <span data-es="Fabricantes ISP" data-en="ISP Manufacturers" data-pt="Fabricantes ISP" data-zh="ISP制造商" data-pt="Fabricantes ISP" data-zh="ISP制造商">Fabricantes ISP</span></div>
+  <div class="tab" onclick="showTab('expertos')" id="tab-expertos">🎓 <span data-es="Zona Expertos" data-en="Expert Zone" data-pt="Zona Especialistas" data-zh="专家区" data-pt="Zona Especialistas" data-zh="专家区">Zona Expertos</span></div>
+  <div class="tab" onclick="showTab('talentos')" id="tab-talentos">💼 <span data-es="Bolsa Talentos" data-en="Job Board" data-pt="Bolsa de Talentos" data-zh="人才市场" data-pt="Bolsa de Talentos" data-zh="人才市场">Bolsa Talentos</span></div>
+  <div class="tab" onclick="abrirVIP()" id="tab-vip">⭐ <span data-es="Zona VIP" data-en="VIP Zone" data-pt="Zona VIP" data-zh="VIP专区" data-pt="Zona VIP" data-zh="VIP区">Zona VIP</span></div>
+  <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B" data-pt="Roupas Corporativas B2B" data-zh="企业服装B2B" data-pt="Roupas Corporativas B2B" data-zh="企业服装B2B">Ropa Corporativa B2B</span></div>
   <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
 </div>
 
 <!-- EPP TAB -->
 <div id="pane-epp">
   <div class="hero">
-    <h1><span data-es="ENCUENTRA TU" data-en="FIND YOUR">ENCUENTRA TU</span> <span>EPP</span></h1>
+    <h1><span data-es="ENCUENTRA TU" data-en="FIND YOUR" data-pt="ENCONTRE SEU" data-zh="查找您的">ENCUENTRA TU</span> <span>EPP</span></h1>
     <p data-es="Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)" data-en="Search by name, type or feature (e.g: N95 respirator, steel toe boot, dielectric helmet)">Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)</p>
     <div class="search-wrap">
       <div class="search-icon">🔍</div>
@@ -533,7 +719,7 @@
       <button class="search-clear" id="clearBtn" onclick="clearSearch()">✕</button>
     </div>
     <div id="searchTip" style="font-size:.75rem;color:var(--muted);margin-top:.5rem;text-align:center;transition:all .2s;">
-      💡 <span data-es="Usa * como comodín:" data-en="Use * as wildcard:">Usa * como comodín:</span>
+      💡 <span data-es="Usa * como comodín:" data-en="Use * as wildcard:" data-pt="Use * como coringa:" data-zh="使用*作为通配符：">Usa * como comodín:</span>
       <code style="background:rgba(245,158,11,.1);color:var(--accent);padding:1px 6px;border-radius:4px;font-size:.75rem;">*botin*acero*</code>
       &nbsp;·&nbsp;
       <code style="background:rgba(245,158,11,.1);color:var(--accent);padding:1px 6px;border-radius:4px;font-size:.75rem;">*3M*n95*</code>
@@ -558,7 +744,7 @@
   </div>
 
   <div class="filters" id="filtersArea">
-    <span class="filter-label" data-es="Familia:" data-en="Family:">Familia:</span>
+    <span class="filter-label" data-es="Familia:" data-en="Family:" data-pt="Família:" data-zh="类别：">Familia:</span>
   </div>
 
   <div class="results-area">
@@ -566,8 +752,8 @@
     <div class="products-grid" id="productsGrid"></div>
     <div class="empty" id="emptyState" style="display:none;">
       <div class="empty-icon">🔎</div>
-      <h3 data-es="Sin resultados" data-en="No results">Sin resultados</h3>
-      <p data-es="Intenta con otro término o revisa los filtros" data-en="Try another term or check the filters">Intenta con otro término o revisa los filtros</p>
+      <h3 data-es="Sin resultados" data-en="No results" data-pt="Sem resultados" data-zh="无结果">Sin resultados</h3>
+      <p data-es="Intenta con otro término o revisa los filtros" data-en="Try another term or check the filters" data-pt="Tente outro termo ou verifique os filtros" data-zh="请尝试其他搜索词或检查筛选条件">Intenta con otro término o revisa los filtros</p>
     </div>
   </div>
 </div>
@@ -923,7 +1109,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Acredita laboratorios de ensayo y calibración bajo NCh-ISO/IEC 17025. Registra organismos de certificación de productos.</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">✅ ISO 17025</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">✅ ISO 17025</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver acreditados →</span>
             </div>
           </div>
@@ -979,7 +1165,7 @@
 
     <!-- ORGANISMOS INTERNACIONALES -->
     <div style="margin-top:2.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#a3e635;margin-bottom:.3rem;letter-spacing:.5px;">🌍 ORGANISMOS CERTIFICADORES INTERNACIONALES</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;margin-bottom:.3rem;letter-spacing:.5px;">🌍 ORGANISMOS CERTIFICADORES INTERNACIONALES</div>
       <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Estándares y sellos internacionales que avalan la calidad de los EPP en el mundo</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">
 
@@ -995,7 +1181,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Certifica respiradores N95, N99, N100, P100 y más. Es la principal certificación de respiradores en el mundo. El ISP Chile la reconoce para importaciones.</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">😷 N95 / P100</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">😷 N95 / P100</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Consultar aprobados →</span>
             </div>
           </div>
@@ -1013,7 +1199,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Regula el uso obligatorio de EPP en EE.UU. Sus normas 29 CFR son referencia mundial para calzado, protección ocular, caídas y más.</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">⚖️ 29 CFR 1910</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">⚖️ 29 CFR 1910</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver normas →</span>
             </div>
           </div>
@@ -1031,7 +1217,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Define estándares para cascos (Z89.1), lentes (Z87.1), ropa de alta visibilidad (107), calzado (Z41) y protección auditiva (S3.19).</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">⛑️ Z89.1 · Z87.1</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">⛑️ Z89.1 · Z87.1</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver estándares →</span>
             </div>
           </div>
@@ -1049,7 +1235,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Certificación obligatoria para EPP comercializados en Europa. Basada en normas EN: EN 352 (auditivos), EN 166 (ojos), EN 397 (cascos), EN 388 (guantes).</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">🏷️ EN 166 · EN 352 · EN 388</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">🏷️ EN 166 · EN 352 · EN 388</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver reglamento →</span>
             </div>
           </div>
@@ -1067,7 +1253,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Catálogo ISO 13.340 con normas internacionales de EPP. Base para muchas normas chilenas NCh. Incluye protección respiratoria, ocular, caídas y más.</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">📦 ICS 13.340</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">📦 ICS 13.340</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver catálogo →</span>
             </div>
           </div>
@@ -1085,7 +1271,7 @@
             </div>
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Reconocida en Chile para importaciones. AS/NZS 1337 (ojos), AS/NZS 1715 (respiradores), AS/NZS 1801 (cascos), AS/NZS 2161 (guantes).</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(163,230,53,.1);color:#a3e635;padding:2px 8px;border-radius:20px;">🪖 AS/NZS 1801</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">🪖 AS/NZS 1801</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver normas →</span>
             </div>
           </div>
@@ -1100,7 +1286,7 @@
 <!-- CALCULADORA EPP TAB -->
 <div id="pane-calc" style="display:none;">
   <div class="hero">
-    <h1><span>CALCULADORA</span> <span data-es="DE EPP POR RIESGO" data-en="PPE BY RISK">DE EPP POR RIESGO</span></h1>
+    <h1><span>CALCULADORA</span> <span data-es="DE EPP POR RIESGO" data-en="PPE BY RISK" data-pt="EPI POR RISCO" data-zh="按风险分类防护">DE EPP POR RIESGO</span></h1>
     <p data-es="Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile" data-en="Select your industry and task — we tell you what PPE you need by Chilean law">Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile</p>
   </div>
   <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
@@ -1108,7 +1294,7 @@
     <!-- Leyenda legal -->
     <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;">
       <span style="font-size:1.4rem;flex-shrink:0;">👷</span>
-      <span style="font-size:.82rem;color:#fde68a;line-height:1.6;"><strong>Aviso legal:</strong> Esta herramienta es solo referencial. <strong>Siempre asesórate con un Prevencionista de Riesgos</strong> para determinar los EPP adecuados a tu faena específica.</span>
+      <span style="font-size:.82rem;color:#fbbf24;line-height:1.6;"><strong>Aviso legal:</strong> Esta herramienta es solo referencial. <strong>Siempre asesórate con un Prevencionista de Riesgos</strong> para determinar los EPP adecuados a tu faena específica.</span>
     </div>
     <div style="margin-bottom:1.5rem;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 1 — ¿En qué industria trabajas?</div>
@@ -1143,7 +1329,7 @@
 <!-- VIDA ÚTIL TAB -->
 <div id="pane-vida" style="display:none;">
   <div class="hero">
-    <h1><span>VIDA ÚTIL</span> <span data-es="DE TUS EPP" data-en="OF YOUR PPE">DE TUS EPP</span></h1>
+    <h1><span>VIDA ÚTIL</span> <span data-es="DE TUS EPP" data-en="OF YOUR PPE" data-pt="DOS SEUS EPI" data-zh="防护装备寿命">DE TUS EPP</span></h1>
     <p data-es="Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas" data-en="Guide on when to replace each piece of personal protective equipment">Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas</p>
   </div>
   <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
@@ -1157,7 +1343,7 @@
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1.5rem;font-size:.8rem;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">🔍 LEYENDA — ORIGEN DE CADA DATO</div>
       <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-        <span style="background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">✅ Norma obligatoria</span>
+        <span style="background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">✅ Norma obligatoria</span>
         <span style="background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">📋 Norma referencial</span>
         <span style="background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">🏭 Recomendación fabricante</span>
         <span style="background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.3);border-radius:6px;padding:3px 10px;font-size:.72rem;">👁️ Criterio visual</span>
@@ -1191,7 +1377,7 @@
           <div>
             <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
             <div style="color:var(--text);line-height:1.7;">• Sufrió un golpe o caída<br>• Tiene grietas o deformaciones<br>• El plástico se ve opaco o quebradizo<br>• El arnés interior está desgastado</div>
-            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+            <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;background:rgba(34,197,94,.12);border-radius:6px;padding:.4rem .6rem;">
               ✅ Criterio de retiro visual avalado por DS 594 Art. 53: el EPP en mal estado debe ser reemplazado de inmediato.
             </div>
           </div>
@@ -1222,7 +1408,7 @@
           <div>
             <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
             <div style="color:var(--text);line-height:1.7;">• Lente rayado que afecte la visión<br>• Marco deformado o roto<br>• Filtro de careta dañado o sin marcación shade<br>• Elástico o patillas deterioradas</div>
-            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+            <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;background:rgba(34,197,94,.12);border-radius:6px;padding:.4rem .6rem;">
               ✅ ANSI Z87.1 establece que un lente rayado o dañado pierde su certificación y debe retirarse.
             </div>
           </div>
@@ -1249,11 +1435,11 @@
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">N95 / FFP2 desechable</td>
                 <td style="padding:8px;color:#fca5a5;font-weight:700;">1 turno / 8 hrs</td>
-                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ NIOSH / EN 149</span></td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ NIOSH / EN 149</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Media máscara reutilizable</td>
-                <td style="padding:8px;color:#a3e635;font-weight:700;">3–5 años (cuerpo)</td>
+                <td style="padding:8px;color:#4ade80;font-weight:700;">3–5 años (cuerpo)</td>
                 <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">🏭 Fabricante</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
@@ -1290,22 +1476,22 @@
             <tbody>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Cuero / cabritilla</td>
-                <td style="padding:8px;color:#a3e635;font-weight:700;">3–6 meses</td>
+                <td style="padding:8px;color:#4ade80;font-weight:700;">3–6 meses</td>
                 <td style="padding:8px;display:flex;flex-wrap:wrap;gap:3px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span><span style="background:rgba(236,72,153,.1);color:#f9a8d4;border-radius:4px;padding:2px 7px;font-size:.7rem;">👆 Criterio táctil</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Nitrilo / látex desechable</td>
                 <td style="padding:8px;color:#fca5a5;font-weight:700;">1 uso</td>
-                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 374 / ISO 374</span></td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 374 / ISO 374</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Dieléctrico (goma)</td>
                 <td style="padding:8px;color:#fbbf24;font-weight:700;">6 meses en servicio</td>
-                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 60903 — prueba semestral obligatoria</span></td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 60903 — prueba semestral obligatoria</span></td>
               </tr>
               <tr>
                 <td style="padding:8px;color:var(--text);">Anticorte (fibra)</td>
-                <td style="padding:8px;color:#a3e635;font-weight:700;">6–12 meses</td>
+                <td style="padding:8px;color:#4ade80;font-weight:700;">6–12 meses</td>
                 <td style="padding:8px;display:flex;flex-wrap:wrap;gap:3px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span><span style="background:rgba(236,72,153,.1);color:#f9a8d4;border-radius:4px;padding:2px 7px;font-size:.7rem;">👆 Criterio táctil</span></td>
               </tr>
             </tbody>
@@ -1337,7 +1523,7 @@
           <div>
             <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
             <div style="color:var(--text);line-height:1.7;">• Suela sin antideslizante visible<br>• Puntera expuesta o deformada<br>• Corte superior separado de suela<br>• Humedad interior permanente</div>
-            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+            <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;background:rgba(34,197,94,.12);border-radius:6px;padding:.4rem .6rem;">
               ✅ DS 594 Art. 53 obliga reemplazar EPP en mal estado sin importar antigüedad.
             </div>
           </div>
@@ -1358,7 +1544,7 @@
             <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">📅 Vida útil estimada</div>
             <div style="color:var(--text);line-height:1.8;">
               • Arnés cuerpo completo: <strong>máx. 10 años</strong> fab. / <strong>5 años</strong> en servicio <span style="background:rgba(251,191,36,.1);color:#fbbf24;border-radius:4px;padding:1px 6px;font-size:.68rem;">📋 ISO 10333</span><br>
-              • Absorbedor de impacto: <strong>retiro tras 1 caída</strong> <span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:1px 6px;font-size:.68rem;">✅ NCh 2374</span><br>
+              • Absorbedor de impacto: <strong>retiro tras 1 caída</strong> <span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:1px 6px;font-size:.68rem;">✅ NCh 2374</span><br>
               • Línea de vida textil: <strong>3–5 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span><br>
               • Mosquetones de acero: <strong>10 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span>
             </div>
@@ -1366,7 +1552,7 @@
           <div>
             <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;">🚨 Retirar inmediatamente si</div>
             <div style="color:var(--text);line-height:1.7;">• Sufrió una caída (aunque sea leve)<br>• Cortes, quemaduras o desgaste en correas<br>• Costuras abiertas o hebillas deformadas<br>• Absorbedor desplegado parcialmente</div>
-            <div style="margin-top:.6rem;font-size:.72rem;color:#86efac;background:rgba(34,197,94,.08);border-radius:6px;padding:.4rem .6rem;">
+            <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;background:rgba(34,197,94,.12);border-radius:6px;padding:.4rem .6rem;">
               ✅ NCh 2374 e ISO 10333 establecen explícitamente el retiro obligatorio tras cualquier caída arrestada.
             </div>
           </div>
@@ -1393,7 +1579,7 @@
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Tapones desechables</td>
                 <td style="padding:8px;color:#fca5a5;font-weight:700;">1 turno — uso único</td>
-                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ ANSI S3.19 / EN 352-2</span></td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ ANSI S3.19 / EN 352-2</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Tapones reutilizables</td>
@@ -1402,7 +1588,7 @@
               </tr>
               <tr>
                 <td style="padding:8px;color:var(--text);">Orejeras de copa</td>
-                <td style="padding:8px;color:#a3e635;font-weight:700;">2–5 años (cuerpo) / almohadillas 6–12 meses</td>
+                <td style="padding:8px;color:#4ade80;font-weight:700;">2–5 años (cuerpo) / almohadillas 6–12 meses</td>
                 <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">🏭 Fabricante</span></td>
               </tr>
             </tbody>
@@ -1435,7 +1621,7 @@
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Ropa química Tyvek</td>
                 <td style="padding:8px;color:#fca5a5;font-weight:700;">1 uso desechable</td>
-                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#86efac;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 13982 (Tipo 5)</span></td>
+                <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ EN 13982 (Tipo 5)</span></td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
                 <td style="padding:8px;color:var(--text);">Chaleco alta visibilidad</td>
@@ -1444,7 +1630,7 @@
               </tr>
               <tr>
                 <td style="padding:8px;color:var(--text);">Ropa cuero soldador</td>
-                <td style="padding:8px;color:#a3e635;font-weight:700;">1–3 años</td>
+                <td style="padding:8px;color:#4ade80;font-weight:700;">1–3 años</td>
                 <td style="padding:8px;"><span style="background:rgba(168,85,247,.1);color:#c4b5fd;border-radius:4px;padding:2px 7px;font-size:.7rem;">👁️ Criterio visual</span></td>
               </tr>
             </tbody>
@@ -1525,7 +1711,7 @@
 <!-- FABRICANTES ISP TAB -->
 <div id="pane-fab" style="display:none;">
   <div class="hero">
-    <h1><span>FABRICANTES</span> <span data-es="REGISTRADOS ISP" data-en="ISP REGISTERED">REGISTRADOS ISP</span></h1>
+    <h1><span>FABRICANTES</span> <span data-es="REGISTRADOS ISP" data-en="ISP REGISTERED" data-pt="REGISTRADOS ISP" data-zh="ISP注册">REGISTRADOS ISP</span></h1>
     <p data-es="Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web" data-en="PPE manufacturers and importers registered with ISP Chile">Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web</p>
   </div>
   <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
@@ -1552,7 +1738,7 @@
 <!-- ZONA EXPERTOS TAB -->
 <div id="pane-expertos" style="display:none;">
   <div class="hero">
-    <h1><span>ZONA</span> <span data-es="EXPERTOS" data-en="EXPERTS">EXPERTOS</span></h1>
+    <h1><span>ZONA</span> <span data-es="EXPERTOS" data-en="EXPERTS" data-pt="ESPECIALISTAS" data-zh="专家区">EXPERTOS</span></h1>
     <p data-es="Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP" data-en="Comments and recommendations from safety professionals on proper PPE use">Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP</p>
   </div>
   <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
@@ -1564,12 +1750,12 @@
 
     <!-- Formulario para admin -->
     <div id="expertoForm" style="display:none;background:var(--card);border:1px solid rgba(163,230,53,.3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#a3e635;margin-bottom:.8rem;">➕ Publicar comentario de experto</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#4ade80;margin-bottom:.8rem;">➕ Publicar comentario de experto</div>
       <input id="expNombre" type="text" placeholder="Nombre del experto" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
       <input id="expCargo" type="text" placeholder="Cargo / Especialidad (ej: Prevencionista de Riesgos, Ing. Seguridad)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
       <input id="expEpp" type="text" placeholder="EPP sobre el que comenta (ej: Respirador N95, Arnés anticaída)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
       <textarea id="expComentario" placeholder="Comentario del experto (máx. 5 líneas)..." rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
-      <button onclick="publicarExperto()" style="background:linear-gradient(135deg,#a3e635,#65a30d);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
+      <button onclick="publicarExperto()" style="background:linear-gradient(135deg,#22c55e,#65a30d);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
     </div>
 
     <!-- Lista de comentarios -->
@@ -1679,8 +1865,8 @@
 <!-- CORPORATE TAB -->
 <div id="pane-corp" style="display:none;">
   <div class="hero">
-    <h1><span>ROPA</span> <span data-es="CORPORATIVA B2B" data-en="CORPORATE B2B">CORPORATIVA B2B</span></h1>
-    <p data-es="Proveedores mayoristas que venden a empresas distribuidoras" data-en="Wholesale suppliers that sell to distribution companies">Proveedores mayoristas que venden a empresas distribuidoras</p>
+    <h1><span>ROPA</span> <span data-es="CORPORATIVA B2B" data-en="CORPORATE B2B" data-pt="CORPORATIVA B2B" data-zh="企业B2B">CORPORATIVA B2B</span></h1>
+    <p data-es="Proveedores mayoristas que venden a empresas distribuidoras" data-en="Wholesale suppliers that sell to distribution companies" data-pt="Fornecedores atacadistas que vendem para empresas distribuidoras" data-zh="向经销商销售的批发供应商">Proveedores mayoristas que venden a empresas distribuidoras</p>
   </div>
   <div class="results-area">
     <div class="corp-grid" id="corpGrid"></div>
@@ -1694,11 +1880,11 @@
       <h3 data-es="➕ Agregar Nuevo Producto / Proveedor" data-en="➕ Add New Product / Provider">➕ Agregar Nuevo Producto / Proveedor</h3>
       <div class="form-row">
         <div class="form-group">
-          <label data-es="Nombre del Producto" data-en="Product Name">Nombre del Producto</label>
+          <label data-es="Nombre del Producto" data-en="Product Name" data-pt="Nome do Produto" data-zh="产品名称">Nombre del Producto</label>
           <input class="form-control" id="adminName" placeholder="Ej: Botín de seguridad punta acero">
         </div>
         <div class="form-group">
-          <label data-es="Familia" data-en="Family">Familia</label>
+          <label data-es="Familia" data-en="Family" data-pt="Família" data-zh="类别">Familia</label>
           <select class="form-control" id="adminFamily">
             <option value="calzado">👟 Calzado de Seguridad</option>
             <option value="guantes">🧤 Guantes</option>
@@ -1721,11 +1907,11 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label data-es="Descripción" data-en="Description">Descripción</label>
+          <label data-es="Descripción" data-en="Description" data-pt="Descrição" data-zh="描述">Descripción</label>
           <input class="form-control" id="adminDesc" placeholder="Ej: Cuero vacuno, punta acero, plantilla anticlavo">
         </div>
         <div class="form-group">
-          <label data-es="Tags (separados por coma)" data-en="Tags (comma separated)">Tags (separados por coma)</label>
+          <label data-es="Tags (separados por coma)" data-en="Tags (comma separated)" data-pt="Tags (separados por vírgula)" data-zh="标签（逗号分隔）">Tags (separados por coma)</label>
           <input class="form-control" id="adminTags" placeholder="Ej: cuero, acero, anticlavo, negro">
         </div>
       </div>
@@ -1739,16 +1925,16 @@
           <input class="form-control" id="adminUrl" placeholder="https://www.ejemplo.cl">
         </div>
       </div>
-      <button class="btn-primary" onclick="addProduct()" data-es="AGREGAR PRODUCTO" data-en="ADD PRODUCT">AGREGAR PRODUCTO</button>
+      <button class="btn-primary" onclick="addProduct()" data-es="AGREGAR PRODUCTO" data-en="ADD PRODUCT" data-pt="ADICIONAR PRODUTO" data-zh="添加产品">AGREGAR PRODUCTO</button>
     </div>
 
     <div class="admin-card">
-      <h3 data-es="📋 Productos Registrados" data-en="📋 Registered Products">📋 Productos Registrados</h3>
+      <h3 data-es="📋 Productos Registrados" data-en="📋 Registered Products" data-pt="📋 Produtos Registrados" data-zh="📋 已注册产品">📋 Productos Registrados</h3>
       <div style="overflow-x:auto;">
         <table class="admin-table" id="adminTable">
           <thead><tr>
-            <th data-es="Producto" data-en="Product">Producto</th>
-            <th data-es="Familia" data-en="Family">Familia</th>
+            <th data-es="Producto" data-en="Product" data-pt="Produto" data-zh="产品">Producto</th>
+            <th data-es="Familia" data-en="Family" data-pt="Família" data-zh="类别">Familia</th>
             <th data-es="Proveedor" data-en="Provider">Proveedor</th>
             <th></th>
           </tr></thead>
@@ -1818,21 +2004,278 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── LANGUAGE ───────────────────────────────────────────────
 let lang = 'es';
+// ─── DICCIONARIO COMPLETO DE TRADUCCIONES ────────────────────
+const T = {
+  es: {
+    // Búsqueda
+    search_placeholder: 'Ej: respirador, botín de seguridad, casco...',
+    search_tip: 'Usa * como comodín:',
+    family_label: 'FAMILIA:',
+    all_families: 'Todos',
+    no_results_title: 'Sin resultados',
+    no_results_sub: 'Intenta con otro término o revisa los filtros',
+    // Secciones hero
+    find_epp: 'ENCUENTRA TU EPP',
+    find_epp_sub: 'Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)',
+    // Normativas
+    norm_title: 'NCh VIGENTES EPP',
+    norm_sub: 'Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas',
+    // Calculadora
+    calc_title: 'CALCULADORA DE EPP POR RIESGO',
+    calc_sub: 'Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile',
+    calc_industry: 'Industria',
+    calc_task: 'Faena',
+    calc_btn: 'Ver EPP requeridos',
+    calc_legal: '⚖️ Aviso legal: Esta herramienta es solo referencial. Siempre asesórate con un Prevencionista de Riesgos para determinar los EPP adecuados a tu faena específica.',
+    // Vida útil
+    vida_title: 'VIDA ÚTIL DE TUS EPP',
+    vida_sub: 'Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas',
+    // Proveedores
+    prov_title: 'DIRECTORIO DE PROVEEDORES',
+    prov_sub: 'Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web',
+    // Certificaciones
+    cert_title: 'VERIFICADOR DE CERTIFICACIONES',
+    cert_sub: 'Verifica si la certificación de un EPP importado es válida en Chile según el ISP',
+    // Fabricantes
+    fab_title: 'FABRICANTES REGISTRADOS ISP',
+    fab_sub: 'Empresas fabricantes e importadoras de EPP registradas en el ISP Chile',
+    fab_search: 'Buscar fabricante...',
+    // Expertos
+    exp_title: 'ZONA EXPERTOS',
+    exp_sub: 'Comentarios y recomendaciones de profesionales de la seguridad industrial',
+    // Talentos
+    tal_title: 'BOLSA DE TALENTOS EPP',
+    tal_sub: 'Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales',
+    // Admin
+    adm_add: '➕ Agregar Nuevo Producto / Proveedor',
+    adm_name: 'Nombre del Producto',
+    adm_family: 'Familia',
+    adm_desc: 'Descripción',
+    adm_tags: 'Tags (separados por coma)',
+    adm_supplier: 'Nombre del Proveedor',
+    adm_url: 'URL del Proveedor',
+    adm_btn: 'AGREGAR PRODUCTO',
+    adm_list: '📋 Productos Registrados',
+    adm_col_prod: 'Producto',
+    adm_col_fam: 'Familia',
+    adm_col_prov: 'Proveedor',
+    // VIP
+    vip_welcome: 'Tu espacio exclusivo BuscaEPP',
+    vip_content: '📦 TU CONTENIDO EXCLUSIVO',
+    // Botón WhatsApp
+    wa_text: 'Escríbenos',
+    // ISP registro
+    isp_btn: 'REGISTRO ISP',
+  },
+  en: {
+    search_placeholder: 'E.g.: respirator, safety boot, helmet...',
+    search_tip: 'Use * as wildcard:',
+    family_label: 'FAMILY:',
+    all_families: 'All',
+    no_results_title: 'No results',
+    no_results_sub: 'Try another term or check the filters',
+    find_epp: 'FIND YOUR PPE',
+    find_epp_sub: 'Search by name, type or feature (e.g.: N95 respirator, steel toe boot, dielectric helmet)',
+    norm_title: 'CURRENT NCh STANDARDS',
+    norm_sub: 'Free summary of the main Chilean Standards applicable to PPE — no need to purchase them',
+    calc_title: 'PPE CALCULATOR BY RISK',
+    calc_sub: 'Select your industry and task — we tell you what PPE you need by law in Chile',
+    calc_industry: 'Industry',
+    calc_task: 'Task',
+    calc_btn: 'View required PPE',
+    calc_legal: '⚖️ Legal notice: This tool is for reference only. Always consult a Risk Prevention specialist to determine the appropriate PPE for your specific task.',
+    vida_title: 'SERVICE LIFE OF YOUR PPE',
+    vida_sub: 'Guide on when to replace each personal protection element according to manufacturers and regulations',
+    prov_title: 'SUPPLIER DIRECTORY',
+    prov_sub: 'All PPE supplier companies in Chile — click to visit their website',
+    cert_title: 'CERTIFICATION VERIFIER',
+    cert_sub: 'Verify if the certification of an imported PPE is valid in Chile according to ISP',
+    fab_title: 'ISP REGISTERED MANUFACTURERS',
+    fab_sub: 'PPE manufacturers and importers registered with ISP Chile',
+    fab_search: 'Search manufacturer...',
+    exp_title: 'EXPERT ZONE',
+    exp_sub: 'Comments and recommendations from industrial safety professionals',
+    tal_title: 'PPE TALENT BOARD',
+    tal_sub: 'Industry professionals offer their services or seek new job opportunities',
+    adm_add: '➕ Add New Product / Supplier',
+    adm_name: 'Product Name',
+    adm_family: 'Family',
+    adm_desc: 'Description',
+    adm_tags: 'Tags (comma separated)',
+    adm_supplier: 'Supplier Name',
+    adm_url: 'Supplier URL',
+    adm_btn: 'ADD PRODUCT',
+    adm_list: '📋 Registered Products',
+    adm_col_prod: 'Product',
+    adm_col_fam: 'Family',
+    adm_col_prov: 'Supplier',
+    vip_welcome: 'Your exclusive BuscaEPP space',
+    vip_content: '📦 YOUR EXCLUSIVE CONTENT',
+    wa_text: 'Message us',
+    isp_btn: 'ISP REGISTRY',
+  },
+  pt: {
+    search_placeholder: 'Ex: respirador, botina de segurança, capacete...',
+    search_tip: 'Use * como coringa:',
+    family_label: 'FAMÍLIA:',
+    all_families: 'Todos',
+    no_results_title: 'Sem resultados',
+    no_results_sub: 'Tente outro termo ou verifique os filtros',
+    find_epp: 'ENCONTRE SEU EPI',
+    find_epp_sub: 'Pesquise por nome, tipo ou característica (ex: respirador N95, botina bico de aço, capacete dielétrico)',
+    norm_title: 'NORMAS NCh VIGENTES EPI',
+    norm_sub: 'Resumo gratuito das principais Normas Chilenas aplicáveis a EPI — sem necessidade de comprá-las',
+    calc_title: 'CALCULADORA DE EPI POR RISCO',
+    calc_sub: 'Selecione sua indústria e tarefa — dizemos qual EPI você precisa por lei no Chile',
+    calc_industry: 'Indústria',
+    calc_task: 'Tarefa',
+    calc_btn: 'Ver EPI necessários',
+    calc_legal: '⚖️ Aviso legal: Esta ferramenta é apenas de referência. Sempre consulte um especialista em Prevenção de Riscos para determinar os EPI adequados.',
+    vida_title: 'VIDA ÚTIL DOS SEUS EPI',
+    vida_sub: 'Guia de quando substituir cada elemento de proteção pessoal segundo fabricantes e normas',
+    prov_title: 'DIRETÓRIO DE FORNECEDORES',
+    prov_sub: 'Todas as empresas fornecedoras de EPI no Chile — clique para visitar o site',
+    cert_title: 'VERIFICADOR DE CERTIFICAÇÕES',
+    cert_sub: 'Verifique se a certificação de um EPI importado é válida no Chile segundo o ISP',
+    fab_title: 'FABRICANTES REGISTRADOS ISP',
+    fab_sub: 'Empresas fabricantes e importadoras de EPI registradas no ISP Chile',
+    fab_search: 'Buscar fabricante...',
+    exp_title: 'ZONA DE ESPECIALISTAS',
+    exp_sub: 'Comentários e recomendações de profissionais de segurança industrial',
+    tal_title: 'BOLSA DE TALENTOS EPI',
+    tal_sub: 'Profissionais do setor oferecem seus serviços ou buscam novas oportunidades',
+    adm_add: '➕ Adicionar Novo Produto / Fornecedor',
+    adm_name: 'Nome do Produto',
+    adm_family: 'Família',
+    adm_desc: 'Descrição',
+    adm_tags: 'Tags (separados por vírgula)',
+    adm_supplier: 'Nome do Fornecedor',
+    adm_url: 'URL do Fornecedor',
+    adm_btn: 'ADICIONAR PRODUTO',
+    adm_list: '📋 Produtos Registrados',
+    adm_col_prod: 'Produto',
+    adm_col_fam: 'Família',
+    adm_col_prov: 'Fornecedor',
+    vip_welcome: 'Seu espaço exclusivo BuscaEPP',
+    vip_content: '📦 SEU CONTEÚDO EXCLUSIVO',
+    wa_text: 'Fale conosco',
+    isp_btn: 'REGISTRO ISP',
+  },
+  zh: {
+    search_placeholder: '例如：口罩、安全靴、头盔...',
+    search_tip: '使用*作为通配符：',
+    family_label: '类别：',
+    all_families: '全部',
+    no_results_title: '无结果',
+    no_results_sub: '请尝试其他搜索词或检查筛选条件',
+    find_epp: '查找您的防护装备',
+    find_epp_sub: '按名称、类型或特征搜索（例如：N95口罩、钢头靴、绝缘头盔）',
+    norm_title: '现行NCh防护标准',
+    norm_sub: '适用于个人防护装备的主要智利标准免费摘要',
+    calc_title: '按风险分类防护计算器',
+    calc_sub: '选择您的行业和任务——我们告诉您智利法律要求的防护装备',
+    calc_industry: '行业',
+    calc_task: '任务',
+    calc_btn: '查看所需防护装备',
+    calc_legal: '⚖️ 法律声明：本工具仅供参考。请始终咨询风险预防专家以确定适合您具体任务的防护装备。',
+    vida_title: '防护装备使用寿命',
+    vida_sub: '根据制造商和法规，了解何时更换每种个人防护装备的指南',
+    prov_title: '供应商目录',
+    prov_sub: '智利所有个人防护装备供应商——点击访问其网站',
+    cert_title: '认证验证器',
+    cert_sub: '根据ISP验证进口防护装备的认证在智利是否有效',
+    fab_title: 'ISP注册制造商',
+    fab_sub: '在智利ISP注册的个人防护装备制造商和进口商',
+    fab_search: '搜索制造商...',
+    exp_title: '专家区',
+    exp_sub: '工业安全专业人士关于正确使用个人防护装备的评论和建议',
+    tal_title: '防护装备人才市场',
+    tal_sub: '行业专业人士提供服务或寻求工业安全领域的新工作机会',
+    adm_add: '➕ 添加新产品/供应商',
+    adm_name: '产品名称',
+    adm_family: '类别',
+    adm_desc: '描述',
+    adm_tags: '标签（逗号分隔）',
+    adm_supplier: '供应商名称',
+    adm_url: '供应商网址',
+    adm_btn: '添加产品',
+    adm_list: '📋 已注册产品',
+    adm_col_prod: '产品',
+    adm_col_fam: '类别',
+    adm_col_prov: '供应商',
+    vip_welcome: '您的BuscaEPP专属空间',
+    vip_content: '📦 您的专属内容',
+    wa_text: '联系我们',
+    isp_btn: 'ISP注册',
+  }
+};
+
+// Función helper para obtener traducción
+function tr(key) {
+  return (T[lang] && T[lang][key]) || T.es[key] || key;
+}
+
 function setLang(l) {
   lang = l;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent===l.toUpperCase()));
-  document.querySelectorAll('[data-es]').forEach(el => {
-    el.textContent = el.getAttribute('data-' + l);
+  localStorage.setItem('buscaepp_lang', l);
+  
+  // Botones de idioma
+  const langMap = { es:'ES', en:'EN', pt:'PT', zh:'中文' };
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (langMap[l] || l.toUpperCase()));
   });
-  renderFilters(); renderProducts(); renderAdminTable();
+
+  // Elementos con data-es (atributos directos)
+  document.querySelectorAll('[data-es]').forEach(el => {
+    const val = el.getAttribute('data-' + l) || el.getAttribute('data-es');
+    el.textContent = val;
+  });
+
+  // Aplicar traducciones a contenido estático dinámico
+  applyStaticTranslations();
+
+  // Re-render componentes que generan HTML dinámico
+  renderFilters();
+  renderProducts();
+  if (typeof renderAdminTable === 'function') renderAdminTable();
+  if (typeof renderFabricantes === 'function') renderFabricantes();
+  if (typeof renderProveedores === 'function') renderProveedores();
+  if (typeof renderExpertos === 'function') renderExpertos();
+  if (typeof renderTalentos === 'function') renderTalentos();
+  if (typeof renderCorp === 'function') renderCorp();
+}
+
+function applyStaticTranslations() {
+  // Placeholder del buscador
+  const searchInput = document.querySelector('.search-input');
+  if (searchInput) searchInput.placeholder = tr('search_placeholder');
+
+  // Botón WhatsApp
+  const waBtn = document.querySelector('a[href*="wa.me"]');
+  if (waBtn) {
+    const svg = waBtn.querySelector('svg');
+    waBtn.textContent = tr('wa_text');
+    if (svg) waBtn.prepend(svg);
+  }
+
+  // Aviso legal calculadora
+  const legalEl = document.getElementById('calc-legal-notice');
+  if (legalEl) legalEl.textContent = tr('calc_legal');
+
+  // Botón registro ISP
+  document.querySelectorAll('[data-tkey]').forEach(el => {
+    const key = el.getAttribute('data-tkey');
+    if (T[lang] && T[lang][key]) el.textContent = T[lang][key];
+    else if (T.es[key]) el.textContent = T.es[key];
+  });
 }
 
 // ─── DATA ────────────────────────────────────────────────────
 const FAMILIES = {
-  calzado:  { es:'Calzado de Seguridad', en:'Safety Footwear',   icon:'👟', cls:'fam-calzado' },
-  guantes:  { es:'Guantes',              en:'Gloves',             icon:'🧤', cls:'fam-guantes' },
-  cabeza:   { es:'Protección Cabeza',    en:'Head Protection',    icon:'⛑️', cls:'fam-cabeza' },
-  visual:   { es:'Protección Visual',    en:'Eye Protection',     icon:'👓', cls:'fam-visual' },
+  calzado:  { es:'Calzado de Seguridad', en:'Safety Footwear',   pt:'Calçado de Segurança', zh:'安全鞋', icon:'👟', cls:'fam-calzado' },
+  guantes:  { es:'Guantes',              en:'Gloves',             pt:'Luvas',                zh:'手套',   icon:'🧤', cls:'fam-guantes' },
+  cabeza:   { es:'Protección Cabeza',    en:'Head Protection',    pt:'Proteção para Cabeça', zh:'头部防护', icon:'⛑️', cls:'fam-cabeza' },
+  visual:   { es:'Protección Visual',    en:'Eye Protection',     pt:'Proteção Visual',      zh:'视觉防护', icon:'👓', cls:'fam-visual' },
   auditiva: { es:'Protección Auditiva',  en:'Hearing Protection', icon:'🎧', cls:'fam-auditiva' },
   piel:     { es:'Protección Piel',      en:'Skin Protection',    icon:'🧴', cls:'fam-piel' },
   ropa:     { es:'Ropa Corporativa',     en:'Corporate Clothing', icon:'👕', cls:'fam-ropa' },
@@ -3874,18 +4317,18 @@ let nextId = products.length + 1;
 // ─── RENDER ──────────────────────────────────────────────────
 function renderFilters() {
   const area = document.getElementById('filtersArea');
-  area.innerHTML = `<span class="filter-label">${lang==='es'?'Familia:':'Family:'}</span>`;
+  area.innerHTML = `<span class="filter-label">${tr('family_label')}</span>`;
   
   const allBtn = document.createElement('button');
   allBtn.className = 'filter-chip' + (activeFamily==='all'?' active':'');
-  allBtn.textContent = lang==='es'?'Todos':'All';
+  allBtn.textContent = tr('all_families');
   allBtn.onclick = () => { activeFamily='all'; renderFilters(); renderProducts(); };
   area.appendChild(allBtn);
 
   Object.entries(FAMILIES).forEach(([key, fam]) => {
     const btn = document.createElement('button');
     btn.className = 'filter-chip' + (activeFamily===key?' active':'');
-    btn.textContent = fam.icon + ' ' + fam[lang];
+    btn.textContent = fam.icon + ' ' + (fam[lang] || fam.es);
     btn.onclick = () => { activeFamily=key; renderFilters(); renderProducts(); };
     area.appendChild(btn);
   });
@@ -4571,7 +5014,7 @@ function renderProveedores() {
   grid.innerHTML = todos.map(([k, p]) => {
     const domain = p.url.replace(/https?:\/\/(www\.)?/,'').replace(/\/$/,'');
     const initial = p.name.charAt(0).toUpperCase();
-    const colors = ['#f59e0b','#38bdf8','#a3e635','#f472b6','#818cf8','#34d399','#fb923c'];
+    const colors = ['#f59e0b','#38bdf8','#22c55e','#c084fc','#818cf8','#34d399','#fb923c'];
     const color = colors[p.name.charCodeAt(0) % colors.length];
     return `
       <a href="${p.url}" target="_blank" rel="noopener" style="text-decoration:none;">
@@ -4947,7 +5390,7 @@ function renderFabricantes() {
 
   countEl.textContent = `${todos.length} fabricante${todos.length !== 1 ? 's' : ''} encontrado${todos.length !== 1 ? 's' : ''}`;
 
-  const colors = ['#f59e0b','#38bdf8','#a3e635','#f472b6','#818cf8','#34d399','#fb923c'];
+  const colors = ['#f59e0b','#38bdf8','#22c55e','#c084fc','#818cf8','#34d399','#fb923c'];
   const hasWeb = f => f.url !== 'https://www.ispch.gob.cl/listadoepp/';
 
   grid.innerHTML = todos.map(f => {
@@ -4969,7 +5412,7 @@ function renderFabricantes() {
           <div style="font-size:.7rem;color:var(--muted);word-break:break-all;">${domain}</div>
           <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;">
             <span style="font-size:.7rem;color:${color};font-weight:600;">${hasWeb(f) ? 'Visitar sitio →' : 'Ver en ISP →'}</span>
-            <span style="font-size:.65rem;background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.25);border-radius:4px;padding:1px 7px;">✅ RFI ISP</span>
+            <span style="font-size:.65rem;background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);border-radius:4px;padding:1px 7px;">✅ RFI ISP</span>
           </div>
         </div>
       </a>`;
@@ -5169,7 +5612,7 @@ function calcularEPP(btn, industria, faenaKey, idx) {
   const epps = faenas[faena];
   const resultDiv = document.getElementById('calcResultado');
   resultDiv.innerHTML = `
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#a3e635;margin-bottom:1rem;letter-spacing:.5px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#4ade80;margin-bottom:1rem;letter-spacing:.5px;">
       ✅ EPP REQUERIDOS PARA: ${faena.toUpperCase()}
     </div>
     <div style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;">Según DS 594/99 MINSAL y normativas vigentes en Chile — ${epps.length} elementos obligatorios</div>
@@ -5491,15 +5934,15 @@ function renderExpertos() {
           <button onclick="eliminarExperto(${i})" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>
         </div>` : ''}
       <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.7rem;">
-        <div style="width:40px;height:40px;border-radius:50%;background:rgba(163,230,53,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#a3e635;flex-shrink:0;">${e.nombre.charAt(0).toUpperCase()}</div>
+        <div style="width:40px;height:40px;border-radius:50%;background:rgba(34,197,94,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#4ade80;flex-shrink:0;">${e.nombre.charAt(0).toUpperCase()}</div>
         <div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">${e.nombre}</div>
-          <div style="font-size:.72rem;color:#a3e635;">${e.cargo}</div>
+          <div style="font-size:.72rem;color:#4ade80;">${e.cargo}</div>
           <div style="font-size:.7rem;color:var(--muted);margin-top:1px;">📅 ${e.fecha}</div>
         </div>
       </div>
-      <div style="background:rgba(163,230,53,.05);border-left:3px solid #a3e635;padding:.6rem .9rem;border-radius:0 8px 8px 0;margin-bottom:.6rem;">
-        <div style="font-size:.72rem;color:#a3e635;font-weight:700;margin-bottom:.3rem;">🛡️ Sobre: ${e.epp}</div>
+      <div style="background:rgba(34,197,94,.12);border-left:3px solid #22c55e;padding:.6rem .9rem;border-radius:0 8px 8px 0;margin-bottom:.6rem;">
+        <div style="font-size:.72rem;color:#4ade80;font-weight:700;margin-bottom:.3rem;">🛡️ Sobre: ${e.epp.toUpperCase()}</div>
         <div style="font-size:.83rem;color:var(--text);line-height:1.6;">${e.comentario}</div>
       </div>
     </div>`).join('');
@@ -5607,7 +6050,7 @@ function renderTalentos() {
   list.innerHTML = filtrados.map((t, i) => {
     const idx = talentosData.indexOf(t);
     const esServicios = t.tipo === 'servicios' || t.tipo === 'ofrezco';
-    const color = esServicios ? '#38bdf8' : '#f472b6';
+    const color = esServicios ? '#38bdf8' : '#c084fc';
     const badge = t.tipo === 'servicios' ? '⭐ Servicios Profesionales' : t.tipo === 'ofrezco' ? '⭐ Servicios Profesionales' : '🔎 Busco trabajo';
     return `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
@@ -5659,7 +6102,7 @@ function renderAnunciosDestacados() {
             </div>
             <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;">
               <a href="mailto:${a.contacto}" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">✉️ ${a.contacto}</a>
-              <a href="https://wa.me/${a.telefono.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">📱 ${a.telefono}</a>
+              <a href="https://wa.me/${a.telefono.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">📱 ${a.telefono}</a>
               <span style="font-size:.68rem;color:var(--muted);margin-left:auto;">📅 ${a.fecha}</span>
             </div>
           </div>
@@ -5815,6 +6258,9 @@ renderProducts();
 // Cargar tema guardado
 const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'oscuro';
 setTema(_temaGuardado);
+// Cargar idioma guardado
+const _langGuardado = localStorage.getItem('buscaepp_lang') || 'es';
+if (_langGuardado !== 'es') setLang(_langGuardado);
 </script>
 
 <!-- BOTÓN WHATSAPP FLOTANTE -->
