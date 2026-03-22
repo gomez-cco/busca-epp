@@ -37,7 +37,8 @@
   body.tema-claro .tab { color: #374151; font-weight:600; }
   body.tema-claro .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   body.tema-claro .hero { background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; }
-  body.tema-claro .hero h1, body.tema-claro .hero p { color: #ffffff !important; }
+  body.tema-claro .hero h1, body.tema-claro .hero h2, body.tema-claro .hero p, body.tema-claro .hero .hero-sub { color: #ffffff !important; }
+  body.tema-claro .hero h1 span:last-child, body.tema-claro .hero h2 span { color: #fbbf24 !important; }
   body.tema-claro .search-input { background:#ffffff; color:#111827; border-color:#d1d5db; }
   body.tema-claro .tag { background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; }
   body.tema-claro .card, body.tema-claro .product-card { background:#ffffff; border-color:#e5e7eb; }
@@ -63,7 +64,8 @@
   body.tema-beige .tab { color: #3d1f08; font-weight:600; }
   body.tema-beige .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   body.tema-beige .hero { background: linear-gradient(135deg, #3d1f08 0%, #78350f 100%) !important; }
-  body.tema-beige .hero h1, body.tema-beige .hero p { color: #fdf6ed !important; }
+  body.tema-beige .hero h1, body.tema-beige .hero h2, body.tema-beige .hero p, body.tema-beige .hero .hero-sub { color: #fdf6ed !important; }
+  body.tema-beige .hero h1 span:last-child, body.tema-beige .hero h2 span { color: #fcd34d !important; }
   body.tema-beige .search-input { background:#fdf6ed; color:#1c0f00; border-color:#c9a87c; }
   body.tema-beige .tag { background:#f5e8d5; color:#3d1f08; border:1px solid #c9a87c; }
   body.tema-beige .card, body.tema-beige .product-card { background:#fdf6ed; border-color:#c9a87c; }
@@ -189,12 +191,26 @@
   body.tema-beige .isp-badge-title  { color:#1e40af !important; }
   body.tema-beige .corp-badge       { background:#fef3c7; color:#78350f; border:1px solid #fcd34d; }
   body.tema-beige .corp-card:hover  { border-color:#92400e; }
+  /* — Banner ISP: verde con letras blancas en tema tierra — */
+  body.tema-beige .isp-banner {
+    background: linear-gradient(135deg, #14532d 0%, #166534 100%) !important;
+    border-color: rgba(34,197,94,.5) !important;
+    box-shadow: 0 4px 16px rgba(20,83,45,.3) !important;
+  }
+  body.tema-beige .isp-banner:hover {
+    box-shadow: 0 8px 28px rgba(20,83,45,.45) !important;
+    border-color: rgba(74,222,128,.7) !important;
+  }
+  body.tema-beige .isp-name  { color: #ffffff !important; }
+  body.tema-beige .isp-sub   { color: rgba(187,247,208,.9) !important; }
+  body.tema-beige .isp-badge-title { color: #bbf7d0 !important; }
+  body.tema-beige .isp-badge-date  { color: #d1fae5 !important; }
   body.tema-beige .corp-link:hover  { background:#92400e; color:#fff; border-color:#92400e; }
   body.tema-beige .filter-chip      { color:#44403c; border-color:#c9a87c; background:#f5e8d5; }
   body.tema-beige .filter-chip.active { background:#78350f; color:#fdf6ed; border-color:#78350f; }
 
   /* — Clases de texto con colores claros — */
-  body.tema-beige .isp-name         { color:#1e3a8a !important; }
+  body.tema-beige .isp-name         { color:#ffffff !important; }
   body.tema-beige .isp-badge-date   { color:#44403c !important; }
   body.tema-beige .inn-name         { color:#14532d !important; }
   body.tema-beige .inn-badge-sub    { color:#44403c !important; }
@@ -301,9 +317,16 @@
 
   /* HERO / SEARCH */
   .hero { padding:3rem 2rem 2rem; text-align:center; background: radial-gradient(ellipse at top, #0f1e35 0%, var(--bg) 70%); }
-  .hero h1 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:900; letter-spacing:2px; line-height:1; margin-bottom:.5rem; }
-  .hero h1 span { color:var(--accent); }
-  .hero p { color:var(--muted); font-size:.95rem; margin-bottom:2rem; }
+  .hero h2 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(1.6rem,4vw,2.8rem); font-weight:900; letter-spacing:2px; line-height:1.1; margin-bottom:.4rem; color:#ffffff; text-shadow:0 2px 10px rgba(0,0,0,.4); }
+  .hero h2 span { color:#f59e0b; }
+  .hero .hero-sub { color:rgba(255,255,255,.8); font-size:.95rem; text-shadow:0 1px 4px rgba(0,0,0,.3); }
+  .hero h1 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(2.2rem,5vw,4rem); font-weight:900; letter-spacing:3px; line-height:1; margin-bottom:.6rem; color:#ffffff; text-shadow:0 2px 12px rgba(0,0,0,.4); }
+  .hero h1 span:first-child { color:#ffffff; }
+  .hero h1 span:last-child { color:#f59e0b; text-shadow:0 2px 16px rgba(245,158,11,.5); }
+  .hero p { color:rgba(255,255,255,.85); font-size:1rem; margin-bottom:2rem; text-shadow:0 1px 4px rgba(0,0,0,.3); }
+  /* Títulos grandes de sección dentro de hero */
+  .hero-section-title { font-family:'Barlow Condensed',sans-serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; letter-spacing:2px; color:#ffffff; text-shadow:0 2px 10px rgba(0,0,0,.4); margin-bottom:.4rem; }
+  .hero-section-sub { color:rgba(255,255,255,.82); font-size:.95rem; max-width:600px; margin:0 auto; text-shadow:0 1px 4px rgba(0,0,0,.25); }
   .search-wrap { max-width:700px; margin:0 auto; position:relative; }
   .search-input {
     width:100%; padding:18px 60px 18px 54px;
@@ -496,44 +519,46 @@
   /* BANNER ISP */
   .isp-banner {
     max-width:700px; margin:1rem auto 0;
-    background:linear-gradient(135deg, rgba(56,189,248,.06), rgba(56,189,248,.02));
-    border:1px solid rgba(56,189,248,.2); border-radius:12px;
-    padding:10px 18px; display:flex; align-items:center; justify-content:space-between;
-    gap:12px; text-decoration:none; transition:all .2s;
+    background:linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    border:2px solid rgba(59,130,246,.6); border-radius:14px;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    gap:12px; text-decoration:none; transition:all .25s;
+    box-shadow:0 4px 16px rgba(30,58,138,.3);
   }
-  .isp-banner:hover { border-color:rgba(56,189,248,.5); box-shadow:0 4px 20px rgba(56,189,248,.1); }
-  .isp-left { display:flex; align-items:center; gap:10px; }
-  .isp-icon { font-size:1.5rem; }
-  .isp-name { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; color:#e0f2fe; letter-spacing:.5px; }
-  .isp-sub { font-size:.72rem; color:var(--muted); }
+  .isp-banner:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(30,58,138,.45); border-color:rgba(96,165,250,.8); }
+  .isp-left { display:flex; align-items:center; gap:12px; }
+  .isp-icon { font-size:1.8rem; filter:drop-shadow(0 1px 4px rgba(0,0,0,.3)); }
+  .isp-name { font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; font-weight:800; color:#ffffff; letter-spacing:.8px; text-shadow:0 1px 3px rgba(0,0,0,.3); }
+  .isp-sub { font-size:.73rem; color:rgba(191,219,254,.9); margin-top:1px; }
   .isp-badge {
     display:flex; flex-direction:column; align-items:center;
-    padding:6px 14px; border-radius:8px;
-    background:rgba(56,189,248,.1); border:1px solid rgba(56,189,248,.3);
-    white-space:nowrap;
+    padding:7px 16px; border-radius:10px;
+    background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+    white-space:nowrap; backdrop-filter:blur(4px);
   }
-  .isp-badge-title { font-size:.7rem; font-weight:700; color:#38bdf8; text-transform:uppercase; letter-spacing:1px; }
-  .isp-badge-date { font-size:.78rem; color:#e0f2fe; font-weight:600; margin-top:1px; }
+  .isp-badge-title { font-size:.7rem; font-weight:800; color:#ffffff; text-transform:uppercase; letter-spacing:1.5px; }
+  .isp-badge-date { font-size:.8rem; color:#bfdbfe; font-weight:600; margin-top:2px; }
 
   /* BANNER INN */
   .inn-banner {
     max-width:700px; margin:.6rem auto 0;
-    background:linear-gradient(135deg, rgba(163,230,53,.06), rgba(163,230,53,.02));
-    border:1px solid rgba(163,230,53,.2); border-radius:12px;
-    padding:10px 18px; display:flex; align-items:center; justify-content:space-between;
-    gap:12px; text-decoration:none; transition:all .2s;
+    background:linear-gradient(135deg, #14532d 0%, #166534 100%);
+    border:2px solid rgba(34,197,94,.5); border-radius:14px;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    gap:12px; text-decoration:none; transition:all .25s;
+    box-shadow:0 4px 16px rgba(20,83,45,.3);
   }
-  .inn-banner:hover { border-color:rgba(163,230,53,.5); box-shadow:0 4px 20px rgba(34,197,94,.1); }
-  .inn-name { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; color:#ecfccb; letter-spacing:.5px; }
-  .inn-sub { font-size:.72rem; color:var(--muted); }
+  .inn-banner:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(20,83,45,.45); border-color:rgba(74,222,128,.7); }
+  .inn-name { font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; font-weight:800; color:#ffffff; letter-spacing:.8px; text-shadow:0 1px 3px rgba(0,0,0,.3); }
+  .inn-sub { font-size:.73rem; color:rgba(187,247,208,.9); margin-top:1px; }
   .inn-badge {
     display:flex; flex-direction:column; align-items:center;
-    padding:6px 14px; border-radius:8px;
-    background:rgba(34,197,94,.1); border:1px solid rgba(163,230,53,.3);
-    white-space:nowrap;
+    padding:7px 16px; border-radius:10px;
+    background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+    white-space:nowrap; backdrop-filter:blur(4px);
   }
-  .inn-badge-title { font-size:.7rem; font-weight:700; color:#4ade80; text-transform:uppercase; letter-spacing:1px; }
-  .inn-badge-sub { font-size:.78rem; color:#ecfccb; font-weight:600; margin-top:1px; }
+  .inn-badge-title { font-size:.7rem; font-weight:800; color:#ffffff; text-transform:uppercase; letter-spacing:1.5px; }
+  .inn-badge-sub { font-size:.8rem; color:#bbf7d0; font-weight:600; margin-top:2px; }
 
   /* CALCULADORA */
   .calc-btn {
