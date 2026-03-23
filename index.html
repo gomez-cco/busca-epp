@@ -100,6 +100,7 @@
   body.tema-claro .fam-respiratoria { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; }
   body.tema-claro .fam-arneses   { background:#fefce8; color:#713f12; border:1px solid #fef08a; }
   body.tema-claro .fam-svial     { background:#fff1f2; color:#881337; border:1px solid #fecdd3; }
+  body.tema-claro .fam-loto      { background:#fff1f2; color:#9f1239; border:1px solid #fecdd3; }
 
   /* — Badges y etiquetas — */
   body.tema-claro .inn-badge-title  { color:#1e40af !important; }
@@ -108,8 +109,20 @@
   body.tema-claro .corp-link:hover  { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
 
   /* — Clases de texto con colores claros — */
-  body.tema-claro .isp-name         { color:#1e3a8a !important; }
+  body.tema-claro .isp-name         { color:#ffffff !important; }
   body.tema-claro .isp-badge-date   { color:#374151 !important; }
+  /* — Banner ISP: azul claro con letras blancas en tema claro — */
+  body.tema-claro .isp-banner {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%) !important;
+    border-color: rgba(147,197,253,.6) !important;
+    box-shadow: 0 4px 16px rgba(37,99,235,.25) !important;
+  }
+  body.tema-claro .isp-banner:hover {
+    box-shadow: 0 8px 28px rgba(37,99,235,.4) !important;
+    border-color: rgba(147,197,253,.9) !important;
+  }
+  body.tema-claro .isp-sub          { color: rgba(219,234,254,.95) !important; }
+  body.tema-claro .isp-badge-title  { color: #bfdbfe !important; }
   body.tema-claro .inn-name         { color:#14532d !important; }
   body.tema-claro .inn-badge-sub    { color:#374151 !important; }
   body.tema-claro .epp-resultado-card .epp-nombre { color:#111827 !important; }
@@ -185,6 +198,7 @@
   body.tema-beige .fam-respiratoria { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; }
   body.tema-beige .fam-arneses    { background:#fefce8; color:#78350f; border:1px solid #fde68a; }
   body.tema-beige .fam-svial      { background:#fff1f2; color:#881337; border:1px solid #fecdd3; }
+  body.tema-beige .fam-loto       { background:#fff1f2; color:#7f1d1d; border:1px solid #fecdd3; }
 
   /* — Badges y etiquetas — */
   body.tema-beige .inn-badge-title  { color:#1e3a8a !important; }
@@ -1067,6 +1081,26 @@
                 <td style="padding:8px;color:var(--text);">Prevención de riesgos — letreros de seguridad, aspectos generales</td>
                 <td style="padding:8px;color:var(--muted);">Letreros y señales</td>
               </tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 1411/3 LOTO')">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1411/3</td>
+                <td style="padding:8px;color:var(--text);">Etiquetas y tarjetas de seguridad — requisitos para Tagout (LOTO)</td>
+                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
+              </tr>
+              <tr class="norm-row" onclick="openNormModal('NCh 2929')">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2929</td>
+                <td style="padding:8px;color:var(--text);">Seguridad en máquinas — obligación de tarjetas Tagout en puntos de energía</td>
+                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
+              </tr>
+              <tr class="norm-row" onclick="openNormModal('DS 594 LOTO')">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">DS 594 Art. 37</td>
+                <td style="padding:8px;color:var(--text);">Reglamento de Condiciones Sanitarias — exige procedimiento escrito de control de energías peligrosas (LOTO)</td>
+                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
+              </tr>
+              <tr class="norm-row" onclick="openNormModal('OSHA LOTO')">
+                <td style="padding:8px;color:var(--accent);font-weight:700;">OSHA 1910.147</td>
+                <td style="padding:8px;color:var(--text);">Control de Energías Peligrosas (LOTO) — estándar internacional de referencia en Chile (RIC 05 minería)</td>
+                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -1190,7 +1224,54 @@
 
     <!-- ORGANISMOS INTERNACIONALES -->
     <div style="margin-top:2.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;margin-bottom:.3rem;letter-spacing:.5px;">🌍 ORGANISMOS CERTIFICADORES INTERNACIONALES</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;margin-bottom:.3rem;letter-spacing:.5px;">🌍 ORGANISMOS CERTIFICADORES INTERNACIONALES
+      <!-- LOTO / BLOQUEO Y ETIQUETADO -->
+      <div style="margin-top:2rem;padding:1.2rem;background:rgba(239,68,68,.08);border-radius:12px;border:1px solid rgba(239,68,68,.2);">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;margin-bottom:.3rem;letter-spacing:.5px;">🔐 BLOQUEO Y ETIQUETADO — LOTO</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Normativa aplicable en Chile para procedimientos de Bloqueo y Etiquetado (Lockout / Tagout)</div>
+        <div style="display:grid;gap:.8rem;">
+
+          <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">DS 594/99 — Reglamento de Condiciones Sanitarias y Ambientales</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Exige procedimiento escrito de control de energías peligrosas. Base legal para implementar LOTO en Chile. Artículo 37 — Obligación del empleador.</div>
+            <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:4px;padding:2px 7px;">⚖️ Obligatorio en Chile</span></div>
+          </div>
+
+          <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#ecfccb;">NCh 1411/3 — Señales y Etiquetas de Seguridad</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Establece los requisitos para las tarjetas de identificación personal (Tagout). Define colores, tamaño mínimo, resistencia a calor, humedad y UV.</div>
+            <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;">✅ NCh 1411/3</span></div>
+          </div>
+
+          <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#ecfccb;">NCh 2929 — Seguridad en Máquinas</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Establece obligación de instalar tarjetas de seguridad (Tagout) en cada mecanismo de control de energía. Complementa el DS 594 para LOTO en maquinaria.</div>
+            <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;">✅ NCh 2929</span></div>
+          </div>
+
+          <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">OSHA 29 CFR 1910.147 — Control of Hazardous Energy (LOTO)</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Estándar internacional de referencia para LOTO en Chile. Exige candados de llave única (KD), tarjetas personales y procedimiento escrito por equipo. Adoptado por RIC 05 (SERNAGEOMIN).</div>
+            <div style="margin-top:.5rem;">
+              <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;">🌍 OSHA 1910.147</span>
+              <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;margin-left:4px;">⛏️ RIC 05 Minería</span>
+            </div>
+          </div>
+
+          <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">RIC N°5 — SERNAGEOMIN (Minería Chile)</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Reglamento Interno de Orden y Seguridad Minera. Exige candados con llave única por trabajador, tarjeta personal y procedimiento escrito en toda faena minera.</div>
+            <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:4px;padding:2px 7px;">⛏️ Obligatorio Minería</span></div>
+          </div>
+
+          <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">IEC 60947-5-1 — Dispositivos de maniobra de baja tensión</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Aplica a bloqueos de interruptores eléctricos y dispositivos de baja tensión. Relevante para bloqueos de breakers y mandos eléctricos en instalaciones industriales.</div>
+            <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;">⚡ IEC 60947-5-1</span></div>
+          </div>
+
+        </div>
+      </div></div>
       <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Estándares y sellos internacionales que avalan la calidad de los EPP en el mundo</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">
 
@@ -1663,6 +1744,54 @@
         </div>
       </div>
 
+      <!-- LOTO VIDA UTIL -->
+      <div style="background:var(--card);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+        <div style="padding:1rem 1.2rem .6rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;">🔐 DISPOSITIVOS LOTO — Bloqueo y Etiquetado</span>
+          <span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700;">⚠️ Inspeccionar antes de c/uso</span>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+          <thead><tr style="background:rgba(255,255,255,.04);">
+            <td style="padding:8px 12px;border:1px solid var(--border);font-weight:700;color:var(--muted);">Dispositivo</td>
+            <td style="padding:8px 12px;border:1px solid var(--border);font-weight:700;color:var(--muted);">Vida Útil</td>
+            <td style="padding:8px 12px;border:1px solid var(--border);font-weight:700;color:var(--muted);">Normativa</td>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--border);">Candado LOTO (cuerpo plástico/aluminio)</td>
+              <td style="padding:8px;color:#4ade80;font-weight:700;">5–7 años · retirar si hay daño visible</td>
+              <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚖️ OSHA 1910.147</span></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--border);">Hasp / Pinza de bloqueo múltiple</td>
+              <td style="padding:8px;color:#4ade80;font-weight:700;">5 años · retirar si deforma o fisura</td>
+              <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚖️ OSHA 1910.147</span></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--border);">Tarjeta personal Tagout (NCh 1411/3)</td>
+              <td style="padding:8px;color:#fbbf24;font-weight:700;">Reemplazar c/uso o si se vuelve ilegible</td>
+              <td style="padding:8px;"><span style="background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.7rem;">✅ NCh 1411/3</span></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--border);">Bloqueo de válvula / enchufe / breaker</td>
+              <td style="padding:8px;color:#4ade80;font-weight:700;">3–5 años · retirar si se quiebra</td>
+              <td style="padding:8px;"><span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚖️ OSHA 1910.147</span></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--border);">Caja de bloqueo grupal (lockbox)</td>
+              <td style="padding:8px;color:#4ade80;font-weight:700;">5–10 años · inspección semestral</td>
+              <td style="padding:8px;"><span style="background:rgba(239,68,68,.15);color:#fca5a5;border-radius:4px;padding:2px 7px;font-size:.7rem;">⚖️ DS 594 · OSHA</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin:.5rem 1rem;font-size:.72rem;color:#fbbf24;background:rgba(251,191,36,.08);border-radius:6px;padding:.4rem .6rem;">
+          ⚠️ Todo dispositivo LOTO debe inspeccionarse ANTES de cada uso. Retirar si presenta fisuras, piezas faltantes o cierre defectuoso. El DS 594 exige inspección anual documentada del programa LOTO completo.
+        </div>
+        <div style="margin:.4rem 1rem .8rem;font-size:.72rem;color:#4ade80;background:rgba(34,197,94,.12);border-radius:6px;padding:.4rem .6rem;">
+          ✅ Proveedores en Chile: Safelockout · Treck (Master Lock) · Proteknica · VICSA Steelpro · Mavid SPA
+        </div>
+      </div>
+
     </div>
     <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;line-height:1.8;">
       Fuentes: DS 594/99 MINSAL · NCh 461, 1301, 1584, 2374 · ISO 10333 · EN 60903, EN 149, EN 374, EN 14387, EN 13982, NFPA 2112 · NIOSH · ANSI Z87.1, S3.19<br>
@@ -1921,6 +2050,7 @@
             <option value="vial">🦺 Ropa Vial</option>
             <option value="gases">💨 Detección de Gases</option>
             <option value="svial">🚧 Seguridad Vial</option>
+            <option value="loto">🔐 Bloqueo y Etiquetado (LOTO)</option>
             <option value="alco">🍃 Alcoholímetro</option>
             <option value="barreras">🚧 Barreras / Jersey</option>
             <option value="ignifugo">🔥 Ropa Ignífuga</option>
@@ -2313,12 +2443,15 @@ const FAMILIES = {
   soldador: { es:'Ropa Soldador (Cuero)', en:'Welder Leather Protection', icon:'🔩', cls:'fam-soldador' },
   respiratoria: { es:'Protección Respiratoria', en:'Respiratory Protection', icon:'😷', cls:'fam-respiratoria' },
   caidas:   { es:'Protección contra Caídas', en:'Fall Protection',    icon:'🪝', cls:'fam-caidas' },
+  loto:     { es:'Bloqueo y Etiquetado (LOTO)', en:'Lockout / Tagout (LOTO)', pt:'Bloqueio e Etiquetagem (LOTO)', zh:'上锁挂牌(LOTO)', icon:'🔐', cls:'fam-loto' },
 };
 
 // Proveedores principales EPP
 const PROVIDERS = {
   apro:       { name:'APRO',              url:'https://www.apro.cl' },
   treck:      { name:'Treck',             url:'https://www.treck.cl' },
+  mavid:      { name:'Mavid SPA',         url:'https://www.mavid.cl' },
+  safelockout:{ name:'Safelockout',       url:'https://www.safelockout.cl' },
   segurycel:  { name:'Segurycel',         url:'https://www.segurycel.cl' },
   maxservice: { name:'MaxService',        url:'https://www.maxservice.cl' },
   ksltda:     { name:'KSL Ltda.',         url:'https://www.ksltda.cl' },
@@ -2390,6 +2523,127 @@ const PROVIDERS = {
 // ─── PRODUCT DATABASE ────────────────────────────────────────
 let products = [
   // CALZADO
+  // ── FAMILIA LOTO — Bloqueo y Etiquetado ──────────────────────
+  { id:936, name:'Candado de bloqueo dieléctrico ABUS 74/40 rojo', family:'loto',
+    desc:'Candado LOTO dieléctrico, arco plástico no conductor, llave única (KD), cuerpo nylon. Cumple OSHA 29 CFR 1910.147 y estándar RIC 05.',
+    tags:['candado','loto','bloqueo','dieléctrico','abus','rojo','llave única','nylon','osha'],
+    providers:['safetystore','treck','proteknica','vicsa','kupfer','safelockout'] },
+
+  { id:937, name:'Candado de bloqueo dieléctrico ABUS 74/40 azul', family:'loto',
+    desc:'Candado LOTO dieléctrico arco plástico azul, llave única (KD). Ideal para bloqueo eléctrico en tableros y circuitos. OSHA / RIC 05.',
+    tags:['candado','loto','bloqueo','dieléctrico','abus','azul','llave única','osha'],
+    providers:['safetystore','treck','proteknica','vicsa','kupfer','safelockout'] },
+
+  { id:938, name:'Candado de bloqueo dieléctrico ABUS 74/40 verde', family:'loto',
+    desc:'Candado LOTO dieléctrico arco plástico verde, llave única (KD). Identificación por color para operadores específicos.',
+    tags:['candado','loto','bloqueo','dieléctrico','abus','verde','llave única'],
+    providers:['safetystore','treck','proteknica','vicsa','safelockout'] },
+
+  { id:939, name:'Candado de bloqueo termoplástico Master Lock 410 Zenex rojo', family:'loto',
+    desc:'Candado LOTO Master Lock Zenex, cuerpo termoplástico, arco acero 6mm, retención de llave. Estándar OSHA. Completamente dieléctrico.',
+    tags:['candado','loto','master lock','zenex','termoplástico','rojo','bloqueo','osha'],
+    providers:['treck','proteknica','mavid','safelockout'] },
+
+  { id:940, name:'Candado de bloqueo Master Lock 406 arco plástico verde', family:'loto',
+    desc:'Candado Master Lock 406GRN, arco plástico dieléctrico verde, cuerpo Zenex, retención de llave. Previene electrocución y arco eléctrico.',
+    tags:['candado','loto','master lock','arco plástico','verde','dieléctrico','bloqueo'],
+    providers:['treck','proteknica','mavid','safelockout'] },
+
+  { id:941, name:'Pinza de bloqueo múltiple 5mm (hasp)', family:'loto',
+    desc:'Aldaba de bloqueo múltiple 5mm, permite hasta 6 candados simultáneos. Bloqueo grupal para intervenciones con varios técnicos. Aluminio anodizado.',
+    tags:['pinza','hasp','bloqueo múltiple','loto','aldaba','grupal','aluminio'],
+    providers:['safelockout','treck','proteknica','vicsa','mavid'] },
+
+  { id:942, name:'Pinza de bloqueo múltiple con cable de acero inox', family:'loto',
+    desc:'Hasp con cable de acero inoxidable, flexible, permite bloquear varios puntos de energía simultáneamente. Ideal para espacios reducidos.',
+    tags:['pinza','cable','acero inox','bloqueo múltiple','loto','hasp'],
+    providers:['safelockout','treck','proteknica','vicsa'] },
+
+  { id:943, name:'Bloqueo de interruptor eléctrico (breaker lockout)', family:'loto',
+    desc:'Dispositivo para bloqueo de disyuntores/breakers en tableros eléctricos. Compatible con interruptores de 1 y 2 polos. No conductor.',
+    tags:['bloqueo','interruptor','breaker','eléctrico','loto','disyuntor','tablero'],
+    providers:['safelockout','treck','proteknica','vicsa','mavid'] },
+
+  { id:944, name:'Bloqueo de válvula de bola ajustable 13mm–64mm', family:'loto',
+    desc:'Dispositivo universal para bloquear válvulas de bola de 1/2" a 2.5". Plástico dieléctrico. Compatible con la mayoría de válvulas industriales.',
+    tags:['bloqueo','válvula','bola','ajustable','loto','industrial','neumático'],
+    providers:['safelockout','treck','proteknica','vicsa'] },
+
+  { id:945, name:'Bloqueo de válvula de compuerta (gate valve)', family:'loto',
+    desc:'Dispositivo de bloqueo para válvulas de compuerta de 2" a 6". Cable nylon no conductor. Bloquea el paso de fluidos durante mantención.',
+    tags:['bloqueo','válvula','compuerta','gate','loto','fluido','cable nylon'],
+    providers:['safelockout','treck','proteknica','mavid'] },
+
+  { id:946, name:'Bloqueo de enchufe eléctrico (plug lockout)', family:'loto',
+    desc:'Carcasa de plástico para bloquear enchufes 220V y 500V. Impide reconexión no autorizada. Orificio para candado de seguridad.',
+    tags:['bloqueo','enchufe','eléctrico','plug','loto','220v','500v','reconexión'],
+    providers:['safelockout','treck','proteknica','vicsa','mavid'] },
+
+  { id:947, name:'Bloqueo de pulsador (push button lockout)', family:'loto',
+    desc:'Dispositivo que cubre y bloquea pulsadores de arranque/parada. Plástico transparente. Evita activación accidental durante mantención.',
+    tags:['bloqueo','pulsador','botón','arranque','parada','loto','push button'],
+    providers:['safelockout','treck','proteknica'] },
+
+  { id:948, name:'Caja de bloqueo grupal LOTO (lockbox) roja', family:'loto',
+    desc:'Caja de bloqueo colectivo para procedimientos LOTO grupales. Cada técnico coloca su candado. Previene energización mientras haya candados. DS 594.',
+    tags:['caja','bloqueo','grupal','lockbox','loto','colectivo','candado','ds 594'],
+    providers:['safelockout','treck','proteknica','vicsa','mavid'] },
+
+  { id:949, name:'Estación LOTO con tapa (shadow board)', family:'loto',
+    desc:'Panel organizador con siluetas para almacenamiento visual de dispositivos LOTO. Incluye espacio para candados, hasps y tarjetas. Gestión 5S.',
+    tags:['estación','loto','panel','shadow board','organización','5s','bloqueo'],
+    providers:['safelockout','treck','proteknica','mavid'] },
+
+  { id:950, name:'Tarjeta de identificación personal LOTO (tagout) — NCh 1411', family:'loto',
+    desc:'Tarjeta de bloqueo personal plastificada (PAI). Cumple NCh 1411/3. Resistente a calor, humedad y UV. Personalizable con datos del operador.',
+    tags:['tarjeta','tagout','identificación','loto','nch 1411','etiqueta','personal','bloqueo'],
+    providers:['safelockout','treck','proteknica','vicsa','mavid'] },
+
+  { id:951, name:'Tarjeta "NO OPERAR" roja LOTO (danger tag)', family:'loto',
+    desc:'Tarjeta de advertencia "PELIGRO — NO OPERAR" roja, PAI flexible. Cumple NCh 1411/3. Pack x5. Para señalización de equipos en mantención.',
+    tags:['tarjeta','no operar','peligro','loto','roja','tagout','nch 1411','señalización'],
+    providers:['safelockout','treck','proteknica','vicsa'] },
+
+  { id:952, name:'Kit de bloqueo electricista — 8 piezas (VICSA/Steelpro)', family:'loto',
+    desc:'Kit personal para electricistas: 1 candado, 1 hasp, 1 bloqueo breaker, 1 bloqueo plug, tarjetas, bolsa. Cumple OSHA 29 CFR 1910.147.',
+    tags:['kit','bloqueo','electricista','loto','candado','hasp','osha','vicsa','steelpro'],
+    providers:['vicsa','safelockout','treck','proteknica'] },
+
+  { id:953, name:'Kit de bloqueo mantenimiento — 19 piezas (VICSA/Steelpro)', family:'loto',
+    desc:'Kit completo para mantenimiento: candados, hasps, bloqueos de válvulas, bloqueo eléctrico, tarjetas y maletín. DS 594 / OSHA 1910.147.',
+    tags:['kit','bloqueo','mantenimiento','loto','19 piezas','vicsa','steelpro','válvula','ds 594'],
+    providers:['vicsa','safelockout','treck','proteknica','mavid'] },
+
+  { id:954, name:'Kit de bloqueo contratista — 21 piezas (VICSA/Steelpro)', family:'loto',
+    desc:'Kit LOTO para contratistas, 21 dispositivos en maletín rígido: candados, hasps, bloqueos válvula, eléctrico, neumático y tarjetas.',
+    tags:['kit','bloqueo','contratista','loto','21 piezas','vicsa','steelpro','maletín'],
+    providers:['vicsa','safelockout','treck','proteknica','mavid'] },
+
+  { id:955, name:'Kit LOTO personal Master Lock 1457VE (válvulas + eléctrico)', family:'loto',
+    desc:'Kit personal Master Lock: 3 candados 410RED Zenex, bloqueo cable ajustable, cubierta breaker, tapa válvulas 1"–6", maletín. OSHA compliant.',
+    tags:['kit','loto','master lock','personal','válvula','eléctrico','candado','zenex','osha'],
+    providers:['treck','proteknica','mavid'] },
+
+  { id:956, name:'Bloqueo neumático (air lockout)', family:'loto',
+    desc:'Dispositivo para aislar fuentes de aire comprimido. Bloquea válvulas neumáticas y purga la presión residual. Previene arranques accidentales.',
+    tags:['bloqueo','neumático','aire comprimido','loto','válvula','presión','industrial'],
+    providers:['safelockout','treck','proteknica'] },
+
+  { id:957, name:'Bloqueo de switch de emergencia (switch lockout)', family:'loto',
+    desc:'Cubierta de bloqueo para interruptores de emergencia tipo switch. Evita desactivación accidental o reactivación no autorizada.',
+    tags:['bloqueo','switch','emergencia','loto','interruptor','cubierta'],
+    providers:['safelockout','treck','proteknica','vicsa'] },
+
+  { id:958, name:'Bolso/riñonera porta-dispositivos LOTO', family:'loto',
+    desc:'Bolso personal para portar kit LOTO en terreno. Compartimentos para candados, hasps y tarjetas. Poliéster resistente, cierre fácil.',
+    tags:['bolso','riñonera','loto','porta dispositivos','transporte','kit','bloqueo'],
+    providers:['safelockout','treck','proteknica'] },
+
+  { id:959, name:'Candado de bloqueo aluminio compacto 5mm (color)', family:'loto',
+    desc:'Candado LOTO de aluminio compacto, arco 5mm para puntos de bloqueo reducidos. Disponible en 6 colores para identificación por trabajador.',
+    tags:['candado','aluminio','compacto','loto','5mm','colores','bloqueo','ligero'],
+    providers:['safelockout','safetystore','treck','proteknica','mavid'] },
+
   { id:1,  name:'Botín de seguridad punta de acero', family:'calzado', desc:'Cuero vacuno, punta de acero, suela antideslizante, resistente a hidrocarburos', tags:['botin','acero','cuero vacuno','negro','seguridad','calzado','s3','iso20345','punta acero','suela pu','antideslizante','hidrocarburos','obra','construccion','industria'],
     providers:['apro','treck','safetystore','eppchile','kupfer','novaseg','segurycel','maxservice','ksltda','cespal','garmendia','vicsa','kuppel','ppe',,'impsafety','qsupply','prosafety','segindustrial','hseguridad',,'eppindustrial',,,'safetyfirst','proteknica'] },
   { id:2,  name:'Botín anticlavo', family:'calzado', desc:'Plantilla de acero anticlavos, cuero flor, norma ISO 20345', tags:['botin','anticlavo','plantilla acero','cuero flor','flor','s3','iso20345','suela antideslizante','construccion','obra','forestal'],
@@ -5452,20 +5706,20 @@ const CALC_DATA = {
       'Demolición': ['casco','lentes_panoramicas','respirador_p100','guantes_mecanicos','calzado','chaleco_av','tapones'],
       'Techado / cubiertas': ['casco','lentes','arnés','calzado','chaleco_av','guantes_mecanicos'],
       'Excavación y movimiento de tierra': ['casco','lentes_panoramicas','calzado','chaleco_av','guantes_mecanicos','respirador_polvo'],
-      'Instalaciones eléctricas': ['casco_dielectrico','lentes','guantes_dielectricos','calzado_dielectrico','chaleco_av'],
+      'Instalaciones eléctricas': ['casco_dielectrico','lentes','guantes_dielectricos','calzado_dielectrico','chaleco_av','loto_candado','loto_tarjeta','loto_breaker'],
     }
   },
   mineria: {
     faenas: {
       'Tronadura y manipulación de explosivos':   ['casco','lentes_panoramicas','tapones','bota_mina','guantes_mecanicos','chaleco_av','respirador_gases','zapatos_antistaticos'],
-      'Operación de maquinaria pesada':           ['casco','lentes','tapones','bota_mina','chaleco_reflectante_mina','guantes_impacto','detector_gas_portatil'],
-      'Interior mina subterránea (túneles)':      ['casco_lampara','lentes_panoramicas','respirador_p100','tapones','bota_mina','chaleco_reflectante_mina','arnés','autorescatador','detector_gas_portatil','ropa_impermeable_mina'],
+      'Operación de maquinaria pesada':           ['casco','lentes','tapones','bota_mina','chaleco_reflectante_mina','guantes_impacto','detector_gas_portatil','loto_candado','loto_tarjeta','loto_procedimiento'],
+      'Interior mina subterránea (túneles)':      ['casco_lampara','lentes_panoramicas','respirador_p100','tapones','bota_mina','chaleco_reflectante_mina','arnés','autorescatador','detector_gas_portatil','ropa_impermeable_mina','loto_candado','loto_tarjeta','loto_hasp'],
       'Procesamiento de minerales':               ['casco','lentes_panoramicas','respirador_gases','guantes_quimicos','bota_mina','chaleco_av','tapones','pantalla_facial'],
     }
   },
   manufactura: {
     faenas: {
-      'Operación de prensas y troqueles':         ['casco','lentes','guantes_anticorte','calzado','tapones','pantalla_facial'],
+      'Operación de prensas y troqueles':         ['casco','lentes','guantes_anticorte','calzado','tapones','pantalla_facial','loto_candado','loto_tarjeta','loto_breaker'],
       'Línea de ensamblaje':                      ['lentes','guantes_mecanicos','calzado','tapones_banda'],
       'Trabajo con solventes y pinturas':         ['lentes_panoramicas','respirador_gases','guantes_quimicos','calzado','chaleco_av','ropa_antiflama'],
       'Almacenamiento y bodega':                  ['casco','lentes','calzado','chaleco_av','guantes_mecanicos','protector_lumbar'],
@@ -5483,7 +5737,7 @@ const CALC_DATA = {
     faenas: {
       'Manejo de ácidos y cáusticos': ['mascara_completa','guantes_quimicos','ropa_quimica','calzado_quimico','lentes_panoramicas'],
       'Laboratorio de análisis': ['lentes_panoramicas','guantes_nitrilo','bata_lab','calzado','respirador_gases'],
-      'Almacenamiento de productos químicos':     ['lentes_panoramicas','guantes_quimicos','calzado','chaleco_av','respirador_gases','detector_gas_portatil'],
+      'Almacenamiento de productos químicos':     ['lentes_panoramicas','guantes_quimicos','calzado','chaleco_av','respirador_gases','detector_gas_portatil','loto_candado','loto_valvula','loto_tarjeta'],
       'Gases industriales':                       ['mascara_completa','guantes_criogenicos','calzado','ropa_antiflama','detector_gas_portatil'],
     }
   },
@@ -5611,6 +5865,13 @@ const EPP_INFO = {
   ropa_antiflama: { nombre:'Ropa ignífuga FR (uso minería / petroquímica)', icono:'🧥', norma:'NFPA 2112 / EN ISO 11612', motivo:'En faenas con riesgo de ignición, flash fire o arco eléctrico. La ropa FR no se derrite ni propaga la llama, dando tiempo de evacuación al trabajador.' },
   zapatos_antistaticos: { nombre:'Calzado antiestático (ESD)', icono:'🥾', norma:'NCh 2147/1 / EN ISO 20345 S1', motivo:'Disocia la carga estática del cuerpo. Obligatorio en zonas con riesgo de ignición por electricidad estática (explosivos, petroquímica, electrónica).' },
   guantes_impacto: { nombre:'Guantes con protección de impacto (TPR)', icono:'🧤', norma:'EN 388 / ANSI/ISEA 138', motivo:'Dorso con protectores TPR contra impactos y aplastamientos. Ideales para operadores de maquinaria pesada y mantenimiento mecánico.' },
+  loto_candado: { nombre:'Candado LOTO dieléctrico llave única (KD)', icono:'🔐', norma:'OSHA 29 CFR 1910.147 / RIC 05', motivo:'Cada trabajador usa su propio candado con una única llave. Impide la energización accidental del equipo durante la intervención. Obligatorio en procedimiento escrito DS 594.' },
+  loto_hasp: { nombre:'Pinza de bloqueo múltiple (Hasp) 5mm', icono:'🔐', norma:'OSHA 29 CFR 1910.147', motivo:'Permite que varios técnicos coloquen sus candados en un mismo punto de bloqueo. Fundamental en trabajos grupales. El equipo NO puede energizarse mientras haya UN candado.' },
+  loto_tarjeta: { nombre:'Tarjeta personal de bloqueo (Tagout) NCh 1411/3', icono:'🏷️', norma:'NCh 1411/3 / NCh 2929', motivo:'Tarjeta de identificación personal del trabajador que realiza el bloqueo. Señaliza el equipo como "NO OPERAR". Resistente a calor, humedad y UV. Exigida por NCh 2929 y DS 594.' },
+  loto_valvula: { nombre:'Dispositivo de bloqueo de válvula ajustable', icono:'🔐', norma:'OSHA 29 CFR 1910.147', motivo:'Bloquea válvulas de bola, compuerta y mariposa durante mantención. Impide el paso de fluidos o gases presionados. Complementa el candado en sistemas hidráulicos y neumáticos.' },
+  loto_breaker: { nombre:'Bloqueo de interruptor eléctrico (Breaker lockout)', icono:'🔐', norma:'OSHA 29 CFR 1910.147 / IEC 60947-5-1', motivo:'Dispositivo no conductor que bloquea el breaker en posición OFF, impidiendo su reconexión. Obligatorio en toda intervención eléctrica con tensión en el tablero.' },
+  loto_caja: { nombre:'Caja de bloqueo grupal LOTO (Lockbox)', icono:'🗳️', norma:'OSHA 29 CFR 1910.147 / DS 594', motivo:'Las llaves de todos los puntos bloqueados se depositan en la caja grupal. Cada técnico coloca su candado personal. Nadie puede acceder a las llaves mientras existan candados. Procedimiento exigido por DS 594 en faenas con múltiples puntos de energía.' },
+  loto_procedimiento: { nombre:'Procedimiento escrito LOTO (por equipo)', icono:'📋', norma:'DS 594 Art. 37 / OSHA 1910.147(c)(4)', motivo:'El DS 594 exige procedimiento escrito para el control de energías peligrosas en cada equipo o máquina. Debe incluir: identificación de energías, puntos de aislamiento, secuencia de bloqueo y responsable.' },
 };
 
 let calcIndustriaSelected = null;
@@ -5843,6 +6104,38 @@ const NORMAS = {
     requisitos: 'Los letreros deben ser visibles a una distancia mínima de 10 metros. El contraste entre fondo y símbolo debe ser ≥ 0,70. Deben ser resistentes a la intemperie si se usan en exteriores.',
     categorias: ['Señales de prohibición', 'Señales de advertencia', 'Señales de obligación', 'Señales de evacuación'],
     tags: ['letrero', 'señal', 'evacuación', 'prohibición', 'advertencia', 'obligación']
+  },
+  'NCh 1411/3 LOTO': {
+    titulo: 'Etiquetas y tarjetas de seguridad — Tagout (LOTO)',
+    objetivo: 'Establece los requisitos de diseño, materiales y resistencia de las etiquetas y tarjetas de seguridad utilizadas en procedimientos de Bloqueo y Etiquetado (LOTO). Las tarjetas de bloqueo personal (Tagout) deben identificar al trabajador que realiza la intervención.',
+    campo: 'Toda industria que implemente procedimientos LOTO para control de energías peligrosas: eléctrica, hidráulica, neumática, térmica, química, gravitacional.',
+    requisitos: 'Las tarjetas deben ser resistentes al calor (hasta 120°C), humedad y radiación UV. Material PAI (plástico de alta densidad) o similar. Deben indicar: nombre del trabajador, área, motivo del bloqueo, fecha, y la leyenda "NO OPERAR / DO NOT OPERATE". Resistencia mínima de 50 lb (22 kg) al arranque.',
+    categorias: ['Tarjeta personal roja "PELIGRO"', 'Tarjeta naranja (bloqueo grupal)', 'Tarjeta amarilla "FUERA DE SERVICIO"', 'Tarjeta azul (prueba / puesta en marcha)'],
+    tags: ['loto', 'tagout', 'tarjeta', 'bloqueo', 'nch 1411', 'personal']
+  },
+  'NCh 2929': {
+    titulo: 'Seguridad en máquinas — Control de energías peligrosas (Tagout)',
+    objetivo: 'Establece los principios de seguridad aplicables a máquinas fijas para el control de energías peligrosas. Exige la instalación de tarjetas de seguridad (Tagout) en cada mecanismo de control de energía cuando la máquina está fuera de servicio o en mantenimiento.',
+    campo: 'Toda maquinaria fija instalada en industria, minería, manufactura y construcción. Complementa el DS 594 en lo relativo a LOTO en maquinaria específica.',
+    requisitos: 'Cada punto de aislamiento de energía debe ser identificado y etiquetado. El operador debe instalar su candado personal y tarjeta antes de intervenir. Se debe identificar el tipo de energía: eléctrica, hidráulica, neumática, térmica o química.',
+    categorias: ['Energía eléctrica', 'Energía hidráulica', 'Energía neumática', 'Energía térmica', 'Energía química/gravitacional'],
+    tags: ['loto', 'nch 2929', 'máquina', 'seguridad', 'tagout', 'energía']
+  },
+  'DS 594 LOTO': {
+    titulo: 'DS 594 Art. 37 — Procedimiento escrito de control de energías',
+    objetivo: 'El Decreto Supremo 594/99 del Ministerio de Salud (MINSAL) es la base legal del sistema LOTO en Chile. Su artículo 37 establece la obligación del empleador de implementar procedimientos escritos para el control de energías peligrosas en equipos y máquinas durante su mantenimiento, reparación o limpieza.',
+    campo: 'Toda empresa en Chile que cuente con equipos o maquinaria que almacene o genere energía peligrosa. Aplica en industria, minería, construcción, alimentaria, química y cualquier actividad productiva.',
+    requisitos: 'El empleador debe elaborar un procedimiento escrito de LOTO para cada equipo. El procedimiento debe incluir: identificación de las fuentes de energía, puntos de aislamiento, secuencia de bloqueo, responsable del bloqueo, verificación de desenergización y liberación de energía residual. Los trabajadores deben ser capacitados y autorizados.',
+    categorias: ['Procedimiento escrito por equipo', 'Capacitación obligatoria trabajadores', 'Candado llave única por trabajador', 'Tarjeta personal NCh 1411/3', 'Verificación post-bloqueo'],
+    tags: ['loto', 'ds 594', 'procedimiento', 'control energías', 'chile', 'obligatorio']
+  },
+  'OSHA LOTO': {
+    titulo: 'OSHA 29 CFR 1910.147 — Control of Hazardous Energy (Lockout/Tagout)',
+    objetivo: 'Estándar internacional de la Occupational Safety and Health Administration (OSHA) de EE.UU. para el control de energías peligrosas. Es la referencia técnica adoptada en Chile para procedimientos LOTO, especialmente en minería (RIC N°5 SERNAGEOMIN) y en empresas con certificación internacional.',
+    campo: 'Referencia aplicable en Chile en ausencia de norma nacional específica más detallada. Adoptada por la industria minera (RIC 05), petroquímica y empresas multinacionales. Define los estándares mínimos para candados, dispositivos y procedimientos LOTO.',
+    requisitos: 'Candado de llave única por trabajador (KD - Keyed Different). Procedimiento escrito por equipo con secuencia de pasos. Dispositivos de bloqueo aprobados (dieléctricos, resistentes). Verificación de cero energía antes de intervenir. Capacitación documentada de trabajadores autorizados y afectados. Revisión anual del programa.',
+    categorias: ['Candados KD (llave única)', 'Hasps (bloqueo múltiple)', 'Bloqueos de válvulas y breakers', 'Cajas de bloqueo grupal', 'Tarjetas Tagout', 'Procedimiento escrito por equipo'],
+    tags: ['loto', 'osha', 'lockout', 'tagout', 'ric 05', 'minería', 'internacional']
   }
 };
 
