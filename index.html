@@ -2011,11 +2011,11 @@
       <input type="hidden" id="talEditIdx" value="-1">
 
       <!-- Fila 1: Logo + Nombre + Email -->
-      <div style="display:grid;grid-template-columns:80px 1fr 1fr;gap:.5rem;margin-bottom:.5rem;align-items:start;">
+      <div style="display:grid;grid-template-columns:140px 1fr 1fr;gap:.5rem;margin-bottom:.5rem;align-items:start;">
 
         <!-- Logo upload -->
         <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;">
-          <div id="talLogoPreview" onclick="document.getElementById('talLogoInput').click()" style="width:70px;height:70px;border-radius:10px;border:2px dashed var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;font-size:1.8rem;transition:border-color .2s;" title="Clic para subir logo">🏢</div>
+          <div id="talLogoPreview" onclick="document.getElementById('talLogoInput').click()" style="width:130px;height:130px;border-radius:14px;border:2px dashed var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;font-size:3rem;transition:border-color .2s;" title="Clic para subir logo">🏢</div>
           <input type="file" id="talLogoInput" accept="image/*" style="display:none;" onchange="previewLogo(this)">
           <span style="font-size:.62rem;color:var(--muted);text-align:center;">Logo<br>(opcional)</span>
           <button onclick="borrarLogoPreview()" id="talLogoBorrar" style="display:none;font-size:.62rem;background:rgba(239,68,68,.15);color:#fca5a5;border:none;border-radius:4px;padding:2px 6px;cursor:pointer;">✕ Quitar</button>
@@ -2036,6 +2036,22 @@
 
       <!-- Especialidad -->
       <input id="talEspecialidad" type="text" placeholder="Especialidad (ej: Prevencionista de Riesgos, Vendedor técnico EPP)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+
+      <!-- Redes sociales y web -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">🌐</span>
+          <input id="talWeb" type="url" placeholder="www.mipagina.cl" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">💼</span>
+          <input id="talLinkedin" type="url" placeholder="linkedin.com/in/usuario" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">📷</span>
+          <input id="talInstagram" type="text" placeholder="@usuario_instagram" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+      </div>
 
       <!-- Descripción -->
       <textarea id="talDesc" placeholder="Descripción: experiencia, habilidades, qué ofreces o buscas..." rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
@@ -2058,20 +2074,49 @@
 
 <!-- VIP LOGIN MODAL -->
 <div class="vip-overlay" id="vipLoginModal">
-  <div class="vip-box">
+  <div class="vip-box" style="max-width:420px;width:95%;">
     <div style="text-align:center;margin-bottom:1rem;">
       <div style="font-size:2.5rem;">⭐</div>
       <div class="vip-title">ZONA VIP</div>
-      <div class="vip-sub">Acceso exclusivo para clientes BuscaEPP. Ingresa con tu email y contraseña.</div>
     </div>
-    <input id="vipEmail" type="email" class="vip-input" placeholder="Tu email (usuario)" autocomplete="username">
-    <input id="vipPass" type="password" class="vip-input" placeholder="Contraseña" autocomplete="current-password">
-    <div class="vip-error" id="vipError">❌ Email o contraseña incorrectos</div>
-    <button class="vip-btn" onclick="loginVIP()">🔓 INGRESAR</button>
-    <div style="text-align:center;margin-top:1rem;font-size:.75rem;color:var(--muted);">
-      ¿Olvidaste tu contraseña? Contáctanos a <a href="/cdn-cgi/l/email-protection#46252928322725322906243335252723363668252a" style="color:#f59e0b;"><span class="__cf_email__" data-cfemail="ed8e8283998c8e9982ad8f989e8e8c889d9dc38e81">[email&#160;protected]</span></a>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:0;margin-bottom:1.2rem;border:1px solid rgba(245,158,11,.3);border-radius:8px;overflow:hidden;">
+      <button id="vipTabLogin" onclick="switchVipTab('login')" style="flex:1;padding:.5rem;font-size:.82rem;font-weight:700;border:none;cursor:pointer;background:rgba(245,158,11,.2);color:var(--accent);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;">🔓 INGRESAR</button>
+      <button id="vipTabSolicitar" onclick="switchVipTab('solicitar')" style="flex:1;padding:.5rem;font-size:.82rem;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;">📝 SOLICITAR ACCESO</button>
     </div>
-    <div style="text-align:center;margin-top:.5rem;">
+
+    <!-- Panel Login -->
+    <div id="vipPanelLogin">
+      <input id="vipEmail" type="email" class="vip-input" placeholder="Tu email" autocomplete="username">
+      <input id="vipPass" type="password" class="vip-input" placeholder="Contraseña" autocomplete="current-password">
+      <div class="vip-error" id="vipError">❌ Email o contraseña incorrectos</div>
+      <button class="vip-btn" onclick="loginVIP()">🔓 INGRESAR</button>
+      <div style="text-align:center;margin-top:.8rem;font-size:.75rem;color:var(--muted);">
+        ¿No tienes acceso? <a href="#" onclick="switchVipTab('solicitar');return false;" style="color:#f59e0b;">Solicítalo aquí</a>
+      </div>
+    </div>
+
+    <!-- Panel Solicitar -->
+    <div id="vipPanelSolicitar" style="display:none;">
+      <select id="vipTipoUsuario" class="vip-input" style="background:var(--surface2);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.7rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;width:100%;margin-bottom:.6rem;">
+        <option value="">Selecciona tu perfil...</option>
+        <option value="comprador">🛒 Comprador de empresa</option>
+        <option value="prevencionista">🦺 Prevencionista de riesgos</option>
+        <option value="proveedor">🏭 Proveedor EPP</option>
+      </select>
+      <input id="vipSolNombre" type="text" class="vip-input" placeholder="Nombre completo">
+      <input id="vipSolEmpresa" type="text" class="vip-input" placeholder="Empresa">
+      <input id="vipSolEmail" type="email" class="vip-input" placeholder="Email de contacto">
+      <input id="vipSolTelefono" type="tel" class="vip-input" placeholder="Teléfono (opcional)">
+      <div class="vip-error" id="vipSolError" style="display:none;">Completa todos los campos</div>
+      <div id="vipSolOk" style="display:none;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.7rem;text-align:center;font-size:.82rem;color:#4ade80;margin-bottom:.6rem;">
+        ✅ Solicitud enviada — te contactaremos pronto
+      </div>
+      <button class="vip-btn" onclick="solicitarAccesoVIP()">📨 ENVIAR SOLICITUD</button>
+    </div>
+
+    <div style="text-align:center;margin-top:.8rem;">
       <button onclick="cerrarVIPModal()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;">✕ Cerrar</button>
     </div>
   </div>
@@ -2083,8 +2128,9 @@
     <h1><span>ZONA</span> <span style="color:#f59e0b;">VIP</span></h1>
     <p id="vipBienvenida">Bienvenido a tu espacio exclusivo</p>
   </div>
-  <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
+  <div class="results-area" style="max-width:960px;margin:0 auto;padding:1rem;">
 
+    <!-- Header usuario + dias restantes -->
     <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:1rem 1.3rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
       <div style="display:flex;align-items:center;gap:.6rem;">
         <span style="font-size:1.5rem;">⭐</span>
@@ -2093,17 +2139,108 @@
           <div id="vipEmailUsuario" style="font-size:.72rem;color:var(--muted);"></div>
         </div>
       </div>
-      <button onclick="cerrarSesionVIP()" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">
-        Cerrar sesión
-      </button>
+      <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
+        <div id="vipDiasRestantes" style="font-size:.78rem;color:var(--muted);"></div>
+        <button onclick="cerrarSesionVIP()" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">Cerrar sesión</button>
+      </div>
     </div>
 
-    <!-- Contenido VIP -->
-    <div id="vipContenido">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:1rem;letter-spacing:.5px;">📦 TU CONTENIDO EXCLUSIVO</div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center;color:var(--muted);font-size:.9rem;">
-        🚧 Contenido VIP próximamente — Aquí aparecerán tus recursos exclusivos, listas de precios, informes técnicos y más.
+    <!-- Selector de zona según tipo de usuario -->
+    <div id="vipZonaComprador" style="display:none;">
+
+      <!-- Sub-tabs -->
+      <div style="display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <button onclick="vipSubTab('fichas',this)" class="calc-btn selected" style="font-size:.8rem;">🔍 Buscador de Fichas</button>
+        <button onclick="vipSubTab('categorias',this)" class="calc-btn" style="font-size:.8rem;">📦 Por Categoría</button>
+        <button onclick="vipSubTab('proveedores',this)" class="calc-btn" style="font-size:.8rem;">🏭 Comparar Proveedores</button>
+        <button onclick="vipSubTab('lista',this)" class="calc-btn" style="font-size:.8rem;">📋 Mi Lista de Compra</button>
       </div>
+
+      <!-- Buscador de fichas técnicas -->
+      <div id="vipSubFichas">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">🔍 BUSCADOR DE FICHAS TÉCNICAS</div>
+        <div style="display:flex;gap:.5rem;margin-bottom:1rem;">
+          <input id="vipBuscadorInput" type="text" placeholder="Ej: casco minero, guante nitrilo, botín punta acero..." oninput="buscarFichaVIP(this.value)" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;color:var(--text);font-size:.88rem;font-family:'DM Sans',sans-serif;">
+        </div>
+        <div id="vipFichasResultados"></div>
+      </div>
+
+      <!-- Por categoría -->
+      <div id="vipSubCategorias" style="display:none;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">📦 CATÁLOGO POR CATEGORÍA</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-bottom:1.2rem;" id="vipFamiliasBtns"></div>
+        <div id="vipCategoriasResultados"></div>
+      </div>
+
+      <!-- Comparar proveedores -->
+      <div id="vipSubProveedores" style="display:none;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">🏭 COMPARAR PROVEEDORES</div>
+        <div style="display:flex;gap:.5rem;margin-bottom:1rem;">
+          <input id="vipProvBuscador" type="text" placeholder="Busca un producto para ver sus proveedores..." oninput="buscarProveedoresVIP(this.value)" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;color:var(--text);font-size:.88rem;font-family:'DM Sans',sans-serif;">
+        </div>
+        <div id="vipProvResultados"></div>
+      </div>
+
+      <!-- Lista de compra -->
+      <div id="vipSubLista" style="display:none;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">📋 MI LISTA DE COMPRA</div>
+        <div id="vipListaItems" style="margin-bottom:1rem;"></div>
+        <div id="vipListaVacia" style="text-align:center;padding:2rem;color:var(--muted);font-size:.88rem;">
+          Agrega productos desde el Buscador de Fichas para armar tu lista de cotización.
+        </div>
+        <button onclick="exportarListaVIP()" id="vipExportBtn" style="display:none;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;">
+          📥 DESCARGAR LISTA
+        </button>
+      </div>
+
+    </div><!-- /zonaComprador -->
+
+    <!-- Zona Prevencionista -->
+    <div id="vipZonaPrevencionista" style="display:none;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.5rem;letter-spacing:.5px;">🦺 ZONA PREVENCIONISTA</div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Herramientas exclusivas para profesionales de seguridad industrial</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.5rem;">🛡️</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.4rem;">Matriz EPP por Proceso</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Selecciona la faena y obtén los EPP requeridos con normativa exacta</div>
+          <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:.4rem;font-size:.72rem;color:var(--accent);">🚀 Próximamente</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.5rem;">🔍</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.4rem;">Buscador de Fichas</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Busca cualquier EPP y obtén ficha técnica completa con normativa</div>
+          <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:.4rem;font-size:.72rem;color:var(--accent);">🚀 Próximamente</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zona Proveedor -->
+    <div id="vipZonaProveedor" style="display:none;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.5rem;letter-spacing:.5px;">🏭 ZONA PROVEEDOR</div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Inteligencia de mercado y acceso a oportunidades de negocio</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.5rem;">📊</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.4rem;">Estadísticas de Mercado</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Productos más consultados y composición del mercado EPP</div>
+          <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:.4rem;font-size:.72rem;color:var(--accent);">🚀 Próximamente</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.5rem;">📋</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.4rem;">Licitaciones Vigentes</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Acceso directo a portales de licitación activos</div>
+          <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener" style="display:inline-block;background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:.4rem .8rem;font-size:.72rem;text-decoration:none;margin:.2rem;">🛒 MercadoPublico</a>
+          <a href="https://www.sea.gob.cl" target="_blank" rel="noopener" style="display:inline-block;background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);border-radius:6px;padding:.4rem .8rem;font-size:.72rem;text-decoration:none;margin:.2rem;">🌿 SEA Chile</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sin zona asignada -->
+    <div id="vipZonaSinAsignar" style="display:none;text-align:center;padding:3rem;color:var(--muted);">
+      <div style="font-size:3rem;margin-bottom:1rem;">⭐</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);">Acceso VIP activo</div>
+      <div style="font-size:.85rem;margin-top:.5rem;">Tu perfil está siendo configurado. Contacta al administrador.</div>
     </div>
 
   </div>
@@ -2123,6 +2260,51 @@
 <!-- ADMIN TAB -->
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
+
+    <!-- ── GESTIÓN USUARIOS VIP ── -->
+    <div class="admin-card" style="margin-bottom:1.5rem;">
+      <h3>⭐ Usuarios VIP</h3>
+
+      <!-- Solicitudes pendientes -->
+      <div style="margin-bottom:1.2rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">📥 SOLICITUDES PENDIENTES</div>
+        <div id="adminVipSolicitudes" style="font-size:.82rem;color:var(--muted);">Cargando...</div>
+      </div>
+
+      <!-- Agregar usuario VIP manualmente -->
+      <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:.5rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">➕ APROBAR / AGREGAR USUARIO VIP</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+          <input id="vipAdmNombre" type="text" placeholder="Nombre completo" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          <input id="vipAdmEmpresa" type="text" placeholder="Empresa" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+          <input id="vipAdmEmail" type="email" placeholder="Email (será el usuario)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          <input id="vipAdmPass" type="text" placeholder="Contraseña" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.8rem;">
+          <select id="vipAdmTipo" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+            <option value="comprador">🛒 Comprador</option>
+            <option value="prevencionista">🦺 Prevencionista</option>
+            <option value="proveedor">🏭 Proveedor</option>
+          </select>
+          <select id="vipAdmDias" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+            <option value="30">30 días</option>
+            <option value="60">60 días</option>
+            <option value="90">90 días</option>
+          </select>
+        </div>
+        <button onclick="aprobarUsuarioVIP()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ APROBAR Y CREAR ACCESO</button>
+        <div id="vipAdmMsg" style="margin-top:.6rem;font-size:.78rem;"></div>
+      </div>
+
+      <!-- Lista usuarios activos -->
+      <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">👥 USUARIOS ACTIVOS</div>
+        <div id="adminVipUsuarios" style="font-size:.82rem;color:var(--muted);">Cargando...</div>
+      </div>
+    </div>
+
     <div class="admin-card">
       <h3 data-es="➕ Agregar Nuevo Producto / Proveedor" data-en="➕ Add New Product / Provider" data-pt="➕ Adicionar Novo Produto / Fornecedor" data-zh="➕ 添加新产品/供应商">➕ Agregar Nuevo Producto / Proveedor</h3>
       <div class="form-row">
@@ -5019,6 +5201,7 @@ function showTab(tab, skipAuth=false) {
   if (tab==='fab') renderFabricantes();
   if (tab==='expertos') renderExpertos();
   if (tab==='talentos') renderTalentos();
+  if (tab==='admin') { setTimeout(cargarAdminVIP, 500); setTimeout(verificarVencimientosVIP, 1000); }
   if (tab==='prov') renderProveedores();
 }
 
@@ -6492,8 +6675,8 @@ function renderTalentos() {
 
     // Avatar: logo si existe, sino inicial
     const avatar = t.logo
-      ? `<img src="${t.logo}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;border:2px solid ${color}44;flex-shrink:0;">`
-      : `<div style="width:52px;height:52px;border-radius:10px;background:${color}22;border:2px solid ${color}44;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:${color};flex-shrink:0;">${t.nombre.charAt(0).toUpperCase()}</div>`;
+      ? `<img src="${t.logo}" style="width:90px;height:90px;border-radius:14px;object-fit:cover;border:2px solid ${color}44;flex-shrink:0;">`
+      : `<div style="width:90px;height:90px;border-radius:14px;background:${color}22;border:2px solid ${color}44;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:700;color:${color};flex-shrink:0;">${t.nombre.charAt(0).toUpperCase()}</div>`;
 
     // Botones admin
     const adminBtns = adminUnlocked ? `
@@ -6524,6 +6707,9 @@ function renderTalentos() {
       <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;">
         <a href="mailto:${t.email}" style="display:inline-flex;align-items:center;gap:.4rem;background:${color}15;color:${color};border:1px solid ${color}33;border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">✉️ ${t.email}</a>
         ${waBtn}
+        ${t.web ? `<a href="${t.web.startsWith('http') ? t.web : 'https://'+t.web}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(99,102,241,.12);color:#818cf8;border:1px solid rgba(99,102,241,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">🌐 Web</a>` : ''}
+        ${t.linkedin ? `<a href="${t.linkedin.startsWith('http') ? t.linkedin : 'https://'+t.linkedin}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(14,118,168,.12);color:#38bdf8;border:1px solid rgba(14,118,168,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">💼 LinkedIn</a>` : ''}
+        ${t.instagram ? `<a href="https://instagram.com/${t.instagram.replace('@','')}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(236,72,153,.12);color:#f472b6;border:1px solid rgba(236,72,153,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">📷 Instagram</a>` : ''}
       </div>
       ${adminBtns}
     </div>`;
@@ -6614,8 +6800,13 @@ async function publicarTalento() {
     return;
   }
 
+  const web       = document.getElementById('talWeb').value.trim();
+  const linkedin  = document.getElementById('talLinkedin').value.trim();
+  const instagram = document.getElementById('talInstagram').value.trim();
+
   const entrada = {
     nombre, email, telefono, especialidad, tipo, desc,
+    web, linkedin, instagram,
     logo: _talLogoBase64 || '',
     fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' }),
     ts: Date.now()
@@ -6649,6 +6840,9 @@ function editarTalento(idx) {
   document.getElementById('talEspecialidad').value   = t.especialidad || '';
   document.getElementById('talTipo').value           = t.tipo   || 'servicios';
   document.getElementById('talDesc').value           = t.desc   || '';
+  document.getElementById('talWeb').value            = t.web      || '';
+  document.getElementById('talLinkedin').value       = t.linkedin  || '';
+  document.getElementById('talInstagram').value      = t.instagram || '';
   document.getElementById('talFormTitulo').textContent = '✏️ Editando perfil';
 
   // Restaurar logo si existe
@@ -6707,16 +6901,25 @@ function setTema(tema) {
 }
 
 // ─── ZONA VIP ─────────────────────────────────────────────────
-// Usuarios VIP: { email, nombre, pass (hash sha256) }
-// Para agregar usuarios: añade aquí con su email, nombre y contraseña hasheada
-const VIP_MASTER_PASS = 'BuscaEPP2025@'; // Clave maestra admin
-const VIP_USUARIOS = [
-  // Ejemplo (agrega clientes aquí):
-  // { email:'cliente@empresa.cl', nombre:'Empresa S.A.', pass:'contraseña123' },
-];
-
+const VIP_MASTER_PASS = 'BuscaEPP2025@';
+const WA_ADMIN = '56954146523';
 let vipUsuarioActual = null;
+let vipListaCompra = JSON.parse(localStorage.getItem('buscaepp_lista_compra') || '[]');
 
+// ── Tabs del modal ─────────────────────────────────────────
+function switchVipTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('vipPanelLogin').style.display    = isLogin ? 'block' : 'none';
+  document.getElementById('vipPanelSolicitar').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('vipTabLogin').style.background    = isLogin ? 'rgba(245,158,11,.2)' : 'transparent';
+  document.getElementById('vipTabLogin').style.color         = isLogin ? 'var(--accent)' : 'var(--muted)';
+  document.getElementById('vipTabSolicitar').style.background = isLogin ? 'transparent' : 'rgba(245,158,11,.2)';
+  document.getElementById('vipTabSolicitar').style.color      = isLogin ? 'var(--muted)' : 'var(--accent)';
+  document.getElementById('vipSolOk').style.display = 'none';
+  document.getElementById('vipSolError').style.display = 'none';
+}
+
+// ── Abrir VIP ──────────────────────────────────────────────
 function abrirVIP() {
   const sesion = JSON.parse(sessionStorage.getItem('buscaepp_vip') || 'null');
   if (sesion) {
@@ -6724,80 +6927,495 @@ function abrirVIP() {
     mostrarPaneVIP();
     return;
   }
-  // Desmarcar tab activo (no navegar aún)
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-vip').classList.add('active');
   document.getElementById('vipLoginModal').classList.add('open');
+  switchVipTab('login');
   setTimeout(() => { const el = document.getElementById('vipEmail'); if(el) el.focus(); }, 100);
 }
 
 function cerrarVIPModal() {
   document.getElementById('vipLoginModal').classList.remove('open');
   document.getElementById('vipError').style.display = 'none';
-  document.getElementById('vipEmail').value = '';
-  document.getElementById('vipPass').value = '';
-  // Restaurar tab activo anterior
   if (!vipUsuarioActual) showTab('epp');
 }
 
+// ── Login VIP (Firebase) ───────────────────────────────────
 async function loginVIP() {
   const email = document.getElementById('vipEmail').value.trim().toLowerCase();
-  const pass = document.getElementById('vipPass').value;
+  const pass  = document.getElementById('vipPass').value.trim();
   const errEl = document.getElementById('vipError');
   errEl.style.display = 'none';
-
   if (!email || !pass) { errEl.style.display = 'block'; errEl.textContent = '❌ Completa todos los campos'; return; }
 
-  // Verificar clave maestra (admin)
+  // Clave maestra admin
   if (pass === VIP_MASTER_PASS) {
-    vipUsuarioActual = { email: email || 'admin@buscaepp.cl', nombre: '⚙️ Administrador' };
+    vipUsuarioActual = { email, nombre: '⚙️ Administrador', tipo: 'admin', diasRestantes: 9999 };
     sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
     cerrarVIPModal();
     mostrarPaneVIP();
     return;
   }
 
-  // Verificar usuarios VIP
-  const usuario = VIP_USUARIOS.find(u => u.email.toLowerCase() === email && u.pass === pass);
-  if (usuario) {
-    vipUsuarioActual = { email: usuario.email, nombre: usuario.nombre };
+  // Buscar en Firebase
+  try {
+    const { db, collection, getDocs } = window._FB;
+    const snap = await getDocs(collection(db, 'vip_usuarios'));
+    const hoy = Date.now();
+    let found = null;
+    snap.forEach(d => {
+      const u = d.data();
+      if (u.email && u.email.toLowerCase() === email && u.password === pass) {
+        found = { _id: d.id, ...u };
+      }
+    });
+
+    if (!found) { errEl.style.display = 'block'; errEl.textContent = '❌ Email o contraseña incorrectos'; return; }
+    if (found.estado !== 'activo') { errEl.style.display = 'block'; errEl.textContent = '⛔ Acceso bloqueado. Contacta al administrador.'; return; }
+
+    const vencimiento = found.vencimiento || 0;
+    if (hoy > vencimiento) { errEl.style.display = 'block'; errEl.textContent = '⏰ Tu acceso VIP venció. Contacta al administrador para renovar.'; return; }
+
+    const diasRestantes = Math.ceil((vencimiento - hoy) / 86400000);
+    vipUsuarioActual = { email: found.email, nombre: found.nombre, tipo: found.tipo, diasRestantes, _id: found._id };
     sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
     cerrarVIPModal();
     mostrarPaneVIP();
-    return;
+  } catch(e) {
+    console.error(e);
+    errEl.style.display = 'block';
+    errEl.textContent = '❌ Error de conexión. Intenta de nuevo.';
   }
-
-  errEl.style.display = 'block';
-  errEl.textContent = '❌ Email o contraseña incorrectos';
 }
 
+// ── Solicitar acceso VIP ───────────────────────────────────
+async function solicitarAccesoVIP() {
+  const tipo     = document.getElementById('vipTipoUsuario').value;
+  const nombre   = document.getElementById('vipSolNombre').value.trim();
+  const empresa  = document.getElementById('vipSolEmpresa').value.trim();
+  const email    = document.getElementById('vipSolEmail').value.trim();
+  const telefono = document.getElementById('vipSolTelefono').value.trim();
+  const errEl    = document.getElementById('vipSolError');
+  const okEl     = document.getElementById('vipSolOk');
+
+  errEl.style.display = 'none'; okEl.style.display = 'none';
+
+  if (!tipo || !nombre || !empresa || !email) {
+    errEl.style.display = 'block'; errEl.textContent = '⚠️ Completa todos los campos obligatorios';
+    return;
+  }
+
+  try {
+    // Guardar solicitud en Firebase
+    if (window._FB) {
+      const { db, collection, addDoc } = window._FB;
+      await addDoc(collection(db, 'vip_solicitudes'), {
+        tipo, nombre, empresa, email, telefono,
+        estado: 'pendiente',
+        fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' }),
+        ts: Date.now()
+      });
+    }
+
+    // Notificar al admin por WhatsApp
+    const tipoLabel = { comprador:'🛒 Comprador', prevencionista:'🦺 Prevencionista', proveedor:'🏭 Proveedor' }[tipo] || tipo;
+    const msg = encodeURIComponent(
+      `⭐ *Nueva solicitud VIP — BuscaEPP*
+
+` +
+      `👤 *Nombre:* ${nombre}
+` +
+      `🏢 *Empresa:* ${empresa}
+` +
+      `📧 *Email:* ${email}
+` +
+      `📱 *Teléfono:* ${telefono || 'No indicado'}
+` +
+      `🎯 *Perfil:* ${tipoLabel}
+
+` +
+      `Para aprobar → panel admin en BuscaEPP`
+    );
+    window.open(`https://wa.me/${WA_ADMIN}?text=${msg}`, '_blank');
+
+    okEl.style.display = 'block';
+    // Limpiar campos
+    ['vipTipoUsuario','vipSolNombre','vipSolEmpresa','vipSolEmail','vipSolTelefono'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  } catch(e) {
+    console.error(e);
+    errEl.style.display = 'block'; errEl.textContent = '❌ Error al enviar. Intenta de nuevo.';
+  }
+}
+
+// ── Mostrar pane VIP ───────────────────────────────────────
 function mostrarPaneVIP() {
-  // Navegar al pane VIP
   ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin'].forEach(t => {
     const p = document.getElementById('pane-' + t);
     const tb = document.getElementById('tab-' + t);
     if (p) p.style.display = t === 'vip' ? 'block' : 'none';
     if (tb) tb.classList.toggle('active', t === 'vip');
   });
-  // Mostrar nombre usuario
-  document.getElementById('vipNombreUsuario').textContent = vipUsuarioActual.nombre;
-  document.getElementById('vipEmailUsuario').textContent = vipUsuarioActual.email;
-  document.getElementById('vipBienvenida').textContent = `Bienvenido, ${vipUsuarioActual.nombre} 👋`;
+
+  const u = vipUsuarioActual;
+  document.getElementById('vipNombreUsuario').textContent = u.nombre;
+  document.getElementById('vipEmailUsuario').textContent  = u.email;
+  document.getElementById('vipBienvenida').textContent    = `Bienvenido, ${u.nombre} 👋`;
+
+  // Días restantes
+  const diasEl = document.getElementById('vipDiasRestantes');
+  if (u.diasRestantes < 9999) {
+    const color = u.diasRestantes <= 3 ? '#fca5a5' : '#4ade80';
+    diasEl.innerHTML = `<span style="color:${color};font-weight:700;">⏳ ${u.diasRestantes} días restantes</span>`;
+  } else {
+    diasEl.textContent = '';
+  }
+
+  // Mostrar zona según tipo
+  ['Comprador','Prevencionista','Proveedor','SinAsignar'].forEach(z => {
+    document.getElementById('vipZona'+z).style.display = 'none';
+  });
+  const tipo = u.tipo || '';
+  if (tipo === 'comprador' || tipo === 'admin') {
+    document.getElementById('vipZonaComprador').style.display = 'block';
+    iniciarZonaComprador();
+  } else if (tipo === 'prevencionista') {
+    document.getElementById('vipZonaPrevencionista').style.display = 'block';
+  } else if (tipo === 'proveedor') {
+    document.getElementById('vipZonaProveedor').style.display = 'block';
+  } else {
+    document.getElementById('vipZonaSinAsignar').style.display = 'block';
+  }
 }
 
+// ── Sub-tabs zona comprador ────────────────────────────────
+function vipSubTab(tab, btn) {
+  ['Fichas','Categorias','Proveedores','Lista'].forEach(t => {
+    document.getElementById('vipSub'+t).style.display = t.toLowerCase() === tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('#vipZonaComprador .calc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  if (tab === 'categorias') renderVipFamilias();
+  if (tab === 'lista') renderVipLista();
+}
+
+// ── Iniciar zona comprador ─────────────────────────────────
+function iniciarZonaComprador() {
+  buscarFichaVIP('');
+}
+
+// ── Buscador fichas VIP ────────────────────────────────────
+function buscarFichaVIP(q) {
+  const res = document.getElementById('vipFichasResultados');
+  const termino = q.toLowerCase().trim();
+  const productos = termino.length < 2
+    ? PRODUCTS.slice(0, 12)
+    : PRODUCTS.filter(p =>
+        p.name.toLowerCase().includes(termino) ||
+        (p.tags || []).some(t => t.includes(termino)) ||
+        (p.desc || '').toLowerCase().includes(termino)
+      ).slice(0, 20);
+
+  if (productos.length === 0) {
+    res.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);">Sin resultados para "'+q+'"</div>';
+    return;
+  }
+
+  res.innerHTML = productos.map(p => {
+    const fam = FAMILIES[p.family] || {};
+    const provs = (p.providers || []).slice(0,4).map(id => {
+      const prov = PROVIDERS[id];
+      return prov ? `<a href="${prov.url}" target="_blank" rel="noopener" style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2);border-radius:4px;padding:2px 6px;text-decoration:none;">${prov.name}</a>` : '';
+    }).filter(Boolean).join(' ');
+
+    const normInfo = EPP_INFO[Object.keys(EPP_INFO).find(k => EPP_INFO[k].nombre && p.name.toLowerCase().includes(EPP_INFO[k].nombre.split(' ')[0].toLowerCase()))] || null;
+
+    return `<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:.7rem;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.95rem;">${fam.icon || '📦'} ${p.name}</div>
+        <button onclick="agregarAListaVIP(${p.id})" style="background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;white-space:nowrap;">+ Lista</button>
+      </div>
+      <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem;">${p.desc || ''}</div>
+      ${normInfo ? `<div style="font-size:.72rem;color:#4ade80;margin-bottom:.4rem;">📋 ${normInfo.norma}</div>` : ''}
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem;">${provs}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Categorías VIP ─────────────────────────────────────────
+function renderVipFamilias() {
+  const cont = document.getElementById('vipFamiliasBtns');
+  cont.innerHTML = Object.entries(FAMILIES).map(([key, fam]) =>
+    `<button onclick="filtrarCategoriaVIP('${key}',this)" class="calc-btn" style="font-size:.75rem;">${fam.icon} ${fam.es}</button>`
+  ).join('');
+}
+
+function filtrarCategoriaVIP(familia, btn) {
+  document.querySelectorAll('#vipFamiliasBtns .calc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  const prods = PRODUCTS.filter(p => p.family === familia).slice(0, 30);
+  document.getElementById('vipCategoriasResultados').innerHTML =
+    prods.length === 0
+      ? '<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin productos en esta categoría</div>'
+      : prods.map(p => {
+          const provs = (p.providers || []).slice(0,4).map(id => {
+            const prov = PROVIDERS[id];
+            return prov ? `<a href="${prov.url}" target="_blank" rel="noopener" style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2);border-radius:4px;padding:2px 6px;text-decoration:none;">${prov.name}</a>` : '';
+          }).filter(Boolean).join(' ');
+          return `<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;flex-wrap:wrap;">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.9rem;">${p.name}</div>
+              <button onclick="agregarAListaVIP(${p.id})" style="background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">+ Lista</button>
+            </div>
+            <div style="font-size:.75rem;color:var(--muted);margin:.3rem 0;">${p.desc || ''}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.3rem;">${provs}</div>
+          </div>`;
+        }).join('');
+}
+
+// ── Comparar proveedores VIP ───────────────────────────────
+function buscarProveedoresVIP(q) {
+  const res = document.getElementById('vipProvResultados');
+  if (!q || q.length < 2) { res.innerHTML = ''; return; }
+  const termino = q.toLowerCase();
+  const prods = PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(termino) || (p.tags||[]).some(t => t.includes(termino))
+  ).slice(0, 5);
+
+  if (!prods.length) { res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin resultados</div>'; return; }
+
+  res.innerHTML = prods.map(p => {
+    const provLinks = (p.providers || []).map(id => {
+      const prov = PROVIDERS[id];
+      if (!prov) return '';
+      return `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:.82rem;font-weight:600;color:var(--text);">${prov.name}</span>
+        <a href="${prov.url}" target="_blank" rel="noopener" style="font-size:.72rem;background:rgba(56,189,248,.12);color:#38bdf8;border:1px solid rgba(56,189,248,.25);border-radius:6px;padding:3px 8px;text-decoration:none;">Ver sitio →</a>
+      </div>`;
+    }).filter(Boolean).join('');
+
+    return `<div style="background:var(--surface2);border-radius:10px;padding:1rem;margin-bottom:.8rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--accent);margin-bottom:.6rem;">${p.name}</div>
+      <div style="display:grid;gap:.4rem;">${provLinks || '<div style="color:var(--muted);font-size:.78rem;">Sin proveedores registrados</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Lista de compra VIP ────────────────────────────────────
+function agregarAListaVIP(id) {
+  const p = PRODUCTS.find(pr => pr.id === id);
+  if (!p) return;
+  if (vipListaCompra.find(i => i.id === id)) { showToast('Ya está en tu lista'); return; }
+  vipListaCompra.push({ id: p.id, name: p.name, family: p.family, desc: p.desc });
+  localStorage.setItem('buscaepp_lista_compra', JSON.stringify(vipListaCompra));
+  showToast('✅ Agregado a tu lista de compra');
+  if (document.getElementById('vipSubLista') && document.getElementById('vipSubLista').style.display !== 'none') renderVipLista();
+}
+
+function renderVipLista() {
+  const cont = document.getElementById('vipListaItems');
+  const vacia = document.getElementById('vipListaVacia');
+  const btn   = document.getElementById('vipExportBtn');
+  if (!vipListaCompra.length) {
+    cont.innerHTML = ''; vacia.style.display = 'block'; btn.style.display = 'none'; return;
+  }
+  vacia.style.display = 'none'; btn.style.display = 'inline-block';
+  cont.innerHTML = vipListaCompra.map((item, i) => {
+    const fam = FAMILIES[item.family] || {};
+    return `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;margin-bottom:.4rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;">
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--text);">${fam.icon||'📦'} ${item.name}</div>
+        <div style="font-size:.72rem;color:var(--muted);">${item.desc||''}</div>
+      </div>
+      <button onclick="quitarDeListaVIP(${i})" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;flex-shrink:0;">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function quitarDeListaVIP(idx) {
+  vipListaCompra.splice(idx, 1);
+  localStorage.setItem('buscaepp_lista_compra', JSON.stringify(vipListaCompra));
+  renderVipLista();
+}
+
+function exportarListaVIP() {
+  if (!vipListaCompra.length) return;
+  let txt = 'LISTA DE COMPRA EPP — BuscaEPP.cl\n';
+  txt += '='.repeat(40) + '\n';
+  txt += `Fecha: ${new Date().toLocaleDateString('es-CL')}\n\n`;
+  vipListaCompra.forEach((item, i) => {
+    txt += `${i+1}. ${item.name}\n`;
+    txt += `   ${item.desc||''}\n\n`;
+  });
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'lista-compra-epp.txt';
+  a.click();
+  showToast('📥 Lista descargada');
+}
+
+// ── Cerrar sesión VIP ──────────────────────────────────────
 function cerrarSesionVIP() {
   vipUsuarioActual = null;
   sessionStorage.removeItem('buscaepp_vip');
   showTab('epp');
 }
 
-// Tecla Enter en login VIP
+// ── Enter en login VIP ─────────────────────────────────────
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('vipLoginModal').classList.contains('open')) {
     loginVIP();
   }
-
 });
+
+// ─── ADMIN VIP ───────────────────────────────────────────────
+async function cargarAdminVIP() {
+  if (!adminUnlocked || !window._FB) return;
+  const { db, collection, getDocs, updateDoc, doc } = window._FB;
+  const solSnap = await getDocs(collection(db, 'vip_solicitudes'));
+  const pendientes = solSnap.docs.filter(d => d.data().estado === 'pendiente');
+  const solEl = document.getElementById('adminVipSolicitudes');
+  if (solEl) {
+    if (!pendientes.length) {
+      solEl.innerHTML = '<div style="color:var(--muted);font-size:.78rem;padding:.5rem 0;">Sin solicitudes pendientes ✅</div>';
+    } else {
+      solEl.innerHTML = pendientes.map(d => {
+        const s = d.data();
+        const tipoLabel = {comprador:'🛒',prevencionista:'🦺',proveedor:'🏭'}[s.tipo]||'👤';
+        return `<div style="background:var(--card);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.7rem .9rem;margin-bottom:.4rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div><span style="font-weight:600;color:var(--text);">${tipoLabel} ${s.nombre}</span>
+          <span style="color:var(--muted);font-size:.72rem;"> — ${s.empresa} — ${s.email}</span></div>
+          <div style="display:flex;gap:.4rem;">
+            <button onclick="precargarSolicitud('${s.nombre}','${s.empresa}','${s.email}','${s.tipo}','${d.id}')" style="background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">✅ Aprobar</button>
+            <button onclick="rechazarSolicitudVIP('${d.id}')" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">✕ Rechazar</button>
+          </div></div>`;
+      }).join('');
+    }
+  }
+  const uSnap = await getDocs(collection(db, 'vip_usuarios'));
+  const usrEl = document.getElementById('adminVipUsuarios');
+  if (usrEl) {
+    const usuarios = uSnap.docs.map(d => ({ _id:d.id, ...d.data() }));
+    if (!usuarios.length) {
+      usrEl.innerHTML = '<div style="color:var(--muted);font-size:.78rem;">Sin usuarios VIP registrados</div>';
+    } else {
+      const hoy = Date.now();
+      usrEl.innerHTML = usuarios.map(u => {
+        const dias = Math.ceil((u.vencimiento - hoy) / 86400000);
+        const color = dias < 0 ? '#fca5a5' : dias <= 3 ? '#fbbf24' : '#4ade80';
+        const estado = dias < 0 ? '⛔ Vencido' : dias <= 3 ? `⚠️ ${dias}d` : `✅ ${dias}d`;
+        return `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;margin-bottom:.4rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div><span style="font-weight:600;color:var(--text);font-size:.82rem;">${u.nombre}</span>
+          <span style="color:var(--muted);font-size:.72rem;"> — ${u.email}</span>
+          <span style="color:${color};font-size:.72rem;font-weight:700;margin-left:.4rem;">${estado}</span></div>
+          <div style="display:flex;gap:.4rem;">
+            <button onclick="renovarVIP('${u._id}')" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🔄 +30d</button>
+            <button onclick="bloquearVIP('${u._id}')" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">⛔ Bloquear</button>
+          </div></div>`;
+      }).join('');
+    }
+  }
+}
+
+function precargarSolicitud(nombre, empresa, email, tipo, solId) {
+  document.getElementById('vipAdmNombre').value  = nombre;
+  document.getElementById('vipAdmEmpresa').value = empresa;
+  document.getElementById('vipAdmEmail').value   = email;
+  document.getElementById('vipAdmTipo').value    = tipo;
+  document.getElementById('vipAdmPass').value    = email.split('@')[0] + '2025';
+  document.getElementById('vipAdmEmail').dataset.solId = solId;
+  document.getElementById('vipAdmNombre').scrollIntoView({ behavior:'smooth' });
+}
+
+async function rechazarSolicitudVIP(solId) {
+  if (!confirm('¿Rechazar esta solicitud?')) return;
+  const { db, updateDoc, doc } = window._FB;
+  await updateDoc(doc(db, 'vip_solicitudes', solId), { estado: 'rechazado' });
+  cargarAdminVIP();
+  showToast('Solicitud rechazada');
+}
+
+async function aprobarUsuarioVIP() {
+  const nombre  = document.getElementById('vipAdmNombre').value.trim();
+  const empresa = document.getElementById('vipAdmEmpresa').value.trim();
+  const email   = document.getElementById('vipAdmEmail').value.trim().toLowerCase();
+  const pass    = document.getElementById('vipAdmPass').value.trim();
+  const tipo    = document.getElementById('vipAdmTipo').value;
+  const dias    = parseInt(document.getElementById('vipAdmDias').value);
+  const solId   = document.getElementById('vipAdmEmail').dataset.solId;
+  const msgEl   = document.getElementById('vipAdmMsg');
+
+  if (!nombre || !email || !pass) { msgEl.innerHTML = '<span style="color:#fca5a5;">Completa los campos obligatorios</span>'; return; }
+  const vencimiento = Date.now() + dias * 86400000;
+  try {
+    const { db, collection, addDoc, updateDoc, doc } = window._FB;
+    await addDoc(collection(db, 'vip_usuarios'), {
+      nombre, empresa, email, password: pass, tipo,
+      estado: 'activo', vencimiento,
+      fechaInicio: new Date().toLocaleDateString('es-CL'),
+      ts: Date.now()
+    });
+    if (solId) await updateDoc(doc(db, 'vip_solicitudes', solId), { estado: 'aprobado' });
+    const msg = encodeURIComponent(`✅ *VIP Aprobado — BuscaEPP*\n\n👤 ${nombre} (${empresa})\n📧 Usuario: ${email}\n🔑 Clave: ${pass}\n⏳ Acceso por ${dias} días`);
+    window.open(`https://wa.me/${WA_ADMIN}?text=${msg}`, '_blank');
+    msgEl.innerHTML = '<span style="color:#4ade80;">✅ Usuario creado.</span>';
+    ['vipAdmNombre','vipAdmEmpresa','vipAdmEmail','vipAdmPass'].forEach(id => {
+      const el = document.getElementById(id);
+      el.value = ''; el.dataset.solId = '';
+    });
+    cargarAdminVIP();
+  } catch(e) {
+    console.error(e);
+    msgEl.innerHTML = '<span style="color:#fca5a5;">Error al crear usuario</span>';
+  }
+}
+
+async function renovarVIP(uid) {
+  const { db, updateDoc, doc, getDocs, collection } = window._FB;
+  const snap = await getDocs(collection(db, 'vip_usuarios'));
+  const uDoc = snap.docs.find(d => d.id === uid);
+  if (!uDoc) return;
+  const actual = uDoc.data().vencimiento || Date.now();
+  const nuevo  = Math.max(actual, Date.now()) + 30 * 86400000;
+  await updateDoc(doc(db, 'vip_usuarios', uid), { vencimiento: nuevo, estado: 'activo' });
+  showToast('✅ Acceso renovado 30 días');
+  cargarAdminVIP();
+}
+
+async function bloquearVIP(uid) {
+  if (!confirm('¿Bloquear este usuario?')) return;
+  const { db, updateDoc, doc } = window._FB;
+  await updateDoc(doc(db, 'vip_usuarios', uid), { estado: 'bloqueado', vencimiento: 0 });
+  showToast('⛔ Usuario bloqueado');
+  cargarAdminVIP();
+}
+
+// Verificar vencimientos próximos (día 28) y notificar por WA
+async function verificarVencimientosVIP() {
+  if (!window._FB) return;
+  const { db, collection, getDocs } = window._FB;
+  try {
+    const snap = await getDocs(collection(db, 'vip_usuarios'));
+    const hoy = Date.now();
+    snap.docs.forEach(d => {
+      const u = d.data();
+      if (u.estado !== 'activo') return;
+      const dias = Math.ceil((u.vencimiento - hoy) / 86400000);
+      if (dias === 2 || dias === 1) {
+        const msg = encodeURIComponent(
+          `⚠️ *VIP por vencer — BuscaEPP*\n\n` +
+          `👤 ${u.nombre} (${u.empresa || ''})\n` +
+          `📧 ${u.email}\n` +
+          `⏳ Vence en ${dias} día${dias>1?'s':''}\n\n` +
+          `¿Desea renovar su acceso VIP?`
+        );
+        console.log(`WA vencimiento: https://wa.me/${WA_ADMIN}?text=${msg}`);
+      }
+    });
+  } catch(e) { console.warn('verificarVencimientos:', e); }
+}
 
 // ─── INIT ────────────────────────────────────────────────────
 renderFilters();
