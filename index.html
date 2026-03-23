@@ -168,6 +168,16 @@
   body.tema-claro [style*="background:rgba(132,204,22"]  { background:rgba(22,163,74,.08) !important; }
   body.tema-claro [style*="background:rgba(251,191,36"]  { background:rgba(146,64,14,.08) !important; }
   body.tema-claro [style*="background:rgba(180,83,9"]    { background:rgba(154,52,18,.08) !important; }
+  /* Colores adicionales detectados */
+  body.tema-claro [style*="color:#ecfccb"]  { color:#14532d !important; }
+  body.tema-claro [style*="color:#e0f2fe"]  { color:#1e40af !important; }
+  body.tema-claro [style*="color:#fecaca"]  { color:#991b1b !important; }
+  body.tema-claro [style*="color:#fca5a5"]  { color:#991b1b !important; }
+  body.tema-claro [style*="color:#fdba74"]  { color:#9a3412 !important; }
+  body.tema-claro [style*="color:#fbbf24"]  { color:#92400e !important; }
+  body.tema-claro [style*="color:#e879f9"]  { color:#7e22ce !important; }
+  body.tema-claro [style*="color:#fb923c"]  { color:#9a3412 !important; }
+  body.tema-claro [style*="color:#f9a8d4"]  { color:#9d174d !important; }
 
   /* — Secciones hero/destacadas con colores de acento — */
   body.tema-claro [style*="color:#a3e635"] { color:#3f6212 !important; }
@@ -275,6 +285,16 @@
   body.tema-beige [style*="background:rgba(132,204,22"]  { background:rgba(54,83,20,.08)  !important; }
   body.tema-beige [style*="background:rgba(251,191,36"]  { background:rgba(113,63,18,.08) !important; }
   body.tema-beige [style*="background:rgba(180,83,9"]    { background:rgba(124,45,18,.08) !important; }
+  /* Colores adicionales detectados */
+  body.tema-beige [style*="color:#ecfccb"]  { color:#14532d !important; }
+  body.tema-beige [style*="color:#e0f2fe"]  { color:#1e3a8a !important; }
+  body.tema-beige [style*="color:#fecaca"]  { color:#7f1d1d !important; }
+  body.tema-beige [style*="color:#fca5a5"]  { color:#7f1d1d !important; }
+  body.tema-beige [style*="color:#fdba74"]  { color:#7c2d12 !important; }
+  body.tema-beige [style*="color:#fbbf24"]  { color:#78350f !important; }
+  body.tema-beige [style*="color:#e879f9"]  { color:#6b21a8 !important; }
+  body.tema-beige [style*="color:#fb923c"]  { color:#9a3412 !important; }
+  body.tema-beige [style*="color:#f9a8d4"]  { color:#831843 !important; }
 
   /* BOTÓN TEMA */
   .theme-btn {
@@ -742,14 +762,14 @@
   <div class="tab" onclick="showTab('talentos')" id="tab-talentos">💼 <span data-es="Bolsa Talentos" data-en="Job Board" data-pt="Bolsa de Talentos" data-zh="人才市场" data-pt="Bolsa de Talentos" data-zh="人才市场">Bolsa Talentos</span></div>
   <div class="tab" onclick="abrirVIP()" id="tab-vip">⭐ <span data-es="Zona VIP" data-en="VIP Zone" data-pt="Zona VIP" data-zh="VIP专区" data-pt="Zona VIP" data-zh="VIP区">Zona VIP</span></div>
   <div class="tab" onclick="showTab('corp')" id="tab-corp">👔 <span data-es="Ropa Corporativa B2B" data-en="Corporate Clothing B2B" data-pt="Roupas Corporativas B2B" data-zh="企业服装B2B" data-pt="Roupas Corporativas B2B" data-zh="企业服装B2B">Ropa Corporativa B2B</span></div>
-  <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin">Administrador</span></div>
+  <div class="tab" onclick="showTab('admin')" id="tab-admin" style="display:none;">⚙️ <span data-es="Administrador" data-en="Admin" data-pt="Administrador" data-zh="管理员">Administrador</span></div>
 </div>
 
 <!-- EPP TAB -->
 <div id="pane-epp">
   <div class="hero">
     <h1><span data-es="ENCUENTRA TU" data-en="FIND YOUR" data-pt="ENCONTRE SEU" data-zh="查找您的">ENCUENTRA TU</span> <span>EPP</span></h1>
-    <p data-es="Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)" data-en="Search by name, type or feature (e.g: N95 respirator, steel toe boot, dielectric helmet)">Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)</p>
+    <p data-es="Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)" data-en="Search by name, type or feature (e.g: N95 respirator, steel toe boot, dielectric helmet)" data-pt="Busca por nome, tipo ou característica (ex: respirador N95, botina bico de aço, capacete dielétrico)" data-zh="按名称、类型或特征搜索（例如：N95口罩、钢头靴、绝缘头盔）">Busca por nombre, tipo o característica (ej: respirador N95, botín punta acero, casco dieléctrico)</p>
     <div class="search-wrap">
       <div class="search-icon">🔍</div>
       <input type="text" class="search-input" id="searchInput"
@@ -800,8 +820,8 @@
 <!-- NORMATIVAS TAB -->
 <div id="pane-norm" style="display:none;">
   <div class="hero">
-    <h1><span>NORMATIVAS</span> <span data-es="NCh VIGENTES EPP" data-en="CURRENT EPP STANDARDS">NCh VIGENTES EPP</span></h1>
-    <p data-es="Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas" data-en="Free summary of the main Chilean Standards applicable to PPE — no purchase required">Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas</p>
+    <h1><span>NORMATIVAS</span> <span data-es="NCh VIGENTES EPP" data-en="CURRENT EPP STANDARDS" data-pt="NCh VIGENTES EPI" data-zh="现行NCh防护标准">NCh VIGENTES EPP</span></h1>
+    <p data-es="Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas" data-en="Free summary of the main Chilean Standards applicable to PPE — no purchase required" data-pt="Resumo gratuito das principais Normas Chilenas aplicáveis a EPI — sem necessidade de comprá-las" data-zh="适用于个人防护装备的主要智利标准免费摘要">Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas</p>
   </div>
   <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
 
@@ -1227,30 +1247,30 @@
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;margin-bottom:.3rem;letter-spacing:.5px;">🌍 ORGANISMOS CERTIFICADORES INTERNACIONALES
       <!-- LOTO / BLOQUEO Y ETIQUETADO -->
       <div style="margin-top:2rem;padding:1.2rem;background:rgba(239,68,68,.08);border-radius:12px;border:1px solid rgba(239,68,68,.2);">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;margin-bottom:.3rem;letter-spacing:.5px;">🔐 BLOQUEO Y ETIQUETADO — LOTO</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">🔐 BLOQUEO Y ETIQUETADO — LOTO</div>
         <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Normativa aplicable en Chile para procedimientos de Bloqueo y Etiquetado (Lockout / Tagout)</div>
         <div style="display:grid;gap:.8rem;">
 
           <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">DS 594/99 — Reglamento de Condiciones Sanitarias y Ambientales</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">DS 594/99 — Reglamento de Condiciones Sanitarias y Ambientales</div>
             <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Exige procedimiento escrito de control de energías peligrosas. Base legal para implementar LOTO en Chile. Artículo 37 — Obligación del empleador.</div>
             <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:4px;padding:2px 7px;">⚖️ Obligatorio en Chile</span></div>
           </div>
 
           <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#ecfccb;">NCh 1411/3 — Señales y Etiquetas de Seguridad</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">NCh 1411/3 — Señales y Etiquetas de Seguridad</div>
             <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Establece los requisitos para las tarjetas de identificación personal (Tagout). Define colores, tamaño mínimo, resistencia a calor, humedad y UV.</div>
             <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;">✅ NCh 1411/3</span></div>
           </div>
 
           <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#ecfccb;">NCh 2929 — Seguridad en Máquinas</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">NCh 2929 — Seguridad en Máquinas</div>
             <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Establece obligación de instalar tarjetas de seguridad (Tagout) en cada mecanismo de control de energía. Complementa el DS 594 para LOTO en maquinaria.</div>
             <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(34,197,94,.15);color:#4ade80;border-radius:4px;padding:2px 7px;">✅ NCh 2929</span></div>
           </div>
 
           <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">OSHA 29 CFR 1910.147 — Control of Hazardous Energy (LOTO)</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">OSHA 29 CFR 1910.147 — Control of Hazardous Energy (LOTO)</div>
             <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Estándar internacional de referencia para LOTO en Chile. Exige candados de llave única (KD), tarjetas personales y procedimiento escrito por equipo. Adoptado por RIC 05 (SERNAGEOMIN).</div>
             <div style="margin-top:.5rem;">
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;">🌍 OSHA 1910.147</span>
@@ -1259,13 +1279,13 @@
           </div>
 
           <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">RIC N°5 — SERNAGEOMIN (Minería Chile)</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">RIC N°5 — SERNAGEOMIN (Minería Chile)</div>
             <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Reglamento Interno de Orden y Seguridad Minera. Exige candados con llave única por trabajador, tarjeta personal y procedimiento escrito en toda faena minera.</div>
             <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:4px;padding:2px 7px;">⛏️ Obligatorio Minería</span></div>
           </div>
 
           <div style="background:var(--surface2);border-radius:8px;padding:.8rem 1rem;border:1px solid var(--border);">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#e0f2fe;">IEC 60947-5-1 — Dispositivos de maniobra de baja tensión</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">IEC 60947-5-1 — Dispositivos de maniobra de baja tensión</div>
             <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Aplica a bloqueos de interruptores eléctricos y dispositivos de baja tensión. Relevante para bloqueos de breakers y mandos eléctricos en instalaciones industriales.</div>
             <div style="margin-top:.5rem;"><span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:2px 7px;">⚡ IEC 60947-5-1</span></div>
           </div>
@@ -1393,7 +1413,7 @@
 <div id="pane-calc" style="display:none;">
   <div class="hero">
     <h1><span>CALCULADORA</span> <span data-es="DE EPP POR RIESGO" data-en="PPE BY RISK" data-pt="EPI POR RISCO" data-zh="按风险分类防护">DE EPP POR RIESGO</span></h1>
-    <p data-es="Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile" data-en="Select your industry and task — we tell you what PPE you need by Chilean law">Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile</p>
+    <p data-es="Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile" data-en="Select your industry and task — we tell you what PPE you need by Chilean law" data-pt="Selecione sua indústria e tarefa — dizemos qual EPI você precisa por lei no Chile" data-zh="选择您的行业和任务——我们告诉您智利法律要求的防护装备">Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile</p>
   </div>
   <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
 
@@ -1436,7 +1456,7 @@
 <div id="pane-vida" style="display:none;">
   <div class="hero">
     <h1><span>VIDA ÚTIL</span> <span data-es="DE TUS EPP" data-en="OF YOUR PPE" data-pt="DOS SEUS EPI" data-zh="防护装备寿命">DE TUS EPP</span></h1>
-    <p data-es="Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas" data-en="Guide on when to replace each piece of personal protective equipment">Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas</p>
+    <p data-es="Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas" data-en="Guide on when to replace each piece of personal protective equipment" data-pt="Guia de quando substituir cada elemento de proteção pessoal segundo fabricantes e normas" data-zh="根据制造商和法规，了解何时更换每种个人防护装备的指南">Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas</p>
   </div>
   <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
 
@@ -1803,8 +1823,8 @@
 <!-- PROVEEDORES TAB -->
 <div id="pane-prov" style="display:none;">
   <div class="hero">
-    <h1><span>DIRECTORIO</span> <span data-es="DE PROVEEDORES" data-en="OF SUPPLIERS">DE PROVEEDORES</span></h1>
-    <p data-es="Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web" data-en="All PPE suppliers in Chile — click to visit their website">Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web</p>
+    <h1><span>DIRECTORIO</span> <span data-es="DE PROVEEDORES" data-en="OF SUPPLIERS" data-pt="DE FORNECEDORES" data-zh="供应商目录">DE PROVEEDORES</span></h1>
+    <p data-es="Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web" data-en="All PPE suppliers in Chile — click to visit their website" data-pt="Todas as empresas fornecedoras de EPI no Chile — clique para visitar o site" data-zh="智利所有个人防护装备供应商——点击访问其网站">Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web</p>
   </div>
   <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
 
@@ -1830,8 +1850,8 @@
 <!-- COMPARADOR CERTIFICACIONES TAB -->
 <div id="pane-certcomp" style="display:none;">
   <div class="hero">
-    <h1><span>COMPARADOR</span> <span data-es="DE CERTIFICACIONES" data-en="CERTIFICATIONS COMPARATOR">DE CERTIFICACIONES</span></h1>
-    <p data-es="Verifica si la certificación de un EPP importado es válida en Chile según el ISP" data-en="Verify if the certification of an imported PPE is valid in Chile">Verifica si la certificación de un EPP importado es válida en Chile según el ISP</p>
+    <h1><span>COMPARADOR</span> <span data-es="DE CERTIFICACIONES" data-en="CERTIFICATIONS COMPARATOR" data-pt="DE CERTIFICAÇÕES" data-zh="认证信息">DE CERTIFICACIONES</span></h1>
+    <p data-es="Verifica si la certificación de un EPP importado es válida en Chile según el ISP" data-en="Verify if the certification of an imported PPE is valid in Chile" data-pt="Verifique se a certificação de um EPI importado é válida no Chile segundo o ISP" data-zh="根据ISP验证进口防护装备的认证在智利是否有效">Verifica si la certificación de un EPP importado es válida en Chile según el ISP</p>
   </div>
   <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
 
@@ -1866,7 +1886,7 @@
 <div id="pane-fab" style="display:none;">
   <div class="hero">
     <h1><span>FABRICANTES</span> <span data-es="REGISTRADOS ISP" data-en="ISP REGISTERED" data-pt="REGISTRADOS ISP" data-zh="ISP注册">REGISTRADOS ISP</span></h1>
-    <p data-es="Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web" data-en="PPE manufacturers and importers registered with ISP Chile">Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web</p>
+    <p data-es="Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web" data-en="PPE manufacturers and importers registered with ISP Chile" data-pt="Empresas fabricantes e importadoras de EPI registradas no ISP Chile — clique para visitar o site" data-zh="在智利ISP注册的个人防护装备制造商和进口商">Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web</p>
   </div>
   <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
 
@@ -1893,7 +1913,7 @@
 <div id="pane-expertos" style="display:none;">
   <div class="hero">
     <h1><span>ZONA</span> <span data-es="EXPERTOS" data-en="EXPERTS" data-pt="ESPECIALISTAS" data-zh="专家区">EXPERTOS</span></h1>
-    <p data-es="Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP" data-en="Comments and recommendations from safety professionals on proper PPE use">Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP</p>
+    <p data-es="Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP" data-en="Comments and recommendations from safety professionals on proper PPE use" data-pt="Comentários e recomendações de profissionais de segurança industrial sobre o uso correto de EPI" data-zh="工业安全专业人士关于正确使用个人防护装备的评论和建议">Comentarios y recomendaciones de profesionales de la seguridad industrial sobre el uso correcto de EPP</p>
   </div>
   <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
 
@@ -1921,8 +1941,8 @@
 <!-- BOLSA TALENTOS TAB -->
 <div id="pane-talentos" style="display:none;">
   <div class="hero">
-    <h1><span>BOLSA</span> <span data-es="DE TALENTOS EPP" data-en="EPP JOB BOARD">DE TALENTOS EPP</span></h1>
-    <p data-es="Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales en seguridad industrial" data-en="Professionals offering services or seeking opportunities in industrial safety">Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales en seguridad industrial</p>
+    <h1><span>BOLSA</span> <span data-es="DE TALENTOS EPP" data-en="EPP JOB BOARD" data-pt="TALENTOS EPI" data-zh="人才市场">DE TALENTOS EPP</span></h1>
+    <p data-es="Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales en seguridad industrial" data-en="Professionals offering services or seeking opportunities in industrial safety" data-pt="Profissionais do setor oferecem seus serviços ou buscam novas oportunidades na segurança industrial" data-zh="行业专业人士提供服务或寻求工业安全领域的新工作机会">Profesionales del rubro ofrecen sus servicios o buscan nuevas oportunidades laborales en seguridad industrial</p>
   </div>
   <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
 
@@ -1938,20 +1958,51 @@
       <button onclick="filtrarTalentos('busco',this)" class="calc-btn" style="font-size:.78rem;">🔎 Busco trabajo</button>
     </div>
 
-    <!-- Formulario admin -->
+    <!-- Botón agregar nuevo (solo admin) -->
+    <div id="talBtnNuevo" style="display:none;margin-bottom:.8rem;">
+      <button onclick="cancelarEdicionTalento();document.getElementById('talentoForm').scrollIntoView({behavior:'smooth'})" style="background:linear-gradient(135deg,rgba(56,189,248,.2),rgba(56,189,248,.1));color:#38bdf8;border:1px solid rgba(56,189,248,.4);border-radius:8px;padding:.5rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">➕ AGREGAR NUEVO PERFIL</button>
+    </div>
+
+    <!-- Formulario admin COMPLETO -->
     <div id="talentoForm" style="display:none;background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#38bdf8;margin-bottom:.8rem;">➕ Publicar perfil</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
-        <input id="talNombre" type="text" placeholder="Nombre" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#38bdf8;margin-bottom:1rem;" id="talFormTitulo">➕ Publicar nuevo perfil</div>
+      <input type="hidden" id="talEditIdx" value="-1">
+
+      <!-- Fila 1: Logo + Nombre + Email -->
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr;gap:.5rem;margin-bottom:.5rem;align-items:start;">
+
+        <!-- Logo upload -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;">
+          <div id="talLogoPreview" onclick="document.getElementById('talLogoInput').click()" style="width:70px;height:70px;border-radius:10px;border:2px dashed var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;font-size:1.8rem;transition:border-color .2s;" title="Clic para subir logo">🏢</div>
+          <input type="file" id="talLogoInput" accept="image/*" style="display:none;" onchange="previewLogo(this)">
+          <span style="font-size:.62rem;color:var(--muted);text-align:center;">Logo<br>(opcional)</span>
+          <button onclick="borrarLogoPreview()" id="talLogoBorrar" style="display:none;font-size:.62rem;background:rgba(239,68,68,.15);color:#fca5a5;border:none;border-radius:4px;padding:2px 6px;cursor:pointer;">✕ Quitar</button>
+        </div>
+
+        <input id="talNombre" type="text" placeholder="Nombre o empresa" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
         <input id="talEmail" type="email" placeholder="Email de contacto" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
       </div>
+
+      <!-- Fila 2: Teléfono + Tipo -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+        <input id="talTelefono" type="tel" placeholder="Teléfono (ej: +56 9 1234 5678)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        <select id="talTipo" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          <option value="servicios">⭐ Servicios Profesionales</option>
+          <option value="busco">🔎 Busco trabajo</option>
+        </select>
+      </div>
+
+      <!-- Especialidad -->
       <input id="talEspecialidad" type="text" placeholder="Especialidad (ej: Prevencionista de Riesgos, Vendedor técnico EPP)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
-      <select id="talTipo" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
-        <option value="servicios">⭐ Servicios Profesionales</option>
-        <option value="busco">🔎 Busco trabajo</option>
-      </select>
-      <textarea id="talDesc" placeholder="Descripción breve (máx. 3 líneas): experiencia, habilidades y qué ofreces o buscas..." rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
-      <button onclick="publicarTalento()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
+
+      <!-- Descripción -->
+      <textarea id="talDesc" placeholder="Descripción: experiencia, habilidades, qué ofreces o buscas..." rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
+
+      <!-- Botones -->
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+        <button onclick="publicarTalento()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ GUARDAR</button>
+        <button onclick="cancelarEdicionTalento()" style="background:rgba(255,255,255,.08);color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;">✕ Cancelar</button>
+      </div>
     </div>
 
     <!-- Anuncios Destacados -->
@@ -2031,7 +2082,7 @@
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
     <div class="admin-card">
-      <h3 data-es="➕ Agregar Nuevo Producto / Proveedor" data-en="➕ Add New Product / Provider">➕ Agregar Nuevo Producto / Proveedor</h3>
+      <h3 data-es="➕ Agregar Nuevo Producto / Proveedor" data-en="➕ Add New Product / Provider" data-pt="➕ Adicionar Novo Produto / Fornecedor" data-zh="➕ 添加新产品/供应商">➕ Agregar Nuevo Producto / Proveedor</h3>
       <div class="form-row">
         <div class="form-group">
           <label data-es="Nombre del Producto" data-en="Product Name" data-pt="Nome do Produto" data-zh="产品名称">Nombre del Producto</label>
@@ -2072,11 +2123,11 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label data-es="Nombre del Proveedor" data-en="Provider Name">Nombre del Proveedor</label>
+          <label data-es="Nombre del Proveedor" data-en="Provider Name" data-pt="Nome do Fornecedor" data-zh="供应商名称">Nombre del Proveedor</label>
           <input class="form-control" id="adminProvider" placeholder="Ej: SafetyStore">
         </div>
         <div class="form-group">
-          <label data-es="URL del Proveedor" data-en="Provider URL">URL del Proveedor</label>
+          <label data-es="URL del Proveedor" data-en="Provider URL" data-pt="URL do Fornecedor" data-zh="供应商网址">URL del Proveedor</label>
           <input class="form-control" id="adminUrl" placeholder="https://www.ejemplo.cl">
         </div>
       </div>
@@ -2090,7 +2141,7 @@
           <thead><tr>
             <th data-es="Producto" data-en="Product" data-pt="Produto" data-zh="产品">Producto</th>
             <th data-es="Familia" data-en="Family" data-pt="Família" data-zh="类别">Familia</th>
-            <th data-es="Proveedor" data-en="Provider">Proveedor</th>
+            <th data-es="Proveedor" data-en="Provider" data-pt="Fornecedor" data-zh="供应商">Proveedor</th>
             <th></th>
           </tr></thead>
           <tbody id="adminTbody"></tbody>
@@ -6349,6 +6400,10 @@ function renderTalentos() {
   const form = document.getElementById('talentoForm');
   if (form) form.style.display = adminUnlocked ? 'block' : 'none';
 
+  // Botón "Agregar nuevo" para admin cuando el form está visible
+  const btnArea = document.getElementById('talBtnNuevo');
+  if (btnArea) btnArea.style.display = adminUnlocked ? 'flex' : 'none';
+
   // Mostrar/ocultar anuncios destacados según filtro
   const mostrarAnuncios = filtroTalento === 'todos' || filtroTalento === 'servicios';
   if (mostrarAnuncios) renderAnunciosDestacados();
@@ -6369,25 +6424,44 @@ function renderTalentos() {
     const idx = talentosData.indexOf(t);
     const esServicios = t.tipo === 'servicios' || t.tipo === 'ofrezco';
     const color = esServicios ? '#38bdf8' : '#c084fc';
-    const badge = t.tipo === 'servicios' ? '⭐ Servicios Profesionales' : t.tipo === 'ofrezco' ? '⭐ Servicios Profesionales' : '🔎 Busco trabajo';
+    const badge = esServicios ? '⭐ Servicios Profesionales' : '🔎 Busco trabajo';
+
+    // Avatar: logo si existe, sino inicial
+    const avatar = t.logo
+      ? `<img src="${t.logo}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;border:2px solid ${color}44;flex-shrink:0;">`
+      : `<div style="width:52px;height:52px;border-radius:10px;background:${color}22;border:2px solid ${color}44;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:${color};flex-shrink:0;">${t.nombre.charAt(0).toUpperCase()}</div>`;
+
+    // Botones admin
+    const adminBtns = adminUnlocked ? `
+      <div style="display:flex;gap:.4rem;margin-top:.6rem;">
+        <button onclick="editarTalento(${idx})" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 10px;cursor:pointer;font-size:.72rem;font-weight:600;">✏️ Editar</button>
+        <button onclick="eliminarTalento(${idx})" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:3px 10px;cursor:pointer;font-size:.72rem;">🗑️ Eliminar</button>
+      </div>` : '';
+
+    // Teléfono WhatsApp si existe
+    const waBtn = t.telefono
+      ? `<a href="https://wa.me/${t.telefono.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">📱 ${t.telefono}</a>`
+      : '';
+
     return `
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
-      ${adminUnlocked ? `<button onclick="eliminarTalento(${idx})" style="position:absolute;top:.7rem;right:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>` : ''}
-      <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.7rem;">
-        <div style="width:40px;height:40px;border-radius:50%;background:${color}22;border:1px solid ${color}44;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:${color};flex-shrink:0;">${t.nombre.charAt(0).toUpperCase()}</div>
-        <div style="flex:1;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;">
+      <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.7rem;">
+        ${avatar}
+        <div style="flex:1;min-width:0;">
           <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">${t.nombre}</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">${t.nombre}</span>
             <span style="font-size:.68rem;background:${color}22;color:${color};border:1px solid ${color}44;border-radius:20px;padding:1px 8px;">${badge}</span>
           </div>
-          <div style="font-size:.75rem;color:${color};margin-top:2px;">🎯 ${t.especialidad}</div>
+          <div style="font-size:.76rem;color:${color};margin-top:2px;font-weight:600;">🎯 ${t.especialidad}</div>
           <div style="font-size:.7rem;color:var(--muted);margin-top:1px;">📅 ${t.fecha}</div>
         </div>
       </div>
-      <div style="font-size:.83rem;color:var(--text);line-height:1.6;margin-bottom:.7rem;">${t.desc}</div>
-      <a href="mailto:${t.email}" style="display:inline-flex;align-items:center;gap:.4rem;background:${color}15;color:${color};border:1px solid ${color}33;border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">
-        ✉️ Contactar — ${t.email}
-      </a>
+      <div style="font-size:.83rem;color:var(--text);line-height:1.6;margin-bottom:.8rem;">${t.desc}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;">
+        <a href="mailto:${t.email}" style="display:inline-flex;align-items:center;gap:.4rem;background:${color}15;color:${color};border:1px solid ${color}33;border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">✉️ ${t.email}</a>
+        ${waBtn}
+      </div>
+      ${adminBtns}
     </div>`;
   }).join('');
 }
@@ -6435,34 +6509,115 @@ function filtrarTalentos(tipo, btn) {
   renderTalentos();
 }
 
-function publicarTalento() {
-  const nombre = document.getElementById('talNombre').value.trim();
-  const email = document.getElementById('talEmail').value.trim();
-  const especialidad = document.getElementById('talEspecialidad').value.trim();
-  const tipo = document.getElementById('talTipo').value;
-  const desc = document.getElementById('talDesc').value.trim();
-  if (!nombre || !email || !especialidad || !desc) { alert('Completa todos los campos'); return; }
+// ── Logo preview ────────────────────────────────────────────
+let _talLogoBase64 = '';
 
-  const nuevo = {
-    nombre, email, especialidad, tipo, desc,
-    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' })
+function previewLogo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    _talLogoBase64 = e.target.result;
+    const prev = document.getElementById('talLogoPreview');
+    prev.innerHTML = `<img src="${_talLogoBase64}" style="width:100%;height:100%;object-fit:cover;">`;
+    prev.style.border = '2px solid var(--accent)';
+    document.getElementById('talLogoBorrar').style.display = 'inline-block';
   };
-  talentosData.unshift(nuevo);
-  localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
-
-  document.getElementById('talNombre').value = '';
-  document.getElementById('talEmail').value = '';
-  document.getElementById('talEspecialidad').value = '';
-  document.getElementById('talDesc').value = '';
-  renderTalentos();
-  showToast('✅ Perfil publicado');
+  reader.readAsDataURL(file);
 }
 
+function borrarLogoPreview() {
+  _talLogoBase64 = '';
+  const prev = document.getElementById('talLogoPreview');
+  prev.innerHTML = '🏢';
+  prev.style.border = '2px dashed var(--border)';
+  document.getElementById('talLogoBorrar').style.display = 'none';
+  document.getElementById('talLogoInput').value = '';
+}
+
+// ── Publicar / Guardar edición ──────────────────────────────
+function publicarTalento() {
+  const nombre      = document.getElementById('talNombre').value.trim();
+  const email       = document.getElementById('talEmail').value.trim();
+  const telefono    = document.getElementById('talTelefono').value.trim();
+  const especialidad= document.getElementById('talEspecialidad').value.trim();
+  const tipo        = document.getElementById('talTipo').value;
+  const desc        = document.getElementById('talDesc').value.trim();
+  const editIdx     = parseInt(document.getElementById('talEditIdx').value);
+
+  if (!nombre || !email || !especialidad || !desc) {
+    alert('Completa al menos: Nombre, Email, Especialidad y Descripción.');
+    return;
+  }
+
+  const entrada = {
+    nombre, email, telefono, especialidad, tipo, desc,
+    logo: _talLogoBase64 || '',
+    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' })
+  };
+
+  if (editIdx >= 0) {
+    // Editar existente — conservar fecha original
+    entrada.fecha = talentosData[editIdx].fecha;
+    talentosData[editIdx] = entrada;
+    showToast('✅ Perfil actualizado');
+  } else {
+    // Nuevo
+    talentosData.unshift(entrada);
+    showToast('✅ Perfil publicado');
+  }
+
+  localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
+  cancelarEdicionTalento();
+  renderTalentos();
+}
+
+// ── Editar ──────────────────────────────────────────────────
+function editarTalento(idx) {
+  const t = talentosData[idx];
+  document.getElementById('talEditIdx').value       = idx;
+  document.getElementById('talNombre').value         = t.nombre || '';
+  document.getElementById('talEmail').value          = t.email  || '';
+  document.getElementById('talTelefono').value       = t.telefono || '';
+  document.getElementById('talEspecialidad').value   = t.especialidad || '';
+  document.getElementById('talTipo').value           = t.tipo   || 'servicios';
+  document.getElementById('talDesc').value           = t.desc   || '';
+  document.getElementById('talFormTitulo').textContent = '✏️ Editando perfil';
+
+  // Restaurar logo si existe
+  _talLogoBase64 = t.logo || '';
+  const prev = document.getElementById('talLogoPreview');
+  if (_talLogoBase64) {
+    prev.innerHTML = `<img src="${_talLogoBase64}" style="width:100%;height:100%;object-fit:cover;">`;
+    prev.style.border = '2px solid var(--accent)';
+    document.getElementById('talLogoBorrar').style.display = 'inline-block';
+  } else {
+    borrarLogoPreview();
+  }
+
+  document.getElementById('talentoForm').style.display = 'block';
+  document.getElementById('talentoForm').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── Cancelar edición ────────────────────────────────────────
+function cancelarEdicionTalento() {
+  document.getElementById('talEditIdx').value        = -1;
+  document.getElementById('talNombre').value          = '';
+  document.getElementById('talEmail').value           = '';
+  document.getElementById('talTelefono').value        = '';
+  document.getElementById('talEspecialidad').value    = '';
+  document.getElementById('talDesc').value            = '';
+  document.getElementById('talFormTitulo').textContent= '➕ Publicar nuevo perfil';
+  borrarLogoPreview();
+}
+
+// ── Eliminar ────────────────────────────────────────────────
 function eliminarTalento(idx) {
   if (!confirm('¿Eliminar este perfil?')) return;
   talentosData.splice(idx, 1);
   localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
   renderTalentos();
+  showToast('🗑️ Perfil eliminado');
 }
 
 // ─── TEMAS DE COLOR ──────────────────────────────────────────
