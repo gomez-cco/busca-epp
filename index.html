@@ -730,6 +730,48 @@
   .product-card:hover .card-cta { background:var(--accent); color:#000; border-color:var(--accent); }
   .card-prov-count { font-size:.75rem; font-weight:400; opacity:.8; }
 </style>
+
+  <!-- ═══ FIREBASE SDK ═══════════════════════════════════════ -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, orderBy, query } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMaADj_7XN99vz2lkUtKDHTrumP2gEwPg",
+      authDomain: "buscaepp.firebaseapp.com",
+      projectId: "buscaepp",
+      storageBucket: "buscaepp.firebasestorage.app",
+      messagingSenderId: "232178650803",
+      appId: "1:232178650803:web:385139e359827f120eaac6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    // ── Exponer funciones globales para el resto del código ──
+    window._FB = {
+      db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, orderBy, query
+    };
+
+    // ── Cargar talentos en tiempo real ──────────────────────
+    const qTal = query(collection(db, 'talentos'), orderBy('ts', 'desc'));
+    onSnapshot(qTal, snap => {
+      window.talentosData = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+      if (typeof renderTalentos === 'function') renderTalentos();
+    }, err => console.warn('Talentos offline:', err));
+
+    // ── Cargar expertos en tiempo real ──────────────────────
+    const qExp = query(collection(db, 'expertos'), orderBy('ts', 'desc'));
+    onSnapshot(qExp, snap => {
+      window._expertosFirebase = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+      // Combinar: Firebase primero, luego los hardcodeados
+      window.expertosData = [...(window._expertosFirebase || []), ...EXPERTOS_INICIALES];
+      if (typeof renderExpertos === 'function') renderExpertos();
+    }, err => console.warn('Expertos offline:', err));
+
+    window._fbReady = true;
+    console.log('✅ Firebase conectado — BuscaEPP');
+  </script>
 </head>
 <body>
 
@@ -989,8 +1031,8 @@
               <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
             </tr></thead>
             <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 1584')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1584</td>
+              <tr class="norm-row" onclick="openNormModal('NCh 772/1')">
+                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 772/1 Of.92</td>
                 <td style="padding:8px;color:var(--text);">Protección personal — botín de seguridad, requisitos</td>
                 <td style="padding:8px;color:var(--muted);">Botines con puntera</td>
               </tr>
@@ -1643,7 +1685,7 @@
               • Bota de goma: <strong>1–2 años</strong> <span style="background:rgba(56,189,248,.1);color:#38bdf8;border-radius:4px;padding:1px 6px;font-size:.68rem;">🏭 Fabricante</span>
             </div>
             <div style="margin-top:.6rem;font-size:.72rem;color:#c4b5fd;background:rgba(168,85,247,.08);border-radius:6px;padding:.4rem .6rem;">
-              ⚠️ NCh 1584 define requisitos de fabricación pero <strong>no establece vida útil</strong>. El retiro se basa en criterios visuales de deterioro.
+              ⚠️ NCh 772/1 Of.92 define requisitos de fabricación pero <strong>no establece vida útil</strong>. El retiro se basa en criterios visuales de deterioro.
             </div>
           </div>
           <div>
@@ -1814,7 +1856,7 @@
 
     </div>
     <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;line-height:1.8;">
-      Fuentes: DS 594/99 MINSAL · NCh 461, 1301, 1584, 2374 · ISO 10333 · EN 60903, EN 149, EN 374, EN 14387, EN 13982, NFPA 2112 · NIOSH · ANSI Z87.1, S3.19<br>
+      Fuentes: DS 594/99 MINSAL · NCh 461, 1301, 772/1, 2374 · ISO 10333 · EN 60903, EN 149, EN 374, EN 14387, EN 13982, NFPA 2112 · NIOSH · ANSI Z87.1, S3.19<br>
       Los datos marcados como 🏭 o ⚠️ son referenciales — consulte siempre al fabricante y a su organismo administrador (ACHS, IST, Mutual).
     </div>
   </div>
@@ -5040,9 +5082,9 @@ const MARCAS = {
   12: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'}],
   13: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'},{name:'Showa',url:'https://www.showa-group.com',pais:'🇯🇵'}],
   14: [{name:'Ansell',url:'https://www.ansell.com',pais:'🇦🇺'},{name:'Honeywell',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Portwest',url:'https://www.portwest.com',pais:'🇮🇪'}],
-  1:  [{name:'Bata Industrials',url:'https://www.bataindustrials.com',pais:'🇨🇿'},{name:'Caterpillar / CAT',url:'https://www.catfootwear.com',pais:'🇺🇸'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
-  2:  [{name:'Bata Industrials',url:'https://www.bataindustrials.com',pais:'🇨🇿'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
-  3:  [{name:'Bata Industrials',url:'https://www.bataindustrials.com',pais:'🇨🇿'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
+  1:  [{name:'Bata Industrials',url:'https://www.bataindustrials.cl',pais:'🇨🇿'},{name:'Caterpillar / CAT',url:'https://www.catfootwear.com',pais:'🇺🇸'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
+  2:  [{name:'Bata Industrials',url:'https://www.bataindustrials.cl',pais:'🇨🇿'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'},{name:'Uvex',url:'https://www.uvex.com',pais:'🇩🇪'}],
+  3:  [{name:'Bata Industrials',url:'https://www.bataindustrials.cl',pais:'🇨🇿'},{name:'Jallatte',url:'https://www.jallatte.com',pais:'🇫🇷'},{name:'Delta Plus',url:'https://www.deltaplus.eu',pais:'🇫🇷'}],
   69: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Honeywell / Miller',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Camp Safety',url:'https://www.campsafety.com',pais:'🇮🇹'},{name:'Tractel',url:'https://www.tractel.com',pais:'🇫🇷'}],
   70: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Honeywell / Miller',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'}],
   71: [{name:'Petzl',url:'https://www.petzl.com',pais:'🇫🇷'},{name:'3M / DBI-Sala',url:'https://www.3m.com/fallprotection',pais:'🇺🇸'},{name:'Honeywell / Miller',url:'https://www.honeywell.com/ppe',pais:'🇺🇸'},{name:'MSA Safety',url:'https://www.msasafety.com',pais:'🇺🇸'},{name:'Tractel',url:'https://www.tractel.com',pais:'🇫🇷'}],
@@ -5169,11 +5211,11 @@ const CERT_DATA = {
   },
   calzado: {
     titulo: 'Calzado de Seguridad', icono: '🥾',
-    normaCL: 'NCh 1584 / NCh 2147',
-    labCL: 'CESMEC y Cal-tex realizan ensayos de calzado de seguridad en Chile bajo NCh 1584 y NCh 2147. El ISP también acepta certificaciones extranjeras (ISO 20345, EN ISO 20345, ASTM F2413) vía registro RFI para calzado importado.',
+    normaCL: 'NCh 772/1 Of.92 / NCh 2147',
+    labCL: 'CESMEC y Cal-tex realizan ensayos de calzado de seguridad en Chile bajo NCh 772/1 Of.92 y NCh 2147. El ISP también acepta certificaciones extranjeras (ISO 20345, EN ISO 20345, ASTM F2413) vía registro RFI para calzado importado.',
     certs: [
-      { cert:'NCh 1584', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'S1 / S2 / S3', obs:'Norma nacional principal para calzado de seguridad.' },
-      { cert:'ISO 20345', origen:'🌐 Internacional', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'S1 / S1P / S2 / S3', obs:'Norma base internacional adoptada por NCh 1584. Ampliamente reconocida.' },
+      { cert:'NCh 772/1 Of.92', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Sin niveles S1/S2/S3', obs:'Norma nacional vigente para calzado de seguridad. No define niveles S1/S2/S3.' },
+      { cert:'ISO 20345', origen:'🌐 Internacional', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'S1 / S1P / S2 / S3', obs:'Norma base internacional adoptada como referencia en Chile junto a NCh 772/1 Of.92. Ampliamente reconocida.' },
       { cert:'EN ISO 20345', origen:'🇪🇺 Europa (CE)', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'S1 / S1P / S2 / S3', obs:'Versión europea de ISO 20345. Equivalente en protección.' },
       { cert:'ASTM F2413', origen:'🇺🇸 EE.UU.', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'PR / EH / MT', obs:'Norma americana. EH = dieléctrico. Reconocida en importaciones.' },
       { cert:'AS/NZS 2210', origen:'🇦🇺 Australia/NZ', validezCL:'✅ Reconocida por ISP vía RFI', nivel:'SB / S1 / S2 / S3', obs:'Reconocida en Chile para importaciones.' },
@@ -5875,7 +5917,7 @@ const EPP_INFO = {
   guantes_termicos: { nombre:'Guantes térmicos (frío)', icono:'🧤', norma:'EN 511', motivo:'Aislamiento térmico para trabajos en cámaras frigoríficas bajo 0°C.' },
   guantes_criogenicos: { nombre:'Guantes criogénicos', icono:'🧤', norma:'EN 511', motivo:'Para manejo de gases criogénicos (nitrógeno líquido, CO2). Protegen hasta -196°C.' },
   guantes_neopreno: { nombre:'Guantes de neopreno impermeables', icono:'🧤', norma:'NCh 1805', motivo:'Para trabajo en ambiente marino con agua fría y riesgo de corte.' },
-  calzado: { nombre:'Botín de seguridad punta de acero', icono:'🥾', norma:'NCh 1584 / ANSI Z41', motivo:'Obligatorio en toda faena con riesgo de caída de objetos sobre el pie.' },
+  calzado: { nombre:'Botín de seguridad punta de acero', icono:'🥾', norma:'NCh 772/1 Of.92 / EN ISO 20345', motivo:'Obligatorio en toda faena con riesgo de caída de objetos sobre el pie.' },
   calzado_dielectrico: { nombre:'Calzado dieléctrico (hasta 600V)', icono:'🥾', norma:'NCh 2147/2', motivo:'Aísla al trabajador de corrientes eléctricas en baja tensión.' },
   calzado_goma: { nombre:'Bota de goma o PVC', icono:'🥾', norma:'NCh 1796', motivo:'Para ambientes húmedos, barro o sustancias líquidas en el suelo.' },
   calzado_quimico: { nombre:'Bota química resistente', icono:'🥾', norma:'NCh 1796 / EN 13832', motivo:'Impermeabilidad y resistencia química para manejo de ácidos y cáusticos.' },
@@ -5904,7 +5946,7 @@ const EPP_INFO = {
   sombrero_uv: { nombre:'Sombrero o casco con ala solar (UPF 50+)', icono:'👒', norma:'NCh 3273', motivo:'Protección UV para trabajo al aire libre. Complementar con ropa y bloqueador solar.' },
   gorro: { nombre:'Gorro quirúrgico', icono:'👒', norma:'Reglamento MINSAL', motivo:'Control de contaminación biológica en pabellones y áreas estériles.' },
   autorescatador: { nombre:'Autorescatador de emergencia', icono:'🫁', norma:'DS 132 MINMINERÍA / MSHA / EN 13794', motivo:'Dispositivo de emergencia de uso único para evacuación en interior mina. NO es un ERA. Se activa solo cuando hay déficit de oxígeno o gases tóxicos durante la salida de emergencia. Proporciona entre 30 y 60 minutos de oxígeno. Obligatorio según DS 132 para todo trabajador en interior mina subterránea.' },
-  bota_mina: { nombre:'Bota de seguridad caña alta impermeable (uso mina)', icono:'🥾', norma:'NCh 1584 / NCh 1796', motivo:'En interior mina se usa bota (no botín) por la humedad y agua acumulada en galerías. Debe tener punta de acero, plantilla antiperforación y suela antideslizante en superficies húmedas.' },
+  bota_mina: { nombre:'Bota de seguridad caña alta impermeable (uso mina)', icono:'🥾', norma:'NCh 772/1 Of.92 / NCh 1796', motivo:'En interior mina se usa bota (no botín) por la humedad y agua acumulada en galerías. Debe tener punta de acero, plantilla antiperforación y suela antideslizante en superficies húmedas.' },
   detector_gas_portatil: { nombre:'Detector de gas portátil (4 en 1)', icono:'☁️', norma:'DS 594 Art. 45 / IEC 60079 / MSHA', motivo:'Obligatorio en espacios confinados y zonas con riesgo de gases tóxicos o explosivos. Detecta O2, CO, H2S y LEL simultáneamente.' },
   ropa_impermeable_mina: { nombre:'Ropa impermeable para interior mina', icono:'🧥', norma:'DS 132 / DS 594', motivo:'Las galerías subterráneas presentan alta humedad y goteo constante. La ropa impermeable (chaqueta y pantalón PVC o similar) protege al trabajador de la humedad y el frío.' },
   rodilleras: { nombre:'Rodilleras de protección', icono:'🦵', norma:'EN 14404', motivo:'Para trabajos que requieren arrodillarse en superficies duras o abrasivas.' },
@@ -5914,7 +5956,7 @@ const EPP_INFO = {
   guantes_vibracion: { nombre:'Guantes anti-vibración', icono:'🧤', norma:'EN ISO 10819', motivo:'Para operadores de equipos vibratorios (martillos, compactadoras). Reducen la transmisión de vibraciones mano-brazo previniendo el síndrome de Raynaud.' },
   tapones_banda: { nombre:'Tapones auditivos con banda (nivel 3)', icono:'🎧', norma:'NCh 1358 / EN 352-2', motivo:'Para zonas con ruido intermitente donde el trabajador debe quitarse y ponerse el protector frecuentemente. Más práctico que los tapones de espuma.' },
   ropa_antiflama: { nombre:'Ropa ignífuga FR (uso minería / petroquímica)', icono:'🧥', norma:'NFPA 2112 / EN ISO 11612', motivo:'En faenas con riesgo de ignición, flash fire o arco eléctrico. La ropa FR no se derrite ni propaga la llama, dando tiempo de evacuación al trabajador.' },
-  zapatos_antistaticos: { nombre:'Calzado antiestático (ESD)', icono:'🥾', norma:'NCh 2147/1 / EN ISO 20345 S1', motivo:'Disocia la carga estática del cuerpo. Obligatorio en zonas con riesgo de ignición por electricidad estática (explosivos, petroquímica, electrónica).' },
+  zapatos_antistaticos: { nombre:'Calzado antiestático (ESD)', icono:'🥾', norma:'NCh 2147/1 / EN ISO 20345', motivo:'Disocia la carga estática del cuerpo. Obligatorio en zonas con riesgo de ignición por electricidad estática (explosivos, petroquímica, electrónica).' },
   guantes_impacto: { nombre:'Guantes con protección de impacto (TPR)', icono:'🧤', norma:'EN 388 / ANSI/ISEA 138', motivo:'Dorso con protectores TPR contra impactos y aplastamientos. Ideales para operadores de maquinaria pesada y mantenimiento mecánico.' },
   loto_candado: { nombre:'Candado LOTO dieléctrico llave única (KD)', icono:'🔐', norma:'OSHA 29 CFR 1910.147 / RIC 05', motivo:'Cada trabajador usa su propio candado con una única llave. Impide la energización accidental del equipo durante la intervención. Obligatorio en procedimiento escrito DS 594.' },
   loto_hasp: { nombre:'Pinza de bloqueo múltiple (Hasp) 5mm', icono:'🔐', norma:'OSHA 29 CFR 1910.147', motivo:'Permite que varios técnicos coloquen sus candados en un mismo punto de bloqueo. Fundamental en trabajos grupales. El equipo NO puede energizarse mientras haya UN candado.' },
@@ -6068,19 +6110,19 @@ const NORMAS = {
     categorias: ['Guantes mecánicos', 'Guantes químicos', 'Guantes térmicos', 'Guantes dieléctricos'],
     tags: ['guante', 'mecánico', 'químico', 'dieléctrico', 'térmico', 'corte']
   },
-  'NCh 1584': {
-    titulo: 'Protección personal — botín de seguridad',
-    objetivo: 'Establece los requisitos de construcción, materiales y ensayos para botines de seguridad con puntera de protección destinados a uso industrial.',
+  'NCh 772/1': {
+    titulo: 'NCh 772/1 Of.92 — Calzado de seguridad de uso general (norma vigente en Chile)',
+    objetivo: 'Establece los requisitos básicos y adicionales (opcionales) para el calzado de seguridad de uso general en Chile. Incluye riesgos mecánicos, resistencia al deslizamiento, riesgos térmicos y comportamiento ergonómico. Reemplaza a NCh 1584 como norma vigente.',
     campo: 'Industria en general, construcción, minería, manufactura y logística donde existe riesgo de caída de objetos sobre el pie.',
-    requisitos: 'La puntera metálica o composite debe resistir una fuerza de aplastamiento de 15 kN y un impacto de 200 J. La suela debe ser antideslizante, resistente al aceite y a la abrasión. Resistencia del corte superior a la separación.',
-    categorias: ['Botín punta acero (S1, S2, S3)', 'Botín punta composite', 'Botín con plantilla antiperforación'],
-    tags: ['botín', 'zapato', 'puntera', 'acero', 'composite', 'antiperforación']
+    requisitos: 'Características de fabricación, material y elementos de protección. A diferencia de EN ISO 20345, esta norma no define niveles S1/S2/S3. Para importaciones el ISP reconoce EN ISO 20345 vía registro RFI.',
+    categorias: ['Calzado con puntera de protección', 'Calzado con plantilla antiperforación', 'Calzado con resistencia al deslizamiento', 'Calzado con protección térmica'],
+    tags: ['calzado', 'seguridad', 'puntera', 'acero', 'composite', 'NCh 772', 'uso general']
   },
   'NCh 1796': {
     titulo: 'Calzado de seguridad — calzado de goma',
     objetivo: 'Establece los requisitos para botas de goma o PVC con protección de seguridad, destinadas a uso en ambientes húmedos, con barro, agua o agentes químicos.',
     campo: 'Agricultura, pesca, industria alimentaria, minería en zonas húmedas, construcción en terrenos inundados y manipulación de agentes corrosivos diluidos.',
-    requisitos: 'La goma debe ser vulcanizada, resistente al envejecimiento y a productos químicos básicos. La puntera debe cumplir los mismos requisitos de impacto que NCh 1584.',
+    requisitos: 'La goma debe ser vulcanizada, resistente al envejecimiento y a productos químicos básicos. La puntera debe cumplir los mismos requisitos de impacto que NCh 772/1 Of.92.',
     categorias: ['Bota de goma sin puntera', 'Bota de goma con puntera metálica', 'Bota PVC con puntera'],
     tags: ['bota', 'goma', 'PVC', 'húmedo', 'química', 'agua']
   },
@@ -6088,7 +6130,7 @@ const NORMAS = {
     titulo: 'Calzado de seguridad — calzado antiestático',
     objetivo: 'Especifica los requisitos para calzado que disipa la electricidad estática acumulada en el cuerpo del trabajador, previniendo descargas que puedan causar ignición o daño en equipos electrónicos.',
     campo: 'Industria electrónica, petroquímica, fabricación de explosivos, salas limpias y cualquier ambiente con riesgo de ignición por estática.',
-    requisitos: 'Resistencia eléctrica entre 100 kΩ y 1000 MΩ. Debe garantizar la disipación de la carga estática pero ofrecer cierta resistencia al paso de corriente para proteger al trabajador.',
+    requisitos: 'Resistencia eléctrica entre 0 y 500.000 ohm (0 Ω a 500 kΩ). Disipa la carga estática acumulada en el trabajador. No apto para trabajos con riesgo de contacto con tensión eléctrica.',
     categorias: ['Calzado antiestático (ESD)', 'Zapato con suela disipativa'],
     tags: ['antiestático', 'ESD', 'estática', 'electrónica', 'explosivos']
   },
@@ -6096,7 +6138,7 @@ const NORMAS = {
     titulo: 'Calzado de seguridad — calzado aislante hasta 600V',
     objetivo: 'Define los requisitos para calzado dieléctrico que aísla al trabajador de corrientes eléctricas de hasta 600V, protegiéndolo contra descargas eléctricas accidentales.',
     campo: 'Trabajos eléctricos en baja tensión, instalaciones eléctricas domiciliarias e industriales, mantenimiento de equipos energizados.',
-    requisitos: 'El calzado debe superar la prueba de rigidez dieléctrica a 15 kV durante 1 minuto sin corriente de fuga superior a 1 mA. No debe contener partes metálicas expuestas.',
+    requisitos: 'La corriente de fuga no debe ser superior a 5 mA. El calzado aísla al trabajador de corrientes eléctricas en baja tensión. No debe contener partes metálicas expuestas ni conductoras.',
     categorias: ['Bota dieléctrica 600V', 'Zapato dieléctrico liviano'],
     tags: ['dieléctrico', 'eléctrico', '600V', 'aislante', 'baja tensión']
   },
@@ -6104,7 +6146,7 @@ const NORMAS = {
     titulo: 'Calzado de seguridad — calzado semiconductor',
     objetivo: 'Establece los requisitos para calzado con conductividad eléctrica controlada, diseñado para entornos donde se necesita disipar carga estática con mayor eficiencia que el calzado antiestático.',
     campo: 'Industria de semiconductores, salas blancas de alta tecnología y entornos donde la carga estática representa riesgo para componentes ultrasensibles.',
-    requisitos: 'Resistencia eléctrica inferior a 100 kΩ. Mayor conductividad que el calzado antiestático. No apto para trabajos con riesgo de contacto con tensión eléctrica.',
+    requisitos: 'Resistencia eléctrica de 10.000 ohm (10 kΩ). Mayor conductividad que el calzado antiestático (NCh 2147/1). No apto para trabajos con riesgo de contacto con tensión eléctrica.',
     categorias: ['Calzado conductor semiconductor'],
     tags: ['semiconductor', 'conductor', 'ESD', 'sala blanca', 'electrónica']
   },
@@ -6275,8 +6317,17 @@ const EXPERTOS_INICIALES = [
   }
 ];
 // Siempre parte desde los datos hardcodeados — localStorage solo agrega encima
-const _extraExpertos = JSON.parse(localStorage.getItem('buscaepp_expertos_extra') || '[]');
-let expertosData = [..._extraExpertos, ...EXPERTOS_INICIALES];
+// expertosData se carga desde Firebase (ver SDK arriba) + EXPERTOS_INICIALES hardcodeados
+if (!window._expertosFirebase) window._expertosFirebase = [];
+if (!window.expertosData) window.expertosData = [...EXPERTOS_INICIALES];
+// alias global para compatibilidad
+Object.defineProperty(window, 'expertosData', {
+  get() { return window._expertosFirebase && window._expertosFirebase.length
+    ? [...window._expertosFirebase, ...EXPERTOS_INICIALES]
+    : [...EXPERTOS_INICIALES]; },
+  set(v) { /* ignorar asignaciones directas */ },
+  configurable: true
+});
 
 function renderExpertos() {
   const list = document.getElementById('expertosList');
@@ -6286,7 +6337,7 @@ function renderExpertos() {
   const form = document.getElementById('expertoForm');
   if (form) form.style.display = adminUnlocked ? 'block' : 'none';
 
-  if (expertosData.length === 0) {
+  if ((window.expertosData || []).length === 0) {
     list.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted);font-size:.9rem;">
       🎓 Próximamente — Los primeros comentarios de expertos aparecerán aquí.
     </div>`;
@@ -6294,7 +6345,7 @@ function renderExpertos() {
   }
 
   // Mantener máx 20, eliminar los más antiguos
-  const mostrar = expertosData.slice(0, 20);
+  const mostrar = (window.expertosData || []).slice(0, 20);
   list.innerHTML = mostrar.map((e, i) => `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
       ${adminUnlocked ? `
@@ -6317,29 +6368,31 @@ function renderExpertos() {
     </div>`).join('');
 }
 
-function publicarExperto() {
-  const nombre = document.getElementById('expNombre').value.trim();
-  const cargo = document.getElementById('expCargo').value.trim();
-  const epp = document.getElementById('expEpp').value.trim();
+async function publicarExperto() {
+  const nombre     = document.getElementById('expNombre').value.trim();
+  const cargo      = document.getElementById('expCargo').value.trim();
+  const epp        = document.getElementById('expEpp').value.trim();
   const comentario = document.getElementById('expComentario').value.trim();
   if (!nombre || !cargo || !epp || !comentario) { alert('Completa todos los campos'); return; }
 
   const nuevo = {
     nombre, cargo, epp, comentario,
-    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' })
+    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' }),
+    ts: Date.now()
   };
-  expertosData.unshift(nuevo);
-  if (expertosData.length > 20) expertosData = expertosData.slice(0, 20);
-  // Solo guardar los extras (no los hardcodeados)
-  const extras = expertosData.filter(e => !EXPERTOS_INICIALES.some(i => i.nombre === e.nombre && i.fecha === e.fecha));
-  localStorage.setItem('buscaepp_expertos_extra', JSON.stringify(extras));
 
-  document.getElementById('expNombre').value = '';
-  document.getElementById('expCargo').value = '';
-  document.getElementById('expEpp').value = '';
-  document.getElementById('expComentario').value = '';
-  renderExpertos();
-  showToast('✅ Comentario publicado');
+  try {
+    const { db, collection, addDoc } = window._FB;
+    await addDoc(collection(db, 'expertos'), nuevo);
+    document.getElementById('expNombre').value = '';
+    document.getElementById('expCargo').value = '';
+    document.getElementById('expEpp').value = '';
+    document.getElementById('expComentario').value = '';
+    showToast('✅ Comentario publicado — visible para todos');
+  } catch(e) {
+    console.error(e);
+    alert('Error al publicar. Verifica tu conexión.');
+  }
 }
 
 function editarExperto(idx) {
@@ -6352,45 +6405,56 @@ function editarExperto(idx) {
   // Cambiar botón publicar a guardar edición
   const btn = document.querySelector('#expertoForm button');
   btn.textContent = '💾 GUARDAR CAMBIOS';
-  btn.onclick = () => {
-    expertosData[idx] = {
+  btn.onclick = async () => {
+    const upd = {
       nombre: document.getElementById('expNombre').value.trim(),
       cargo: document.getElementById('expCargo').value.trim(),
       epp: document.getElementById('expEpp').value.trim(),
       comentario: document.getElementById('expComentario').value.trim(),
-      fecha: e.fecha
     };
-    // Actualizar extras en localStorage
-    const extras2 = expertosData.filter(e => !EXPERTOS_INICIALES.some(i => i.nombre === e.nombre && i.fecha === e.fecha));
-    localStorage.setItem('buscaepp_expertos_extra', JSON.stringify(extras2));
-    // Restaurar botón original
+    try {
+      if (e._id) {
+        const { db, updateDoc, doc } = window._FB;
+        await updateDoc(doc(db, 'expertos', e._id), upd);
+      }
+    } catch(err) { console.error(err); }
     btn.textContent = '✅ PUBLICAR';
     btn.onclick = publicarExperto;
     document.getElementById('expNombre').value = '';
     document.getElementById('expCargo').value = '';
     document.getElementById('expEpp').value = '';
     document.getElementById('expComentario').value = '';
-    renderExpertos();
-    showToast('✅ Comentario actualizado');
+    showToast('✅ Comentario actualizado — visible para todos');
   };
 
   // Scroll al formulario
   document.getElementById('expertoForm').scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
-function eliminarExperto(idx) {
+async function eliminarExperto(idx) {
   if (!confirm('¿Eliminar este comentario?')) return;
-  expertosData.splice(idx, 1);
-  const extras3 = expertosData.filter(e => !EXPERTOS_INICIALES.some(i => i.nombre === e.nombre && i.fecha === e.fecha));
-  localStorage.setItem('buscaepp_expertos_extra', JSON.stringify(extras3));
-  renderExpertos();
+  try {
+    const e = window.expertosData[idx];
+    if (e?._id) {
+      const { db, deleteDoc, doc } = window._FB;
+      await deleteDoc(doc(db, 'expertos', e._id));
+      showToast('🗑️ Comentario eliminado');
+    } else {
+      showToast('⚠️ Los comentarios fijos no se pueden eliminar');
+    }
+  } catch(err) {
+    console.error(err);
+    alert('Error al eliminar.');
+  }
 }
 
 
 // ─── ANUNCIOS DESTACADOS ──────────────────────────────────────
 const ANUNCIOS_DESTACADOS = [];
 // ─── BOLSA TALENTOS ───────────────────────────────────────────
-let talentosData = JSON.parse(localStorage.getItem('buscaepp_talentos') || '[]');
+// talentosData se carga desde Firebase (ver SDK arriba)
+// Se inicializa vacío y Firebase lo llena en tiempo real
+if (!window.talentosData) window.talentosData = [];
 let filtroTalento = 'todos';
 
 function renderTalentos() {
@@ -6410,8 +6474,8 @@ function renderTalentos() {
   else { const d = document.getElementById('anunciosDestacados'); if(d) d.innerHTML = ''; }
 
   const filtrados = filtroTalento === 'todos'
-    ? talentosData
-    : talentosData.filter(t => t.tipo === filtroTalento || (filtroTalento === 'servicios' && t.tipo === 'ofrezco'));
+    ? (window.talentosData || [])
+    : (window.talentosData || []).filter(t => t.tipo === filtroTalento || (filtroTalento === 'servicios' && t.tipo === 'ofrezco'));
 
   if (filtrados.length === 0) {
     list.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted);font-size:.9rem;">
@@ -6421,7 +6485,7 @@ function renderTalentos() {
   }
 
   list.innerHTML = filtrados.map((t, i) => {
-    const idx = talentosData.indexOf(t);
+    const idx = (window.talentosData || []).indexOf(t);
     const esServicios = t.tipo === 'servicios' || t.tipo === 'ofrezco';
     const color = esServicios ? '#38bdf8' : '#c084fc';
     const badge = esServicios ? '⭐ Servicios Profesionales' : '🔎 Busco trabajo';
@@ -6536,7 +6600,7 @@ function borrarLogoPreview() {
 }
 
 // ── Publicar / Guardar edición ──────────────────────────────
-function publicarTalento() {
+async function publicarTalento() {
   const nombre      = document.getElementById('talNombre').value.trim();
   const email       = document.getElementById('talEmail').value.trim();
   const telefono    = document.getElementById('talTelefono').value.trim();
@@ -6553,23 +6617,26 @@ function publicarTalento() {
   const entrada = {
     nombre, email, telefono, especialidad, tipo, desc,
     logo: _talLogoBase64 || '',
-    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' })
+    fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' }),
+    ts: Date.now()
   };
 
-  if (editIdx >= 0) {
-    // Editar existente — conservar fecha original
-    entrada.fecha = talentosData[editIdx].fecha;
-    talentosData[editIdx] = entrada;
-    showToast('✅ Perfil actualizado');
-  } else {
-    // Nuevo
-    talentosData.unshift(entrada);
-    showToast('✅ Perfil publicado');
+  try {
+    const { db, collection, addDoc, updateDoc, doc } = window._FB;
+    const t = window.talentosData[editIdx];
+    if (editIdx >= 0 && t?._id) {
+      const upd = {...entrada}; delete upd.fecha; delete upd.ts;
+      await updateDoc(doc(db, 'talentos', t._id), upd);
+      showToast('✅ Perfil actualizado — visible para todos');
+    } else {
+      await addDoc(collection(db, 'talentos'), entrada);
+      showToast('✅ Perfil publicado — visible para todos');
+    }
+    cancelarEdicionTalento();
+  } catch(e) {
+    console.error(e);
+    alert('Error al guardar. Verifica tu conexión a internet.');
   }
-
-  localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
-  cancelarEdicionTalento();
-  renderTalentos();
 }
 
 // ── Editar ──────────────────────────────────────────────────
@@ -6612,12 +6679,19 @@ function cancelarEdicionTalento() {
 }
 
 // ── Eliminar ────────────────────────────────────────────────
-function eliminarTalento(idx) {
+async function eliminarTalento(idx) {
   if (!confirm('¿Eliminar este perfil?')) return;
-  talentosData.splice(idx, 1);
-  localStorage.setItem('buscaepp_talentos', JSON.stringify(talentosData));
-  renderTalentos();
-  showToast('🗑️ Perfil eliminado');
+  try {
+    const t = window.talentosData[idx];
+    if (t?._id) {
+      const { db, deleteDoc, doc } = window._FB;
+      await deleteDoc(doc(db, 'talentos', t._id));
+    }
+    showToast('🗑️ Perfil eliminado');
+  } catch(e) {
+    console.error(e);
+    alert('Error al eliminar.');
+  }
 }
 
 // ─── TEMAS DE COLOR ──────────────────────────────────────────
