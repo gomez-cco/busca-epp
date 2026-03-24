@@ -7755,42 +7755,71 @@ function aplicarFiltroLicit() {
 }
 
 async function cargarLicitaciones() {
-  const aviso   = document.getElementById('licitAvisoTicket');
   const loading = document.getElementById('licitLoading');
   const res     = document.getElementById('licitResultados');
+  // Ocultar aviso ticket si existe
+  const aviso = document.getElementById('licitAvisoTicket');
+  if (aviso) aviso.style.display = 'none';
 
   if (!MP_TICKET) {
-    // Sin ticket — mostrar datos de ejemplo
-    aviso.style.display = 'flex';
     licitDatosCache = generarEjemplosLicit();
     aplicarFiltroLicit();
     return;
   }
 
-  aviso.style.display = 'none';
-  loading.style.display = 'block';
-  res.innerHTML = '';
+  // Si ya tenemos datos en caché de hoy, no volver a consultar
+  if (licitDatosCache.length > 0) {
+    aplicarFiltroLicit();
+    return;
+  }
+
+  if (loading) loading.style.display = 'block';
+  if (res) res.innerHTML = '';
 
   try {
-    // Fecha de hoy en formato ddmmaaaa
     const hoy = new Date();
     const fecha = String(hoy.getDate()).padStart(2,'0') +
                   String(hoy.getMonth()+1).padStart(2,'0') +
                   hoy.getFullYear();
 
-    // Usar JSONP para evitar CORS
-    const data = await fetchMP(fecha);
-    licitDatosCache = (data.Listado || []).filter(l => l.Estado === '5'); // solo publicadas/vigentes
+    // Intentar con fecha de hoy
+    let data = await fetchMP(fecha);
+    let listado = data.Listado || data.listado || [];
+
+    // Si no hay resultados hoy, intentar con ayer
+    if (!listado.length) {
+      const ayer = new Date(hoy - 86400000);
+      const fechaAyer = String(ayer.getDate()).padStart(2,'0') +
+                        String(ayer.getMonth()+1).padStart(2,'0') +
+                        ayer.getFullYear();
+      data = await fetchMP(fechaAyer);
+      listado = data.Listado || data.listado || [];
+    }
+
+    // Aceptar cualquier estado activo (publicada = 5, adjudicada en proceso, etc.)
+    licitDatosCache = listado.filter(l => {
+      const estado = String(l.Estado || l.CodigoEstado || '');
+      return estado === '5' || estado === 'publicada' || estado === '' || !estado;
+    });
+
+    // Si aún no hay nada, tomar todos
+    if (!licitDatosCache.length) licitDatosCache = listado;
+
     aplicarFiltroLicit();
     actualizarEstadisticas();
   } catch(e) {
     console.error('MercadoPublico API:', e);
-    res.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);">
-      <div style="font-size:1.5rem;margin-bottom:.5rem;">⚠️</div>
-      Error al conectar con MercadoPublico. Intenta de nuevo o verifica tu conexión.
-    </div>`;
+    // Fallback a ejemplos si falla la API
+    licitDatosCache = generarEjemplosLicit();
+    aplicarFiltroLicit();
+    if (res) {
+      const aviso2 = document.createElement('div');
+      aviso2.style.cssText = 'background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--accent);margin-bottom:.8rem;';
+      aviso2.innerHTML = '⚠️ No se pudo conectar con MercadoPublico en tiempo real. Mostrando datos de ejemplo.';
+      res.prepend(aviso2);
+    }
   } finally {
-    loading.style.display = 'none';
+    if (loading) loading.style.display = 'none';
   }
 }
 
