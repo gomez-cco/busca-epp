@@ -850,6 +850,25 @@
 
   <div class="results-area">
     <div class="results-meta" id="resultsMeta"></div>
+
+    <!-- Banner Eikona — visible solo cuando se filtra ignifugo -->
+    <div id="banner-eikona" style="display:none;background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.04));border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.2rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:.8rem;">
+          <div style="background:rgba(239,68,68,.15);border-radius:10px;padding:.5rem .8rem;font-size:1.4rem;border:1px solid rgba(239,68,68,.3);">🔥</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+              <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);">EIKONA</span>
+              <span style="font-size:.68rem;background:rgba(245,158,11,.2);color:#f59e0b;border:1px solid rgba(245,158,11,.4);border-radius:20px;padding:2px 8px;font-weight:700;">⭐ PROVEEDOR DESTACADO</span>
+            </div>
+            <div style="font-size:.75rem;color:#fca5a5;font-weight:600;margin-top:1px;">Especialistas en Ropa Ignífuga Certificada — Santiago de Chile</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Líneas UNISAFE · PF LASK · VCS · CURRENT — Certificación ISP · Registro RFI</div>
+          </div>
+        </div>
+        <a href="https://eikona.cl/categoria/ropa-ignifuga/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:700;text-decoration:none;white-space:nowrap;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;">Ver catálogo →</a>
+      </div>
+    </div>
+
     <div class="products-grid" id="productsGrid"></div>
     <div class="empty" id="emptyState" style="display:none;">
       <div class="empty-icon">🔎</div>
@@ -2217,24 +2236,142 @@
 
     <!-- Zona Proveedor -->
     <div id="vipZonaProveedor" style="display:none;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.5rem;letter-spacing:.5px;">🏭 ZONA PROVEEDOR</div>
-      <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Inteligencia de mercado y acceso a oportunidades de negocio</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;">
-          <div style="font-size:2rem;margin-bottom:.5rem;">📊</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.4rem;">Estadísticas de Mercado</div>
-          <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Productos más consultados y composición del mercado EPP</div>
-          <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:.4rem;font-size:.72rem;color:var(--accent);">🚀 Próximamente</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">🏭 ZONA PROVEEDOR</div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Licitaciones vigentes de seguridad industrial — MercadoPublico.cl en tiempo real</p>
+
+      <!-- Sub-tabs proveedor -->
+      <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;">
+        <button onclick="provSubTab('licitaciones',this)" class="calc-btn selected" style="font-size:.8rem;">📋 Licitaciones Vigentes</button>
+        <button onclick="provSubTab('estadisticas',this)" class="calc-btn" style="font-size:.8rem;">📊 Estadísticas</button>
+        <button onclick="provSubTab('portales',this)" class="calc-btn" style="font-size:.8rem;">🔗 Otros Portales</button>
+      </div>
+
+      <!-- ── LICITACIONES ── -->
+      <div id="provSubLicitaciones">
+
+        <!-- Buscador y filtros -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;">
+          <div style="display:flex;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap;">
+            <input id="licitBuscador" type="text" placeholder="Buscar en licitaciones (ej: EPP, overol, casco, seguridad...)" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            <button onclick="buscarLicitaciones()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;">🔍 BUSCAR</button>
+          </div>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;">
+            <span style="font-size:.72rem;color:var(--muted);">Filtrar:</span>
+            <button onclick="filtrarLicit('seguridad',this)" class="calc-btn selected" style="font-size:.72rem;">🦺 Seguridad Industrial</button>
+            <button onclick="filtrarLicit('epp',this)" class="calc-btn" style="font-size:.72rem;">🥽 EPP</button>
+            <button onclick="filtrarLicit('ropa',this)" class="calc-btn" style="font-size:.72rem;">👕 Ropa Trabajo</button>
+            <button onclick="filtrarLicit('prevencion',this)" class="calc-btn" style="font-size:.72rem;">⚕️ Prevención</button>
+            <button onclick="filtrarLicit('todos',this)" class="calc-btn" style="font-size:.72rem;">📋 Todos</button>
+          </div>
         </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;">
-          <div style="font-size:2rem;margin-bottom:.5rem;">📋</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.4rem;">Licitaciones Vigentes</div>
-          <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Acceso directo a portales de licitación activos</div>
-          <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener" style="display:inline-block;background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:.4rem .8rem;font-size:.72rem;text-decoration:none;margin:.2rem;">🛒 MercadoPublico</a>
-          <a href="https://www.sea.gob.cl" target="_blank" rel="noopener" style="display:inline-block;background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);border-radius:6px;padding:.4rem .8rem;font-size:.72rem;text-decoration:none;margin:.2rem;">🌿 SEA Chile</a>
+
+        <!-- Aviso ticket -->
+        <div id="licitAvisoTicket" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;font-size:.78rem;color:var(--accent);display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1.1rem;">⚙️</span>
+          <span>Configurando conexión con MercadoPublico API... Cuando tengas el ticket, actívalo en el panel admin.</span>
+        </div>
+
+        <!-- Loading -->
+        <div id="licitLoading" style="display:none;text-align:center;padding:2rem;color:var(--muted);">
+          <div style="font-size:1.5rem;margin-bottom:.5rem;">⏳</div>
+          <div style="font-size:.85rem;">Consultando MercadoPublico.cl...</div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="licitResultados"></div>
+
+        <!-- Paginación -->
+        <div id="licitPaginacion" style="display:flex;justify-content:center;gap:.5rem;margin-top:1rem;flex-wrap:wrap;"></div>
+
+      </div><!-- /licitaciones -->
+
+      <!-- ── ESTADÍSTICAS ── -->
+      <div id="provSubEstadisticas" style="display:none;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.2rem;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;">
+            <div id="statTotalLicit" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:700;color:#38bdf8;">—</div>
+            <div style="font-size:.75rem;color:var(--muted);">Licitaciones consultadas</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;">
+            <div id="statVigentes" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:700;color:#4ade80;">—</div>
+            <div style="font-size:.75rem;color:var(--muted);">Vigentes hoy</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;">
+            <div id="statMontoTotal" style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:#f59e0b;">—</div>
+            <div style="font-size:.75rem;color:var(--muted);">Monto estimado total</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;">
+            <div id="statRegiones" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:700;color:#c084fc;">—</div>
+            <div style="font-size:.75rem;color:var(--muted);">Regiones activas</div>
+          </div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;color:var(--muted);font-size:.85rem;">
+          📊 Las estadísticas se calculan automáticamente desde los datos de MercadoPublico.<br>Activa el ticket API para ver datos en tiempo real.
         </div>
       </div>
-    </div>
+
+      <!-- ── PORTALES ── -->
+      <div id="provSubPortales" style="display:none;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
+
+          <a href="https://www.mercadopublico.cl/Home/Busqueda" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
+              <div style="font-size:1.8rem;margin-bottom:.5rem;">🛒</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">MercadoPublico.cl</div>
+              <div style="font-size:.75rem;color:var(--muted);">Plataforma oficial de compras del Estado. Más de 1.000 organismos públicos compradores.</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#38bdf8;">Ver licitaciones vigentes →</div>
+            </div>
+          </a>
+
+          <a href="https://www.sea.gob.cl/sea/participa/licitaciones" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(34,197,94,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(34,197,94,.6)'" onmouseout="this.style.borderColor='rgba(34,197,94,.3)'">
+              <div style="font-size:1.8rem;margin-bottom:.5rem;">🌿</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">SEA Chile</div>
+              <div style="font-size:.75rem;color:var(--muted);">Servicio de Evaluación Ambiental. Licitaciones para proyectos con componente ambiental y seguridad.</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;">Ver licitaciones →</div>
+            </div>
+          </a>
+
+          <a href="https://www.codelco.com/proveedores/prontus_codelco/2011-07-22/115919.html" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(251,191,36,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(251,191,36,.6)'" onmouseout="this.style.borderColor='rgba(251,191,36,.3)'">
+              <div style="font-size:1.8rem;margin-bottom:.5rem;">⛏️</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">Codelco Proveedores</div>
+              <div style="font-size:.75rem;color:var(--muted);">Portal de licitaciones de Codelco. Alto consumo de EPP y ropa de seguridad industrial.</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#fbbf24;">Ver oportunidades →</div>
+            </div>
+          </a>
+
+          <a href="https://www.enap.cl/proveedores" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(168,85,247,.6)'" onmouseout="this.style.borderColor='rgba(168,85,247,.3)'">
+              <div style="font-size:1.8rem;margin-bottom:.5rem;">⛽</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">ENAP Proveedores</div>
+              <div style="font-size:.75rem;color:var(--muted);">Empresa Nacional del Petróleo. Requiere EPP especializado: ignífugo, antiestático, petroquímica.</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#c084fc;">Ver oportunidades →</div>
+            </div>
+          </a>
+
+          <a href="https://proveedores.metro.cl" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(239,68,68,.6)'" onmouseout="this.style.borderColor='rgba(239,68,68,.3)'">
+              <div style="font-size:1.8rem;margin-bottom:.5rem;">🚇</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">Metro de Santiago</div>
+              <div style="font-size:.75rem;color:var(--muted);">Licitaciones Metro S.A. Requiere EPP eléctrico, ropa de trabajo y seguridad en altura.</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#fca5a5;">Ver oportunidades →</div>
+            </div>
+          </a>
+
+          <a href="https://www.mercadopublico.cl/Home/Busqueda?oc=false&s=seguridad+industrial" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
+              <div style="font-size:1.8rem;margin-bottom:.5rem;">🔍</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">MP — Seguridad Industrial</div>
+              <div style="font-size:.75rem;color:var(--muted);">Búsqueda directa en MercadoPublico filtrando "seguridad industrial" en todas las licitaciones.</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#38bdf8;">Buscar ahora →</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+    </div><!-- /zonaProveedor -->
 
     <!-- Sin zona asignada -->
     <div id="vipZonaSinAsignar" style="display:none;text-align:center;padding:3rem;color:var(--muted);">
@@ -2754,7 +2891,7 @@ const PROVIDERS = {
   proteknica: { name:'Proteknica',        url:'https://www.proteknica.cl' },
   acetogen:   { name:'Acetogen',          url:'https://acetogen.cl' },
   ispch:      { name:'ISPCH (Listado EPP)',url:'https://www.ispch.gob.cl/listadoepp/' },
-  eikona:     { name:'Eikona',            url:'https://eikona.cl' },
+  eikona:     { name:'Eikona',            url:'https://eikona.cl', destacado:true, badge:'⭐ Proveedor Destacado', desc:'Especialistas en ropa ignífuga certificada — Líneas UNISAFE, PF LASK, VCS y CURRENT' },
   under:      { name:'Under / Matrix World Group', url:'https://www.matrixworldgroup.cl' },
   aracor:     { name:'ARACOR',            url:'https://www.aracor.cl' },
   abaindus:   { name:'Abaindus',          url:'https://www.abaindus.cl' },
@@ -3053,6 +3190,67 @@ let products = [
     providers:['safetystore','gsp',,'novaseg','apro','kupfer',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety','atm'] },
 
   // ROPA IGNÍFUGA
+  // ── EIKONA — Ropa Ignífuga Destacada ⭐ ──────────────────────
+  { id:5600, name:'Overol UNISAFE Eikona — Ignífugo FR', family:'ignifugo',
+    desc:'Overol ignífugo UNISAFE certificado ISP. Protección fuego repentino, arco eléctrico y soldadura. Tela europea. Composición: Gabardina 80% Algodón, 19% Poliéster, 1% Antiestática.',
+    tags:['overol','unisafe','eikona','ignifugo','fr','arco electrico','isp','certificado','soldadura','fuego'],
+    providers:['eikona'], destacado:true },
+
+  { id:5601, name:'Camisa UNISAFE Eikona — Ignífuga FR', family:'ignifugo',
+    desc:'Camisa/blusa ignífuga UNISAFE, manga larga, certificada ISP. Protección fuego repentino y arco eléctrico. Tela FR europea.',
+    tags:['camisa','blusa','unisafe','eikona','ignifugo','fr','arco electrico','isp','manga larga'],
+    providers:['eikona'], destacado:true },
+
+  { id:5602, name:'Chaqueta UNISAFE Eikona — Ignífuga FR', family:'ignifugo',
+    desc:'Chaqueta ignífuga UNISAFE Eikona, certificada ISP. Protección fuego repentino, soldadura y arco eléctrico. Tela de fabricación europea.',
+    tags:['chaqueta','unisafe','eikona','ignifugo','fr','arco electrico','isp','soldadura'],
+    providers:['eikona'], destacado:true },
+
+  { id:5603, name:'Pantalón UNISAFE Eikona — Ignífugo FR', family:'ignifugo',
+    desc:'Pantalón ignífugo UNISAFE Eikona, certificado ISP. Resistente a fuego repentino y arco eléctrico. Compatible con overol y chaqueta UNISAFE.',
+    tags:['pantalon','unisafe','eikona','ignifugo','fr','arco electrico','isp'],
+    providers:['eikona'], destacado:true },
+
+  { id:5604, name:'Geólogo UNISAFE Eikona — Ignífugo FR', family:'ignifugo',
+    desc:'Geólogo (chaleco multibolsillos) ignífugo UNISAFE Eikona, certificado ISP. Ideal para profesionales en terreno con riesgo de llama.',
+    tags:['geologo','chaleco','unisafe','eikona','ignifugo','fr','isp','multibolsillos'],
+    providers:['eikona'], destacado:true },
+
+  { id:5605, name:'Overol PF LASK Eikona — Ignífugo Antiestático', family:'ignifugo',
+    desc:'Overol línea PF LASK Eikona. Tafetán Rip Stop 50% Modacrílico, 40% Algodón, 8% Poliamida, 2% Fibra Antiestática. Inherencia permanente. UV 50+. Protección antiestática y antiácida.',
+    tags:['overol','lask','pf lask','eikona','ignifugo','antiestatico','modacrilico','uv50','inherente','antiácido'],
+    providers:['eikona'], destacado:true },
+
+  { id:5606, name:'Pantalón PF LASK Eikona — Ignífugo Antiestático', family:'ignifugo',
+    desc:'Pantalón línea PF LASK Eikona. Propiedades antiflama y antiestática permanentes independiente de lavados. Tela Rip Stop.',
+    tags:['pantalon','lask','pf lask','eikona','ignifugo','antiestatico','modacrilico','inherente'],
+    providers:['eikona'], destacado:true },
+
+  { id:5607, name:'Camisa PF LASK Eikona — Ignífuga Antiestática', family:'ignifugo',
+    desc:'Camisa línea PF LASK Eikona, protección inherente antiflama y antiestática. Mantenimiento de propiedades después de múltiples lavados.',
+    tags:['camisa','lask','pf lask','eikona','ignifugo','antiestatico','inherente','lavados'],
+    providers:['eikona'], destacado:true },
+
+  { id:5608, name:'Parka PF LASK Eikona — Ignífuga FR', family:'ignifugo',
+    desc:'Parka ignífuga línea PF LASK Eikona. Protección térmica y contra fuego, ideal para ambientes fríos con riesgo de llama.',
+    tags:['parka','lask','pf lask','eikona','ignifugo','fr','frio','termica'],
+    providers:['eikona'], destacado:true },
+
+  { id:5609, name:'Overol VCS Eikona — Ignífugo FR', family:'ignifugo',
+    desc:'Overol línea VCS Eikona. Ropa ignífuga corporativa de alta calidad para industria minera, petroquímica y eléctrica.',
+    tags:['overol','vcs','eikona','ignifugo','fr','mineria','petroleo','electrico'],
+    providers:['eikona'], destacado:true },
+
+  { id:5610, name:'Balaclava Ignífuga Eikona — UNISAFE / PF LASK', family:'ignifugo',
+    desc:'Balaclava ignífuga Eikona. Protección cabeza y cuello contra fuego repentino y arco eléctrico. Disponible en líneas UNISAFE y PF LASK.',
+    tags:['balaclava','eikona','ignifugo','cabeza','cuello','arco electrico','fuego','unisafe','lask'],
+    providers:['eikona'], destacado:true },
+
+  { id:5611, name:'Primera Capa Ignífuga Eikona — STIFF / PF LASK', family:'ignifugo',
+    desc:'Ropa interior ignífuga (primera capa) Eikona líneas STIFF y PF LASK. Protección básica contra calor radiante como capa base.',
+    tags:['primera capa','interior','eikona','ignifugo','stiff','lask','base','calor'],
+    providers:['eikona'], destacado:true },
+
   { id:56, name:'Pantalón ignífugo FR (flame resistant)', family:'ignifugo', desc:'Tela 100% algodón tratado o Nomex, resistente a llama, certificación NFPA 2112, colores variados', tags:['pantalon','ignifugo','fr','flame resistant','nomex','algodon','nfpa','llama','fuego'],
     providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
   { id:57, name:'Camisa / polera ignífuga FR', family:'ignifugo', desc:'Manga larga, tela FR certificada, con logo bordado, uso en faenas con riesgo de arco eléctrico o llama', tags:['camisa','polera','ignifugo','fr','manga larga','arco electrico','llama','nomex','certificado'],
@@ -4913,6 +5111,7 @@ function renderProducts() {
   const grid = document.getElementById('productsGrid');
   const empty = document.getElementById('emptyState');
   const meta = document.getElementById('resultsMeta');
+  const bannerEikona = document.getElementById('banner-eikona');
 
   const matcher = buildMatcher(searchQuery);
   const isWildcard = searchQuery.includes('*');
@@ -4925,6 +5124,16 @@ function renderProducts() {
     return matcher(haystack);
   });
 
+  // ── Mostrar banner Eikona si se filtra ignifugo o búsqueda relacionada ──
+  const esIgnifugo = activeFamily === 'ignifugo' ||
+    (searchQuery && ['ignifug','ignifug','fr ','flame','fuego','arco electrico','eikona','unisafe','lask','vcs'].some(k => searchQuery.toLowerCase().includes(k)));
+  if (bannerEikona) bannerEikona.style.display = esIgnifugo ? 'block' : 'none';
+
+  // ── Priorizar productos Eikona al inicio ─────────────────────
+  const eikona = filtered.filter(p => p.destacado && (p.providers||[]).includes('eikona'));
+  const resto  = filtered.filter(p => !(p.destacado && (p.providers||[]).includes('eikona')));
+  filtered = [...eikona, ...resto];
+
   const wildcardBadge = isWildcard
     ? ` <span style="background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;">✦ COMODÍN</span>`
     : '';
@@ -4936,11 +5145,22 @@ function renderProducts() {
   grid.innerHTML = filtered.map(p => {
     const fam = FAMILIES[p.family];
     const tags = p.tags.slice(0,5).map(t => `<span class="tag">${t}</span>`).join('');
-    const provCount = p.providers.length;
+    const provCount = (p.providers||[]).length;
     const ctaText = lang==='es'
       ? `Ver proveedores (${provCount})`
       : `View suppliers (${provCount})`;
-    return `<div class="product-card" onclick="openModal(${p.id})">
+
+    // ── Estrella dorada + borde destacado para Eikona ──────────
+    const esEikona = p.destacado && (p.providers||[]).includes('eikona');
+    const borderStyle = esEikona
+      ? 'border:1px solid rgba(245,158,11,.5);box-shadow:0 0 0 1px rgba(245,158,11,.15);'
+      : '';
+    const starBadge = esEikona
+      ? `<span style="position:absolute;top:.55rem;right:.6rem;font-size:.85rem;" title="Proveedor Destacado">⭐</span>`
+      : '';
+
+    return `<div class="product-card" onclick="openModal(${p.id})" style="position:relative;${borderStyle}">
+      ${starBadge}
       <div class="card-top">
         <span class="card-family ${fam.cls}">${fam.icon} ${fam[lang]}</span>
         <div class="card-name">${p.name}</div>
@@ -7080,6 +7300,8 @@ function mostrarPaneVIP() {
   if (tipo === 'comprador' || tipo === 'admin') {
     document.getElementById('vipZonaComprador').style.display = 'block';
     iniciarZonaComprador();
+    // Admin: mostrar selector de zona
+    if (tipo === 'admin') mostrarSelectorZonaAdmin();
   } else if (tipo === 'prevencionista') {
     document.getElementById('vipZonaPrevencionista').style.display = 'block';
   } else if (tipo === 'proveedor') {
@@ -7415,6 +7637,257 @@ async function verificarVencimientosVIP() {
       }
     });
   } catch(e) { console.warn('verificarVencimientos:', e); }
+}
+
+// ── Selector de zona para admin ────────────────────────────
+function mostrarSelectorZonaAdmin() {
+  // Insertar selector si no existe
+  if (document.getElementById('vipAdminZonaSel')) return;
+  const diasEl = document.getElementById('vipDiasRestantes');
+  if (!diasEl) return;
+  const sel = document.createElement('div');
+  sel.id = 'vipAdminZonaSel';
+  sel.style.cssText = 'display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;';
+  sel.innerHTML = `
+    <span style="font-size:.72rem;color:var(--muted);">Ver zona:</span>
+    <button onclick="cambiarZonaAdmin('comprador',this)" style="background:rgba(56,189,248,.2);color:#38bdf8;border:1px solid rgba(56,189,248,.4);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;font-weight:700;">🛒 Comprador</button>
+    <button onclick="cambiarZonaAdmin('prevencionista',this)" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🦺 Prevencionista</button>
+    <button onclick="cambiarZonaAdmin('proveedor',this)" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🏭 Proveedor</button>
+  `;
+  diasEl.parentNode.insertBefore(sel, diasEl);
+}
+
+function cambiarZonaAdmin(zona, btn) {
+  // Ocultar todas las zonas
+  ['Comprador','Prevencionista','Proveedor','SinAsignar'].forEach(z => {
+    document.getElementById('vipZona'+z).style.display = 'none';
+  });
+  // Mostrar la seleccionada
+  document.getElementById('vipZona'+zona.charAt(0).toUpperCase()+zona.slice(1)).style.display = 'block';
+  if (zona === 'comprador') iniciarZonaComprador();
+  if (zona === 'proveedor') { cargarLicitaciones(); }
+  // Resaltar botón activo
+  document.querySelectorAll('#vipAdminZonaSel button').forEach(b => {
+    b.style.background = 'var(--surface2)';
+    b.style.color = 'var(--muted)';
+    b.style.borderColor = 'var(--border)';
+  });
+  if (btn) {
+    btn.style.background = 'rgba(56,189,248,.2)';
+    btn.style.color = '#38bdf8';
+    btn.style.borderColor = 'rgba(56,189,248,.4)';
+  }
+}
+
+// ─── LICITACIONES MERCADOPUBLICO ─────────────────────────────
+// ⚙️ Cuando tengas el ticket de MercadoPublico, reemplaza '' por tu ticket
+const MP_TICKET = 'D944901B-26C6-406B-AFFB-99DDF0EA00CD';
+const MP_KEYWORDS = {
+  seguridad: ['seguridad industrial','epp','equipo proteccion','proteccion personal','seguridad laboral'],
+  epp:       ['equipo proteccion personal','casco','guante','zapato seguridad','botin','lentes seguridad','respirador'],
+  ropa:      ['ropa trabajo','overol','uniforme','vestuario','indumentaria','ropa industrial','ignifugo'],
+  prevencion:['prevencion riesgos','prevencionista','higiene seguridad','mutualidad'],
+  todos:     ['seguridad','epp','proteccion','ropa trabajo','overol','casco','guante','zapato','botin']
+};
+
+let licitFiltroActual = 'seguridad';
+let licitPaginaActual = 1;
+let licitDatosCache   = [];
+let licitDatosFiltrados = [];
+
+function provSubTab(tab, btn) {
+  ['Licitaciones','Estadisticas','Portales'].forEach(t => {
+    document.getElementById('provSub'+t).style.display = t.toLowerCase() === tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('#vipZonaProveedor .calc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  if (tab === 'licitaciones' && !licitDatosCache.length) cargarLicitaciones();
+}
+
+function filtrarLicit(filtro, btn) {
+  licitFiltroActual = filtro;
+  licitPaginaActual = 1;
+  document.querySelectorAll('#provSubLicitaciones .calc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  aplicarFiltroLicit();
+}
+
+function buscarLicitaciones() {
+  licitPaginaActual = 1;
+  aplicarFiltroLicit();
+}
+
+function aplicarFiltroLicit() {
+  const q = (document.getElementById('licitBuscador')?.value || '').toLowerCase().trim();
+  const keywords = MP_KEYWORDS[licitFiltroActual] || MP_KEYWORDS.todos;
+
+  licitDatosFiltrados = licitDatosCache.filter(l => {
+    const texto = (l.Nombre + ' ' + (l.Descripcion||'')).toLowerCase();
+    const matchKeyword = keywords.some(k => texto.includes(k));
+    const matchBusqueda = !q || texto.includes(q);
+    return matchKeyword && matchBusqueda;
+  });
+
+  renderLicitaciones();
+}
+
+async function cargarLicitaciones() {
+  const aviso   = document.getElementById('licitAvisoTicket');
+  const loading = document.getElementById('licitLoading');
+  const res     = document.getElementById('licitResultados');
+
+  if (!MP_TICKET) {
+    // Sin ticket — mostrar datos de ejemplo
+    aviso.style.display = 'flex';
+    licitDatosCache = generarEjemplosLicit();
+    aplicarFiltroLicit();
+    return;
+  }
+
+  aviso.style.display = 'none';
+  loading.style.display = 'block';
+  res.innerHTML = '';
+
+  try {
+    // Fecha de hoy en formato ddmmaaaa
+    const hoy = new Date();
+    const fecha = String(hoy.getDate()).padStart(2,'0') +
+                  String(hoy.getMonth()+1).padStart(2,'0') +
+                  hoy.getFullYear();
+
+    // Usar JSONP para evitar CORS
+    const data = await fetchMP(fecha);
+    licitDatosCache = (data.Listado || []).filter(l => l.Estado === '5'); // solo publicadas/vigentes
+    aplicarFiltroLicit();
+    actualizarEstadisticas();
+  } catch(e) {
+    console.error('MercadoPublico API:', e);
+    res.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);">
+      <div style="font-size:1.5rem;margin-bottom:.5rem;">⚠️</div>
+      Error al conectar con MercadoPublico. Intenta de nuevo o verifica tu conexión.
+    </div>`;
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+function fetchMP(fecha) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'mp_cb_' + Date.now();
+    const script = document.createElement('script');
+    const url = `https://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?fecha=${fecha}&estado=publicada&ticket=${MP_TICKET}&callback=${cbName}`;
+    window[cbName] = (data) => { resolve(data); delete window[cbName]; script.remove(); };
+    script.onerror = () => { reject(new Error('JSONP error')); delete window[cbName]; script.remove(); };
+    script.src = url;
+    document.head.appendChild(script);
+    setTimeout(() => { if(window[cbName]) { reject(new Error('Timeout')); delete window[cbName]; script.remove(); } }, 10000);
+  });
+}
+
+function renderLicitaciones() {
+  const res  = document.getElementById('licitResultados');
+  const pag  = document.getElementById('licitPaginacion');
+  const POR_PAG = 10;
+  const total = licitDatosFiltrados.length;
+
+  if (!total) {
+    res.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);">
+      <div style="font-size:1.5rem;margin-bottom:.5rem;">📭</div>
+      Sin licitaciones para este filtro hoy. Prueba con otro término o categoría.
+    </div>`;
+    pag.innerHTML = '';
+    return;
+  }
+
+  const inicio = (licitPaginaActual - 1) * POR_PAG;
+  const pagina = licitDatosFiltrados.slice(inicio, inicio + POR_PAG);
+  const totalPags = Math.ceil(total / POR_PAG);
+
+  res.innerHTML = `
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">
+      Mostrando ${inicio+1}–${Math.min(inicio+POR_PAG, total)} de <strong>${total}</strong> licitaciones
+      ${!MP_TICKET ? '<span style="background:rgba(245,158,11,.15);color:#f59e0b;border-radius:4px;padding:1px 6px;margin-left:4px;font-size:.7rem;">⚙️ Datos de ejemplo</span>' : ''}
+    </div>` +
+    pagina.map(l => renderTarjetaLicit(l)).join('');
+
+  // Paginación
+  if (totalPags > 1) {
+    pag.innerHTML = Array.from({length: totalPags}, (_, i) => i+1).map(n =>
+      `<button onclick="irPaginaLicit(${n})" style="background:${n===licitPaginaActual?'rgba(56,189,248,.2)':'var(--surface2)'};color:${n===licitPaginaActual?'#38bdf8':'var(--muted)'};border:1px solid ${n===licitPaginaActual?'rgba(56,189,248,.4)':'var(--border)'};border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.78rem;">${n}</button>`
+    ).join('');
+  } else {
+    pag.innerHTML = '';
+  }
+}
+
+function renderTarjetaLicit(l) {
+  const codigo  = l.CodigoExterno || l.Codigo || '—';
+  const nombre  = l.Nombre || 'Sin nombre';
+  const org     = l.NombreOrganismo || l.Organismo || 'Organismo público';
+  const region  = l.NombreRegion || l.Region || '';
+  const cierre  = l.FechaCierre ? new Date(l.FechaCierre).toLocaleDateString('es-CL') : '—';
+  const monto   = l.MontoEstimado ? `$${Number(l.MontoEstimado).toLocaleString('es-CL')}` : 'Sin estimado';
+  const tipo    = { L1:'L1 <100 UTM', LE:'LE 100-1000 UTM', LP:'LP >1000 UTM', LR:'LR', LS:'LS' }[l.Tipo] || l.Tipo || '—';
+  const url     = `https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=${codigo}`;
+
+  // Días para cierre
+  let diasCierre = '';
+  if (l.FechaCierre) {
+    const dias = Math.ceil((new Date(l.FechaCierre) - Date.now()) / 86400000);
+    const color = dias <= 3 ? '#fca5a5' : dias <= 7 ? '#fbbf24' : '#4ade80';
+    diasCierre = `<span style="color:${color};font-weight:700;font-size:.72rem;">⏰ Cierra en ${dias}d</span>`;
+  }
+
+  return `<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;margin-bottom:.7rem;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.92rem;flex:1;">${nombre}</div>
+      <span style="background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2);border-radius:4px;padding:1px 7px;font-size:.68rem;white-space:nowrap;">${tipo}</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem;">🏛️ ${org} ${region ? '— '+region : ''}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:.6rem;">
+      <span style="font-size:.72rem;color:var(--muted);">📋 ${codigo}</span>
+      <span style="font-size:.72rem;color:#f59e0b;font-weight:600;">💰 ${monto}</span>
+      <span style="font-size:.72rem;color:var(--muted);">📅 Cierre: ${cierre}</span>
+      ${diasCierre}
+    </div>
+    <a href="${url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(56,189,248,.12);color:#38bdf8;border:1px solid rgba(56,189,248,.25);border-radius:7px;padding:.35rem .9rem;font-size:.75rem;font-weight:600;text-decoration:none;">
+      Ver licitación en MercadoPublico →
+    </a>
+  </div>`;
+}
+
+function irPaginaLicit(n) {
+  licitPaginaActual = n;
+  renderLicitaciones();
+  document.getElementById('provSubLicitaciones').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function actualizarEstadisticas() {
+  const total    = licitDatosCache.length;
+  const vigentes = licitDatosFiltrados.length;
+  const monto    = licitDatosFiltrados.reduce((s, l) => s + (Number(l.MontoEstimado)||0), 0);
+  const regiones = new Set(licitDatosFiltrados.map(l => l.NombreRegion||l.Region).filter(Boolean)).size;
+  document.getElementById('statTotalLicit').textContent = total;
+  document.getElementById('statVigentes').textContent   = vigentes;
+  document.getElementById('statMontoTotal').textContent = monto ? '$'+Math.round(monto/1e6)+'M' : '—';
+  document.getElementById('statRegiones').textContent   = regiones || '—';
+}
+
+function generarEjemplosLicit() {
+  const hoy = new Date();
+  const dd  = d => new Date(hoy.getTime() + d*86400000).toISOString();
+  return [
+    { CodigoExterno:'1234-5-LP24', Nombre:'Adquisición de equipos de protección personal para personal operativo', NombreOrganismo:'Ministerio de Obras Públicas', NombreRegion:'Región Metropolitana', FechaCierre:dd(5),  MontoEstimado:18500000, Tipo:'LP', Estado:'5' },
+    { CodigoExterno:'2345-6-LE24', Nombre:'Compra de vestuario de seguridad industrial — overoles y zapatos de seguridad', NombreOrganismo:'CODELCO División Andina', NombreRegion:'Región de Valparaíso', FechaCierre:dd(3),  MontoEstimado:8200000,  Tipo:'LE', Estado:'5' },
+    { CodigoExterno:'3456-7-L124', Nombre:'Adquisición cascos, guantes y lentes de seguridad para obras viales', NombreOrganismo:'Municipalidad de Santiago', NombreRegion:'Región Metropolitana', FechaCierre:dd(10), MontoEstimado:2100000,  Tipo:'L1', Estado:'5' },
+    { CodigoExterno:'4567-8-LP24', Nombre:'Servicio de suministro de ropa ignífuga y antiestática para planta industrial', NombreOrganismo:'ENAP Refinerías S.A.', NombreRegion:'Región del Biobío', FechaCierre:dd(7),  MontoEstimado:45000000, Tipo:'LP', Estado:'5' },
+    { CodigoExterno:'5678-9-LE24', Nombre:'Provisión de EPP para personal de mantención — respiradores, guantes y protección auditiva', NombreOrganismo:'Hospital Base Osorno', NombreRegion:'Región de Los Lagos', FechaCierre:dd(12), MontoEstimado:6800000,  Tipo:'LE', Estado:'5' },
+    { CodigoExterno:'6789-1-L124', Nombre:'Adquisición de calzado de seguridad punta de acero para trabajadores municipales', NombreOrganismo:'Municipalidad de Antofagasta', NombreRegion:'Región de Antofagasta', FechaCierre:dd(2),  MontoEstimado:1950000,  Tipo:'L1', Estado:'5' },
+    { CodigoExterno:'7890-2-LP24', Nombre:'Contrato de suministro anual de EPP y ropa de trabajo para faena minera', NombreOrganismo:'CODELCO División Chuquicamata', NombreRegion:'Región de Antofagasta', FechaCierre:dd(15), MontoEstimado:92000000, Tipo:'LP', Estado:'5' },
+    { CodigoExterno:'8901-3-LE24', Nombre:'Compra de equipos de seguridad para brigadas de emergencia — arneses y líneas de vida', NombreOrganismo:'CONAF Región del Maule', NombreRegion:'Región del Maule', FechaCierre:dd(8),  MontoEstimado:7500000,  Tipo:'LE', Estado:'5' },
+    { CodigoExterno:'9012-4-L124', Nombre:'Adquisición de protectores auditivos y lentes para planta de tratamiento', NombreOrganismo:'ESSAL S.A.', NombreRegion:'Región de Los Lagos', FechaCierre:dd(6),  MontoEstimado:980000,   Tipo:'L1', Estado:'5' },
+    { CodigoExterno:'1023-5-LE24', Nombre:'Suministro de ropa de trabajo y vestuario de seguridad para personal de aseo y ornato', NombreOrganismo:'Municipalidad de Viña del Mar', NombreRegion:'Región de Valparaíso', FechaCierre:dd(4),  MontoEstimado:5600000,  Tipo:'LE', Estado:'5' },
+  ];
 }
 
 // ─── INIT ────────────────────────────────────────────────────
