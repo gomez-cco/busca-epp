@@ -2122,7 +2122,6 @@
         <option value="">Selecciona tu perfil...</option>
         <option value="comprador">🛒 Comprador de empresa</option>
         <option value="prevencionista">🦺 Prevencionista de riesgos</option>
-        <option value="proveedor">🏭 Proveedor EPP</option>
       </select>
       <input id="vipSolNombre" type="text" class="vip-input" placeholder="Nombre completo">
       <input id="vipSolEmpresa" type="text" class="vip-input" placeholder="Empresa">
@@ -2173,6 +2172,7 @@
         <button onclick="vipSubTab('categorias',this)" class="calc-btn" style="font-size:.8rem;">📦 Por Categoría</button>
         <button onclick="vipSubTab('proveedores',this)" class="calc-btn" style="font-size:.8rem;">🏭 Comparar Proveedores</button>
         <button onclick="vipSubTab('lista',this)" class="calc-btn" style="font-size:.8rem;">📋 Mi Lista de Compra</button>
+        <button onclick="vipSubTab('licitaciones',this)" class="calc-btn" style="font-size:.8rem;">📋 Licitaciones Vigentes</button>
       </div>
 
       <!-- Buscador de fichas técnicas -->
@@ -2198,6 +2198,28 @@
           <input id="vipProvBuscador" type="text" placeholder="Busca un producto para ver sus proveedores..." oninput="buscarProveedoresVIP(this.value)" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;color:var(--text);font-size:.88rem;font-family:'DM Sans',sans-serif;">
         </div>
         <div id="vipProvResultados"></div>
+      </div>
+
+      <!-- Licitaciones Vigentes -->
+      <div id="vipSubLicitaciones" style="display:none;">
+        <!-- Buscador y filtros -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;">
+          <div style="display:flex;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap;">
+            <input id="licitBuscador" type="text" placeholder="Buscar licitaciones (ej: EPP, overol, casco...)" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            <button onclick="buscarLicitaciones()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;">🔍 BUSCAR</button>
+          </div>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;">
+            <span style="font-size:.72rem;color:var(--muted);">Filtrar:</span>
+            <button onclick="filtrarLicit('seguridad',this)" class="calc-btn selected" style="font-size:.72rem;">🦺 Seguridad</button>
+            <button onclick="filtrarLicit('epp',this)" class="calc-btn" style="font-size:.72rem;">🥽 EPP</button>
+            <button onclick="filtrarLicit('ropa',this)" class="calc-btn" style="font-size:.72rem;">👕 Ropa</button>
+            <button onclick="filtrarLicit('prevencion',this)" class="calc-btn" style="font-size:.72rem;">⚕️ Prevención</button>
+            <button onclick="filtrarLicit('todos',this)" class="calc-btn" style="font-size:.72rem;">📋 Todos</button>
+          </div>
+        </div>
+        <div id="licitLoading" style="display:none;text-align:center;padding:2rem;color:var(--muted);">⏳ Consultando MercadoPublico.cl...</div>
+        <div id="licitResultados"></div>
+        <div id="licitPaginacion" style="display:flex;justify-content:center;gap:.5rem;margin-top:1rem;flex-wrap:wrap;"></div>
       </div>
 
       <!-- Lista de compra -->
@@ -2234,7 +2256,7 @@
       </div>
     </div>
 
-    <!-- Zona Proveedor -->
+    <!-- Zona Proveedor (desactivada) -->
     <div id="vipZonaProveedor" style="display:none;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">🏭 ZONA PROVEEDOR</div>
       <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Licitaciones vigentes de seguridad industrial — MercadoPublico.cl en tiempo real</p>
@@ -2423,7 +2445,6 @@
           <select id="vipAdmTipo" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
             <option value="comprador">🛒 Comprador</option>
             <option value="prevencionista">🦺 Prevencionista</option>
-            <option value="proveedor">🏭 Proveedor</option>
           </select>
           <select id="vipAdmDias" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
             <option value="30">30 días</option>
@@ -7292,34 +7313,36 @@ function mostrarPaneVIP() {
     diasEl.textContent = '';
   }
 
-  // Mostrar zona según tipo
-  ['Comprador','Prevencionista','Proveedor','SinAsignar'].forEach(z => {
-    document.getElementById('vipZona'+z).style.display = 'none';
+  // Mostrar zona según tipo (solo Comprador y Prevencionista)
+  ['Comprador','Prevencionista','SinAsignar'].forEach(z => {
+    const el = document.getElementById('vipZona'+z);
+    if (el) el.style.display = 'none';
   });
   const tipo = u.tipo || '';
-  if (tipo === 'comprador' || tipo === 'admin') {
+  if (tipo === 'comprador' || tipo === 'admin' || tipo === 'proveedor') {
     document.getElementById('vipZonaComprador').style.display = 'block';
     iniciarZonaComprador();
-    // Admin: mostrar selector de zona
-    if (tipo === 'admin') mostrarSelectorZonaAdmin();
   } else if (tipo === 'prevencionista') {
     document.getElementById('vipZonaPrevencionista').style.display = 'block';
-  } else if (tipo === 'proveedor') {
-    document.getElementById('vipZonaProveedor').style.display = 'block';
   } else {
-    document.getElementById('vipZonaSinAsignar').style.display = 'block';
+    const el = document.getElementById('vipZonaSinAsignar');
+    if (el) el.style.display = 'block';
   }
 }
 
 // ── Sub-tabs zona comprador ────────────────────────────────
 function vipSubTab(tab, btn) {
-  ['Fichas','Categorias','Proveedores','Lista'].forEach(t => {
-    document.getElementById('vipSub'+t).style.display = t.toLowerCase() === tab ? 'block' : 'none';
+  ['Fichas','Categorias','Proveedores','Lista','Licitaciones'].forEach(t => {
+    const el = document.getElementById('vipSub'+t);
+    if (el) el.style.display = t.toLowerCase() === tab ? 'block' : 'none';
   });
-  document.querySelectorAll('#vipZonaComprador .calc-btn').forEach(b => b.classList.remove('selected'));
+  // Solo desmarcar los botones del menú principal (no los filtros internos)
+  const menuBtns = document.querySelectorAll('#vipZonaComprador > div:first-child .calc-btn');
+  menuBtns.forEach(b => b.classList.remove('selected'));
   if (btn) btn.classList.add('selected');
   if (tab === 'categorias') renderVipFamilias();
   if (tab === 'lista') renderVipLista();
+  if (tab === 'licitaciones') cargarLicitaciones();
 }
 
 // ── Iniciar zona comprador ─────────────────────────────────
