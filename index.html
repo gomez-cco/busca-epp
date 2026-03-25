@@ -2214,7 +2214,7 @@
               <div style="font-size:.7rem;color:var(--muted);">Solo seguridad industrial · Actualización diaria · API oficial ChileCompra</div>
             </div>
           </div>
-          <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener" style="font-size:.72rem;color:#38bdf8;text-decoration:none;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 8px;">Ver en MP →</a>
+          <a href="https://www.mercadopublico.cl/Home" target="_blank" rel="noopener" style="font-size:.72rem;color:#38bdf8;text-decoration:none;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 8px;">Ver en MP →</a>
         </div>
 
         <!-- Stats rápidas -->
@@ -2359,55 +2359,83 @@
       <!-- FASE 3 — Histórico de adjudicaciones -->
       <div id="vipSubHistorico" style="display:none;">
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">📊 HISTÓRICO DE ADJUDICACIONES</div>
-        <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;">Analiza licitaciones adjudicadas anteriores en seguridad industrial — quién ganó, a qué precio y qué organismo compra más EPP.</p>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;">Analiza licitaciones adjudicadas en seguridad industrial — quién ganó, empresa adjudicada y precio exacto.</p>
 
-        <!-- Buscador histórico -->
-        <div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;">
-          <input id="historicoBuscador" type="text" placeholder="Buscar en adjudicaciones (ej: overol, casco, guante...)" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
-          <button onclick="buscarHistorico()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;">🔍 BUSCAR</button>
+        <!-- Buscador histórico + filtros -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;">
+          <div style="display:flex;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap;">
+            <input id="historicoBuscador" type="text" placeholder="Buscar adjudicaciones (ej: overol, casco, guante, ignífugo...)" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            <button onclick="buscarHistorico()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;">🔍 BUSCAR</button>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+            <label style="font-size:.72rem;color:var(--muted);font-weight:600;">📅 AÑO:</label>
+            <select id="historicoAnio" onchange="buscarHistorico()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;">
+              <option value="2026">2026 (actual)</option>
+              <option value="2025">2025</option>
+              <option value="2024" selected>2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+            </select>
+            <label style="font-size:.72rem;color:var(--muted);font-weight:600;">🗺️ REGIÓN:</label>
+            <select id="historicoRegion" onchange="buscarHistorico()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;">
+              <option value="todas">Todas las regiones</option>
+              <option value="Arica">Arica y Parinacota</option>
+              <option value="Tarapacá">Tarapacá</option>
+              <option value="Antofagasta">Antofagasta</option>
+              <option value="Atacama">Atacama</option>
+              <option value="Coquimbo">Coquimbo</option>
+              <option value="Valparaíso">Valparaíso</option>
+              <option value="Metropolitana">Región Metropolitana</option>
+              <option value="Higgins">O'Higgins</option>
+              <option value="Maule">Maule</option>
+              <option value="Ñuble">Ñuble</option>
+              <option value="Biobío">Biobío</option>
+              <option value="Araucanía">La Araucanía</option>
+              <option value="Los Ríos">Los Ríos</option>
+              <option value="Los Lagos">Los Lagos</option>
+              <option value="Aysén">Aysén</option>
+              <option value="Magallanes">Magallanes</option>
+            </select>
+          </div>
         </div>
 
-        <!-- Stats histórico -->
+        <!-- Stats histórico dinámicas -->
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-bottom:1.2rem;">
           <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;">+2.400</div>
-            <div style="font-size:.68rem;color:var(--muted);">Licitaciones EPP adjudicadas 2024</div>
+            <div id="histStatTotal" style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;">—</div>
+            <div id="histStatTotalLabel" style="font-size:.68rem;color:var(--muted);">Adjudicaciones encontradas</div>
           </div>
           <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#38bdf8;">$8.200M</div>
-            <div style="font-size:.68rem;color:var(--muted);">Monto total adjudicado EPP 2024</div>
+            <div id="histStatMonto" style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#38bdf8;">—</div>
+            <div style="font-size:.68rem;color:var(--muted);">Monto total adjudicado</div>
           </div>
           <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#f59e0b;">RM / ANT</div>
-            <div style="font-size:.68rem;color:var(--muted);">Regiones con mayor volumen</div>
+            <div id="histStatProm" style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#f59e0b;">—</div>
+            <div style="font-size:.68rem;color:var(--muted);">Precio promedio por licitación</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
+            <div id="histStatGanador" style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:#c084fc;">—</div>
+            <div style="font-size:.68rem;color:var(--muted);">Empresa más adjudicada</div>
           </div>
         </div>
 
-        <!-- Tabla organismos top compradores -->
+        <!-- Tabla top compradores -->
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">🏛️ Top Organismos Compradores de EPP</div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.2rem;">
           <div style="display:grid;grid-template-columns:1fr auto auto;gap:.5rem;padding:.6rem 1rem;background:rgba(56,189,248,.08);font-size:.72rem;font-weight:700;color:var(--muted);">
-            <span>ORGANISMO</span><span>LICITACIONES</span><span>MONTO PROM.</span>
+            <span>ORGANISMO</span><span style="text-align:center;">LICIT.</span><span>MONTO PROM.</span>
           </div>
-          ${[
-            ['CODELCO','142','$8.4M'],['Ejército de Chile','98','$3.2M'],
-            ['MOP — Min. Obras Públicas','87','$1.8M'],['ENAP Refinerías','64','$12.1M'],
-            ['Carabineros de Chile','61','$2.4M'],['Metro de Santiago','43','$5.6M'],
-            ['Min. de Salud (MINSAL)','38','$980K'],['CODELCO Andina','35','$9.2M']
-          ].map(([org,licit,monto]) =>
-            `<div style="display:grid;grid-template-columns:1fr auto auto;gap:.5rem;padding:.6rem 1rem;border-top:1px solid var(--border);font-size:.78rem;">
-              <span style="color:var(--text);">${org}</span>
-              <span style="color:#38bdf8;font-weight:700;text-align:center;">${licit}</span>
-              <span style="color:#f59e0b;font-weight:700;">${monto}</span>
-            </div>`
-          ).join('')}
+          <div id="histTablaOrganismos">
+            <div style="padding:.8rem 1rem;font-size:.78rem;color:var(--muted);text-align:center;">Realiza una búsqueda para ver los organismos compradores</div>
+          </div>
         </div>
 
-        <!-- Resultados búsqueda histórica -->
+        <!-- Resultados con empresa adjudicada y precio -->
         <div id="historicoResultados"></div>
 
         <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:.8rem 1rem;font-size:.75rem;color:var(--muted);">
-          💡 Los datos históricos provienen de la API de MercadoPublico. Para ver adjudicaciones específicas en tiempo real activa tu ticket API.
+          💡 Datos de adjudicaciones reales desde la API oficial de MercadoPublico. Incluye empresa ganadora y monto adjudicado cuando está disponible.
         </div>
       </div>
 
@@ -2525,7 +2553,7 @@
       <div id="provSubPortales" style="display:none;">
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
 
-          <a href="https://www.mercadopublico.cl/Home/Busqueda" target="_blank" rel="noopener" style="text-decoration:none;">
+          <a href="https://www.mercadopublico.cl/Home" target="_blank" rel="noopener" style="text-decoration:none;">
             <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
               <div style="font-size:1.8rem;margin-bottom:.5rem;">🛒</div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">MercadoPublico.cl</div>
@@ -2570,7 +2598,7 @@
             </div>
           </a>
 
-          <a href="https://www.mercadopublico.cl/Home/Busqueda?oc=false&s=seguridad+industrial" target="_blank" rel="noopener" style="text-decoration:none;">
+          <a href="https://www.mercadopublico.cl/Home" target="_blank" rel="noopener" style="text-decoration:none;">
             <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
               <div style="font-size:1.8rem;margin-bottom:.5rem;">🔍</div>
               <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">MP — Seguridad Industrial</div>
@@ -7797,58 +7825,155 @@ function verificarAlertas() {
 
 // ─── HISTÓRICO ADJUDICACIONES (Fase 3) ───────────────────────
 async function buscarHistorico() {
-  const q = document.getElementById('historicoBuscador')?.value.trim();
-  const res = document.getElementById('historicoResultados');
-  if (!q || !res) return;
+  const q      = (document.getElementById('historicoBuscador')?.value || '').trim();
+  const anio   = document.getElementById('historicoAnio')?.value || '2024';
+  const region = document.getElementById('historicoRegion')?.value || 'todas';
+  const res    = document.getElementById('historicoResultados');
+  if (!res) return;
+
+  if (!q) {
+    res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.82rem;">Ingresa un término para buscar adjudicaciones</div>';
+    return;
+  }
 
   res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);">⏳ Buscando adjudicaciones...</div>';
 
   try {
-    // Buscar últimos 30 días de adjudicaciones
-    const hoy = new Date();
-    const hace30 = new Date(hoy - 30*86400000);
-    const fecha = String(hace30.getDate()).padStart(2,'0') +
-                  String(hace30.getMonth()+1).padStart(2,'0') +
-                  hace30.getFullYear();
+    // Buscar desde enero del año seleccionado
+    const fecha = `0101${anio}`;
+    const data  = await fetchMPEstado(fecha, 'adjudicada');
+    let listado = (data.Listado || []);
 
-    const data = await fetchMPEstado(fecha, 'adjudicada');
-    const listado = (data.Listado || []).filter(l => {
+    // Filtrar por término
+    listado = listado.filter(l => {
       const texto = (l.Nombre + ' ' + (l.Descripcion||'')).toLowerCase();
       return texto.includes(q.toLowerCase());
-    }).slice(0, 15);
+    });
+
+    // Filtrar por región
+    if (region !== 'todas') {
+      listado = listado.filter(l =>
+        (l.NombreRegion || l.Region || '').toLowerCase().includes(region.toLowerCase())
+      );
+    }
+
+    listado = listado.slice(0, 20);
+    actualizarStatsHistorico(listado, anio);
+    actualizarTablaOrganismos(listado);
 
     if (!listado.length) {
-      res.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin adjudicaciones encontradas para "${q}" en los últimos 30 días</div>`;
+      res.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin adjudicaciones para "${q}" en ${anio}${region!=='todas'?' — '+region:''}</div>`;
       return;
     }
 
-    res.innerHTML = `<div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">${listado.length} adjudicaciones encontradas</div>` +
-      listado.map(l => {
-        const monto = l.MontoEstimado ? '$'+Number(l.MontoEstimado).toLocaleString('es-CL') : '—';
-        return `<div style="background:var(--card);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">${l.Nombre}</div>
-          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.3rem;">🏛️ ${l.NombreOrganismo||''} · 🗺️ ${l.NombreRegion||''}</div>
-          <div style="display:flex;gap:.8rem;font-size:.72rem;flex-wrap:wrap;">
-            <span style="color:#4ade80;font-weight:700;">✅ Adjudicada</span>
-            <span style="color:#f59e0b;">💰 ${monto}</span>
-            <span style="color:var(--muted);">📋 ${l.CodigoExterno||''}</span>
-          </div>
-        </div>`;
-      }).join('');
+    res.innerHTML = `
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">
+        📋 Adjudicaciones encontradas — ${anio}
+        <span style="font-size:.72rem;font-weight:400;color:var(--muted);margin-left:.5rem;">${listado.length} resultados</span>
+      </div>` +
+      listado.map(l => renderTarjetaHistorico(l)).join('');
+
   } catch(e) {
-    // Mostrar datos de ejemplo
-    res.innerHTML = `<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.7rem;font-size:.78rem;color:var(--accent);margin-bottom:.8rem;">⚠️ Mostrando datos de ejemplo — activa el ticket para datos reales</div>` +
-      [['Overoles ignífugos para personal operativo','CODELCO','$4.2M','Adjudicada'],
-       ['EPP para brigada de emergencia','ENAP','$1.8M','Adjudicada'],
-       ['Calzado de seguridad punta acero x200 pares','MOP','$980K','Adjudicada'],
-      ].map(([n,o,m,e]) => `<div style="background:var(--card);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;">
-        <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;">${n}</div>
-        <div style="font-size:.75rem;color:var(--muted);">🏛️ ${o}</div>
-        <div style="display:flex;gap:.8rem;font-size:.72rem;margin-top:.3rem;">
-          <span style="color:#4ade80;">✅ ${e}</span>
-          <span style="color:#f59e0b;">💰 ${m}</span>
-        </div></div>`).join('');
+    // Datos de ejemplo con empresa adjudicada
+    const ejemplos = generarEjemplosHistorico(q, anio);
+    actualizarStatsHistorico(ejemplos, anio);
+    actualizarTablaOrganismos(ejemplos);
+    res.innerHTML = `
+      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--accent);margin-bottom:.8rem;">
+        ⚠️ Mostrando datos de ejemplo — los datos reales requieren conexión a la API
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">📋 Adjudicaciones — ${anio}</div>` +
+      ejemplos.map(l => renderTarjetaHistorico(l)).join('');
   }
+}
+
+function renderTarjetaHistorico(l) {
+  const nombre   = l.Nombre || 'Sin nombre';
+  const org      = l.NombreOrganismo || l.Organismo || '—';
+  const region   = l.NombreRegion || l.Region || '';
+  const codigo   = l.CodigoExterno || l.Codigo || '—';
+  const monto    = l.MontoEstimado ? '$'+Number(l.MontoEstimado).toLocaleString('es-CL') : '—';
+  const ganador  = l.EmpresaAdjudicada || l.Adjudicado || l.NombreAdjudicatario || '—';
+  const rutGan   = l.RutAdjudicatario || '';
+  const montoAdj = l.MontoAdjudicado ? '$'+Number(l.MontoAdjudicado).toLocaleString('es-CL') : monto;
+  const fecha    = l.FechaAdjudicacion ? new Date(l.FechaAdjudicacion).toLocaleDateString('es-CL') : (l.FechaCierre ? new Date(l.FechaCierre).toLocaleDateString('es-CL') : '—');
+
+  return `<div style="background:var(--card);border:1px solid rgba(34,197,94,.25);border-left:3px solid #4ade80;border-radius:10px;padding:1rem 1.1rem;margin-bottom:.7rem;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.92rem;flex:1;">${nombre}</div>
+      <span style="background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);border-radius:4px;padding:1px 7px;font-size:.68rem;white-space:nowrap;font-weight:700;">✅ Adjudicada</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:.6rem;">🏛️ ${org} ${region?'— '+region:''} · 📋 ${codigo}</div>
+
+    <!-- Empresa adjudicada — la info clave -->
+    <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.6rem .9rem;margin-bottom:.5rem;">
+      <div style="font-size:.7rem;color:#4ade80;font-weight:700;margin-bottom:.2rem;">🏆 EMPRESA ADJUDICADA</div>
+      <div style="font-size:.85rem;font-weight:700;color:var(--text);">${ganador}</div>
+      ${rutGan ? `<div style="font-size:.7rem;color:var(--muted);">RUT: ${rutGan}</div>` : ''}
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:.8rem;font-size:.75rem;align-items:center;">
+      <div style="background:rgba(245,158,11,.1);border-radius:6px;padding:3px 8px;">
+        <span style="color:var(--muted);">Monto estimado: </span>
+        <span style="color:#f59e0b;font-weight:700;">${monto}</span>
+      </div>
+      <div style="background:rgba(56,189,248,.1);border-radius:6px;padding:3px 8px;">
+        <span style="color:var(--muted);">Adjudicado en: </span>
+        <span style="color:#38bdf8;font-weight:700;">${montoAdj}</span>
+      </div>
+      <span style="color:var(--muted);">📅 ${fecha}</span>
+    </div>
+  </div>`;
+}
+
+function actualizarStatsHistorico(listado, anio) {
+  const total  = listado.length;
+  const monto  = listado.reduce((s,l) => s + (Number(l.MontoAdjudicado||l.MontoEstimado)||0), 0);
+  const prom   = total ? Math.round(monto/total) : 0;
+  // Empresa más frecuente
+  const freq = {};
+  listado.forEach(l => {
+    const g = l.EmpresaAdjudicada || l.Adjudicado || l.NombreAdjudicatario;
+    if (g && g !== '—') freq[g] = (freq[g]||0) + 1;
+  });
+  const topGanador = Object.entries(freq).sort((a,b)=>b[1]-a[1])[0];
+
+  const el = id => document.getElementById(id);
+  if (el('histStatTotal'))   el('histStatTotal').textContent   = total || '—';
+  if (el('histStatTotalLabel')) el('histStatTotalLabel').textContent = `Adjudicaciones ${anio}`;
+  if (el('histStatMonto'))   el('histStatMonto').textContent   = monto ? '$'+Math.round(monto/1e6)+'M' : '—';
+  if (el('histStatProm'))    el('histStatProm').textContent    = prom  ? '$'+prom.toLocaleString('es-CL') : '—';
+  if (el('histStatGanador')) el('histStatGanador').textContent = topGanador ? `${topGanador[0].substring(0,20)} (${topGanador[1]})` : '—';
+}
+
+function actualizarTablaOrganismos(listado) {
+  const tabla = document.getElementById('histTablaOrganismos');
+  if (!tabla || !listado.length) return;
+  const freq = {};
+  const montos = {};
+  listado.forEach(l => {
+    const org = l.NombreOrganismo || l.Organismo || 'Desconocido';
+    freq[org]   = (freq[org]||0) + 1;
+    montos[org] = (montos[org]||0) + (Number(l.MontoAdjudicado||l.MontoEstimado)||0);
+  });
+  const top = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  tabla.innerHTML = top.map(([org, cant]) => {
+    const prom = Math.round((montos[org]||0)/cant);
+    return `<div style="display:grid;grid-template-columns:1fr auto auto;gap:.5rem;padding:.6rem 1rem;border-top:1px solid var(--border);font-size:.75rem;">
+      <span style="color:var(--text);">${org}</span>
+      <span style="color:#38bdf8;font-weight:700;text-align:center;">${cant}</span>
+      <span style="color:#f59e0b;font-weight:700;">${prom?'$'+Math.round(prom/1e3)+'K':'—'}</span>
+    </div>`;
+  }).join('');
+}
+
+function generarEjemplosHistorico(q, anio) {
+  return [
+    { Nombre:`Adquisición overoles ignífugos FR para personal planta ${anio}`, NombreOrganismo:'CODELCO División Andina', NombreRegion:'Región de Valparaíso', CodigoExterno:`1234-5-LP${anio.slice(2)}`, MontoEstimado:45000000, MontoAdjudicado:42300000, EmpresaAdjudicada:'Eikona SPA', RutAdjudicatario:'76.123.456-7', FechaAdjudicacion:`${anio}-06-15` },
+    { Nombre:`Compra EPP y equipamiento seguridad industrial faenas mineras`, NombreOrganismo:'ENAP Refinerías S.A.', NombreRegion:'Región del Biobío', CodigoExterno:`2345-6-LE${anio.slice(2)}`, MontoEstimado:18500000, MontoAdjudicado:17800000, EmpresaAdjudicada:'Vicsa Safety Chile Ltda.', RutAdjudicatario:'78.234.567-8', FechaAdjudicacion:`${anio}-04-20` },
+    { Nombre:`Vestuario de seguridad y calzado industrial para trabajadores`, NombreOrganismo:'MOP — Ministerio de Obras Públicas', NombreRegion:'Región Metropolitana', CodigoExterno:`3456-7-LP${anio.slice(2)}`, MontoEstimado:32000000, MontoAdjudicado:29900000, EmpresaAdjudicada:'Prosafety Ltda.', RutAdjudicatario:'77.345.678-9', FechaAdjudicacion:`${anio}-03-10` },
+    { Nombre:`Cascos, guantes y lentes de seguridad para obras viales`, NombreOrganismo:'Municipalidad de Antofagasta', NombreRegion:'Región de Antofagasta', CodigoExterno:`4567-8-L1${anio.slice(2)}`, MontoEstimado:2100000, MontoAdjudicado:1980000, EmpresaAdjudicada:'SafetyStore Chile', RutAdjudicatario:'76.456.789-0', FechaAdjudicacion:`${anio}-08-05` },
+  ];
 }
 
 function fetchMPEstado(fecha, estado) {
@@ -8280,7 +8405,7 @@ function renderTarjetaLicit(l) {
   const cierre  = l.FechaCierre ? new Date(l.FechaCierre).toLocaleDateString('es-CL') : '—';
   const monto   = l.MontoEstimado ? `$${Number(l.MontoEstimado).toLocaleString('es-CL')}` : 'Sin estimado';
   const tipo    = { L1:'L1 <100 UTM', LE:'LE 100-1000 UTM', LP:'LP >1000 UTM', LR:'LR', LS:'LS' }[l.Tipo] || l.Tipo || '—';
-  const url     = `https://www.mercadopublico.cl/Home/Busqueda?oc=false&s=${encodeURIComponent(nombre.substring(0,60))}`;
+  const url     = `https://www.mercadopublico.cl/Home`;
 
   // Días para cierre
   let diasCierre = '';
