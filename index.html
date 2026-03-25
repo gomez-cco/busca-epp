@@ -2371,7 +2371,6 @@
           <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
             <label style="font-size:.72rem;color:var(--muted);font-weight:600;">📅 AÑO:</label>
             <select id="historicoAnio" onchange="buscarHistorico()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;">
-              <option value="2026">2026 (actual)</option>
               <option value="2025">2025</option>
               <option value="2024" selected>2024</option>
               <option value="2023">2023</option>
@@ -7892,13 +7891,11 @@ async function buscarHistorico() {
   res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);">⏳ Buscando adjudicaciones en MercadoPublico...</div>';
 
   if (!MP_TICKET) {
-    const ejemplos = generarEjemplosHistorico(q, anio);
-    actualizarStatsHistorico(ejemplos, anio);
-    actualizarTablaOrganismos(ejemplos);
-    res.innerHTML = `
-      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--accent);margin-bottom:.8rem;">
-        ⚙️ Sin ticket API activo — mostrando datos de ejemplo
-      </div>` + ejemplos.map(l => renderTarjetaHistorico(l)).join('');
+    res.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:.8rem;">⚙️</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem;">Ticket API no configurado</div>
+      <div style="font-size:.8rem;color:var(--muted);">Contacta al administrador para activar el acceso al histórico de adjudicaciones.</div>
+    </div>`;
     return;
   }
 
@@ -7955,16 +7952,17 @@ async function buscarHistorico() {
 
   } catch(e) {
     console.error('Histórico API error:', e);
-    // Fallback a ejemplos
-    const ejemplos = generarEjemplosHistorico(q, anio);
-    actualizarStatsHistorico(ejemplos, anio);
-    actualizarTablaOrganismos(ejemplos);
     res.innerHTML = `
-      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--accent);margin-bottom:.8rem;">
-        ⚠️ No se pudo conectar con MercadoPublico en este momento — mostrando ejemplos
-      </div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">📋 Adjudicaciones — ${anio}</div>` +
-      ejemplos.map(l => renderTarjetaHistorico(l)).join('');
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:.8rem;">🔌</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem;">
+          Sin conexión con MercadoPublico
+        </div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">
+          La API puede estar momentáneamente no disponible.<br>Intenta de nuevo en unos minutos.
+        </div>
+        <button onclick="buscarHistorico()" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:.5rem 1.2rem;cursor:pointer;font-size:.82rem;">🔄 Reintentar</button>
+      </div>`;
   }
 }
 
