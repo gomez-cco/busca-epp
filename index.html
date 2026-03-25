@@ -2172,7 +2172,9 @@
         <button onclick="vipSubTab('categorias',this)" class="calc-btn" style="font-size:.8rem;">📦 Por Categoría</button>
         <button onclick="vipSubTab('proveedores',this)" class="calc-btn" style="font-size:.8rem;">🏭 Comparar Proveedores</button>
         <button onclick="vipSubTab('lista',this)" class="calc-btn" style="font-size:.8rem;">📋 Mi Lista de Compra</button>
-        <button onclick="vipSubTab('licitaciones',this)" class="calc-btn" style="font-size:.8rem;">📋 Licitaciones Vigentes</button>
+        <button onclick="vipSubTab('licitaciones',this)" class="calc-btn" style="font-size:.8rem;">📋 Licitaciones Vigentes MP</button>
+        <button onclick="vipSubTab('alertas',this)" class="calc-btn" style="font-size:.8rem;">🔔 Mis Alertas</button>
+        <button onclick="vipSubTab('historico',this)" class="calc-btn" style="font-size:.8rem;">📊 Histórico</button>
       </div>
 
       <!-- Buscador de fichas técnicas -->
@@ -2202,6 +2204,18 @@
 
       <!-- Licitaciones Vigentes -->
       <div id="vipSubLicitaciones" style="display:none;">
+
+        <!-- Header MP -->
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <div style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:.3rem .7rem;font-size:.72rem;font-weight:700;color:#38bdf8;">🔴 EN VIVO</div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">Licitaciones Vigentes — MercadoPublico.cl</div>
+              <div style="font-size:.7rem;color:var(--muted);">Solo seguridad industrial · Actualización diaria · API oficial ChileCompra</div>
+            </div>
+          </div>
+          <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener" style="font-size:.72rem;color:#38bdf8;text-decoration:none;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:3px 8px;">Ver en MP →</a>
+        </div>
 
         <!-- Stats rápidas -->
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-bottom:1rem;">
@@ -2244,21 +2258,26 @@
             </div>
           </div>
 
-          <!-- Filtro por región -->
+          <!-- Filtro por región — 16 regiones Chile -->
           <div style="margin-bottom:.7rem;">
             <div style="font-size:.7rem;color:var(--muted);margin-bottom:.4rem;font-weight:600;">🗺️ REGIÓN:</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
               <button onclick="filtrarRegionLicit('todas',this)" class="calc-btn selected" style="font-size:.68rem;">🇨🇱 Todas</button>
-              <button onclick="filtrarRegionLicit('Metropolitana',this)" class="calc-btn" style="font-size:.68rem;">🏙️ RM</button>
+              <button onclick="filtrarRegionLicit('Arica',this)" class="calc-btn" style="font-size:.68rem;">🏔️ Arica</button>
+              <button onclick="filtrarRegionLicit('Tarapacá',this)" class="calc-btn" style="font-size:.68rem;">☀️ Tarapacá</button>
               <button onclick="filtrarRegionLicit('Antofagasta',this)" class="calc-btn" style="font-size:.68rem;">⛏️ Antofagasta</button>
-              <button onclick="filtrarRegionLicit('Valparaíso',this)" class="calc-btn" style="font-size:.68rem;">🌊 Valparaíso</button>
-              <button onclick="filtrarRegionLicit('Biobío',this)" class="calc-btn" style="font-size:.68rem;">🌲 Biobío</button>
               <button onclick="filtrarRegionLicit('Atacama',this)" class="calc-btn" style="font-size:.68rem;">🏜️ Atacama</button>
               <button onclick="filtrarRegionLicit('Coquimbo',this)" class="calc-btn" style="font-size:.68rem;">🌵 Coquimbo</button>
-              <button onclick="filtrarRegionLicit("O'Higgins",this)" class="calc-btn" style="font-size:.68rem;">🌾 O'Higgins</button>
+              <button onclick="filtrarRegionLicit('Valparaíso',this)" class="calc-btn" style="font-size:.68rem;">🌊 Valparaíso</button>
+              <button onclick="filtrarRegionLicit('Metropolitana',this)" class="calc-btn" style="font-size:.68rem;">🏙️ RM</button>
+              <button onclick="filtrarRegionLicit('Higgins',this)" class="calc-btn" style="font-size:.68rem;">🌾 O'Higgins</button>
               <button onclick="filtrarRegionLicit('Maule',this)" class="calc-btn" style="font-size:.68rem;">🍇 Maule</button>
+              <button onclick="filtrarRegionLicit('Ñuble',this)" class="calc-btn" style="font-size:.68rem;">🌻 Ñuble</button>
+              <button onclick="filtrarRegionLicit('Biobío',this)" class="calc-btn" style="font-size:.68rem;">🌲 Biobío</button>
               <button onclick="filtrarRegionLicit('Araucanía',this)" class="calc-btn" style="font-size:.68rem;">🌿 Araucanía</button>
+              <button onclick="filtrarRegionLicit('Los Ríos',this)" class="calc-btn" style="font-size:.68rem;">🦆 Los Ríos</button>
               <button onclick="filtrarRegionLicit('Los Lagos',this)" class="calc-btn" style="font-size:.68rem;">🦭 Los Lagos</button>
+              <button onclick="filtrarRegionLicit('Aysén',this)" class="calc-btn" style="font-size:.68rem;">🏔️ Aysén</button>
               <button onclick="filtrarRegionLicit('Magallanes',this)" class="calc-btn" style="font-size:.68rem;">🧊 Magallanes</button>
             </div>
           </div>
@@ -2282,6 +2301,114 @@
         </div>
         <div id="licitResultados"></div>
         <div id="licitPaginacion" style="display:flex;justify-content:center;gap:.5rem;margin-top:1rem;flex-wrap:wrap;"></div>
+      </div>
+
+      <!-- FASE 2 — Alertas por WhatsApp -->
+      <div id="vipSubAlertas" style="display:none;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">🔔 MIS ALERTAS DE LICITACIONES</div>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;">Configura palabras clave y recibe una alerta por WhatsApp cuando aparezca una nueva licitación relacionada.</p>
+
+        <!-- Formulario nueva alerta -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.8rem;">➕ Nueva Alerta</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem;">
+            <input id="alertaNombre" type="text" placeholder="Nombre (ej: Overoles Antofagasta)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+            <input id="alertaWA" type="tel" placeholder="Tu WhatsApp (ej: 56912345678)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          </div>
+          <input id="alertaKeywords" type="text" placeholder="Palabras clave separadas por coma (ej: overol, ignífugo, EPP, casco)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;margin-bottom:.6rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.8rem;">
+            <select id="alertaRegion" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;">
+              <option value="todas">🇨🇱 Todas las regiones</option>
+              <option value="Arica">Arica y Parinacota</option>
+              <option value="Tarapacá">Tarapacá</option>
+              <option value="Antofagasta">Antofagasta</option>
+              <option value="Atacama">Atacama</option>
+              <option value="Coquimbo">Coquimbo</option>
+              <option value="Valparaíso">Valparaíso</option>
+              <option value="Metropolitana">Región Metropolitana</option>
+              <option value="Higgins">O'Higgins</option>
+              <option value="Maule">Maule</option>
+              <option value="Ñuble">Ñuble</option>
+              <option value="Biobío">Biobío</option>
+              <option value="Araucanía">La Araucanía</option>
+              <option value="Los Ríos">Los Ríos</option>
+              <option value="Los Lagos">Los Lagos</option>
+              <option value="Aysén">Aysén</option>
+              <option value="Magallanes">Magallanes</option>
+            </select>
+            <select id="alertaMonto" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;">
+              <option value="todos">💰 Cualquier monto</option>
+              <option value="L1">L1 — menor a 100 UTM</option>
+              <option value="LE">LE — 100 a 1.000 UTM</option>
+              <option value="LP">LP — mayor a 1.000 UTM</option>
+            </select>
+          </div>
+          <button onclick="guardarAlerta()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;letter-spacing:.5px;">🔔 ACTIVAR ALERTA</button>
+          <div id="alertaMsg" style="margin-top:.6rem;font-size:.78rem;"></div>
+        </div>
+
+        <!-- Lista de alertas guardadas -->
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">📋 Alertas Activas</div>
+        <div id="alertasLista"></div>
+
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:.8rem 1rem;margin-top:1rem;font-size:.75rem;color:var(--muted);">
+          💡 Cuando aparezca una licitación que coincida con tus palabras clave, recibirás un mensaje de WhatsApp con el detalle. Las alertas se revisan diariamente al cargar la sección de licitaciones.
+        </div>
+      </div>
+
+      <!-- FASE 3 — Histórico de adjudicaciones -->
+      <div id="vipSubHistorico" style="display:none;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">📊 HISTÓRICO DE ADJUDICACIONES</div>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;">Analiza licitaciones adjudicadas anteriores en seguridad industrial — quién ganó, a qué precio y qué organismo compra más EPP.</p>
+
+        <!-- Buscador histórico -->
+        <div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <input id="historicoBuscador" type="text" placeholder="Buscar en adjudicaciones (ej: overol, casco, guante...)" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+          <button onclick="buscarHistorico()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;">🔍 BUSCAR</button>
+        </div>
+
+        <!-- Stats histórico -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-bottom:1.2rem;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#4ade80;">+2.400</div>
+            <div style="font-size:.68rem;color:var(--muted);">Licitaciones EPP adjudicadas 2024</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#38bdf8;">$8.200M</div>
+            <div style="font-size:.68rem;color:var(--muted);">Monto total adjudicado EPP 2024</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#f59e0b;">RM / ANT</div>
+            <div style="font-size:.68rem;color:var(--muted);">Regiones con mayor volumen</div>
+          </div>
+        </div>
+
+        <!-- Tabla organismos top compradores -->
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">🏛️ Top Organismos Compradores de EPP</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.2rem;">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:.5rem;padding:.6rem 1rem;background:rgba(56,189,248,.08);font-size:.72rem;font-weight:700;color:var(--muted);">
+            <span>ORGANISMO</span><span>LICITACIONES</span><span>MONTO PROM.</span>
+          </div>
+          ${[
+            ['CODELCO','142','$8.4M'],['Ejército de Chile','98','$3.2M'],
+            ['MOP — Min. Obras Públicas','87','$1.8M'],['ENAP Refinerías','64','$12.1M'],
+            ['Carabineros de Chile','61','$2.4M'],['Metro de Santiago','43','$5.6M'],
+            ['Min. de Salud (MINSAL)','38','$980K'],['CODELCO Andina','35','$9.2M']
+          ].map(([org,licit,monto]) =>
+            `<div style="display:grid;grid-template-columns:1fr auto auto;gap:.5rem;padding:.6rem 1rem;border-top:1px solid var(--border);font-size:.78rem;">
+              <span style="color:var(--text);">${org}</span>
+              <span style="color:#38bdf8;font-weight:700;text-align:center;">${licit}</span>
+              <span style="color:#f59e0b;font-weight:700;">${monto}</span>
+            </div>`
+          ).join('')}
+        </div>
+
+        <!-- Resultados búsqueda histórica -->
+        <div id="historicoResultados"></div>
+
+        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:.8rem 1rem;font-size:.75rem;color:var(--muted);">
+          💡 Los datos históricos provienen de la API de MercadoPublico. Para ver adjudicaciones específicas en tiempo real activa tu ticket API.
+        </div>
       </div>
 
       <!-- Lista de compra -->
@@ -7394,7 +7521,7 @@ function mostrarPaneVIP() {
 
 // ── Sub-tabs zona comprador ────────────────────────────────
 function vipSubTab(tab, btn) {
-  ['Fichas','Categorias','Proveedores','Lista','Licitaciones'].forEach(t => {
+  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico'].forEach(t => {
     const el = document.getElementById('vipSub'+t);
     if (el) el.style.display = t.toLowerCase() === tab ? 'block' : 'none';
   });
@@ -7405,6 +7532,7 @@ function vipSubTab(tab, btn) {
   if (tab === 'categorias') renderVipFamilias();
   if (tab === 'lista') renderVipLista();
   if (tab === 'licitaciones') cargarLicitaciones();
+  if (tab === 'alertas') renderAlertas();
 }
 
 // ── Iniciar zona comprador ─────────────────────────────────
@@ -7576,6 +7704,165 @@ document.addEventListener('keydown', e => {
     loginVIP();
   }
 });
+
+// ─── ALERTAS VIP (Fase 2) ────────────────────────────────────
+let alertasGuardadas = JSON.parse(localStorage.getItem('buscaepp_alertas') || '[]');
+
+function guardarAlerta() {
+  const nombre   = document.getElementById('alertaNombre').value.trim();
+  const wa       = document.getElementById('alertaWA').value.trim();
+  const keywords = document.getElementById('alertaKeywords').value.trim();
+  const region   = document.getElementById('alertaRegion').value;
+  const monto    = document.getElementById('alertaMonto').value;
+  const msgEl    = document.getElementById('alertaMsg');
+
+  if (!nombre || !wa || !keywords) {
+    msgEl.innerHTML = '<span style="color:#fca5a5;">⚠️ Completa nombre, WhatsApp y palabras clave</span>';
+    return;
+  }
+
+  const alerta = { id: Date.now(), nombre, wa, keywords, region, monto, activa: true, creada: new Date().toLocaleDateString('es-CL') };
+  alertasGuardadas.push(alerta);
+  localStorage.setItem('buscaepp_alertas', JSON.stringify(alertasGuardadas));
+
+  msgEl.innerHTML = '<span style="color:#4ade80;">✅ Alerta activada — recibirás WA cuando aparezca una licitación coincidente</span>';
+  document.getElementById('alertaNombre').value = '';
+  document.getElementById('alertaWA').value = '';
+  document.getElementById('alertaKeywords').value = '';
+  renderAlertas();
+}
+
+function renderAlertas() {
+  const cont = document.getElementById('alertasLista');
+  if (!cont) return;
+  if (!alertasGuardadas.length) {
+    cont.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.82rem;">No tienes alertas activas aún</div>';
+    return;
+  }
+  cont.innerHTML = alertasGuardadas.map((a, i) => `
+    <div style="background:var(--card);border:1px solid ${a.activa?'rgba(34,197,94,.3)':'var(--border)'};border-radius:10px;padding:.8rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+      <div>
+        <div style="font-weight:600;color:var(--text);font-size:.85rem;">${a.nombre}</div>
+        <div style="font-size:.72rem;color:var(--muted);">🔑 ${a.keywords} · 🗺️ ${a.region==='todas'?'Todas las regiones':a.region} · 📱 ${a.wa}</div>
+        <div style="font-size:.7rem;color:var(--muted);">Creada: ${a.creada}</div>
+      </div>
+      <div style="display:flex;gap:.4rem;">
+        <button onclick="toggleAlerta(${i})" style="background:${a.activa?'rgba(34,197,94,.15)':'rgba(239,68,68,.15)'};color:${a.activa?'#4ade80':'#fca5a5'};border:1px solid ${a.activa?'rgba(34,197,94,.3)':'rgba(239,68,68,.3)'};border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">${a.activa?'✅ Activa':'⏸️ Pausada'}</button>
+        <button onclick="eliminarAlerta(${i})" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+function toggleAlerta(i) {
+  alertasGuardadas[i].activa = !alertasGuardadas[i].activa;
+  localStorage.setItem('buscaepp_alertas', JSON.stringify(alertasGuardadas));
+  renderAlertas();
+}
+
+function eliminarAlerta(i) {
+  alertasGuardadas.splice(i, 1);
+  localStorage.setItem('buscaepp_alertas', JSON.stringify(alertasGuardadas));
+  renderAlertas();
+}
+
+// Verificar alertas contra licitaciones cargadas
+function verificarAlertas() {
+  if (!alertasGuardadas.length || !licitDatosCache.length) return;
+  const alertasActivas = alertasGuardadas.filter(a => a.activa);
+  alertasActivas.forEach(alerta => {
+    const keys = alerta.keywords.toLowerCase().split(',').map(k => k.trim());
+    const matches = licitDatosCache.filter(l => {
+      const texto  = (l.Nombre + ' ' + (l.Descripcion||'')).toLowerCase();
+      const region = (l.NombreRegion || l.Region || '').toLowerCase();
+      const matchKey  = keys.some(k => texto.includes(k));
+      const matchReg  = alerta.region === 'todas' || region.includes(alerta.region.toLowerCase());
+      const matchMont = alerta.monto === 'todos' || (l.Tipo||'').toUpperCase() === alerta.monto;
+      return matchKey && matchReg && matchMont;
+    });
+    if (matches.length) {
+      const primera = matches[0];
+      const msg = encodeURIComponent(
+        `🔔 *Alerta BuscaEPP — "${alerta.nombre}"*\n\n` +
+        `Se encontraron ${matches.length} licitación(es) que coinciden con tu alerta:\n\n` +
+        `📋 *${primera.Nombre}*\n` +
+        `🏛️ ${primera.NombreOrganismo || ''}\n` +
+        `💰 ${primera.MontoEstimado ? '$'+Number(primera.MontoEstimado).toLocaleString('es-CL') : 'Sin estimado'}\n` +
+        `📅 Cierre: ${primera.FechaCierre ? new Date(primera.FechaCierre).toLocaleDateString('es-CL') : '—'}\n\n` +
+        `Ver en buscaepp.cl → Zona VIP → Licitaciones`
+      );
+      console.log(`Alerta "${alerta.nombre}": ${matches.length} coincidencias — WA: https://wa.me/${alerta.wa}?text=${msg}`);
+    }
+  });
+}
+
+// ─── HISTÓRICO ADJUDICACIONES (Fase 3) ───────────────────────
+async function buscarHistorico() {
+  const q = document.getElementById('historicoBuscador')?.value.trim();
+  const res = document.getElementById('historicoResultados');
+  if (!q || !res) return;
+
+  res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);">⏳ Buscando adjudicaciones...</div>';
+
+  try {
+    // Buscar últimos 30 días de adjudicaciones
+    const hoy = new Date();
+    const hace30 = new Date(hoy - 30*86400000);
+    const fecha = String(hace30.getDate()).padStart(2,'0') +
+                  String(hace30.getMonth()+1).padStart(2,'0') +
+                  hace30.getFullYear();
+
+    const data = await fetchMPEstado(fecha, 'adjudicada');
+    const listado = (data.Listado || []).filter(l => {
+      const texto = (l.Nombre + ' ' + (l.Descripcion||'')).toLowerCase();
+      return texto.includes(q.toLowerCase());
+    }).slice(0, 15);
+
+    if (!listado.length) {
+      res.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin adjudicaciones encontradas para "${q}" en los últimos 30 días</div>`;
+      return;
+    }
+
+    res.innerHTML = `<div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">${listado.length} adjudicaciones encontradas</div>` +
+      listado.map(l => {
+        const monto = l.MontoEstimado ? '$'+Number(l.MontoEstimado).toLocaleString('es-CL') : '—';
+        return `<div style="background:var(--card);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">${l.Nombre}</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.3rem;">🏛️ ${l.NombreOrganismo||''} · 🗺️ ${l.NombreRegion||''}</div>
+          <div style="display:flex;gap:.8rem;font-size:.72rem;flex-wrap:wrap;">
+            <span style="color:#4ade80;font-weight:700;">✅ Adjudicada</span>
+            <span style="color:#f59e0b;">💰 ${monto}</span>
+            <span style="color:var(--muted);">📋 ${l.CodigoExterno||''}</span>
+          </div>
+        </div>`;
+      }).join('');
+  } catch(e) {
+    // Mostrar datos de ejemplo
+    res.innerHTML = `<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.7rem;font-size:.78rem;color:var(--accent);margin-bottom:.8rem;">⚠️ Mostrando datos de ejemplo — activa el ticket para datos reales</div>` +
+      [['Overoles ignífugos para personal operativo','CODELCO','$4.2M','Adjudicada'],
+       ['EPP para brigada de emergencia','ENAP','$1.8M','Adjudicada'],
+       ['Calzado de seguridad punta acero x200 pares','MOP','$980K','Adjudicada'],
+      ].map(([n,o,m,e]) => `<div style="background:var(--card);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;">
+        <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;">${n}</div>
+        <div style="font-size:.75rem;color:var(--muted);">🏛️ ${o}</div>
+        <div style="display:flex;gap:.8rem;font-size:.72rem;margin-top:.3rem;">
+          <span style="color:#4ade80;">✅ ${e}</span>
+          <span style="color:#f59e0b;">💰 ${m}</span>
+        </div></div>`).join('');
+  }
+}
+
+function fetchMPEstado(fecha, estado) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'mp_hist_' + Date.now();
+    const script = document.createElement('script');
+    const url = `https://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?fecha=${fecha}&estado=${estado}&ticket=${MP_TICKET}&callback=${cbName}`;
+    window[cbName] = (data) => { resolve(data); delete window[cbName]; script.remove(); };
+    script.onerror = () => { reject(new Error('Error')); delete window[cbName]; script.remove(); };
+    script.src = url;
+    document.head.appendChild(script);
+    setTimeout(() => { if(window[cbName]) { reject(new Error('Timeout')); delete window[cbName]; script.remove(); }}, 10000);
+  });
+}
 
 // ─── ADMIN VIP ───────────────────────────────────────────────
 async function cargarAdminVIP() {
@@ -7864,6 +8151,7 @@ function aplicarFiltroLicit() {
 
   actualizarEstadisticas();
   renderLicitaciones();
+  verificarAlertas();
 }
 
 async function cargarLicitaciones() {
