@@ -8280,7 +8280,7 @@ function renderTarjetaLicit(l) {
   const cierre  = l.FechaCierre ? new Date(l.FechaCierre).toLocaleDateString('es-CL') : '—';
   const monto   = l.MontoEstimado ? `$${Number(l.MontoEstimado).toLocaleString('es-CL')}` : 'Sin estimado';
   const tipo    = { L1:'L1 <100 UTM', LE:'LE 100-1000 UTM', LP:'LP >1000 UTM', LR:'LR', LS:'LS' }[l.Tipo] || l.Tipo || '—';
-  const url     = `https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=${codigo}`;
+  const url     = `https://www.mercadopublico.cl/Home/Busqueda?oc=false&s=${encodeURIComponent(nombre.substring(0,60))}`;
 
   // Días para cierre
   let diasCierre = '';
