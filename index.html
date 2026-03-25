@@ -2364,8 +2364,9 @@
         <!-- Buscador histórico + filtros -->
         <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;">
           <div style="display:flex;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap;">
-            <input id="historicoBuscador" type="text" placeholder="Buscar adjudicaciones (ej: overol, casco, guante, ignífugo...)" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            <input id="historicoBuscador" type="text" placeholder="Buscar adjudicaciones (ej: overol, casco, guante, ignífugo...)" onkeydown="if(event.key==='Enter') buscarHistorico()" style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
             <button onclick="buscarHistorico()" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;">🔍 BUSCAR</button>
+            <button id="historicoBtnLimpiar" onclick="limpiarHistorico()" style="display:none;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.6rem 1rem;cursor:pointer;font-size:.82rem;font-family:'DM Sans',sans-serif;">✕ Limpiar</button>
           </div>
           <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
             <label style="font-size:.72rem;color:var(--muted);font-weight:600;">📅 AÑO:</label>
@@ -2551,63 +2552,110 @@
 
       <!-- ── PORTALES ── -->
       <div id="provSubPortales" style="display:none;">
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
+
+        <!-- Buscador SEIA inteligente -->
+        <div style="background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(34,197,94,.03));border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:1.2rem;margin-bottom:1.2rem;">
+          <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;flex-wrap:wrap;">
+            <span style="font-size:1.5rem;">🌿</span>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:1rem;">SEIA — Servicio de Evaluación Ambiental</div>
+              <div style="font-size:.72rem;color:var(--muted);">Proyectos industriales en evaluación → donde habrá demanda de EPP especializado</div>
+            </div>
+          </div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem;">🎯 Busca proyectos por industria — cada proyecto aprobado implica compras masivas de EPP:</div>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem;">
+            <button onclick="abrirSEIA('mineria')" class="calc-btn" style="font-size:.72rem;">⛏️ Minería</button>
+            <button onclick="abrirSEIA('energia')" class="calc-btn" style="font-size:.72rem;">⚡ Energía</button>
+            <button onclick="abrirSEIA('construccion')" class="calc-btn" style="font-size:.72rem;">🏗️ Construcción</button>
+            <button onclick="abrirSEIA('industria')" class="calc-btn" style="font-size:.72rem;">🏭 Industria</button>
+            <button onclick="abrirSEIA('petroleo')" class="calc-btn" style="font-size:.72rem;">⛽ Petróleo y Gas</button>
+            <button onclick="abrirSEIA('forestal')" class="calc-btn" style="font-size:.72rem;">🌲 Forestal</button>
+            <button onclick="abrirSEIA('puertos')" class="calc-btn" style="font-size:.72rem;">⚓ Puertos</button>
+            <button onclick="abrirSEIA('acuicultura')" class="calc-btn" style="font-size:.72rem;">🐟 Acuicultura</button>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <a href="https://seia.sea.gob.cl/busqueda/buscarProyecto.php" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:700;text-decoration:none;">🔍 Buscador avanzado SEIA →</a>
+            <a href="https://sig.sea.gob.cl/mapadeproyectos/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.08);color:#4ade80;border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;text-decoration:none;">🗺️ Mapa de proyectos →</a>
+          </div>
+        </div>
+
+        <!-- Portales principales -->
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.7rem;letter-spacing:.5px;">PORTALES DE LICITACIONES</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin-bottom:1.2rem;">
 
           <a href="https://www.mercadopublico.cl/Home" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
-              <div style="font-size:1.8rem;margin-bottom:.5rem;">🛒</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">MercadoPublico.cl</div>
-              <div style="font-size:.75rem;color:var(--muted);">Plataforma oficial de compras del Estado. Más de 1.000 organismos públicos compradores.</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:#38bdf8;">Ver licitaciones vigentes →</div>
+            <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">
+                <span style="font-size:1.3rem;">🛒</span>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);">MercadoPublico.cl</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">+1.000 organismos del Estado. La fuente principal de licitaciones públicas en Chile.</div>
+              <div style="font-size:.7rem;color:#38bdf8;">Ver licitaciones vigentes →</div>
             </div>
           </a>
 
-          <a href="https://www.sea.gob.cl/sea/participa/licitaciones" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div style="background:var(--card);border:1px solid rgba(34,197,94,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(34,197,94,.6)'" onmouseout="this.style.borderColor='rgba(34,197,94,.3)'">
-              <div style="font-size:1.8rem;margin-bottom:.5rem;">🌿</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">SEA Chile</div>
-              <div style="font-size:.75rem;color:var(--muted);">Servicio de Evaluación Ambiental. Licitaciones para proyectos con componente ambiental y seguridad.</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;">Ver licitaciones →</div>
-            </div>
-          </a>
-
-          <a href="https://www.codelco.com/proveedores/prontus_codelco/2011-07-22/115919.html" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div style="background:var(--card);border:1px solid rgba(251,191,36,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(251,191,36,.6)'" onmouseout="this.style.borderColor='rgba(251,191,36,.3)'">
-              <div style="font-size:1.8rem;margin-bottom:.5rem;">⛏️</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">Codelco Proveedores</div>
-              <div style="font-size:.75rem;color:var(--muted);">Portal de licitaciones de Codelco. Alto consumo de EPP y ropa de seguridad industrial.</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:#fbbf24;">Ver oportunidades →</div>
+          <a href="https://www.codelco.com/proveedores/licitaciones-publicas-de-bienes-y-servicios" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(251,191,36,.3);border-radius:12px;padding:1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(251,191,36,.6)'" onmouseout="this.style.borderColor='rgba(251,191,36,.3)'">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">
+                <span style="font-size:1.3rem;">⛏️</span>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);">Codelco</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Licitaciones públicas corporativas y divisionales de EPP y ropa de seguridad minera.</div>
+              <div style="font-size:.7rem;color:#fbbf24;">Ver licitaciones →</div>
             </div>
           </a>
 
           <a href="https://www.enap.cl/proveedores" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div style="background:var(--card);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(168,85,247,.6)'" onmouseout="this.style.borderColor='rgba(168,85,247,.3)'">
-              <div style="font-size:1.8rem;margin-bottom:.5rem;">⛽</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">ENAP Proveedores</div>
-              <div style="font-size:.75rem;color:var(--muted);">Empresa Nacional del Petróleo. Requiere EPP especializado: ignífugo, antiestático, petroquímica.</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:#c084fc;">Ver oportunidades →</div>
+            <div style="background:var(--card);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(168,85,247,.6)'" onmouseout="this.style.borderColor='rgba(168,85,247,.3)'">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">
+                <span style="font-size:1.3rem;">⛽</span>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);">ENAP</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Empresa Nacional del Petróleo. EPP ignífugo, antiestático y petroquímica.</div>
+              <div style="font-size:.7rem;color:#c084fc;">Ver proveedores →</div>
             </div>
           </a>
 
           <a href="https://proveedores.metro.cl" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div style="background:var(--card);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(239,68,68,.6)'" onmouseout="this.style.borderColor='rgba(239,68,68,.3)'">
-              <div style="font-size:1.8rem;margin-bottom:.5rem;">🚇</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">Metro de Santiago</div>
-              <div style="font-size:.75rem;color:var(--muted);">Licitaciones Metro S.A. Requiere EPP eléctrico, ropa de trabajo y seguridad en altura.</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:#fca5a5;">Ver oportunidades →</div>
+            <div style="background:var(--card);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(239,68,68,.6)'" onmouseout="this.style.borderColor='rgba(239,68,68,.3)'">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">
+                <span style="font-size:1.3rem;">🚇</span>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);">Metro de Santiago</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">EPP eléctrico, ropa de trabajo y seguridad en altura.</div>
+              <div style="font-size:.7rem;color:#fca5a5;">Ver oportunidades →</div>
             </div>
           </a>
 
-          <a href="https://www.mercadopublico.cl/Home" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1.2rem;transition:all .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
-              <div style="font-size:1.8rem;margin-bottom:.5rem;">🔍</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);margin-bottom:.3rem;">MP — Seguridad Industrial</div>
-              <div style="font-size:.75rem;color:var(--muted);">Búsqueda directa en MercadoPublico filtrando "seguridad industrial" en todas las licitaciones.</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:#38bdf8;">Buscar ahora →</div>
+          <a href="https://licitaciones-dgop.mop.gob.cl/" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(56,189,248,.6)'" onmouseout="this.style.borderColor='rgba(56,189,248,.3)'">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">
+                <span style="font-size:1.3rem;">🏗️</span>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);">MOP — Obras Públicas</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Visor de licitaciones DGOP. Aeropuertos, puertos, hidráulica y arquitectura.</div>
+              <div style="font-size:.7rem;color:#38bdf8;">Ver visor →</div>
+            </div>
+          </a>
+
+          <a href="https://www.rednegocios.cl" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div style="background:var(--card);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:1rem;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(245,158,11,.6)'" onmouseout="this.style.borderColor='rgba(245,158,11,.3)'">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">
+                <span style="font-size:1.3rem;">🤝</span>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);">RedNegocios CCS</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Registro de proveedores Cámara de Comercio. Requerido para ser proveedor de Codelco.</div>
+              <div style="font-size:.7rem;color:#f59e0b;">Registrarse →</div>
             </div>
           </a>
 
         </div>
+
+        <!-- Nota informativa -->
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:10px;padding:.8rem 1rem;font-size:.75rem;color:var(--muted);">
+          💡 <strong style="color:var(--text);">Tip:</strong> MercadoPublico es obligatorio para todos los organismos del Estado (Ley 19.886). Codelco, ENAP y Metro tienen portales propios ya que son empresas públicas excluidas de esa ley.
+        </div>
+
       </div>
 
     </div><!-- /zonaProveedor -->
@@ -7829,26 +7877,54 @@ async function buscarHistorico() {
   const anio   = document.getElementById('historicoAnio')?.value || '2024';
   const region = document.getElementById('historicoRegion')?.value || 'todas';
   const res    = document.getElementById('historicoResultados');
+  const btnLimpiar = document.getElementById('historicoBtnLimpiar');
   if (!res) return;
 
   if (!q) {
     res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.82rem;">Ingresa un término para buscar adjudicaciones</div>';
+    if (btnLimpiar) btnLimpiar.style.display = 'none';
     return;
   }
 
-  res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);">⏳ Buscando adjudicaciones...</div>';
+  // Mostrar botón limpiar
+  if (btnLimpiar) btnLimpiar.style.display = 'inline-flex';
+
+  res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);">⏳ Buscando adjudicaciones en MercadoPublico...</div>';
+
+  if (!MP_TICKET) {
+    const ejemplos = generarEjemplosHistorico(q, anio);
+    actualizarStatsHistorico(ejemplos, anio);
+    actualizarTablaOrganismos(ejemplos);
+    res.innerHTML = `
+      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--accent);margin-bottom:.8rem;">
+        ⚙️ Sin ticket API activo — mostrando datos de ejemplo
+      </div>` + ejemplos.map(l => renderTarjetaHistorico(l)).join('');
+    return;
+  }
 
   try {
-    // Buscar desde enero del año seleccionado
+    // Usar JSONP (igual que licitaciones vigentes) para evitar CORS
     const fecha = `0101${anio}`;
-    const data  = await fetchMPEstado(fecha, 'adjudicada');
-    let listado = (data.Listado || []);
-
-    // Filtrar por término
-    listado = listado.filter(l => {
-      const texto = (l.Nombre + ' ' + (l.Descripcion||'')).toLowerCase();
-      return texto.includes(q.toLowerCase());
+    const data  = await new Promise((resolve, reject) => {
+      const cbName = 'mp_hist_' + Date.now();
+      const script = document.createElement('script');
+      const url = `https://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?fecha=${fecha}&estado=adjudicada&ticket=${MP_TICKET}&callback=${cbName}`;
+      window[cbName] = (d) => { resolve(d); delete window[cbName]; script.remove(); };
+      script.onerror = () => { reject(new Error('Error JSONP')); delete window[cbName]; script.remove(); };
+      script.src = url;
+      document.head.appendChild(script);
+      setTimeout(() => { if(window[cbName]) { reject(new Error('Timeout')); delete window[cbName]; script.remove(); }}, 12000);
     });
+
+    let listado = (data.Listado || data.listado || []);
+
+    // Filtrar por término de búsqueda
+    if (q) {
+      listado = listado.filter(l => {
+        const texto = (l.Nombre + ' ' + (l.Descripcion||'')).toLowerCase();
+        return texto.includes(q.toLowerCase());
+      });
+    }
 
     // Filtrar por región
     if (region !== 'todas') {
@@ -7862,29 +7938,51 @@ async function buscarHistorico() {
     actualizarTablaOrganismos(listado);
 
     if (!listado.length) {
-      res.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin adjudicaciones para "${q}" en ${anio}${region!=='todas'?' — '+region:''}</div>`;
+      res.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);">
+        <div style="font-size:1.5rem;margin-bottom:.5rem;">📭</div>
+        Sin adjudicaciones para "<strong>${q}</strong>" en ${anio}${region!=='todas'?' — '+region:''}.<br>
+        <span style="font-size:.78rem;">Prueba con otro término o cambia el año.</span>
+      </div>`;
       return;
     }
 
     res.innerHTML = `
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">
-        📋 Adjudicaciones encontradas — ${anio}
-        <span style="font-size:.72rem;font-weight:400;color:var(--muted);margin-left:.5rem;">${listado.length} resultados</span>
+        📋 Adjudicaciones — ${anio}
+        <span style="font-size:.72rem;font-weight:400;color:var(--muted);margin-left:.5rem;">${listado.length} resultados para "${q}"</span>
       </div>` +
       listado.map(l => renderTarjetaHistorico(l)).join('');
 
   } catch(e) {
-    // Datos de ejemplo con empresa adjudicada
+    console.error('Histórico API error:', e);
+    // Fallback a ejemplos
     const ejemplos = generarEjemplosHistorico(q, anio);
     actualizarStatsHistorico(ejemplos, anio);
     actualizarTablaOrganismos(ejemplos);
     res.innerHTML = `
       <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--accent);margin-bottom:.8rem;">
-        ⚠️ Mostrando datos de ejemplo — los datos reales requieren conexión a la API
+        ⚠️ No se pudo conectar con MercadoPublico en este momento — mostrando ejemplos
       </div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">📋 Adjudicaciones — ${anio}</div>` +
       ejemplos.map(l => renderTarjetaHistorico(l)).join('');
   }
+}
+
+function limpiarHistorico() {
+  const buscador = document.getElementById('historicoBuscador');
+  const res      = document.getElementById('historicoResultados');
+  const btn      = document.getElementById('historicoBtnLimpiar');
+  if (buscador) buscador.value = '';
+  if (res) res.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.82rem;">Ingresa un término para buscar adjudicaciones</div>';
+  if (btn) btn.style.display = 'none';
+  // Resetear stats
+  ['histStatTotal','histStatMonto','histStatProm','histStatGanador'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '—';
+  });
+  const tabla = document.getElementById('histTablaOrganismos');
+  if (tabla) tabla.innerHTML = '<div style="padding:.8rem 1rem;font-size:.78rem;color:var(--muted);text-align:center;">Realiza una búsqueda para ver los organismos compradores</div>';
+  if (buscador) buscador.focus();
 }
 
 function renderTarjetaHistorico(l) {
@@ -7987,6 +8085,22 @@ function fetchMPEstado(fecha, estado) {
     document.head.appendChild(script);
     setTimeout(() => { if(window[cbName]) { reject(new Error('Timeout')); delete window[cbName]; script.remove(); }}, 10000);
   });
+}
+
+// ─── SEIA — Búsquedas preconfiguradas ───────────────────────
+function abrirSEIA(industria) {
+  const params = {
+    mineria:      'nombre_proyecto=mineria&tipo_expediente=1',
+    energia:      'nombre_proyecto=energia&tipo_expediente=1',
+    construccion: 'nombre_proyecto=construccion&tipo_expediente=1',
+    industria:    'nombre_proyecto=industrial&tipo_expediente=1',
+    petroleo:     'nombre_proyecto=petroleo&tipo_expediente=1',
+    forestal:     'nombre_proyecto=forestal&tipo_expediente=1',
+    puertos:      'nombre_proyecto=puerto&tipo_expediente=1',
+    acuicultura:  'nombre_proyecto=acuicultura&tipo_expediente=1',
+  };
+  const q = params[industria] || 'nombre_proyecto=industria';
+  window.open(`https://seia.sea.gob.cl/busqueda/buscarProyectoAction.php?${q}&estado_expediente=APROBADO`, '_blank');
 }
 
 // ─── ADMIN VIP ───────────────────────────────────────────────
