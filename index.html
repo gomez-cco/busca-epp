@@ -8208,6 +8208,7 @@ function fetchMPEstado(fecha, estado) {
 }
 
 // ─── AGENTE JONÁS ────────────────────────────────────────────
+const JONAS_API_KEY = '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';
 const JONAS_SYSTEM = `Eres Jonás, un experto en prevención de riesgos laborales chileno con los siguientes títulos y especialidades:
 - Prevencionista de Riesgos titulado (ACHS, IST, Mutual de Seguridad)
 - Diplomado en Seguridad Minera SERNAGEOMIN
@@ -8288,6 +8289,8 @@ async function jonasPreguntar(pregunta) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-api-key': JONAS_API_KEY,
+        'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
@@ -8348,6 +8351,8 @@ async function jonasVerificarCambios() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-api-key': JONAS_API_KEY,
+        'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
