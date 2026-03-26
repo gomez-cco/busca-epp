@@ -729,6 +729,10 @@
   }
   .product-card:hover .card-cta { background:var(--accent); color:#000; border-color:var(--accent); }
   .card-prov-count { font-size:.75rem; font-weight:400; opacity:.8; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(.7); }
+  }
 </style>
 
   <!-- ═══ FIREBASE SDK ═══════════════════════════════════════ -->
@@ -2175,6 +2179,7 @@
         <button onclick="vipSubTab('licitaciones',this)" class="calc-btn" style="font-size:.8rem;">📋 Licitaciones Vigentes MP</button>
         <button onclick="vipSubTab('alertas',this)" class="calc-btn" style="font-size:.8rem;">🔔 Mis Alertas</button>
         <button onclick="vipSubTab('historico',this)" class="calc-btn" style="font-size:.8rem;">📊 Histórico</button>
+        <button onclick="vipSubTab('jonas',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(56,189,248,.1));border-color:rgba(168,85,247,.4);color:#c084fc;">🧠 Agente Jonás</button>
       </div>
 
       <!-- Buscador de fichas técnicas -->
@@ -2437,6 +2442,76 @@
         <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:.8rem 1rem;font-size:.75rem;color:var(--muted);">
           💡 Datos de adjudicaciones reales desde la API oficial de MercadoPublico. Incluye empresa ganadora y monto adjudicado cuando está disponible.
         </div>
+      </div>
+
+      <!-- AGENTE JONÁS -->
+      <div id="vipSubJonas" style="display:none;">
+
+        <!-- Header Jonás -->
+        <div style="background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(56,189,248,.06));border:1px solid rgba(168,85,247,.3);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+            <div style="background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:12px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">🧠</div>
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.2rem;">
+                <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);">AGENTE JONÁS</span>
+                <span style="font-size:.65rem;background:rgba(168,85,247,.2);color:#c084fc;border:1px solid rgba(168,85,247,.3);border-radius:20px;padding:2px 8px;font-weight:700;">IA EXPERTO EN PREVENCIÓN</span>
+                <span id="jonasStatusBadge" style="font-size:.65rem;background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:2px 8px;">● En línea</span>
+              </div>
+              <div style="font-size:.75rem;color:var(--muted);">Prevencionista titulado · Diplomado SERNAGEOMIN · Diplomado Higiene Ambiental</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Monitorea DS 594 · DS 40 · NCh · Resoluciones SERNAGEOMIN · Matrices EPP</div>
+            </div>
+            <button onclick="jonasVerificarCambios()" id="jonasBtnVerificar" style="background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.5px;white-space:nowrap;">
+              📡 Verificar cambios
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel de novedades normativas -->
+        <div id="jonasNovedades" style="margin-bottom:1.2rem;"></div>
+
+        <!-- Chat con Jonás -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <div style="padding:.8rem 1rem;background:rgba(168,85,247,.08);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;">
+            <span style="font-size:1rem;">💬</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);">Consulta a Jonás</span>
+            <span style="font-size:.7rem;color:var(--muted);margin-left:.3rem;">Hazle cualquier pregunta sobre normativa, EPP o seguridad industrial</span>
+          </div>
+
+          <!-- Historial de conversación -->
+          <div id="jonasChat" style="height:340px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.8rem;">
+            <div style="display:flex;gap:.6rem;align-items:flex-start;">
+              <div style="background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;">🧠</div>
+              <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:0 10px 10px 10px;padding:.7rem .9rem;max-width:85%;">
+                <div style="font-size:.82rem;color:var(--text);line-height:1.5;">Hola, soy <strong>Jonás</strong> 👋 Soy tu experto en prevención de riesgos, normativa chilena y EPP. Puedo ayudarte con:</div>
+                <div style="font-size:.78rem;color:var(--muted);margin-top:.5rem;line-height:1.6;">
+                  📋 DS 594, DS 40, reglamentos SERNAGEOMIN<br>
+                  🛡️ Matrices de riesgo por puesto de trabajo<br>
+                  🥽 Selección y aplicación correcta de EPP<br>
+                  📐 Normas NCh vigentes para seguridad industrial<br>
+                  🔍 Verificación de cambios normativos recientes
+                </div>
+                <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem;">¿En qué te puedo ayudar hoy?</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preguntas rápidas sugeridas -->
+          <div style="padding:.6rem 1rem;border-top:1px solid var(--border);display:flex;gap:.4rem;flex-wrap:wrap;background:rgba(0,0,0,.02);">
+            <span style="font-size:.68rem;color:var(--muted);align-self:center;">Preguntas rápidas:</span>
+            <button onclick="jonasPreguntar('¿Qué EPP requiere el DS 594 para trabajos en altura?')" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">Trabajo en altura</button>
+            <button onclick="jonasPreguntar('¿Cuál es la matriz de riesgo para soldadores en faena minera?')" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">Soldadores minería</button>
+            <button onclick="jonasPreguntar('¿Ha habido cambios recientes en normas NCh de EPP?')" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">Cambios NCh</button>
+            <button onclick="jonasPreguntar('¿Qué dice el DS 594 sobre protección auditiva?')" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">DS 594 auditiva</button>
+            <button onclick="jonasPreguntar('¿Qué EPP exige SERNAGEOMIN para trabajos subterráneos?')" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">SERNAGEOMIN subterráneo</button>
+          </div>
+
+          <!-- Input de mensaje -->
+          <div style="padding:.8rem 1rem;border-top:1px solid var(--border);display:flex;gap:.5rem;">
+            <input id="jonasInput" type="text" placeholder="Escribe tu pregunta a Jonás..." onkeydown="if(event.key==='Enter' && !event.shiftKey){ jonasEnviar(); event.preventDefault(); }" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            <button onclick="jonasEnviar()" id="jonasBtnEnviar" style="background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;border-radius:8px;padding:.6rem 1.1rem;cursor:pointer;font-size:.85rem;">↑</button>
+          </div>
+        </div>
+
       </div>
 
       <!-- Lista de compra -->
@@ -7596,7 +7671,7 @@ function mostrarPaneVIP() {
 
 // ── Sub-tabs zona comprador ────────────────────────────────
 function vipSubTab(tab, btn) {
-  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico'].forEach(t => {
+  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico','Jonas'].forEach(t => {
     const el = document.getElementById('vipSub'+t);
     if (el) el.style.display = t.toLowerCase() === tab ? 'block' : 'none';
   });
@@ -7608,6 +7683,7 @@ function vipSubTab(tab, btn) {
   if (tab === 'lista') renderVipLista();
   if (tab === 'licitaciones') cargarLicitaciones();
   if (tab === 'alertas') renderAlertas();
+  if (tab === 'jonas') jonasVerificarCambios();
 }
 
 // ── Iniciar zona comprador ─────────────────────────────────
@@ -8083,6 +8159,227 @@ function fetchMPEstado(fecha, estado) {
     document.head.appendChild(script);
     setTimeout(() => { if(window[cbName]) { reject(new Error('Timeout')); delete window[cbName]; script.remove(); }}, 10000);
   });
+}
+
+// ─── AGENTE JONÁS ────────────────────────────────────────────
+const JONAS_SYSTEM = `Eres Jonás, un experto en prevención de riesgos laborales chileno con los siguientes títulos y especialidades:
+- Prevencionista de Riesgos titulado (ACHS, IST, Mutual de Seguridad)
+- Diplomado en Seguridad Minera SERNAGEOMIN
+- Diplomado en Higiene Ambiental Industrial
+- Especialista en EPP (Equipos de Protección Personal) y normativa técnica chilena
+
+Tu conocimiento incluye:
+- DS 594/99 (Condiciones Sanitarias y Ambientales en los Lugares de Trabajo) y sus modificaciones
+- DS 40/2016 (Reglamento sobre Prevención de Riesgos Profesionales)
+- DS 132/2002 (Reglamento de Seguridad Minera) y resoluciones SERNAGEOMIN
+- Normas NCh vigentes: NCh 461 (cascos), NCh 1584 (calzado seguridad), NCh 772 (calzado dieléctrico), NCh 2147 (calzado antestático), NCh 1332 (guantes), NCh 712 (lentes), NCh 462 (protección auditiva), entre otras
+- Ley 16.744 (Accidentes del Trabajo y Enfermedades Profesionales)
+- Protocolos MINSAL: PREXOR, TMERT-EESS, Sílice, Radiación UV
+- Matrices de identificación de peligros y evaluación de riesgos (IPER) por puesto de trabajo
+- Aplicación correcta de EPP según tipo de riesgo, industria y normativa aplicable
+- Cambios normativos recientes en seguridad industrial chilena
+
+Cuando respondas:
+1. Cita siempre el decreto, norma o resolución específica con su número y año
+2. Indica el artículo exacto cuando sea relevante
+3. Si hay cambios recientes, menciónalos con fecha
+4. Para matrices de riesgo, usa formato estructurado: Peligro → Riesgo → EPP requerido → Norma aplicable
+5. Si detectas que algo puede haber cambiado recientemente, indícalo claramente
+6. Responde siempre en español, de forma técnica pero clara
+7. Si la pregunta involucra EPP específico, indica también la norma NCh o ISO aplicable
+
+Eres parte de BuscaEPP.cl, la plataforma especializada en seguridad industrial de Chile.`;
+
+let jonasHistorial = [];
+let jonasVerificando = false;
+
+async function jonasEnviar() {
+  const input = document.getElementById('jonasInput');
+  const pregunta = input?.value.trim();
+  if (!pregunta || jonasVerificando) return;
+  input.value = '';
+  await jonasPreguntar(pregunta);
+}
+
+async function jonasPreguntar(pregunta) {
+  const chat = document.getElementById('jonasChat');
+  const btnEnviar = document.getElementById('jonasBtnEnviar');
+  const input = document.getElementById('jonasInput');
+  if (!chat) return;
+
+  // Agregar mensaje usuario
+  jonasHistorial.push({ role: 'user', content: pregunta });
+  chat.innerHTML += `
+    <div style="display:flex;justify-content:flex-end;gap:.6rem;align-items:flex-start;">
+      <div style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.2);border-radius:10px 0 10px 10px;padding:.7rem .9rem;max-width:85%;">
+        <div style="font-size:.82rem;color:var(--text);">${pregunta}</div>
+      </div>
+      <div style="background:rgba(56,189,248,.2);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;">👤</div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  // Indicador de escritura
+  const typingId = 'jonas-typing-' + Date.now();
+  chat.innerHTML += `
+    <div id="${typingId}" style="display:flex;gap:.6rem;align-items:flex-start;">
+      <div style="background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;">🧠</div>
+      <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:0 10px 10px 10px;padding:.7rem .9rem;">
+        <div style="display:flex;gap:4px;align-items:center;">
+          <span style="width:6px;height:6px;background:#c084fc;border-radius:50%;animation:pulse 1s infinite;"></span>
+          <span style="width:6px;height:6px;background:#c084fc;border-radius:50%;animation:pulse 1s infinite .2s;"></span>
+          <span style="width:6px;height:6px;background:#c084fc;border-radius:50%;animation:pulse 1s infinite .4s;"></span>
+          <span style="font-size:.72rem;color:var(--muted);margin-left:.3rem;">Jonás está analizando...</span>
+        </div>
+      </div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  if (btnEnviar) { btnEnviar.disabled = true; btnEnviar.textContent = '⏳'; }
+  if (input) input.disabled = true;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: JONAS_SYSTEM,
+        messages: jonasHistorial
+      })
+    });
+
+    const data = await response.json();
+    const respuesta = data.content?.[0]?.text || 'No pude procesar tu consulta. Intenta de nuevo.';
+    jonasHistorial.push({ role: 'assistant', content: respuesta });
+
+    // Reemplazar indicador por respuesta real
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) {
+      typingEl.outerHTML = `
+        <div style="display:flex;gap:.6rem;align-items:flex-start;">
+          <div style="background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;">🧠</div>
+          <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:0 10px 10px 10px;padding:.7rem .9rem;max-width:85%;">
+            <div style="font-size:.82rem;color:var(--text);line-height:1.6;white-space:pre-wrap;">${respuesta}</div>
+            <div style="font-size:.68rem;color:var(--muted);margin-top:.4rem;">Jonás · Experto Prevención BuscaEPP</div>
+          </div>
+        </div>`;
+    }
+
+  } catch(e) {
+    console.error('Jonás API error:', e);
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) {
+      typingEl.outerHTML = `
+        <div style="display:flex;gap:.6rem;align-items:flex-start;">
+          <div style="background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;">🧠</div>
+          <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:0 10px 10px 10px;padding:.7rem .9rem;">
+            <div style="font-size:.82rem;color:#fca5a5;">Sin conexión momentánea. Intenta de nuevo.</div>
+          </div>
+        </div>`;
+    }
+    jonasHistorial.pop();
+  } finally {
+    if (btnEnviar) { btnEnviar.disabled = false; btnEnviar.textContent = '↑'; }
+    if (input) { input.disabled = false; input.focus(); }
+    chat.scrollTop = chat.scrollHeight;
+  }
+}
+
+// Monitor de cambios normativos
+async function jonasVerificarCambios() {
+  if (jonasVerificando) return;
+  jonasVerificando = true;
+  const btn = document.getElementById('jonasBtnVerificar');
+  const novedades = document.getElementById('jonasNovedades');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Verificando...'; }
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: JONAS_SYSTEM,
+        messages: [{
+          role: 'user',
+          content: `Actúa como monitor normativo. Revisa y reporta en formato JSON el estado actual de las principales normativas de seguridad industrial en Chile. 
+          
+Responde SOLO con JSON válido, sin texto adicional, con esta estructura exacta:
+{
+  "fecha_revision": "fecha actual aproximada",
+  "estado_general": "ok|alerta|critico",
+  "normativas": [
+    {
+      "nombre": "DS 594",
+      "descripcion": "Condiciones Sanitarias en el Trabajo",
+      "estado": "vigente|modificado|en_revision",
+      "ultima_modificacion": "año",
+      "nota": "texto breve si hay algo relevante",
+      "impacto_epp": "alto|medio|bajo|ninguno"
+    }
+  ],
+  "alertas": ["lista de cambios importantes recientes si los hay"],
+  "resumen": "texto de 1-2 frases del estado normativo actual"
+}`
+        }]
+      })
+    });
+
+    const data = await response.json();
+    const texto = data.content?.[0]?.text || '';
+
+    // Limpiar y parsear JSON
+    const jsonMatch = texto.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('JSON inválido');
+    const reporte = JSON.parse(jsonMatch[0]);
+
+    // Renderizar reporte
+    const colorEstado = { ok:'#4ade80', alerta:'#fbbf24', critico:'#fca5a5' };
+    const iconEstado  = { ok:'✅', alerta:'⚠️', critico:'🚨' };
+    const colorNorm   = { vigente:'#4ade80', modificado:'#fbbf24', en_revision:'#38bdf8' };
+
+    if (novedades) {
+      novedades.innerHTML = `
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">
+              ${iconEstado[reporte.estado_general]||'📋'} Estado Normativo — ${reporte.fecha_revision}
+            </div>
+            <span style="font-size:.72rem;background:rgba(34,197,94,.12);color:${colorEstado[reporte.estado_general]||'#4ade80'};border:1px solid rgba(34,197,94,.25);border-radius:6px;padding:2px 8px;font-weight:700;">
+              ${reporte.estado_general?.toUpperCase()}
+            </span>
+          </div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem;">${reporte.resumen}</div>
+          ${reporte.alertas?.length ? `
+            <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:8px;padding:.6rem .9rem;margin-bottom:.8rem;">
+              <div style="font-size:.72rem;font-weight:700;color:#fbbf24;margin-bottom:.3rem;">⚠️ ALERTAS DETECTADAS</div>
+              ${reporte.alertas.map(a => `<div style="font-size:.75rem;color:var(--text);margin-bottom:.2rem;">• ${a}</div>`).join('')}
+            </div>` : ''}
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;">
+            ${(reporte.normativas||[]).map(n => `
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.2rem;">
+                  <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.82rem;">${n.nombre}</span>
+                  <span style="font-size:.65rem;color:${colorNorm[n.estado]||'#4ade80'};font-weight:700;">${n.estado}</span>
+                </div>
+                <div style="font-size:.7rem;color:var(--muted);">${n.descripcion}</div>
+                ${n.nota ? `<div style="font-size:.68rem;color:#fbbf24;margin-top:.2rem;">${n.nota}</div>` : ''}
+              </div>`).join('')}
+          </div>
+        </div>`;
+    }
+
+  } catch(e) {
+    if (novedades) novedades.innerHTML = `
+      <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:.8rem 1rem;font-size:.78rem;color:#fca5a5;">
+        No se pudo obtener el reporte normativo en este momento. Intenta de nuevo.
+      </div>`;
+  } finally {
+    jonasVerificando = false;
+    if (btn) { btn.disabled = false; btn.textContent = '📡 Verificar cambios'; }
+  }
 }
 
 // ─── SEIA — Búsquedas preconfiguradas ───────────────────────
