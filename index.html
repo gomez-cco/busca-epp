@@ -8586,168 +8586,326 @@ function generarEjemplosLicit() {
 // ─── KARY — Asistente Virtual BuscaEPP ──────────────────────
 let karyAbierto = false;
 let karyIniciado = false;
-let karyUltimaAccion = null; // Recuerda la última acción sugerida
-let karyUltimoTema = null;   // Recuerda el último tema tratado
-let karyEsperandoDetalle = null; // Cuando Kary hizo una pregunta de contexto, guarda qué buscar después
+let karyUltimaAccion = null;
+let karyUltimoTema = null;
+let karyEsperandoDetalle = null;
+let karyIndustria = null; // Industria del usuario (minería, construcción, etc.)
+
+// ── Memoria persistente entre sesiones ───────────────────────
+const karyMemoria = JSON.parse(localStorage.getItem('kary_memoria') || '{}');
+function karyGuardarMemoria(datos) {
+  Object.assign(karyMemoria, datos);
+  localStorage.setItem('kary_memoria', JSON.stringify(karyMemoria));
+}
+
+// ── Carrito de cotización ─────────────────────────────────────
+let karyCotizacion = JSON.parse(localStorage.getItem('kary_cotizacion') || '[]');
+function karyGuardarCotizacion() {
+  localStorage.setItem('kary_cotizacion', JSON.stringify(karyCotizacion));
+}
+
+// ── Sugerencias de inicio ─────────────────────────────────────
+const KARY_SUGERENCIAS_INICIO = [
+  { texto:'🔍 Buscar producto',  fn:"karyActivarBuscador()" },
+  { texto:'🏭 Por industria',    fn:"karyMostrarMenuIndustrias()" },
+  { texto:'📋 Mi cotización',    fn:"karyMostrarCotizacion()" },
+  { texto:'⭐ Zona VIP',         fn:"karyResponder('zona vip')" },
+];
+
+// ── Menú de industrias ────────────────────────────────────────
+function karyMostrarMenuIndustrias() {
+  const cont = document.getElementById('karyMensajes');
+  if (!cont) return;
+  cont.innerHTML += `
+    <div style="display:flex;gap:.5rem;align-items:flex-end;">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#000;font-weight:700;flex-shrink:0;">K</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.7rem .9rem;max-width:90%;">
+        <div style="font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.5rem;">🏭 ¿En qué industria trabajas?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;">
+          ${Object.entries(KARY_INDUSTRIAS).map(([id,ind]) =>
+            `<button onclick="karyMostrarIndustria('${id}')" style="background:rgba(245,158,11,.08);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .5rem;cursor:pointer;font-size:.72rem;text-align:left;">${ind.label}</button>`
+          ).join('')}
+        </div>
+      </div>
+    </div>`;
+  cont.scrollTop = cont.scrollHeight;
+  karySugerencias([]);
+}
+
+// ── Flujo guiado por industria ────────────────────────────────
+const KARY_INDUSTRIAS = {
+  mineria: {
+    label:'⛏️ Minería', color:'#fbbf24',
+    epp:['casco','arnes','respirador','calzado','guante','lentes','ignifugo'],
+    normas:'DS 132 SERNAGEOMIN · DS 594 · NCh 461',
+    intro:'Para minería el EPP es crítico. El DS 132 SERNAGEOMIN exige: casco Clase A, calzado de seguridad, protección respiratoria y arnés en altura.'
+  },
+  construccion: {
+    label:'🏗️ Construcción', color:'#f97316',
+    epp:['casco','arnes','calzado','guante','lentes','vial'],
+    normas:'DS 594 · NCh 461 · NCh 1584',
+    intro:'En construcción el DS 594 exige: casco, calzado punta acero, guantes, lentes y arnés para trabajos en altura sobre 1.8m.'
+  },
+  manufactura: {
+    label:'🏭 Manufactura / Industria', color:'#60a5fa',
+    epp:['guante','lentes','calzado','auditiva','respirador'],
+    normas:'DS 594 · NCh 1332 · NCh 712',
+    intro:'En manufactura el DS 594 exige EPP según el proceso: guantes anticorte, lentes de seguridad, calzado industrial y protección auditiva si hay ruido sobre 85dB.'
+  },
+  petroleo: {
+    label:'⛽ Petróleo / Gas', color:'#c084fc',
+    epp:['ignifugo','arnes','respirador','calzado','guante'],
+    normas:'DS 594 · NFPA 2112 · NCh 1584',
+    intro:'En petróleo y gas la ropa ignífuga es obligatoria (NFPA 2112). También se requiere arnés, calzado antiestático y protección respiratoria para gases.'
+  },
+  electrico: {
+    label:'⚡ Eléctrico', color:'#34d399',
+    epp:['guante','calzado','lentes','casco'],
+    normas:'DS 594 · NCh 772 · NCh 2147',
+    intro:'Para trabajos eléctricos: guantes dieléctricos, calzado dieléctrico NCh 772, lentes y casco Clase E. Obligatorio por DS 594 Art. 53.'
+  },
+  vial: {
+    label:'🚧 Vial / Carretera', color:'#fb923c',
+    epp:['vial','casco','calzado','lentes'],
+    normas:'DS 594 · DS 78 · NCh 461',
+    intro:'En trabajos viales se requiere ropa de alta visibilidad (Clase 2 mínimo), casco y calzado de seguridad. El DS 78 regula la señalización.'
+  }
+};
 
 const KARY_CONOCIMIENTO = [
   // ── EPP y búsqueda ─────────────────────────────────────────
-  { palabras:['casco','cascos','cabeza','proteccion cabeza','hard hat','casco seguridad','casco minero','casco obra'],
-    respuesta:'¡Claro! 😊 Los cascos de seguridad se clasifican según la norma NCh 461. Para minería se requiere Clase A (protección eléctrica). ¿Quieres que te muestre los cascos disponibles en BuscaEPP?',
-    accion:{ texto:'🪖 Ver cascos', fn:"showTab('epp'); document.getElementById('searchInput').value='casco'; renderProducts();" }},
+  { palabras:['casco','cascos','cabeza','proteccion cabeza','hard hat','casco seguridad','casco minero','casco obra','casco construccion','casco industrial'],
+    respuesta:'🪖 Los cascos de seguridad se rigen por NCh 461. Para minería Clase A (eléctrica), para obra Clase B. ¿Quieres verlos aquí o buscar por marca?',
+    accion:{ texto:'🪖 Ver cascos', fn:"karyMostrarProductos('casco');" }, detalle:true },
 
-  { palabras:['guante','guantes','manos','proteccion manos','guante cuero','guante nitrilo','guantes de trabajo'],
-    respuesta:'¡Con mucho gusto! 🧤 Tenemos guantes para todo tipo de riesgo: corte, químicos, eléctricos y soldadura. La norma aplicable es NCh 1332.',
-    accion:{ texto:'🧤 Ver todos los guantes', fn:"karyMostrarProductos('guante');" },
-    detalle: true },
+  { palabras:['guante','guantes','manos','proteccion manos','guante cuero','guante nitrilo','guantes de trabajo','guante anticorte','guante quimico'],
+    respuesta:'🧤 Tenemos guantes para corte, químicos, eléctricos y soldadura. Norma NCh 1332. ¿Para qué tipo de trabajo o riesgo?',
+    accion:{ texto:'🧤 Ver guantes', fn:"karyMostrarProductos('guante');" }, detalle:true },
 
-  { palabras:['calzado','zapato','botin','botines','bota','pie','punta acero','zapato seguridad','calzado seguridad','zapato industrial'],
-    respuesta:'¡Por supuesto! 👟 El calzado de seguridad se rige por NCh 1584. Tenemos botines punta acero, dieléctricos (NCh 772) y antiestáticos (NCh 2147). ¿Cuál necesitas?',
-    accion:{ texto:'👟 Ver calzado', fn:"showTab('epp'); document.getElementById('searchInput').value='calzado'; renderProducts();" }},
+  { palabras:['calzado','zapato','botin','botines','bota','pie','punta acero','zapato seguridad','calzado seguridad','zapato industrial','dielect'],
+    respuesta:'👟 Calzado de seguridad según NCh 1584. Tenemos punta acero, dieléctrico (NCh 772) y antiestático (NCh 2147).',
+    accion:{ texto:'👟 Ver calzado', fn:"karyMostrarProductos('calzado');" }, detalle:true },
 
   { palabras:['lente','lentes','gafas','visual','ojos','ocular','lentes seguridad','antiparra','careta','lentes soldadura','mascara soldadura','soldadura','pantalla facial'],
-    respuesta:'¡Perfecto! 👓 La protección visual debe cumplir NCh 712. Tenemos lentes de seguridad, antiparras y caretas para impacto, químicos y soldadura.',
-    accion:{ texto:'👓 Ver lentes', fn:"showTab('epp'); document.getElementById('searchInput').value='lentes'; renderProducts();" }},
+    respuesta:'👓 Protección visual NCh 712. Tenemos lentes de impacto, antiparras químicas y caretas para soldadura.',
+    accion:{ texto:'👓 Ver lentes', fn:"karyMostrarProductos('lentes');" }, detalle:true },
 
-  { palabras:['auditiva','tapones','orejera','proteccion auditiva','ruido','oido','proteccion oidos'],
-    respuesta:'¡Claro! 🎧 Los protectores auditivos se rigen por NCh 462. El DS 594 exige protección cuando el ruido supera 85 dB. Tenemos tapones, orejeras y semi-insertos.',
-    accion:{ texto:'🎧 Ver protección auditiva', fn:"showTab('epp'); document.getElementById('searchInput').value='auditiv'; renderProducts();" }},
+  { palabras:['auditiva','tapones','orejera','proteccion auditiva','ruido','oido','proteccion oidos','tapones oido'],
+    respuesta:'🎧 Protectores auditivos NCh 462. El DS 594 exige protección sobre 85dB. Tenemos tapones, orejeras y semi-insertos.',
+    accion:{ texto:'🎧 Ver protección auditiva', fn:"karyMostrarProductos('auditiv');" }},
 
-  { palabras:['ignifugo','ignifuga','fuego','llama','fr','flame','eikona','unisafe','lask','ropa fuego','ropa ignifuga'],
-    respuesta:'¡Excelente elección! 🔥 Para ropa ignífuga tenemos a <strong>Eikona</strong> como proveedor destacado ⭐ con líneas certificadas ISP: UNISAFE, PF LASK y VCS. ¿Quieres ver su catálogo completo?',
-    accion:{ texto:'🔥 Ver ropa ignífuga Eikona', fn:"activeFamily='ignifugo'; showTab('epp'); renderFilters(); renderProducts();" }},
+  { palabras:['ignifugo','ignifuga','fuego','llama','fr','flame','eikona','unisafe','lask','ropa fuego','ropa ignifuga','overol ignifugo'],
+    respuesta:'🔥 Para ropa ignífuga tenemos a <strong>Eikona ⭐</strong> con líneas UNISAFE, PF LASK y VCS — todas certificadas ISP.',
+    accion:{ texto:'🔥 Ver ropa ignífuga Eikona', fn:"karyMostrarProductos('ignifugo');" }},
 
-  { palabras:['overol','uniforme','ropa trabajo','vestuario','ropa industrial','mono','buzo'],
-    respuesta:'¡Con gusto te ayudo! 👕 Tenemos overoles, uniformes y ropa industrial de distintos tipos. ¿Necesitas ropa ignífuga, vial, térmica o corporativa?',
-    accion:{ texto:'👕 Ver ropa de trabajo', fn:"activeFamily='ignifugo'; showTab('epp'); renderFilters(); renderProducts();" }},
+  { palabras:['overol','uniforme','ropa trabajo','vestuario','ropa industrial','mono','buzo','ropa corporativa'],
+    respuesta:'👕 Tenemos overoles, uniformes y ropa de trabajo para distintas faenas. ¿La necesitas ignífuga, vial, térmica o corporativa?',
+    accion:{ texto:'👕 Ver ropa de trabajo', fn:"karyMostrarProductos('overol');" }, detalle:true },
 
-  { palabras:['arnes','altura','linea vida','caida','trabajo altura','andamio','trabajos en altura','eslingas'],
-    respuesta:'¡Importante! 🏗️ Para trabajo en altura el DS 594 Art. 36 exige arnés de seguridad con línea de vida. La norma NCh 1258 regula los sistemas anticaída.',
-    accion:{ texto:'🏗️ Ver arneses y EPP altura', fn:"karyMostrarProductos('arnes');" },
-    detalle: true },
+  { palabras:['arnes','altura','linea vida','caida','trabajo altura','andamio','trabajos en altura','eslinga','anticaida'],
+    respuesta:'🏗️ Para altura el DS 594 Art. 36 exige arnés + línea de vida. Norma NCh 1258.',
+    accion:{ texto:'🏗️ Ver arneses', fn:"karyMostrarProductos('arnes');" }, detalle:true },
 
-  { palabras:['respirador','mascarilla','gases','vapores','polvo','silice','quimico','mascara','respiracion'],
-    respuesta:'¡Muy bien! 😷 La protección respiratoria depende del contaminante según DS 594. Tenemos respiradores para polvo (sílice), gases orgánicos y vapores químicos.',
-    accion:{ texto:'😷 Ver respiradores', fn:"karyMostrarProductos('respirador');" },
-    detalle: true },
+  { palabras:['respirador','mascarilla','gases','vapores','polvo','silice','quimico','mascara','respiracion','n95','kn95'],
+    respuesta:'😷 Protección respiratoria según DS 594. Tenemos para polvo, sílice, gases orgánicos y vapores.',
+    accion:{ texto:'😷 Ver respiradores', fn:"karyMostrarProductos('respirador');" }, detalle:true },
 
-  { palabras:['epp','equipo proteccion','proteccion personal','equipos','elementos proteccion'],
-    respuesta:'¡Claro! 😊 Puedo buscar cualquier EPP directamente aquí. ¿Qué producto necesitas? Escribe el nombre y te muestro las fichas técnicas al instante.',
-    accion:{ texto:'🔍 Buscar producto aquí', fn:"karyActivarBuscador();" }},
+  { palabras:['epp','equipo proteccion','proteccion personal','equipos','elementos proteccion','seguridad industrial'],
+    respuesta:'😊 Puedo buscar cualquier EPP directamente aquí. ¿Qué necesitas? Escribe el producto o dime tu industria.',
+    accion:{ texto:'🔍 Buscar producto', fn:"karyActivarBuscador();" }},
+
+  // ── Flujo por industria ─────────────────────────────────────
+  { palabras:['mineria','minero','mina','sernageomin','codelco','faena','tuneles','subterraneo','tajo abierto'],
+    respuesta:'⛏️ ¡Para minería tengo una guía completa de EPP obligatorio!',
+    accion:{ texto:'⛏️ Ver EPP minería', fn:"karyMostrarIndustria('mineria');" }},
+
+  { palabras:['construccion','obra','edificio','andamio','albañil','hormigon','carpintero'],
+    respuesta:'🏗️ Para construcción tengo el listado completo de EPP según DS 594.',
+    accion:{ texto:'🏗️ Ver EPP construcción', fn:"karyMostrarIndustria('construccion');" }},
+
+  { palabras:['manufactura','fabrica','planta','industria','produccion','operario','maquinaria'],
+    respuesta:'🏭 Para manufactura e industria tengo los EPP requeridos por DS 594.',
+    accion:{ texto:'🏭 Ver EPP manufactura', fn:"karyMostrarIndustria('manufactura');" }},
+
+  { palabras:['petroleo','gas','refineria','enap','petroquimica','oleoducto','combustible'],
+    respuesta:'⛽ Para petróleo y gas la ropa ignífuga es fundamental. Te muestro todo.',
+    accion:{ texto:'⛽ Ver EPP petróleo/gas', fn:"karyMostrarIndustria('petroleo');" }},
+
+  { palabras:['electrico','electricista','alta tension','baja tension','tablero','electrico','electronico'],
+    respuesta:'⚡ Para trabajos eléctricos hay EPP dieléctrico específico obligatorio.',
+    accion:{ texto:'⚡ Ver EPP eléctrico', fn:"karyMostrarIndustria('electrico');" }},
+
+  { palabras:['vial','carretera','camino','señalero','banderillero','ruta','autopista'],
+    respuesta:'🚧 Para trabajo vial la ropa de alta visibilidad es obligatoria según DS 78.',
+    accion:{ texto:'🚧 Ver EPP vial', fn:"karyMostrarIndustria('vial');" }},
+
+  // ── Cotización ──────────────────────────────────────────────
+  { palabras:['cotizar','cotizacion','precio','cuanto cuesta','valor','presupuesto','lista compra'],
+    respuesta:'📋 Puedo armar tu lista de cotización aquí mismo. Agrega los productos que necesitas y la descargas lista para enviar a proveedores.',
+    accion:{ texto:'📋 Ver mi cotización', fn:"karyMostrarCotizacion();" }},
 
   // ── Normativas ──────────────────────────────────────────────
   { palabras:['ds 594','decreto 594','condiciones sanitarias','higiene laboral','ds594'],
-    respuesta:'📋 El <strong>DS 594/1999</strong> es el decreto clave para condiciones sanitarias y ambientales en el trabajo. Regula ruido, iluminación, EPP y más. ¿Quieres ver la sección de Normativas?',
-    accion:{ texto:'📋 Ver DS 594', fn:"showTab('norm');" }},
+    respuesta:'📋 El <strong>DS 594/1999</strong> regula condiciones sanitarias y EPP obligatorio en el trabajo. ¿Quieres ver la sección de Normativas?',
+    accion:{ texto:'📋 Ver Normativas', fn:"showTab('norm'); karyToggle();" }},
 
-  { palabras:['ds 40','decreto 40','prevencion riesgos','reglamento prevencion','ds40'],
-    respuesta:'📋 El <strong>DS 40/2016</strong> regula la prevención de riesgos profesionales y los expertos en prevención. Lo puedes revisar en nuestra sección de Normativas.',
-    accion:{ texto:'📋 Ver Normativas', fn:"showTab('norm');" }},
+  { palabras:['ds 40','decreto 40','prevencion riesgos','ds40'],
+    respuesta:'📋 El <strong>DS 40/2016</strong> regula la prevención de riesgos y los expertos en prevención.',
+    accion:{ texto:'📋 Ver Normativas', fn:"showTab('norm'); karyToggle();" }},
 
-  { palabras:['sernageomin','mineria','reglamento minero','ds 132','faena minera','trabajo minero'],
-    respuesta:'⛏️ El <strong>DS 132/2002</strong> es el Reglamento de Seguridad Minera de SERNAGEOMIN. Cubre EPP obligatorio para faenas subterráneas y a cielo abierto. ¿Trabajas en minería?',
-    accion:{ texto:'⛏️ Ver Normativas minería', fn:"showTab('norm');" }},
+  { palabras:['sernageomin','reglamento minero','ds 132'],
+    respuesta:'⛏️ El <strong>DS 132/2002</strong> es el Reglamento de Seguridad Minera de SERNAGEOMIN.',
+    accion:{ texto:'📋 Ver Normativas', fn:"showTab('norm'); karyToggle();" }},
 
   { palabras:['nch','norma chilena','inn','norma tecnica','normas'],
-    respuesta:'📐 Las principales normas NCh para EPP son: NCh 461 (cascos), NCh 1584 (calzado), NCh 772 (dieléctrico), NCh 1332 (guantes) y NCh 712 (lentes). ¿Cuál necesitas revisar?',
-    accion:{ texto:'📐 Ver Normativas', fn:"showTab('norm');" }},
+    respuesta:'📐 Normas NCh para EPP: NCh 461 (cascos), NCh 1584 (calzado), NCh 772 (dieléctrico), NCh 1332 (guantes), NCh 712 (lentes).',
+    accion:{ texto:'📐 Ver Normativas', fn:"showTab('norm'); karyToggle();" }},
 
-  { palabras:['ley 16744','accidente trabajo','enfermedad profesional','mutualidad','achs','ist','mutual'],
-    respuesta:'⚖️ La <strong>Ley 16.744</strong> regula el seguro social contra accidentes del trabajo. Las mutualidades (ACHS, IST, Mutual de Seguridad) son los organismos administradores.',
-    accion:{ texto:'⚖️ Ver Normativas', fn:"showTab('norm');" }},
+  { palabras:['ley 16744','accidente trabajo','mutualidad','achs','ist','mutual'],
+    respuesta:'⚖️ La <strong>Ley 16.744</strong> regula el seguro contra accidentes del trabajo. Las mutualidades (ACHS, IST, Mutual) son los administradores.',
+    accion:{ texto:'⚖️ Ver Normativas', fn:"showTab('norm'); karyToggle();" }},
 
   { palabras:['normativa','normativas','decreto','decretos','reglamento','ley','legislacion'],
-    respuesta:'📚 En BuscaEPP tenemos una sección completa de normativas con DS 594, DS 40, DS 132, Ley 16.744, normas NCh y más. ¡Todo actualizado! ¿Quieres verla?',
-    accion:{ texto:'📚 Ver Normativas', fn:"showTab('norm');" }},
+    respuesta:'📚 Tenemos DS 594, DS 40, DS 132, Ley 16.744 y normas NCh completas. ¿Cuál necesitas?',
+    accion:{ texto:'📚 Ver Normativas', fn:"showTab('norm'); karyToggle();" }},
 
   // ── Zona VIP ────────────────────────────────────────────────
-  { palabras:['vip','zona vip','acceso vip','cliente vip','exclusivo','plan vip','area vip'],
-    respuesta:'⭐ ¡La <strong>Zona VIP</strong> de BuscaEPP es increíble! Tienes acceso a licitaciones vigentes de MercadoPublico, fichas técnicas completas, comparador de proveedores y mucho más. ¿Quieres solicitar acceso?',
-    accion:{ texto:'⭐ Ir a Zona VIP', fn:"abrirVIP();" }},
+  { palabras:['vip','zona vip','acceso vip','exclusivo'],
+    respuesta:'⭐ La <strong>Zona VIP</strong> da acceso a licitaciones en tiempo real, fichas técnicas completas y comparador de proveedores.',
+    accion:{ texto:'⭐ Ir a Zona VIP', fn:"abrirVIP(); karyToggle();" }},
 
-  { palabras:['licitacion','licitaciones','mercado publico','mercadopublico','mp','chilecompra','licitacion publica'],
-    respuesta:'📋 ¡Excelente! Las licitaciones vigentes de seguridad industrial están en nuestra <strong>Zona VIP</strong> — conectadas en tiempo real a MercadoPublico. Puedes filtrar por región, categoría y monto.',
-    accion:{ texto:'📋 Ver licitaciones', fn:"abrirVIP();" }},
+  { palabras:['licitacion','licitaciones','mercado publico','mercadopublico','mp','chilecompra'],
+    respuesta:'📋 Las licitaciones vigentes de seguridad industrial están en la <strong>Zona VIP</strong> — conectadas en tiempo real a MercadoPublico.',
+    accion:{ texto:'📋 Ver licitaciones VIP', fn:"abrirVIP(); karyToggle();" }},
 
   // ── Proveedores ─────────────────────────────────────────────
-  { palabras:['proveedor','proveedores','donde comprar','distribuidor','tienda','comprar','venta'],
-    respuesta:'🏭 ¡Con gusto! En BuscaEPP encontrarás proveedores como Vicsa, Prosafety, SafetyStore, Kupfer, Eikona y más. Todos especializados en seguridad industrial. ¿Qué producto necesitas?',
-    accion:{ texto:'🏭 Ver proveedores', fn:"showTab('prov');" }},
+  { palabras:['proveedor','proveedores','donde comprar','distribuidor','tienda','comprar'],
+    respuesta:'🏭 Tenemos proveedores como Vicsa, Prosafety, SafetyStore, Kupfer, Eikona y más. ¿Qué producto necesitas?',
+    accion:{ texto:'🏭 Ver proveedores', fn:"showTab('prov'); karyToggle();" }},
 
-  { palabras:['calculadora','calcular','calculo','ruido calculo','iluminacion calculo'],
-    respuesta:'🧮 ¡Claro! Tenemos calculadoras técnicas para ruido laboral, iluminación y más. Muy útiles para cumplir el DS 594. ¿Cuál necesitas?',
-    accion:{ texto:'🧮 Ver calculadoras', fn:"showTab('calc');" }},
+  { palabras:['calculadora','calcular','ruido calculo','iluminacion'],
+    respuesta:'🧮 Tenemos calculadoras técnicas para ruido, iluminación y más. Muy útiles para cumplir el DS 594.',
+    accion:{ texto:'🧮 Ver calculadoras', fn:"showTab('calc'); karyToggle();" }},
 
-  { palabras:['talento','trabajo','empleo','curriculum','bolsa trabajo','busco trabajo','personal'],
-    respuesta:'💼 ¡Perfecto! Nuestra Bolsa de Talentos conecta profesionales de seguridad industrial con empresas del rubro. ¿Estás buscando trabajo o buscas personal?',
-    accion:{ texto:'💼 Ver Bolsa de Talentos', fn:"showTab('talentos');" }},
+  { palabras:['talento','trabajo','empleo','curriculum','bolsa trabajo'],
+    respuesta:'💼 Nuestra Bolsa de Talentos conecta profesionales de seguridad con empresas. ¿Buscas trabajo o personal?',
+    accion:{ texto:'💼 Ver Bolsa de Talentos', fn:"showTab('talentos'); karyToggle();" }},
 
-  { palabras:['experto','consulta','pregunta experto','opinion experta','asesor'],
-    respuesta:'🎓 ¡Genial! En la sección <strong>Expertos</strong> puedes dejar consultas y recibir respuestas de profesionales del rubro. ¿Tienes alguna duda técnica?',
-    accion:{ texto:'🎓 Ver Expertos', fn:"showTab('expertos');" }},
-
-  // ── Saludos y generales ─────────────────────────────────────
+  // ── Saludos ─────────────────────────────────────────────────
   { palabras:['hola','buenas','buenos dias','buenas tardes','buenas noches','saludos','hi','hey'],
-    respuesta:'¡Hola! 👋😊 Soy <strong>Kary</strong>, tu asistente en BuscaEPP. Estoy aquí para orientarte en todo lo relacionado con seguridad industrial. ¿En qué te puedo ayudar hoy?' },
+    respuesta:'¡Hola! 👋😊 Soy <strong>Kary</strong>, tu asistente en BuscaEPP. ¿En qué te ayudo hoy?' },
 
-  { palabras:['gracias','muchas gracias','perfecto','excelente','genial','muy bien','chevere','bacano'],
-    respuesta:'¡Con muchísimo gusto! 😊❤️ Es un placer poder ayudarte. ¿Hay algo más en lo que pueda orientarte?' },
+  { palabras:['gracias','muchas gracias','perfecto','excelente','genial'],
+    respuesta:'¡Con muchísimo gusto! 😊❤️ ¿Hay algo más en lo que pueda ayudarte?' },
 
-  { palabras:['adios','chao','hasta luego','bye','nos vemos','hasta pronto'],
-    respuesta:'¡Hasta pronto! 👋😊 Recuerda que en BuscaEPP siempre encontrarás lo que necesitas sobre seguridad industrial. ¡Cuídate!' },
+  { palabras:['adios','chao','hasta luego','bye'],
+    respuesta:'¡Hasta pronto! 👋😊 ¡Cuídate!' },
 
-  { palabras:['que es buscaepp','buscaepp','para que sirve','que hacen','que ofrecen','sobre buscaepp'],
-    respuesta:'🦺 <strong>BuscaEPP.cl</strong> es la plataforma chilena especializada en Equipos de Protección Personal. Aquí encuentras fichas técnicas, normativas vigentes, calculadoras, proveedores y licitaciones del Estado. ¡Todo en un solo lugar! ¿Quieres que te muestre por dónde empezar?' },
+  { palabras:['que es buscaepp','buscaepp','para que sirve','que hacen'],
+    respuesta:'🦺 <strong>BuscaEPP.cl</strong> es la plataforma chilena especializada en EPP. Fichas técnicas, normativas, proveedores y licitaciones del Estado. ¡Todo en un solo lugar!' },
 
-  { palabras:['ayuda','help','no entiendo','como funciona','como uso','que puedes hacer'],
-    respuesta:'¡Claro, con gusto te explico! 😊 Puedo ayudarte a:<br><br>🔍 <strong>Buscar EPP</strong> — cascos, guantes, calzado y más<br>📋 <strong>Normativas</strong> — DS 594, DS 40, NCh<br>🏭 <strong>Proveedores</strong> — dónde comprar<br>⭐ <strong>Zona VIP</strong> — licitaciones y fichas técnicas<br><br>¿Por cuál empezamos?' },
+  { palabras:['ayuda','help','no entiendo','como funciona','que puedes hacer'],
+    respuesta:'😊 Puedo ayudarte con:<br><br>🔍 <strong>Buscar EPP</strong> por producto o industria<br>📋 <strong>Normativas</strong> — DS 594, DS 40, NCh<br>📋 <strong>Cotizar</strong> — arma tu lista aquí mismo<br>⭐ <strong>Zona VIP</strong> — licitaciones y más<br><br>¿Por cuál empezamos?' },
 ];
-
-const KARY_SUGERENCIAS_INICIO = [
-  { texto:'🔍 Buscar producto', fn:"karyActivarBuscador()" },
-  { texto:'📋 Normativas', fn:"karyResponder('normativas decretos')" },
-  { texto:'⭐ Zona VIP', fn:"karyResponder('zona vip')" },
-  { texto:'📋 Licitaciones', fn:"karyResponder('licitaciones mercado publico')" },
-];
-
-function karyToggle() {
-  karyAbierto = !karyAbierto;
-  const chat   = document.getElementById('karyChat');
-  const badge  = document.getElementById('karyBadge');
-  const iconC  = document.getElementById('karyIconChat');
-  const iconX  = document.getElementById('karyIconClose');
-
-  chat.style.display = karyAbierto ? 'flex' : 'none';
-  badge.style.display = 'none';
-  iconC.style.display = karyAbierto ? 'none' : 'block';
-  iconX.style.display = karyAbierto ? 'block' : 'none';
-
-  if (karyAbierto && !karyIniciado) {
-    karyIniciado = true;
-    setTimeout(() => {
-      karyMensajeBot('¡Hola! 👋 Soy <strong>Kary</strong>, tu asistente en BuscaEPP. Estoy aquí para orientarte en todo lo que necesites sobre seguridad industrial.');
-      setTimeout(() => {
-        karyMensajeBot('Puedo ayudarte a encontrar EPP, normativas, proveedores, licitaciones y más. ¿Por dónde empezamos?');
-        karySugerencias(KARY_SUGERENCIAS_INICIO);
-      }, 800);
-    }, 300);
-  }
-
-  if (karyAbierto) setTimeout(() => document.getElementById('karyInput')?.focus(), 300);
-}
 
 function karyMensajeBot(texto) {
   const cont = document.getElementById('karyMensajes');
   if (!cont) return;
   cont.innerHTML += `
     <div style="display:flex;gap:.5rem;align-items:flex-end;">
-      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">K</div>
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#000;font-weight:700;flex-shrink:0;">K</div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.6rem .8rem;max-width:85%;font-size:.8rem;color:var(--text);line-height:1.5;">${texto}</div>
     </div>`;
   cont.scrollTop = cont.scrollHeight;
 }
 
-// Muestra resultados de productos directo en el chat
+function karyMostrarIndustria(indId) {
+  const ind = KARY_INDUSTRIAS[indId];
+  if (!ind) return;
+  karyIndustria = indId;
+  karyGuardarMemoria({ industria: indId });
+  const cont = document.getElementById('karyMensajes');
+  if (!cont) return;
+  cont.innerHTML += `
+    <div style="display:flex;gap:.5rem;align-items:flex-end;">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">K</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.7rem .9rem;max-width:90%;font-size:.8rem;color:var(--text);">
+        <div style="font-weight:700;margin-bottom:.4rem;">${ind.label}</div>
+        <div style="color:var(--muted);font-size:.75rem;margin-bottom:.5rem;">${ind.intro}</div>
+        <div style="font-size:.7rem;color:#38bdf8;margin-bottom:.5rem;">📋 ${ind.normas}</div>
+        <div style="font-size:.74rem;font-weight:600;margin-bottom:.3rem;">EPP requerido — clic para ver productos:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;">
+          ${ind.epp.map(e => `<button onclick="karyMostrarProductos('${e}')" style="background:rgba(245,158,11,.12);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.7rem;">${e}</button>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  cont.scrollTop = cont.scrollHeight;
+  karySugerencias([
+    { texto:'🔍 Buscar producto', fn:"karyActivarBuscador()" },
+    { texto:'📋 Mi cotización', fn:"karyMostrarCotizacion()" },
+    { texto:'↩️ Inicio', fn:"karySugerencias(KARY_SUGERENCIAS_INICIO)" }
+  ]);
+}
+
+// ── Cotización dentro del chat ────────────────────────────────
+function karyAgregarCotizacion(id) {
+  const p = products.find(pr => pr.id === id);
+  if (!p) return;
+  if (karyCotizacion.find(i => i.id === id)) {
+    karyMensajeBot('Ese producto ya está en tu cotización 😊');
+  } else {
+    karyCotizacion.push({ id:p.id, name:p.name, family:p.family });
+    karyGuardarCotizacion();
+    karyMensajeBot(`✅ <strong>${p.name}</strong> agregado. Tienes ${karyCotizacion.length} producto${karyCotizacion.length!==1?'s':''}.`);
+  }
+  karySugerencias([
+    { texto:'📋 Ver cotización', fn:"karyMostrarCotizacion()" },
+    { texto:'🔍 Seguir buscando', fn:"karyActivarBuscador()" }
+  ]);
+}
+
+function karyMostrarCotizacion() {
+  const cont = document.getElementById('karyMensajes');
+  if (!cont) return;
+  if (!karyCotizacion.length) {
+    karyMensajeBot('📋 Tu cotización está vacía. Busca productos y usa el botón <strong>"+ Cotizar"</strong>.');
+    karySugerencias([{ texto:'🔍 Buscar producto', fn:"karyActivarBuscador()" }]);
+    return;
+  }
+  cont.innerHTML += `
+    <div style="display:flex;gap:.5rem;align-items:flex-end;">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">K</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.7rem .9rem;max-width:90%;">
+        <div style="font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.5rem;">📋 Tu cotización — ${karyCotizacion.length} producto${karyCotizacion.length!==1?'s':''}</div>
+        ${karyCotizacion.map((item,i) => {
+          const fam = FAMILIES[item.family]||{};
+          return `<div style="display:flex;align-items:center;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--border);font-size:.75rem;">
+            <span>${fam.icon||'📦'} ${item.name}</span>
+            <button onclick="karyCotizacion.splice(${i},1);karyGuardarCotizacion();karyMostrarCotizacion();" style="background:none;border:none;color:var(--muted);cursor:pointer;">✕</button>
+          </div>`;
+        }).join('')}
+        <div style="margin-top:.6rem;display:flex;gap:.4rem;">
+          <button onclick="karyDescargarCotizacion()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:.72rem;font-weight:700;">📥 Descargar</button>
+          <button onclick="karyCotizacion=[];karyGuardarCotizacion();karyMensajeBot('🗑️ Cotización limpiada.');" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:.72rem;">🗑️ Limpiar</button>
+        </div>
+      </div>
+    </div>`;
+  cont.scrollTop = cont.scrollHeight;
+  karySugerencias([{ texto:'🔍 Agregar más', fn:"karyActivarBuscador()" }]);
+}
+
+function karyDescargarCotizacion() {
+  if (!karyCotizacion.length) return;
+  let txt = 'COTIZACIÓN EPP — BuscaEPP.cl\n' + '='.repeat(35) + '\n';
+  txt += `Fecha: ${new Date().toLocaleDateString('es-CL')}\n\n`;
+  karyCotizacion.forEach((item,i) => { txt += `${i+1}. ${item.name}\n`; });
+  txt += '\nGenerado por BuscaEPP.cl\n';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));
+  a.download = 'cotizacion-epp.txt'; a.click();
+  karyMensajeBot('📥 ¡Cotización descargada! 😊');
+}
+
 function karyMostrarProductos(termino) {
   const cont = document.getElementById('karyMensajes');
   if (!cont) return;
@@ -8759,36 +8917,46 @@ function karyMostrarProductos(termino) {
   }).slice(0, 4);
 
   if (!resultados.length) {
-    karyMensajeBot(`No encontré productos para <strong>"${termino}"</strong>. ¿Puedes intentar con otro término?`);
-    karySugerencias(KARY_SUGERENCIAS_INICIO);
+    karyMensajeBot(`No encontré productos para <strong>"${termino}"</strong>. ¿Pruebas con otro término?`);
+    karySugerencias([
+      { texto:'🔍 Nueva búsqueda', fn:"karyActivarBuscador()" },
+      { texto:'↩️ Inicio', fn:"karySugerencias(KARY_SUGERENCIAS_INICIO)" }
+    ]);
     return;
   }
 
-  // Mensaje intro
   cont.innerHTML += `
     <div style="display:flex;gap:.5rem;align-items:flex-end;">
       <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">K</div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.6rem .8rem;max-width:90%;font-size:.8rem;color:var(--text);">
-        Encontré <strong>${resultados.length}</strong> productos para <strong>"${termino}"</strong> 🎯
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.6rem .8rem;max-width:92%;font-size:.8rem;color:var(--text);">
+        Encontré <strong>${resultados.length}</strong> resultado${resultados.length!==1?'s':''} para <strong>"${termino}"</strong> 🎯
         <div style="margin-top:.6rem;display:flex;flex-direction:column;gap:.4rem;">
           ${resultados.map(p => {
             const fam = FAMILIES[p.family] || {};
             const provCount = (p.providers||[]).length;
-            return `<div onclick="openModal(${p.id}); karyToggle();" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;cursor:pointer;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <div style="font-size:.75rem;font-weight:700;color:var(--text);">${fam.icon||'📦'} ${p.name}</div>
-              <div style="font-size:.68rem;color:var(--muted);margin-top:1px;">${p.desc ? p.desc.substring(0,60)+'...' : ''}</div>
-              <div style="font-size:.65rem;color:var(--accent);margin-top:2px;">📋 Ver ficha técnica · ${provCount} proveedor${provCount!==1?'es':''}</div>
+            const esEikona = p.destacado && (p.providers||[]).includes('eikona');
+            const borde = esEikona ? 'border-color:rgba(245,158,11,.5);' : '';
+            return `<div style="background:var(--surface2);border:1px solid var(--border);${borde}border-radius:8px;padding:.5rem .7rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:.3rem;margin-bottom:.2rem;">
+                <div style="font-size:.75rem;font-weight:700;color:var(--text);">${fam.icon||'📦'} ${p.name}${esEikona?' ⭐':''}</div>
+              </div>
+              <div style="font-size:.68rem;color:var(--muted);margin-bottom:.3rem;">${p.desc ? p.desc.substring(0,65)+'...' : ''}</div>
+              <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
+                <button onclick="openModal(${p.id}); karyToggle();" style="background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2);border-radius:5px;padding:2px 7px;cursor:pointer;font-size:.66rem;">📋 Ficha · ${provCount} prov.</button>
+                <button onclick="karyAgregarCotizacion(${p.id})" style="background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2);border-radius:5px;padding:2px 7px;cursor:pointer;font-size:.66rem;">+ Cotizar</button>
+              </div>
             </div>`;
           }).join('')}
         </div>
-        ${resultados.length === 4 ? `<div style="margin-top:.5rem;"><button onclick="showTab('epp'); document.getElementById('searchInput').value='${termino}'; renderProducts(); karyToggle();" style="background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">Ver todos los resultados →</button></div>` : ''}
+        ${resultados.length === 4 ? `<div style="margin-top:.5rem;"><button onclick="showTab('epp'); document.getElementById('searchInput').value='${termino}'; renderProducts(); karyToggle();" style="background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.68rem;">Ver todos →</button></div>` : ''}
       </div>
     </div>`;
   cont.scrollTop = cont.scrollHeight;
 
   karySugerencias([
+    { texto:'📋 Mi cotización', fn:"karyMostrarCotizacion()" },
     { texto:'🔍 Nueva búsqueda', fn:"karyActivarBuscador()" },
-    { texto:'↩️ Volver al inicio', fn:"karySugerencias(KARY_SUGERENCIAS_INICIO)" }
+    { texto:'↩️ Inicio', fn:"karySugerencias(KARY_SUGERENCIAS_INICIO)" }
   ]);
 }
 
@@ -8858,6 +9026,18 @@ function karyNormalizar(t) {
 
 function karyResponder(texto) {
   const q = karyNormalizar(texto);
+
+  // ── Capturar nombre si Kary preguntó ────────────────────────
+  if (!karyMemoria.nombre && karyIniciado && texto.trim().length < 20 &&
+      !['si','no','ok','hola','epp','normativa'].some(p => q.includes(p))) {
+    const posibleNombre = texto.trim().split(' ')[0];
+    if (posibleNombre.length > 2) {
+      karyGuardarMemoria({ nombre: posibleNombre });
+      karyMensajeBot(`¡Encantada, <strong>${posibleNombre}</strong>! 😊 ¿En qué te ayudo hoy?`);
+      karySugerencias(KARY_SUGERENCIAS_INICIO);
+      return;
+    }
+  }
 
   // ── Si Kary hizo una pregunta de contexto y el usuario responde cualquier cosa ──
   // Detectar si es una respuesta de detalle (número, material, tipo de trabajo)
@@ -8942,6 +9122,103 @@ function karyResponder(texto) {
       karySugerencias(KARY_SUGERENCIAS_INICIO);
     }, 300);
   }
+}
+
+// ── Funciones UI de Kary ──────────────────────────────────────
+function karyToggle() {
+  karyAbierto = !karyAbierto;
+  const chat  = document.getElementById('karyChat');
+  const badge = document.getElementById('karyBadge');
+  const iconC = document.getElementById('karyIconChat');
+  const iconX = document.getElementById('karyIconClose');
+
+  chat.style.display = karyAbierto ? 'flex' : 'none';
+  if (badge) badge.style.display = 'none';
+  if (iconC) iconC.style.display = karyAbierto ? 'none' : 'block';
+  if (iconX) iconX.style.display = karyAbierto ? 'block' : 'none';
+
+  if (karyAbierto && !karyIniciado) {
+    karyIniciado = true;
+    // Cargar industria guardada en memoria
+    if (karyMemoria.industria) karyIndustria = karyMemoria.industria;
+    const nombre = karyMemoria.nombre;
+    const industria = karyMemoria.industria ? KARY_INDUSTRIAS[karyMemoria.industria]?.label : null;
+    setTimeout(() => {
+      if (nombre) {
+        karyMensajeBot(`¡Hola de nuevo, <strong>${nombre}</strong>! 👋😊 Bienvenido de vuelta a BuscaEPP.`);
+        setTimeout(() => {
+          const msg = industria
+            ? `Recuerdo que trabajas en <strong>${industria}</strong>. ¿Necesitas más EPP para esa área o algo nuevo hoy?`
+            : '¿En qué te puedo ayudar hoy?';
+          karyMensajeBot(msg);
+          karySugerencias(KARY_SUGERENCIAS_INICIO);
+        }, 700);
+      } else {
+        karyMensajeBot('¡Hola! 👋😊 Soy <strong>Kary</strong>, tu asistente en BuscaEPP. Para conocerte mejor — ¿cómo te llamas?');
+        setTimeout(() => {
+          karyMensajeBot('También puedes empezar directo si prefieres 😊');
+          karySugerencias(KARY_SUGERENCIAS_INICIO);
+        }, 800);
+      }
+    }, 300);
+  }
+
+  if (karyAbierto) setTimeout(() => document.getElementById('karyInput')?.focus(), 300);
+}
+
+function karyMensajeUser(texto) {
+  const cont = document.getElementById('karyMensajes');
+  if (!cont) return;
+  cont.innerHTML += `
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.1));border:1px solid rgba(245,158,11,.3);border-radius:12px 12px 0 12px;padding:.6rem .8rem;max-width:85%;font-size:.8rem;color:var(--text);">${texto}</div>
+    </div>`;
+  cont.scrollTop = cont.scrollHeight;
+}
+
+function karySugerencias(sugs) {
+  const cont = document.getElementById('karySugerencias');
+  if (!cont) return;
+  if (!sugs?.length) { cont.innerHTML = ''; return; }
+  cont.innerHTML = sugs.map(s =>
+    `<button onclick="${s.fn}" style="background:rgba(245,158,11,.1);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.7rem;font-family:'DM Sans',sans-serif;">${s.texto}</button>`
+  ).join('');
+}
+
+function karyEnviar() {
+  const input = document.getElementById('karyInput');
+  const texto = input?.value.trim();
+  if (!texto) return;
+  input.value = '';
+  karyMensajeUser(texto);
+  karySugerencias([]);
+  setTimeout(() => karyResponder(texto), 400);
+}
+
+function karyActivarBuscador() {
+  const cont = document.getElementById('karyMensajes');
+  if (!cont) return;
+  const buscadorId = 'karyBusc_' + Date.now();
+  cont.innerHTML += `
+    <div style="display:flex;gap:.5rem;align-items:flex-end;">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">K</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px 12px 12px 0;padding:.7rem .8rem;width:82%;">
+        <div style="font-size:.78rem;color:var(--text);margin-bottom:.5rem;">🔍 ¿Qué producto buscas?</div>
+        <div style="display:flex;gap:.4rem;">
+          <input id="${buscadorId}" type="text" placeholder="Ej: casco minero, guante nitrilo..." onkeydown="if(event.key==='Enter'){ karyBuscarDesdeChat(this.value); }" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;color:var(--text);font-size:.78rem;font-family:'DM Sans',sans-serif;">
+          <button onclick="karyBuscarDesdeChat(document.getElementById('${buscadorId}').value)" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:6px;padding:.4rem .7rem;cursor:pointer;font-size:.78rem;font-weight:700;">→</button>
+        </div>
+      </div>
+    </div>`;
+  cont.scrollTop = cont.scrollHeight;
+  karySugerencias([]);
+  setTimeout(() => document.getElementById(buscadorId)?.focus(), 200);
+}
+
+function karyBuscarDesdeChat(termino) {
+  if (!termino?.trim()) return;
+  karyMensajeUser('🔍 ' + termino.trim());
+  setTimeout(() => karyMostrarProductos(termino.trim()), 400);
 }
 
 // Saludo automático a los 3 segundos de entrar
