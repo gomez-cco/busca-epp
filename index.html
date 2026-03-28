@@ -844,7 +844,6 @@
         <span class="isp-badge-date">Marzo 2025</span>
       </div>
     </a>
-
     <div id="modelSearchPanel" class="model-search-panel" style="display:none;"></div>
   </div>
 
@@ -855,7 +854,7 @@
   <div class="results-area">
     <div class="results-meta" id="resultsMeta"></div>
 
-    <!-- Banner Eikona — visible solo cuando se filtra ignifugo -->
+    <!-- Banner Eikona -->
     <div id="banner-eikona" style="display:none;background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.04));border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.2rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:.8rem;">
@@ -877,11 +876,10 @@
     <div class="empty" id="emptyState" style="display:none;">
       <div class="empty-icon">🔎</div>
       <h3 data-es="Sin resultados" data-en="No results" data-pt="Sem resultados" data-zh="无结果">Sin resultados</h3>
-      <p data-es="Intenta con otro término o revisa los filtros" data-en="Try another term or check the filters" data-pt="Tente outro termo ou verifique os filtros" data-zh="请尝试其他搜索词或检查筛选条件">Intenta con otro término o revisa los filtros</p>
+      <p data-es="Intenta con otro término o revisa los filtros" data-en="Try another term or check the filters" data-pt="Tente outro termo ou verifique os filtros" data-zh="请尝试其他搜索词或检查筛선条件">Intenta con otro término o revisa los filtros</p>
     </div>
   </div>
 </div>
-
 <!-- NORMATIVAS TAB -->
 <div id="pane-norm" style="display:none;">
   <div class="hero">
@@ -5399,8 +5397,39 @@ function buildMatcher(query) {
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
   const empty = document.getElementById('emptyState');
-  const meta = document.getElementById('resultsMeta');
+  const meta  = document.getElementById('resultsMeta');
   const bannerEikona = document.getElementById('banner-eikona');
+
+  // ── Si no hay familia seleccionada ni búsqueda → pantalla de bienvenida ──
+  if (activeFamily === 'all' && !searchQuery) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+          <!-- Logo BuscaEPP -->
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem 2rem;display:inline-flex;align-items:center;gap:.6rem;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;letter-spacing:1px;color:var(--text);">Busca<span style="color:var(--accent);">EPP</span></span>
+            <span style="font-size:1rem;color:var(--accent);">🦺</span>
+          </div>
+          <!-- Flecha + mensaje apuntando a los filtros -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;margin-top:.5rem;">
+            <div style="font-size:1.8rem;animation:bounceUp .9s infinite alternate;">↑</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:.5px;">
+              Selecciona una familia arriba para comenzar
+            </div>
+            <div style="font-size:.82rem;color:var(--muted);">
+              O escribe en el buscador para encontrar cualquier EPP
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>
+        @keyframes bounceUp { from { transform:translateY(0); } to { transform:translateY(-8px); } }
+      </style>`;
+    if (meta) meta.innerHTML = '';
+    if (empty) empty.style.display = 'none';
+    if (bannerEikona) bannerEikona.style.display = 'none';
+    return;
+  }
 
   const matcher = buildMatcher(searchQuery);
   const isWildcard = searchQuery.includes('*');
@@ -5415,7 +5444,7 @@ function renderProducts() {
 
   // ── Mostrar banner Eikona si se filtra ignifugo o búsqueda relacionada ──
   const esIgnifugo = activeFamily === 'ignifugo' ||
-    (searchQuery && ['ignifug','ignifug','fr ','flame','fuego','arco electrico','eikona','unisafe','lask','vcs'].some(k => searchQuery.toLowerCase().includes(k)));
+    (searchQuery && ['ignifug','fr ','flame','fuego','arco electrico','eikona','unisafe','lask','vcs'].some(k => searchQuery.toLowerCase().includes(k)));
   if (bannerEikona) bannerEikona.style.display = esIgnifugo ? 'block' : 'none';
 
   // ── Priorizar productos Eikona al inicio ─────────────────────
@@ -5502,7 +5531,6 @@ let lastModelQuery = '';
 function onSearch() {
   searchQuery = document.getElementById('searchInput').value;
   document.getElementById('clearBtn').classList.toggle('show', searchQuery.length > 0);
-  // Atenuar tip cuando hay texto
   const tip = document.getElementById('searchTip');
   if (tip) tip.style.opacity = searchQuery.length > 0 ? '0.35' : '1';
   renderProducts();
@@ -5512,7 +5540,7 @@ function onSearch() {
   const panel = document.getElementById('modelSearchPanel');
 
   if (searchQuery.length < 4) {
-    panel.style.display = 'none';
+    if (panel) panel.style.display = 'none';
     lastModelQuery = '';
     return;
   }
@@ -5624,7 +5652,8 @@ function clearSearch() {
   searchQuery = '';
   lastModelQuery = '';
   document.getElementById('clearBtn').classList.remove('show');
-  document.getElementById('modelSearchPanel').style.display = 'none';
+  const panel = document.getElementById('modelSearchPanel');
+  if (panel) panel.style.display = 'none';
   const tip = document.getElementById('searchTip');
   if (tip) tip.style.opacity = '1';
   renderProducts();
@@ -8087,6 +8116,131 @@ function fetchMPEstado(fecha, estado) {
     document.head.appendChild(script);
     setTimeout(() => { if(window[cbName]) { reject(new Error('Timeout')); delete window[cbName]; script.remove(); }}, 10000);
   });
+}
+
+// ─── DIRECTORIO FABRICANTES EPP ──────────────────────────────
+const FABRICANTES = {
+  cabeza:      { label:'🪖 Cabeza',      color:'#60a5fa', items:[
+    { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Cascos de seguridad, altura y bomberos. Fabricante latinoamericano con presencia en Chile.', url:'https://www.libus.cl/craneana/casco-seguridad.html', norma:'NCh 461', destacado:false },
+    { nombre:'Masprot',     tipo:'⭐ Fabricante Nacional', desc:'Cascos Luminer fabricados en Chile. Amplia gama para minería, construcción e industria.', url:'https://www.masprot.cl', norma:'NCh 461', destacado:false },
+    { nombre:'MSA Safety',  tipo:'Fabricante Mundial',    desc:'Líderes mundiales en cascos V-Gard para minería y construcción.', url:'https://cl.msasafety.com', norma:'NCh 461 / ANSI Z89.1', destacado:false },
+    { nombre:'3M',          tipo:'Fabricante Mundial',    desc:'Cascos serie H-700, H-800. Protección certificada para industria y construcción.', url:'https://www.3mchile.cl', norma:'NCh 461', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Cascos North, Fibre-Metal y Uvex. Soluciones integrales de protección craneal.', url:'https://www.honeywellsafety.com', norma:'NCh 461 / EN 397', destacado:false },
+  ]},
+  visual:      { label:'👓 Visual',      color:'#34d399', items:[
+    { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Lentes y antiparras certificados. Fabricante con distribución nacional.', url:'https://www.libus.cl/visual.html', norma:'NCh 712', destacado:false },
+    { nombre:'3M',          tipo:'Fabricante Mundial',    desc:'Lentes SecureFit, Virtua, BX. Protección para impacto, soldadura y químicos.', url:'https://www.3mchile.cl', norma:'NCh 712 / ANSI Z87.1', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Lentes Uvex, Howard Leight. Antiparras y caretas de protección facial.', url:'https://www.honeywellsafety.com', norma:'NCh 712 / EN 166', destacado:false },
+    { nombre:'MSA Safety',  tipo:'Fabricante Mundial',    desc:'Lentes y caretas para ambientes industriales extremos.', url:'https://cl.msasafety.com', norma:'NCh 712', destacado:false },
+  ]},
+  auditiva:    { label:'🎧 Auditiva',    color:'#f59e0b', items:[
+    { nombre:'Masprot',     tipo:'⭐ Fabricante Nacional', desc:'Tapones y orejeras fabricados en Chile para todos los niveles de ruido industrial.', url:'https://www.masprot.cl', norma:'NCh 462', destacado:false },
+    { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Tapones y orejeras de seguridad con distribución en toda Latinoamérica.', url:'https://www.libus.cl/auditiva.html', norma:'NCh 462', destacado:false },
+    { nombre:'3M PELTOR',   tipo:'Fabricante Mundial',    desc:'Orejeras X5A, tapones 1100. Líderes mundiales en protección auditiva.', url:'https://www.3mchile.cl', norma:'NCh 462 / ANSI S3.19', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Howard Leight — tapones Max, orejeras Leightning. Alta atenuación.', url:'https://www.honeywellsafety.com', norma:'NCh 462 / EN 352', destacado:false },
+  ]},
+  respiratoria:{ label:'😷 Respiratoria',color:'#c084fc', items:[
+    { nombre:'Masprot',     tipo:'⭐ Fabricante Nacional', desc:'Respiradores y filtros fabricados en Chile. Registro ISP vigente. Desde 1972.', url:'https://www.masprot.cl', norma:'NCh 1028 / NCh 1533', destacado:false },
+    { nombre:'3M',          tipo:'Fabricante Mundial',    desc:'Respiradores 6200, 7500, 8210 N95. Líderes mundiales en protección respiratoria.', url:'https://www.3mchile.cl', norma:'NCh 1028 / NIOSH', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Respiradores North 7700. Soluciones para gases, vapores y partículas.', url:'https://www.honeywellsafety.com', norma:'NCh 1028 / EN 140', destacado:false },
+    { nombre:'Dräger',      tipo:'Fabricante Mundial',    desc:'Equipos de respiración autónoma y respiradores para emergencias y minería.', url:'https://www.draeger.com/cl', norma:'EN 136 / EN 137', destacado:false },
+    { nombre:'MSA Safety',  tipo:'Fabricante Mundial',    desc:'Equipos de respiración para emergencias y minería subterránea.', url:'https://cl.msasafety.com', norma:'NCh 1028', destacado:false },
+  ]},
+  manos:       { label:'🧤 Manos',       color:'#fb923c', items:[
+    { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Guantes para múltiples riesgos. Fabricante con amplia distribución en Chile.', url:'https://www.libus.cl/manos.html', norma:'NCh 1332', destacado:false },
+    { nombre:'Ansell',      tipo:'Fabricante Mundial',    desc:'HyFlex, AlphaTec, ActivArmr. Líderes mundiales en guantes industriales.', url:'https://www.ansell.com', norma:'NCh 1332 / EN 388', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Guantes Turtleskin, Perfect Fit. Protección para corte, químicos y electricidad.', url:'https://www.honeywellsafety.com', norma:'NCh 1332 / EN 388', destacado:false },
+  ]},
+  calzado:     { label:'👟 Calzado',     color:'#fbbf24', items:[
+    { nombre:'Bata Industrial',tipo:'Fabricante Internacional',desc:'Botines punta acero, dieléctrico y antiestático. Distribuido en Chile.', url:'https://www.bataindustrials.cl', norma:'NCh 1584 · NCh 772 · NCh 2147', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Calzado Servus y Oliver. Protección para minería, construcción e industria.', url:'https://www.honeywellsafety.com', norma:'NCh 1584 / EN ISO 20345', destacado:false },
+    { nombre:'CAT Workwear', tipo:'Fabricante Mundial',   desc:'Calzado industrial resistente. Punta compuesta y punta acero para faenas exigentes.', url:'https://www.catfootwear.com', norma:'NCh 1584 / ASTM F2413', destacado:false },
+  ]},
+  caidas:      { label:'🪝 Caídas',      color:'#38bdf8', items:[
+    { nombre:'3M DBI-SALA', tipo:'Fabricante Mundial',   desc:'Arneses ExoFit, líneas de vida y sistemas anticaída. Líderes mundiales.', url:'https://www.3mchile.cl', norma:'NCh 1258 / ANSI Z359', destacado:false },
+    { nombre:'Honeywell Miller',tipo:'Fabricante Mundial',desc:'Arneses TurboLite y absorbedores de impacto para trabajo en altura.', url:'https://www.honeywellsafety.com', norma:'NCh 1258 / EN 361', destacado:false },
+    { nombre:'Petzl',       tipo:'Fabricante Mundial',   desc:'Arneses y equipos para alturas extremas en minería y construcción.', url:'https://www.petzl.com', norma:'NCh 1258 / EN 361', destacado:false },
+    { nombre:'MSA Safety',  tipo:'Fabricante Mundial',   desc:'Sistemas anticaída V-Series para altura y espacios confinados.', url:'https://cl.msasafety.com', norma:'NCh 1258', destacado:false },
+  ]},
+  ignifugo:    { label:'🔥 Ignífugo',    color:'#ef4444', items:[
+    { nombre:'Eikona',      tipo:'⭐ FABRICANTE DESTACADO', desc:'Ropa ignífuga certificada ISP. Líneas UNISAFE, PF LASK, VCS y CURRENT. Santiago de Chile.', url:'https://eikona.cl/categoria/ropa-ignifuga/', norma:'NFPA 2112 · EN ISO 11612', destacado:true },
+    { nombre:'DuPont Nomex',tipo:'Fabricante Mundial',   desc:'Fibra Nomex — estándar mundial en protección ignífuga para petroquímica.', url:'https://www.dupont.com', norma:'NFPA 2112 / EN ISO 11612', destacado:false },
+    { nombre:'Indura',      tipo:'Fabricante Internacional',desc:'Telas tratadas ignífugas Proban y Pyrovatex distribuidas en Chile.', url:'https://www.indura.net', norma:'NFPA 2112', destacado:false },
+  ]},
+  gases:       { label:'💨 Gases',       color:'#6ee7b7', items:[
+    { nombre:'Dräger',      tipo:'Fabricante Mundial',   desc:'Detectores X-am, equipos multigas y sistemas fijos. Estándar en minería y petróleo.', url:'https://www.draeger.com/cl', norma:'IEC 60079 / ATEX', destacado:false },
+    { nombre:'Honeywell BW',tipo:'Fabricante Mundial',   desc:'Detectores GasAlert, Altair. Monitores portátiles para espacios confinados.', url:'https://www.honeywellsafety.com', norma:'IEC 60079', destacado:false },
+    { nombre:'MSA Safety',  tipo:'Fabricante Mundial',   desc:'Altair, Galaxy GX2. Detección para minería subterránea y petroquímica.', url:'https://cl.msasafety.com', norma:'IEC 60079', destacado:false },
+  ]},
+  loto:        { label:'🔐 LOTO',        color:'#a78bfa', items:[
+    { nombre:'Brady',       tipo:'Fabricante Mundial',   desc:'Candados, hasps y estaciones LOTO. Estándar mundial OSHA.', url:'https://www.bradyid.com', norma:'OSHA 1910.147', destacado:false },
+    { nombre:'Master Lock', tipo:'Fabricante Mundial',   desc:'Candados Safety Series. Amplia gama para aplicaciones industriales.', url:'https://www.masterlock.com', norma:'OSHA 1910.147', destacado:false },
+    { nombre:'ABUS',        tipo:'Fabricante Mundial',   desc:'Candados dieléctricos y de acero para minería y alta tensión.', url:'https://www.abus.com', norma:'OSHA 1910.147', destacado:false },
+  ]},
+  vial:        { label:'🚧 Vial',         color:'#f97316', items:[
+    { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Ropa de alta visibilidad y chaleco geólogo. Certificado para trabajo vial en Chile.', url:'https://www.libus.cl', norma:'DS 78 / EN ISO 20471', destacado:false },
+    { nombre:'Portwest',    tipo:'Fabricante Internacional',desc:'Ropa vial clase 2 y 3. Chalecos y parkas de alta visibilidad certificados.', url:'https://www.portwest.com', norma:'EN ISO 20471', destacado:false },
+    { nombre:'Delta Plus',  tipo:'Fabricante Internacional',desc:'Vestuario vial y alta visibilidad para obras, carreteras y trabajos nocturnos.', url:'https://www.deltaplus.eu', norma:'EN ISO 20471', destacado:false },
+  ]},
+  piel:        { label:'🧴 Piel',         color:'#86efac', items:[
+    { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Cremas protectoras y barreras dérmicas para químicos y UV.', url:'https://www.libus.cl', norma:'NCh / EN 13832', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',   desc:'Trajes químicos y protección dérmica para industria química y petroquímica.', url:'https://www.honeywellsafety.com', norma:'EN 13982 / EN 14126', destacado:false },
+  ]},
+};
+
+let eppCategoriaActual = null;
+
+function renderDirectorioEPP() {
+  const grid = document.getElementById('eppCategGrid');
+  if (!grid) return;
+  grid.innerHTML = Object.entries(FABRICANTES).map(([key, cat]) => {
+    const total = cat.items.length;
+    const destacados = cat.items.filter(f => f.destacado).length;
+    return `<div onclick="mostrarFabricantes('${key}')" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;cursor:pointer;text-align:center;transition:all .2s;position:relative;" onmouseover="this.style.borderColor='${cat.color}';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="font-size:2rem;margin-bottom:.4rem;">${cat.label.split(' ')[0]}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">${cat.label.split(' ').slice(1).join(' ')}</div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem;">${total} fabricante${total!==1?'s':''}</div>
+      ${destacados?`<div style="position:absolute;top:.4rem;right:.4rem;font-size:.65rem;background:rgba(245,158,11,.2);color:#f59e0b;border-radius:4px;padding:1px 5px;">⭐</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function mostrarFabricantes(catKey) {
+  const cat = FABRICANTES[catKey];
+  if (!cat) return;
+  eppCategoriaActual = catKey;
+  document.getElementById('eppCategGrid').style.display = 'none';
+  document.getElementById('eppFabricantesArea').style.display = 'block';
+  document.getElementById('eppCategTitulo').textContent = cat.label;
+  const grid = document.getElementById('eppFabricantesGrid');
+  const sorted = [...cat.items].sort((a,b) => (b.destacado?1:0)-(a.destacado?1:0));
+  grid.innerHTML = sorted.map(f => `
+    <a href="${f.url}" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div style="background:var(--card);border:1px solid ${f.destacado?'rgba(245,158,11,.5)':'var(--border)'};border-radius:12px;padding:1.1rem;transition:border-color .2s;${f.destacado?'box-shadow:0 0 0 1px rgba(245,158,11,.15);':''}" onmouseover="this.style.borderColor='${cat.color}'" onmouseout="this.style.borderColor='${f.destacado?'rgba(245,158,11,.5)':'var(--border)'}'">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;flex-wrap:wrap;gap:.3rem;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">${f.nombre}</div>
+          <span style="font-size:.62rem;background:${f.destacado?'rgba(245,158,11,.2)':'rgba(56,189,248,.1)'};color:${f.destacado?'#f59e0b':'#38bdf8'};border:1px solid ${f.destacado?'rgba(245,158,11,.3)':'rgba(56,189,248,.2)'};border-radius:10px;padding:1px 7px;white-space:nowrap;">${f.tipo}</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem;line-height:1.5;">${f.desc}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:.68rem;color:${cat.color};font-weight:600;">📋 ${f.norma}</div>
+          <div style="font-size:.7rem;color:var(--accent);">Ver sitio →</div>
+        </div>
+      </div>
+    </a>`).join('');
+}
+
+function volverCategorias() {
+  eppCategoriaActual = null;
+  document.getElementById('eppCategGrid').style.display = 'grid';
+  document.getElementById('eppFabricantesArea').style.display = 'none';
+}
+
+function toggleEppVista(busquedaActiva) {
+  const dir = document.getElementById('eppDirectorio');
+  const res = document.getElementById('eppResultadosArea');
+  if (dir) dir.style.display = busquedaActiva ? 'none' : 'block';
+  if (res) res.style.display = busquedaActiva ? 'block' : 'none';
 }
 
 // ─── SEIA — Búsquedas preconfiguradas ───────────────────────
