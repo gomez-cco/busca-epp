@@ -1987,11 +1987,55 @@
 
     <!-- Formulario para admin -->
     <div id="expertoForm" style="display:none;background:var(--card);border:1px solid rgba(163,230,53,.3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#4ade80;margin-bottom:.8rem;">➕ Publicar comentario de experto</div>
-      <input id="expNombre" type="text" placeholder="Nombre del experto" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
-      <input id="expCargo" type="text" placeholder="Cargo / Especialidad (ej: Prevencionista de Riesgos, Ing. Seguridad)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#4ade80;margin-bottom:1rem;">➕ Publicar perfil de experto</div>
+
+      <!-- Fila: Logo + Nombre + Cargo -->
+      <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:.5rem;margin-bottom:.5rem;align-items:start;">
+
+        <!-- Logo -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;">
+          <div id="expLogoPreview" onclick="document.getElementById('expLogoInput').click()" style="width:110px;height:110px;border-radius:12px;border:2px dashed rgba(163,230,53,.4);background:var(--surface2);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;font-size:2.5rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#4ade80'" onmouseout="this.style.borderColor='rgba(163,230,53,.4)'" title="Clic para subir logo">🏢</div>
+          <input type="file" id="expLogoInput" accept="image/*" style="display:none;" onchange="previewExpLogo(this)">
+          <span style="font-size:.62rem;color:var(--muted);text-align:center;">Logo empresa<br>(opcional)</span>
+          <button onclick="borrarExpLogo()" id="expLogoBorrar" style="display:none;font-size:.62rem;background:rgba(239,68,68,.15);color:#fca5a5;border:none;border-radius:4px;padding:2px 6px;cursor:pointer;">✕ Quitar</button>
+        </div>
+
+        <input id="expNombre" type="text" placeholder="Nombre del experto o empresa" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        <input id="expCargo" type="text" placeholder="Cargo / Especialidad" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+      </div>
+
+      <!-- Fila: Email + Teléfono -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">📧</span>
+          <input id="expEmail" type="email" placeholder="correo@empresa.cl" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">📞</span>
+          <input id="expTelefono" type="tel" placeholder="+56 9 1234 5678" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+      </div>
+
+      <!-- EPP sobre el que comenta -->
       <input id="expEpp" type="text" placeholder="EPP sobre el que comenta (ej: Respirador N95, Arnés anticaída)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
-      <textarea id="expComentario" placeholder="Comentario del experto (máx. 5 líneas)..." rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;box-sizing:border-box;resize:vertical;"></textarea>
+
+      <!-- Comentario -->
+      <textarea id="expComentario" placeholder="Comentario del experto — experiencia, recomendaciones, tips de uso..." rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;resize:vertical;"></textarea>
+
+      <!-- Adjuntos PDF / Word -->
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:.8rem;">
+        <div style="font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.5rem;">📎 Archivo adjunto (PDF o Word — opcional)</div>
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+          <label style="background:rgba(163,230,53,.1);color:#4ade80;border:1px solid rgba(163,230,53,.3);border-radius:7px;padding:.4rem .9rem;cursor:pointer;font-size:.78rem;font-weight:600;">
+            📂 Seleccionar archivo
+            <input type="file" id="expArchivoInput" accept=".pdf,.doc,.docx" style="display:none;" onchange="previewExpArchivo(this)">
+          </label>
+          <span id="expArchivoNombre" style="font-size:.75rem;color:var(--muted);">Sin archivo seleccionado</span>
+          <button onclick="borrarExpArchivo()" id="expArchivoBorrar" style="display:none;font-size:.7rem;background:rgba(239,68,68,.15);color:#fca5a5;border:none;border-radius:4px;padding:3px 8px;cursor:pointer;">✕ Quitar</button>
+        </div>
+        <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem;">Formatos permitidos: PDF, Word (.doc, .docx) · Máx. 5 MB</div>
+      </div>
+
       <button onclick="publicarExperto()" style="background:linear-gradient(135deg,#22c55e,#65a30d);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ PUBLICAR</button>
     </div>
 
@@ -7072,7 +7116,6 @@ function renderExpertos() {
   const list = document.getElementById('expertosList');
   if (!list) return;
 
-  // Mostrar formulario solo si admin está desbloqueado
   const form = document.getElementById('expertoForm');
   if (form) form.style.display = adminUnlocked ? 'block' : 'none';
 
@@ -7083,39 +7126,114 @@ function renderExpertos() {
     return;
   }
 
-  // Mantener máx 20, eliminar los más antiguos
   const mostrar = (window.expertosData || []).slice(0, 20);
-  list.innerHTML = mostrar.map((e, i) => `
+  list.innerHTML = mostrar.map((e, i) => {
+    // Avatar: logo si existe, inicial si no
+    const avatar = e.logo
+      ? `<img src="${e.logo}" style="width:48px;height:48px;border-radius:10px;object-fit:contain;background:var(--surface2);border:1px solid var(--border);">`
+      : `<div style="width:48px;height:48px;border-radius:10px;background:rgba(34,197,94,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:#4ade80;">${(e.nombre||'?').charAt(0).toUpperCase()}</div>`;
+
+    // Contacto
+    const contacto = [
+      e.email    ? `<a href="mailto:${e.email}" style="color:#38bdf8;text-decoration:none;font-size:.72rem;">📧 ${e.email}</a>` : '',
+      e.telefono ? `<a href="tel:${e.telefono}" style="color:#4ade80;text-decoration:none;font-size:.72rem;">📞 ${e.telefono}</a>` : '',
+    ].filter(Boolean).join('&nbsp;·&nbsp;');
+
+    // Archivo adjunto
+    const adjunto = e.archivoUrl ? `
+      <a href="${e.archivoUrl}" download="${e.archivoNombre||'documento'}" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(163,230,53,.1);color:#4ade80;border:1px solid rgba(163,230,53,.25);border-radius:7px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;text-decoration:none;margin-top:.5rem;">
+        📎 ${e.archivoNombre||'Descargar documento'}
+      </a>` : '';
+
+    return `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
       ${adminUnlocked ? `
         <div style="position:absolute;top:.7rem;right:.7rem;display:flex;gap:.3rem;">
           <button onclick="editarExperto(${i})" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✏️ Editar</button>
           <button onclick="eliminarExperto(${i})" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;">✕ Eliminar</button>
         </div>` : ''}
-      <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.7rem;">
-        <div style="width:40px;height:40px;border-radius:50%;background:rgba(34,197,94,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#4ade80;flex-shrink:0;">${e.nombre.charAt(0).toUpperCase()}</div>
-        <div>
+      <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.7rem;">
+        ${avatar}
+        <div style="flex:1;">
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--text);">${e.nombre}</div>
           <div style="font-size:.72rem;color:#4ade80;">${e.cargo}</div>
+          ${contacto ? `<div style="margin-top:.2rem;">${contacto}</div>` : ''}
           <div style="font-size:.7rem;color:var(--muted);margin-top:1px;">📅 ${e.fecha}</div>
         </div>
       </div>
-      <div style="background:rgba(34,197,94,.12);border-left:3px solid #22c55e;padding:.6rem .9rem;border-radius:0 8px 8px 0;margin-bottom:.6rem;">
-        <div style="font-size:.72rem;color:#4ade80;font-weight:700;margin-bottom:.3rem;">🛡️ Sobre: ${e.epp.toUpperCase()}</div>
+      <div style="background:rgba(34,197,94,.12);border-left:3px solid #22c55e;padding:.6rem .9rem;border-radius:0 8px 8px 0;margin-bottom:.4rem;">
+        <div style="font-size:.72rem;color:#4ade80;font-weight:700;margin-bottom:.3rem;">🛡️ Sobre: ${(e.epp||'').toUpperCase()}</div>
         <div style="font-size:.83rem;color:var(--text);line-height:1.6;">${e.comentario}</div>
       </div>
-    </div>`).join('');
+      ${adjunto}
+    </div>`;
+  }).join('');
+}
+
+// ── Logo experto ──────────────────────────────────────────────
+let expLogoBase64 = null;
+function previewExpLogo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { alert('La imagen no debe superar 2 MB'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    expLogoBase64 = e.target.result;
+    const prev = document.getElementById('expLogoPreview');
+    prev.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:contain;">`;
+    document.getElementById('expLogoBorrar').style.display = 'inline-block';
+  };
+  reader.readAsDataURL(file);
+}
+function borrarExpLogo() {
+  expLogoBase64 = null;
+  document.getElementById('expLogoPreview').innerHTML = '🏢';
+  document.getElementById('expLogoBorrar').style.display = 'none';
+  document.getElementById('expLogoInput').value = '';
+}
+
+// ── Archivo adjunto experto ───────────────────────────────────
+let expArchivoBase64 = null;
+let expArchivoNombreActual = null;
+function previewExpArchivo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert('El archivo no debe superar 5 MB'); return; }
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (!['pdf','doc','docx'].includes(ext)) { alert('Solo se permiten archivos PDF o Word (.doc, .docx)'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    expArchivoBase64 = e.target.result;
+    expArchivoNombreActual = file.name;
+    document.getElementById('expArchivoNombre').textContent = file.name;
+    document.getElementById('expArchivoBorrar').style.display = 'inline-block';
+  };
+  reader.readAsDataURL(file);
+}
+function borrarExpArchivo() {
+  expArchivoBase64 = null;
+  expArchivoNombreActual = null;
+  document.getElementById('expArchivoNombre').textContent = 'Sin archivo seleccionado';
+  document.getElementById('expArchivoBorrar').style.display = 'none';
+  document.getElementById('expArchivoInput').value = '';
 }
 
 async function publicarExperto() {
   const nombre     = document.getElementById('expNombre').value.trim();
   const cargo      = document.getElementById('expCargo').value.trim();
+  const email      = document.getElementById('expEmail')?.value.trim() || '';
+  const telefono   = document.getElementById('expTelefono')?.value.trim() || '';
   const epp        = document.getElementById('expEpp').value.trim();
   const comentario = document.getElementById('expComentario').value.trim();
-  if (!nombre || !cargo || !epp || !comentario) { alert('Completa todos los campos'); return; }
+  if (!nombre || !cargo || !epp || !comentario) { alert('Completa los campos obligatorios: nombre, cargo, EPP y comentario'); return; }
 
   const nuevo = {
     nombre, cargo, epp, comentario,
+    email, telefono,
+    logo:          expLogoBase64 || null,
+    archivoUrl:    expArchivoBase64 || null,
+    archivoNombre: expArchivoNombreActual || null,
     fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' }),
     ts: Date.now()
   };
@@ -7123,11 +7241,13 @@ async function publicarExperto() {
   try {
     const { db, collection, addDoc } = window._FB;
     await addDoc(collection(db, 'expertos'), nuevo);
-    document.getElementById('expNombre').value = '';
-    document.getElementById('expCargo').value = '';
-    document.getElementById('expEpp').value = '';
-    document.getElementById('expComentario').value = '';
-    showToast('✅ Comentario publicado — visible para todos');
+    // Limpiar campos
+    ['expNombre','expCargo','expEmail','expTelefono','expEpp','expComentario'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    borrarExpLogo();
+    borrarExpArchivo();
+    showToast('✅ Perfil de experto publicado — visible para todos');
   } catch(e) {
     console.error(e);
     alert('Error al publicar. Verifica tu conexión.');
