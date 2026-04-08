@@ -2016,6 +2016,22 @@
         </div>
       </div>
 
+      <!-- Redes sociales y web -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">🌐</span>
+          <input id="expWeb" type="url" placeholder="www.mipagina.cl" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">📷</span>
+          <input id="expInstagram" type="text" placeholder="@usuario_instagram" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;">👥</span>
+          <input id="expFacebook" type="text" placeholder="facebook.com/mipagina" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem .6rem 2rem;color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+        </div>
+      </div>
+
       <!-- EPP sobre el que comenta -->
       <input id="expEpp" type="text" placeholder="EPP sobre el que comenta (ej: Respirador N95, Arnés anticaída)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;margin-bottom:.5rem;box-sizing:border-box;">
 
@@ -7135,8 +7151,11 @@ function renderExpertos() {
 
     // Contacto
     const contacto = [
-      e.email    ? `<a href="mailto:${e.email}" style="color:#38bdf8;text-decoration:none;font-size:.72rem;">📧 ${e.email}</a>` : '',
-      e.telefono ? `<a href="tel:${e.telefono}" style="color:#4ade80;text-decoration:none;font-size:.72rem;">📞 ${e.telefono}</a>` : '',
+      e.email     ? `<a href="mailto:${e.email}" style="color:#38bdf8;text-decoration:none;font-size:.72rem;">📧 ${e.email}</a>` : '',
+      e.telefono  ? `<a href="tel:${e.telefono}" style="color:#4ade80;text-decoration:none;font-size:.72rem;">📞 ${e.telefono}</a>` : '',
+      e.web       ? `<a href="${e.web.startsWith('http')?e.web:'https://'+e.web}" target="_blank" rel="noopener" style="color:#f59e0b;text-decoration:none;font-size:.72rem;">🌐 Web</a>` : '',
+      e.instagram ? `<a href="https://instagram.com/${e.instagram.replace('@','')}" target="_blank" rel="noopener" style="color:#c084fc;text-decoration:none;font-size:.72rem;">📷 Instagram</a>` : '',
+      e.facebook  ? `<a href="${e.facebook.startsWith('http')?e.facebook:'https://'+e.facebook}" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:.72rem;">👥 Facebook</a>` : '',
     ].filter(Boolean).join('&nbsp;·&nbsp;');
 
     // Archivo adjunto
@@ -7224,13 +7243,16 @@ async function publicarExperto() {
   const cargo      = document.getElementById('expCargo').value.trim();
   const email      = document.getElementById('expEmail')?.value.trim() || '';
   const telefono   = document.getElementById('expTelefono')?.value.trim() || '';
+  const web        = document.getElementById('expWeb')?.value.trim() || '';
+  const instagram  = document.getElementById('expInstagram')?.value.trim() || '';
+  const facebook   = document.getElementById('expFacebook')?.value.trim() || '';
   const epp        = document.getElementById('expEpp').value.trim();
   const comentario = document.getElementById('expComentario').value.trim();
   if (!nombre || !cargo || !epp || !comentario) { alert('Completa los campos obligatorios: nombre, cargo, EPP y comentario'); return; }
 
   const nuevo = {
     nombre, cargo, epp, comentario,
-    email, telefono,
+    email, telefono, web, instagram, facebook,
     logo:          expLogoBase64 || null,
     archivoUrl:    expArchivoBase64 || null,
     archivoNombre: expArchivoNombreActual || null,
@@ -7242,7 +7264,7 @@ async function publicarExperto() {
     const { db, collection, addDoc } = window._FB;
     await addDoc(collection(db, 'expertos'), nuevo);
     // Limpiar campos
-    ['expNombre','expCargo','expEmail','expTelefono','expEpp','expComentario'].forEach(id => {
+    ['expNombre','expCargo','expEmail','expTelefono','expWeb','expInstagram','expFacebook','expEpp','expComentario'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
     });
     borrarExpLogo();
