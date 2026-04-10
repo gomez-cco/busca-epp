@@ -738,7 +738,7 @@
   <!-- ═══ FIREBASE SDK ═══════════════════════════════════════ -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
-    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, orderBy, query } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, orderBy, query, getDoc, setDoc, increment } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyAMaADj_7XN99vz2lkUtKDHTrumP2gEwPg",
@@ -754,7 +754,8 @@
 
     // ── Exponer funciones globales para el resto del código ──
     window._FB = {
-      db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, orderBy, query
+      db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc,
+      onSnapshot, orderBy, query, getDoc, setDoc, increment
     };
 
     // ── Cargar talentos en tiempo real ──────────────────────
@@ -2763,6 +2764,49 @@
 <!-- ADMIN TAB -->
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ESTADÍSTICAS DE VISITAS                        -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div class="admin-card" style="margin-bottom:1.5rem;">
+      <h3>📊 Estadísticas de Visitas</h3>
+
+      <!-- Stats resumen -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem;margin-bottom:1.2rem;">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;">
+          <div id="statVisitasHoy" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#38bdf8;">—</div>
+          <div style="font-size:.7rem;color:var(--muted);">Visitas hoy</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;">
+          <div id="statVisitasAyer" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#60a5fa;">—</div>
+          <div style="font-size:.7rem;color:var(--muted);">Visitas ayer</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;">
+          <div id="statVisitasSemana" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#4ade80;">—</div>
+          <div style="font-size:.7rem;color:var(--muted);">Últimos 7 días</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;">
+          <div id="statVisitasMes" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#f59e0b;">—</div>
+          <div style="font-size:.7rem;color:var(--muted);">Este mes</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;">
+          <div id="statVisitasTotal" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#c084fc;">—</div>
+          <div style="font-size:.7rem;color:var(--muted);">Total histórico</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;">
+          <div id="statVisitasPromedio" style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#fb923c;">—</div>
+          <div style="font-size:.7rem;color:var(--muted);">Promedio diario</div>
+        </div>
+      </div>
+
+      <!-- Tabla diaria últimos 14 días -->
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.5px;margin-bottom:.6rem;">📅 ÚLTIMOS 14 DÍAS</div>
+      <div id="tablaVisitas" style="overflow-x:auto;">
+        <div style="color:var(--muted);font-size:.8rem;">Cargando estadísticas...</div>
+      </div>
+
+      <button onclick="cargarEstadisticasVisitas()" style="margin-top:.8rem;background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">🔄 Actualizar</button>
+    </div>
 
     <!-- ── GESTIÓN USUARIOS VIP ── -->
     <div class="admin-card" style="margin-bottom:1.5rem;">
@@ -5817,7 +5861,7 @@ function showTab(tab, skipAuth=false) {
   if (tab==='fab') renderFabricantes();
   if (tab==='expertos') renderExpertos();
   if (tab==='talentos') renderTalentos();
-  if (tab==='admin') { setTimeout(cargarAdminVIP, 500); setTimeout(verificarVencimientosVIP, 1000); }
+  if (tab==='admin') { setTimeout(cargarAdminVIP, 500); setTimeout(verificarVencimientosVIP, 1000); setTimeout(cargarEstadisticasVisitas, 800); }
   if (tab==='prov') renderProveedores();
 }
 
@@ -7144,10 +7188,17 @@ function renderExpertos() {
 
   const mostrar = (window.expertosData || []).slice(0, 20);
   list.innerHTML = mostrar.map((e, i) => {
-    // Avatar: logo si existe, inicial si no
-    const avatar = e.logo
-      ? `<img src="${e.logo}" style="width:48px;height:48px;border-radius:10px;object-fit:contain;background:var(--surface2);border:1px solid var(--border);">`
+    // Avatar: logo desde localStorage si existe, inicial si no
+    const logoGuardado = e._id ? localStorage.getItem(`exp_logo_${e._id}`) : null;
+    const logoSrc = logoGuardado || e.logo || null;
+    const avatar = logoSrc
+      ? `<img src="${logoSrc}" style="width:48px;height:48px;border-radius:10px;object-fit:contain;background:var(--surface2);border:1px solid var(--border);">`
       : `<div style="width:48px;height:48px;border-radius:10px;background:rgba(34,197,94,.15);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:#4ade80;">${(e.nombre||'?').charAt(0).toUpperCase()}</div>`;
+
+    // Archivo desde localStorage
+    const archivoGuardado = e._id ? localStorage.getItem(`exp_archivo_${e._id}`) : null;
+    const archivoUrl  = archivoGuardado || e.archivoUrl || null;
+    const archivoNom  = e.archivoNombre || 'Descargar documento';
 
     // Contacto
     const contacto = [
@@ -7159,11 +7210,11 @@ function renderExpertos() {
     ].filter(Boolean).join('&nbsp;·&nbsp;');
 
     // Archivo adjunto
-    const adjunto = e.archivoUrl ? `
-      <a href="${e.archivoUrl}" download="${e.archivoNombre||'documento'}" target="_blank" rel="noopener"
+    const adjunto = archivoUrl ? `
+      <a href="${archivoUrl}" download="${archivoNom}" target="_blank" rel="noopener"
          style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(163,230,53,.1);color:#4ade80;border:1px solid rgba(163,230,53,.25);border-radius:7px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;text-decoration:none;margin-top:.5rem;">
-        📎 ${e.archivoNombre||'Descargar documento'}
-      </a>` : '';
+        📎 ${archivoNom}
+      </a>` : (e.tienearchivo ? `<div style="font-size:.72rem;color:var(--muted);margin-top:.4rem;">📎 Archivo disponible solo en el dispositivo donde fue publicado</div>` : '');
 
     return `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.8rem;position:relative;">
@@ -7250,19 +7301,27 @@ async function publicarExperto() {
   const comentario = document.getElementById('expComentario').value.trim();
   if (!nombre || !cargo || !epp || !comentario) { alert('Completa los campos obligatorios: nombre, cargo, EPP y comentario'); return; }
 
+  const ts = Date.now();
+
+  // ── Solo texto a Firestore (sin base64 — límite 1MB) ────
   const nuevo = {
     nombre, cargo, epp, comentario,
     email, telefono, web, instagram, facebook,
-    logo:          expLogoBase64 || null,
-    archivoUrl:    expArchivoBase64 || null,
+    tienelogo:    !!expLogoBase64,
+    tienearchivo: !!expArchivoBase64,
     archivoNombre: expArchivoNombreActual || null,
     fecha: new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'long', year:'numeric' }),
-    ts: Date.now()
+    ts
   };
 
   try {
     const { db, collection, addDoc } = window._FB;
-    await addDoc(collection(db, 'expertos'), nuevo);
+    const docRef = await addDoc(collection(db, 'expertos'), nuevo);
+
+    // ── Archivos grandes → localStorage (solo en este browser) ──
+    if (expLogoBase64)    localStorage.setItem(`exp_logo_${docRef.id}`,    expLogoBase64);
+    if (expArchivoBase64) localStorage.setItem(`exp_archivo_${docRef.id}`, expArchivoBase64);
+
     // Limpiar campos
     ['expNombre','expCargo','expEmail','expTelefono','expWeb','expInstagram','expFacebook','expEpp','expComentario'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
@@ -7271,8 +7330,15 @@ async function publicarExperto() {
     borrarExpArchivo();
     showToast('✅ Perfil de experto publicado — visible para todos');
   } catch(e) {
-    console.error(e);
-    alert('Error al publicar. Verifica tu conexión.');
+    console.error('Firebase error:', e);
+    // Diagnóstico más claro
+    if (e.code === 'permission-denied') {
+      alert('❌ Error de permisos Firebase. Verifica las reglas de Firestore en la consola.');
+    } else if (e.code === 'unavailable') {
+      alert('❌ Firebase no disponible. Verifica tu conexión a internet.');
+    } else {
+      alert(`❌ Error al guardar: ${e.message || e.code || 'Error desconocido'}`);
+    }
   }
 }
 
@@ -8795,6 +8861,105 @@ function abrirBusquedaMP() {
   window.open(url, '_blank', 'noopener');
 }
 
+// ─── CONTADOR DE VISITAS ──────────────────────────────────────
+async function registrarVisita() {
+  // Esperar hasta que Firebase esté listo (máx 5 segundos)
+  let intentos = 0;
+  while (!window._FB?.db && intentos < 20) {
+    await new Promise(r => setTimeout(r, 250));
+    intentos++;
+  }
+  if (!window._FB?.db) { console.warn('Visita no registrada: Firebase no disponible'); return; }
+
+  try {
+    const { db, doc, updateDoc, getDoc, setDoc, increment } = window._FB;
+    const hoy = new Date();
+    const fechaKey = `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`;
+
+    // Evitar contar doble en misma sesión
+    if (sessionStorage.getItem(`visita_${fechaKey}`)) return;
+    sessionStorage.setItem(`visita_${fechaKey}`, '1');
+
+    const visitaRef = doc(db, 'visitas', fechaKey);
+    const snap = await getDoc(visitaRef);
+    if (snap.exists()) {
+      await updateDoc(visitaRef, { count: increment(1) });
+    } else {
+      await setDoc(visitaRef, { fecha: fechaKey, count: 1, ts: Date.now() });
+    }
+  } catch(e) {
+    console.warn('Visita no registrada:', e.message);
+  }
+}
+
+async function cargarEstadisticasVisitas() {
+  try {
+    const { db, collection, getDocs } = window._FB;
+    const snap = await getDocs(collection(db, 'visitas'));
+    const datos = {};
+    snap.forEach(d => { datos[d.id] = d.data().count || 0; });
+
+    const hoy   = new Date();
+    const fmt   = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const ayer  = new Date(hoy - 86400000);
+    const hoyKey  = fmt(hoy);
+    const ayerKey = fmt(ayer);
+
+    // Calcular métricas
+    let semana = 0, mes = 0, total = 0;
+    Object.entries(datos).forEach(([fecha, count]) => {
+      total += count;
+      const d = new Date(fecha + 'T00:00:00');
+      const diff = (hoy - d) / 86400000;
+      if (diff < 7)  semana += count;
+      if (d.getMonth() === hoy.getMonth() && d.getFullYear() === hoy.getFullYear()) mes += count;
+    });
+
+    const diasConDatos = Object.keys(datos).length;
+    const promedio = diasConDatos > 0 ? Math.round(total / diasConDatos) : 0;
+
+    // Actualizar stats
+    document.getElementById('statVisitasHoy').textContent     = datos[hoyKey]  || 0;
+    document.getElementById('statVisitasAyer').textContent    = datos[ayerKey] || 0;
+    document.getElementById('statVisitasSemana').textContent  = semana;
+    document.getElementById('statVisitasMes').textContent     = mes;
+    document.getElementById('statVisitasTotal').textContent   = total;
+    document.getElementById('statVisitasPromedio').textContent = promedio;
+
+    // Tabla últimos 14 días
+    const ultimos14 = Array.from({length:14}, (_,i) => {
+      const d = new Date(hoy - i * 86400000);
+      return { key: fmt(d), label: d.toLocaleDateString('es-CL', {weekday:'short', day:'2-digit', month:'short'}) };
+    }).reverse();
+
+    const maxVal = Math.max(...ultimos14.map(d => datos[d.key] || 0), 1);
+
+    const tabla = document.getElementById('tablaVisitas');
+    tabla.innerHTML = `
+      <div style="display:flex;align-items:flex-end;gap:4px;height:80px;margin-bottom:.4rem;">
+        ${ultimos14.map(d => {
+          const v = datos[d.key] || 0;
+          const h = Math.max(4, Math.round((v / maxVal) * 72));
+          const isHoy = d.key === hoyKey;
+          return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;" title="${d.label}: ${v} visitas">
+            <div style="font-size:.6rem;color:var(--muted);">${v||''}</div>
+            <div style="width:100%;height:${h}px;background:${isHoy?'#38bdf8':'rgba(56,189,248,.35)'};border-radius:3px 3px 0 0;transition:height .3s;"></div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;gap:4px;">
+        ${ultimos14.map((d,i) => `
+          <div style="flex:1;font-size:.55rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap;">
+            ${i === 13 ? '<strong style="color:#38bdf8;">hoy</strong>' : d.label.split(' ')[1]}
+          </div>`).join('')}
+      </div>`;
+
+  } catch(e) {
+    console.warn('Error cargando estadísticas:', e.message);
+    document.getElementById('tablaVisitas').innerHTML = `<div style="color:var(--muted);font-size:.78rem;">⚠️ Error al cargar estadísticas: ${e.message}</div>`;
+  }
+}
+
 // ─── SEIA — Búsquedas preconfiguradas ───────────────────────
 function abrirSEIA(industria) {
   const params = {
@@ -9945,6 +10110,8 @@ setTimeout(() => {
 
 renderFilters();
 renderProducts();
+// Registrar visita
+setTimeout(registrarVisita, 1500);
 // Cargar tema guardado
 const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'oscuro';
 setTema(_temaGuardado);
