@@ -2441,47 +2441,128 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
         <!-- Grid de accesos directos por categoría EPP -->
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:.8rem;">🔍 BUSCAR POR CATEGORÍA EPP</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;margin-bottom:2rem;">
-          ${[
-            ['🦺','Seguridad Industrial','seguridad industrial EPP','#38bdf8'],
-            ['🪖','Cascos de Seguridad','casco seguridad industrial','#60a5fa'],
-            ['🧤','Guantes de Seguridad','guantes seguridad industrial','#fb923c'],
-            ['👟','Calzado de Seguridad','calzado seguridad botines','#fbbf24'],
-            ['😷','Protección Respiratoria','respirador mascarilla EPP','#c084fc'],
-            ['👓','Lentes de Seguridad','lentes seguridad antiparra','#34d399'],
-            ['🎧','Protección Auditiva','protección auditiva tapones orejera','#f59e0b'],
-            ['🔥','Ropa Ignífuga','ropa ignifuga antiflama FR','#ef4444'],
-            ['🚧','Ropa de Trabajo','overol ropa trabajo vestuario','#f97316'],
-            ['🪝','Arnés Anticaída','arnes anticaida altura seguridad','#38bdf8'],
-            ['💨','Detección de Gases','detector gas monoxido explosivo','#6ee7b7'],
-            ['🔐','LOTO / Bloqueo','bloqueo etiquetado LOTO seguridad','#a78bfa'],
-          ].map(([icon, label, query, color]) => {
-            const url = `https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=${encodeURIComponent(query)}&estado=publicada`;
-            return `<a href="${url}" target="_blank" rel="noopener" style="text-decoration:none;">
-              <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='${color}';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-                <div style="font-size:1.6rem;">${icon}</div>
-                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">${label}</div>
-                <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
-                <div style="background:rgba(${color==='#38bdf8'?'56,189,248':color==='#ef4444'?'239,68,68':'245,158,11'},.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:${color};font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
-              </div>
-            </a>`;
-          }).join('')}
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=seguridad%20industrial%20EPP&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#38bdf8';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🦺</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Seguridad Industrial</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(56,189,248,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#38bdf8;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=casco%20seguridad%20industrial&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#60a5fa';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🪖</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Cascos de Seguridad</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(96,165,250,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#60a5fa;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=guantes%20seguridad%20industrial&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#fb923c';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🧤</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Guantes de Seguridad</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(251,146,60,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#fb923c;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=calzado%20seguridad%20botines&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#fbbf24';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">👟</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Calzado de Seguridad</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(251,191,36,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#fbbf24;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=respirador%20mascarilla%20EPP&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#c084fc';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">😷</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Protección Respiratoria</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(192,132,252,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#c084fc;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=lentes%20seguridad%20antiparra&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#34d399';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">👓</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Lentes de Seguridad</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(52,211,153,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#34d399;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=protecci%C3%B3n%20auditiva%20tapones%20orejera&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#f59e0b';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🎧</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Protección Auditiva</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(245,158,11,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#f59e0b;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=ropa%20ignifuga%20antiflama%20FR&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#ef4444';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🔥</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Ropa Ignífuga</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(239,68,68,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#ef4444;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=overol%20ropa%20trabajo%20vestuario&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#f97316';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🚧</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Ropa de Trabajo</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(249,115,22,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#f97316;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=arnes%20anticaida%20altura%20seguridad&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#38bdf8';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🪝</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Arnés Anticaída</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(56,189,248,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#38bdf8;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=detector%20gas%20monoxido%20explosivo&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#6ee7b7';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">💨</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">Detección de Gases</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(110,231,183,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#6ee7b7;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
+        <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=bloqueo%20etiquetado%20LOTO%20seguridad&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .2s;display:flex;flex-direction:column;gap:.4rem;" onmouseover="this.style.borderColor='#a78bfa';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+            <div style="font-size:1.6rem;">🔐</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.88rem;">LOTO / Bloqueo</div>
+            <div style="font-size:.68rem;color:var(--muted);">Buscar en MP →</div>
+            <div style="background:rgba(167,139,250,.1);border-radius:6px;padding:2px 6px;font-size:.65rem;color:#a78bfa;font-weight:600;align-self:flex-start;">📋 Ver licitaciones reales</div>
+          </div>
+        </a>
         </div>
 
         <!-- Acceso directo por tipo de licitación -->
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:.8rem;">💰 BUSCAR POR MONTO / TIPO</div>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem;">
-          ${[
-            ['L1 — Menor a 100 UTM','seguridad+industrial+L1','#4ade80','Compras menores — más frecuentes'],
-            ['LE — 100 a 1.000 UTM','EPP+seguridad+LE','#f59e0b','Licitaciones medianas'],
-            ['LP — Mayor a 1.000 UTM','EPP+ropa+trabajo+LP','#38bdf8','Contratos grandes — alta competencia'],
-          ].map(([label, query, color, desc]) => `
-          <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=${query}&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;flex:1;min-width:180px;">
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='${color}'" onmouseout="this.style.borderColor='var(--border)'">
-              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:${color};font-size:1rem;">${label}</div>
-              <div style="font-size:.72rem;color:var(--muted);margin-top:.2rem;">${desc}</div>
-              <div style="margin-top:.6rem;font-size:.72rem;color:${color};font-weight:600;">Ver en MercadoPublico →</div>
+          <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=seguridad+industrial+L1&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;flex:1;min-width:180px;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='#4ade80'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#4ade80;font-size:1rem;">L1 — Menor a 100 UTM</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.2rem;">Compras menores — más frecuentes</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#4ade80;font-weight:600;">Ver en MercadoPublico →</div>
             </div>
-          </a>`).join('')}
+          </a>
+          <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=EPP+seguridad+LE&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;flex:1;min-width:180px;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='#f59e0b'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#f59e0b;font-size:1rem;">LE — 100 a 1.000 UTM</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.2rem;">Licitaciones medianas</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#f59e0b;font-weight:600;">Ver en MercadoPublico →</div>
+            </div>
+          </a>
+          <a href="https://www.mercadopublico.cl/Home/BusquedaLicitacion?palabraClave=EPP+ropa+trabajo+LP&estado=publicada" target="_blank" rel="noopener" style="text-decoration:none;flex:1;min-width:180px;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='#38bdf8'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#38bdf8;font-size:1rem;">LP — Mayor a 1.000 UTM</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.2rem;">Contratos grandes — alta competencia</div>
+              <div style="margin-top:.6rem;font-size:.72rem;color:#38bdf8;font-weight:600;">Ver en MercadoPublico →</div>
+            </div>
+          </a>
         </div>
 
         <!-- Búsqueda libre -->
