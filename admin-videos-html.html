@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Videos | BuscaEPP</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #1a1a1a; }
+    .topbar {
+      background: #0d6e56; color: #fff;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar h1 { font-size: 1rem; font-weight: 600; }
+    .topbar span { font-size: 0.8rem; opacity: 0.75; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .panel {
+      background: #fff; border: 1px solid #e0e0e0;
+      border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+    }
+    .panel h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: #333; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form-grid .full { grid-column: 1 / -1; }
+    label { display: block; font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%; padding: 8px 12px;
+      border: 1px solid #ddd; border-radius: 8px;
+      font-size: 0.9rem; color: #1a1a1a;
+      background: #fafafa;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none; border-color: #0d6e56; background: #fff;
+    }
+    textarea { resize: vertical; min-height: 70px; }
+    .preview-thumb {
+      margin-top: 8px; border-radius: 8px;
+      overflow: hidden; max-width: 240px;
+    }
+    .preview-thumb img { width: 100%; display: block; }
+    .btn-primary {
+      background: #0d6e56; color: #fff;
+      border: none; border-radius: 8px;
+      padding: 10px 24px; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #085041; }
+    .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
+    .btn-danger {
+      background: none; color: #c0392b;
+      border: 1px solid #c0392b; border-radius: 6px;
+      padding: 4px 12px; font-size: 0.8rem; cursor: pointer;
+    }
+    .btn-danger:hover { background: #fdf0f0; }
+    .alerta {
+      padding: 10px 14px; border-radius: 8px;
+      font-size: 0.875rem; margin-bottom: 1rem; display: none;
+    }
+    .alerta.ok  { background: #e1f5ee; color: #0d6e56; display: block; }
+    .alerta.err { background: #fdf0f0; color: #c0392b; display: block; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 8px 10px; border-bottom: 2px solid #eee; color: #555; font-weight: 600; }
+    td { padding: 10px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    .tag-mini {
+      font-size: 0.75rem; padding: 2px 8px;
+      border-radius: 99px; background: #e1f5ee; color: #0d6e56;
+      font-weight: 600; white-space: nowrap;
+    }
+    .thumb-mini { width: 80px; border-radius: 4px; }
+    .orden-input { width: 60px; }
+    #login-screen {
+      max-width: 360px; margin: 4rem auto; padding: 2rem;
+      background: #fff; border-radius: 12px; border: 1px solid #e0e0e0;
+      text-align: center;
+    }
+    #login-screen h2 { font-size: 1.1rem; margin-bottom: 1.5rem; }
+    #login-screen input { margin-bottom: 12px; }
+    .loader { color: #888; font-size: 0.9rem; padding: 2rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+<div id="login-screen">
+  <h2>Acceso admin — BuscaEPP</h2>
+  <div>
+    <label>Correo</label>
+    <input type="email" id="email" placeholder="admin@buscaepp.cl">
+  </div>
+  <div>
+    <label>Contraseña</label>
+    <input type="password" id="password">
+  </div>
+  <br>
+  <button class="btn-primary" style="width:100%" onclick="iniciarSesion()">Ingresar</button>
+  <p id="login-error" style="color:#c0392b; font-size:0.8rem; margin-top:8px;"></p>
+</div>
+
+<div id="app" style="display:none">
+
+  <div class="topbar">
+    <h1>Panel Admin — Biblioteca de Videos</h1>
+    <span id="user-email"></span>
+  </div>
+
+  <div class="container">
+
+    <div class="panel">
+      <h2 id="form-titulo-texto">Agregar nuevo video</h2>
+      <div id="alerta" class="alerta"></div>
+
+      <div class="form-grid">
+        <div>
+          <label>ID de YouTube *</label>
+          <input type="text" id="f-ytid" placeholder="ej: 4ymvWwkMDy0" oninput="previsualizarThumb()">
+          <div class="preview-thumb" id="thumb-preview" style="display:none">
+            <img id="thumb-img" src="" alt="preview">
+          </div>
+        </div>
+        <div>
+          <label>Categoría *</label>
+          <select id="f-categoria">
+            <option value="">— Selecciona —</option>
+            <option>Uso general</option>
+            <option>Trabajo en altura</option>
+            <option>Protección cabeza</option>
+            <option>Protección respiratoria</option>
+            <option>Protección ocular</option>
+            <option>Protección auditiva</option>
+            <option>Guantes y manos</option>
+            <option>Calzado de seguridad</option>
+            <option>Ropa de trabajo</option>
+          </select>
+        </div>
+        <div class="full">
+          <label>Título del video *</label>
+          <input type="text" id="f-titulo" placeholder="ej: Cómo usar arnés para trabajo en altura">
+        </div>
+        <div class="full">
+          <label>Descripción breve</label>
+          <textarea id="f-descripcion" placeholder="Resumen de lo que muestra el video…"></textarea>
+        </div>
+        <div>
+          <label>Fuente / Canal</label>
+          <input type="text" id="f-fuente" placeholder="ej: ACHS Chile">
+        </div>
+        <div>
+          <label>Orden (menor = primero)</label>
+          <input type="number" id="f-orden" value="99" min="1" max="999">
+        </div>
+      </div>
+      <br>
+      <input type="hidden" id="f-docid">
+      <button class="btn-primary" id="btn-guardar" onclick="guardarVideo()">Guardar video</button>
+      &nbsp;
+      <button style="background:none;border:none;color:#888;cursor:pointer;font-size:0.85rem" id="btn-cancelar" onclick="limpiarForm()" style="display:none">Cancelar</button>
+    </div>
+
+    <div class="panel">
+      <h2>Videos publicados</h2>
+      <div id="lista-loader" class="loader">Cargando…</div>
+      <table id="tabla-videos" style="display:none">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Título</th>
+            <th>Categoría</th>
+            <th>Orden</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-body"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import {
+  getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc,
+  doc, query, orderBy, serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+// ── Reemplaza con tu config real ───────────────────────────────
+import { firebaseConfig } from './firebase-config.js';
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+const COL  = 'videos_epp';
+
+// ── Auth ───────────────────────────────────────────────────────
+onAuthStateChanged(auth, user => {
+  if (user) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('user-email').textContent = user.email;
+    cargarTabla();
+  }
+});
+
+window.iniciarSesion = async function() {
+  const email = document.getElementById('email').value.trim();
+  const pass  = document.getElementById('password').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch {
+    document.getElementById('login-error').textContent = 'Correo o contraseña incorrectos.';
+  }
+};
+
+// ── Previsualizar miniatura ────────────────────────────────────
+window.previsualizarThumb = function() {
+  const id = document.getElementById('f-ytid').value.trim();
+  const wrap = document.getElementById('thumb-preview');
+  const img  = document.getElementById('thumb-img');
+  if (id.length > 5) {
+    img.src = `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+};
+
+// ── Guardar (crear o actualizar) ───────────────────────────────
+window.guardarVideo = async function() {
+  const ytid  = document.getElementById('f-ytid').value.trim();
+  const titulo = document.getElementById('f-titulo').value.trim();
+  const cat   = document.getElementById('f-categoria').value;
+  const docid = document.getElementById('f-docid').value;
+
+  if (!ytid || !titulo || !cat) {
+    mostrarAlerta('Completa los campos obligatorios (*).', 'err');
+    return;
+  }
+
+  const datos = {
+    youtubeId:   ytid,
+    titulo,
+    categoria:   cat,
+    descripcion: document.getElementById('f-descripcion').value.trim(),
+    fuente:      document.getElementById('f-fuente').value.trim(),
+    orden:       parseInt(document.getElementById('f-orden').value) || 99,
+    updatedAt:   serverTimestamp()
+  };
+
+  try {
+    document.getElementById('btn-guardar').disabled = true;
+    if (docid) {
+      await updateDoc(doc(db, COL, docid), datos);
+      mostrarAlerta('Video actualizado correctamente.', 'ok');
+    } else {
+      datos.createdAt = serverTimestamp();
+      await addDoc(collection(db, COL), datos);
+      mostrarAlerta('Video agregado correctamente.', 'ok');
+    }
+    limpiarForm();
+    cargarTabla();
+  } catch (err) {
+    mostrarAlerta('Error al guardar: ' + err.message, 'err');
+  } finally {
+    document.getElementById('btn-guardar').disabled = false;
+  }
+};
+
+// ── Cargar tabla ───────────────────────────────────────────────
+async function cargarTabla() {
+  const loader = document.getElementById('lista-loader');
+  const tabla  = document.getElementById('tabla-videos');
+  const body   = document.getElementById('tabla-body');
+  loader.style.display = 'block';
+  tabla.style.display  = 'none';
+  body.innerHTML = '';
+
+  const q    = query(collection(db, COL), orderBy('orden', 'asc'));
+  const snap = await getDocs(q);
+
+  snap.docs.forEach(d => {
+    const v = d.data();
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><img class="thumb-mini" src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" alt=""></td>
+      <td>${v.titulo}</td>
+      <td><span class="tag-mini">${v.categoria}</span></td>
+      <td>${v.orden}</td>
+      <td>
+        <button class="btn-primary" style="padding:4px 12px;font-size:0.8rem;margin-right:6px"
+          onclick="editarVideo('${d.id}')">Editar</button>
+        <button class="btn-danger" onclick="eliminarVideo('${d.id}', '${v.titulo.replace(/'/g,'')}')">Eliminar</button>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+
+  loader.style.display = 'none';
+  tabla.style.display  = snap.empty ? 'none' : 'table';
+  if (snap.empty) loader.textContent = 'No hay videos publicados aún.';
+}
+
+// ── Editar ─────────────────────────────────────────────────────
+window.editarVideo = async function(id) {
+  const snap = await getDocs(query(collection(db, COL), orderBy('orden')));
+  const d = snap.docs.find(x => x.id === id);
+  if (!d) return;
+  const v = d.data();
+  document.getElementById('f-docid').value       = id;
+  document.getElementById('f-ytid').value        = v.youtubeId;
+  document.getElementById('f-titulo').value      = v.titulo;
+  document.getElementById('f-categoria').value   = v.categoria;
+  document.getElementById('f-descripcion').value = v.descripcion || '';
+  document.getElementById('f-fuente').value      = v.fuente || '';
+  document.getElementById('f-orden').value       = v.orden || 99;
+  document.getElementById('form-titulo-texto').textContent = 'Editar video';
+  document.getElementById('btn-guardar').textContent = 'Actualizar video';
+  previsualizarThumb();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// ── Eliminar ───────────────────────────────────────────────────
+window.eliminarVideo = async function(id, titulo) {
+  if (!confirm(`¿Eliminar el video "${titulo}"? Esta acción no se puede deshacer.`)) return;
+  try {
+    await deleteDoc(doc(db, COL, id));
+    mostrarAlerta('Video eliminado.', 'ok');
+    cargarTabla();
+  } catch (err) {
+    mostrarAlerta('Error al eliminar: ' + err.message, 'err');
+  }
+};
+
+// ── Helpers ────────────────────────────────────────────────────
+window.limpiarForm = function() {
+  ['f-docid','f-ytid','f-titulo','f-descripcion','f-fuente'].forEach(id =>
+    document.getElementById(id).value = '');
+  document.getElementById('f-categoria').value = '';
+  document.getElementById('f-orden').value = 99;
+  document.getElementById('thumb-preview').style.display = 'none';
+  document.getElementById('form-titulo-texto').textContent = 'Agregar nuevo video';
+  document.getElementById('btn-guardar').textContent = 'Guardar video';
+};
+
+function mostrarAlerta(msg, tipo) {
+  const el = document.getElementById('alerta');
+  el.textContent = msg;
+  el.className = 'alerta ' + tipo;
+  setTimeout(() => el.className = 'alerta', 4000);
+}
+</script>
+</body>
+</html>
