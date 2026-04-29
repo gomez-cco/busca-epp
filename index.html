@@ -2382,6 +2382,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       </div>
       <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
         <div id="vipDiasRestantes" style="font-size:.78rem;color:var(--muted);"></div>
+        <button onclick="abrirCambioPass()" style="background:rgba(245,158,11,.12);color:var(--accent);border:1px solid rgba(245,158,11,.35);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">🔑 Cambiar clave</button>
         <button onclick="cerrarSesionVIP()" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">Cerrar sesión</button>
       </div>
     </div>
@@ -2399,6 +2400,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
         <button onclick="vipSubTab('alertas',this)" class="calc-btn" style="font-size:.8rem;">🔔 Mis Alertas</button>
         <button onclick="vipSubTab('historico',this)" class="calc-btn" style="font-size:.8rem;">📊 Histórico</button>
         <button onclick="vipSubTab('manuales',this)" class="calc-btn" style="font-size:.8rem;">📚 Manuales EPP</button>
+        <button onclick="vipSubTab('buscaigni',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(245,158,11,.1));color:#fca5a5;border-color:rgba(239,68,68,.45);font-weight:700;">🔥 BuscaIgni FR</button>
       </div>
 
       <!-- Buscador de fichas técnicas -->
@@ -2772,6 +2774,165 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
           📥 DESCARGAR LISTA
         </button>
       </div>
+
+      <!-- ══ BUSCAIGNI FR VIP ══════════════════════════════ -->
+      <div id="vipSubBuscaigni" style="display:none;">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#7f1d1d,#991b1b 60%,#1a0a00);border-radius:12px;padding:1.3rem 1.5rem;margin-bottom:1.3rem;display:flex;align-items:center;gap:1rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(239,68,68,.04) 10px,rgba(239,68,68,.04) 20px);"></div>
+          <div style="width:44px;height:44px;background:rgba(239,68,68,.25);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:1;flex-shrink:0;">🔥</div>
+          <div style="z-index:1;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:1px;">BuscaIgni <span style="background:rgba(16,185,129,.2);color:#10b981;font-size:.58rem;padding:2px 7px;border-radius:7px;border:1px solid rgba(16,185,129,.3);margin-left:.3rem;vertical-align:middle;">● Offline/Online</span></div>
+            <div style="color:rgba(255,255,255,.6);font-size:.75rem;">Asesor ignífugo con catálogo Eikona · Marco legal Chile · Análisis competencia</div>
+          </div>
+          <div style="margin-left:auto;z-index:1;background:rgba(245,158,11,.2);color:var(--accent);font-size:.7rem;font-weight:700;padding:4px 11px;border-radius:14px;border:1px solid rgba(245,158,11,.4);">★ VIP EXCLUSIVO</div>
+        </div>
+
+        <!-- Stats -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">6</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Líneas Eikona</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">47</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Competidores</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">8</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Normativas</div></div>
+        </div>
+
+        <!-- Sub-nav -->
+        <div style="display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.1rem;flex-wrap:wrap;">
+          <button onclick="igniTab('asesoria')" id="inav-asesoria" style="flex:1;min-width:80px;padding:10px 5px;background:rgba(239,68,68,.08);border:none;border-bottom:2px solid #ef4444;color:#ef4444;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">🤖 Asesoría IA</button>
+          <button onclick="igniTab('catalogo')" id="inav-catalogo" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📋 Catálogo</button>
+          <button onclick="igniTab('competencia')" id="inav-competencia" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">⚔️ Competencia</button>
+          <button onclick="igniTab('normativa')" id="inav-normativa" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📜 Normativas</button>
+          <button onclick="igniTab('usuarios')" id="inav-usuarios" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">👥 Usuarios</button>
+        </div>
+
+        <!-- Panel Asesoría IA -->
+        <div id="ipanel-asesoria">
+          <div style="display:flex;gap:.5rem;margin-bottom:.8rem;">
+            <input type="text" id="igniQuery" placeholder="Consulta por industria o requerimiento: caldera, soldador petroquímica, arco eléctrico, minería..." onkeydown="if(event.key==='Enter')igniRunQuery()" style="flex:1;padding:13px 15px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;">
+            <button id="igniMic" onclick="igniToggleMic()" title="Consulta por voz (Chrome/Edge)" style="padding:13px 15px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.4);border-radius:10px;cursor:pointer;font-size:1rem;transition:all .2s;" title="Habla tu consulta">🎙</button>
+          </div>
+          <div id="igniResponse" style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:1rem;font-size:.82rem;color:rgba(252,165,165,.9);line-height:1.65;min-height:52px;">
+            <div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div>
+            Escribe o habla tu consulta. La respuesta incluirá <strong>marco legal + producto Eikona + comparativa de competencia</strong>. Ej: <em>"necesito ropa para trabajar en caldera"</em>
+          </div>
+          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.5rem;">Consultas de ejemplo</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;">
+            <button onclick="igniQuick('Necesito ropa para trabajar en caldera')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Trabajador caldera</button>
+            <button onclick="igniQuick('Soldador en planta petroquímica')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Soldador petroquímica</button>
+            <button onclick="igniQuick('Técnico en subestación eléctrica con riesgo arco')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Arco eléctrico</button>
+            <button onclick="igniQuick('Operador en mina subterránea de cobre')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Minería subterránea</button>
+            <button onclick="igniQuick('Trabajador planta de celulosa con ácidos')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Celulosa / químicos</button>
+            <button onclick="igniQuick('Personal en zona ATEX de refinería')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Zona ATEX</button>
+            <button onclick="igniQuick('Operador fundición alto horno')" style="padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;cursor:pointer;">Fundición / acería</button>
+          </div>
+        </div>
+
+        <!-- Panel Catálogo -->
+        <div id="ipanel-catalogo" style="display:none;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:1rem;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('Overol FR UNISAFE 260 Eikona características y para qué cliente')">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">🦺</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">UNISAFE 260</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 260 g/m²</div>
+              <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">NFPA 2112</span></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('PF LASK Aramida Eikona para qué industrias y ventajas competitivas')">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">🛡️</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">PF LASK Aramida</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Nomex/Kevlar 215 g/m²</div>
+              <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">ISO 11612 A1-B1</span></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('VCS Multiprotección Eikona sector eléctrico y ATEX')">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">⚡</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">VCS Multiprotección</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">FR + Antiestático 280 g/m²</div>
+              <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">NFPA 70E</span></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('PF Cotton 350 Eikona para caldera y soldadura pesada')">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">🔥</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">PF Cotton 350</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 350 g/m²</div>
+              <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">ISO 11612 B1-C2</span></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('Camisa FR manga larga Eikona para supervisión y mantención')">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">👕</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Camisa FR M/L</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 180 g/m²</div>
+              <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">NFPA 2112</span></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('Pantalón FR industrial Eikona para soldadura y trabajo industrial')">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">👖</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Pantalón FR</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 280 g/m²</div>
+              <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">ISO 11612 A1</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Competencia (47 empresas) -->
+        <div id="ipanel-competencia" style="display:none;">
+          <div style="display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap;align-items:center;">
+            <input type="text" placeholder="Buscar entre 47 competidores..." oninput="igniFilterComps(this.value)" style="flex:1;min-width:200px;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <button onclick="igniQuick('Análisis comparativo completo de todos los competidores de ropa ignífuga en Chile versus Eikona')" style="padding:9px 14px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.35);border-radius:8px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;white-space:nowrap;">📊 Análisis completo →</button>
+          </div>
+          <div id="igniCompGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.5rem;max-height:420px;overflow-y:auto;">
+            <div style="background:var(--card);border:2px solid #ef4444;border-radius:10px;padding:.75rem;" class="igni-comp"><span style="background:#ef4444;color:#fff;font-size:.58rem;padding:2px 6px;border-radius:4px;margin-bottom:.3rem;display:inline-block;">★ Tu empresa</span><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.3rem;">Eikona</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;">ISP Chile</span><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;">NFPA 2112</span><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;">Aramida</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Lakeland Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Tychem/PyroGard</span><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Precio alto</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Fyrban Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR local</span><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. limitada</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Ignifuga Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Especialista FR</span><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin soporte</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Indura Safety</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. nacional</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR genérico</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">MSA Chile</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Marca global</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR secundario</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">3M Chile</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Reconocimiento</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR limitado</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Marcotex</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Textil FR</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Menor cert.</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Aracor</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Aramida</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. limitada</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Zetawork</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Workwear FR</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Stock bajo</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">North Pole Safety</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR+EPP</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Precio variable</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">HIMA Insumos</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR secundario</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Kupfer Hnos.</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. amplia</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin ISP propio</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Apro Seguridad</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR no esp.</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Proteknica</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR básico</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Worksafe Chile</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR no esp.</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Segurycel</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR limitado</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Treck</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin FR propio</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Redsafe Safety</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR menor</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">EPP Chile</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin fab. propia</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Safety Store</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin asesoría FR</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Sodimac Emp.</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin cert. ind.</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Lakeland + más</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">+25 distribuidores</span><button onclick="igniQuick('Lista completa de los 47 competidores FR Chile')" style="display:block;margin-top:.3rem;font-size:.6rem;color:#ef4444;background:none;border:none;cursor:pointer;padding:0;">Ver todos →</button></div>
+          </div>
+        </div>
+
+        <!-- Panel Normativas -->
+        <div id="ipanel-normativa" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:.55rem;">
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">NFPA 2112</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Protección contra flash fire · Petroquímica / Gas / Celulosa</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Estándar principal ropa ignífuga industria</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">NFPA 70E</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Protección arco eléctrico · Clasificación cal/cm²</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Cat.1: 4 cal/cm² · Cat.2: 8 cal/cm² · Cat.3: 25 · Cat.4: 40</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">ISO 11612</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Calor y llama · Niveles A-F · Soldadura / Fundición</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">A1=llama · B=convectivo · C=radiante · D=aluminio · E=salpicadura · F=calor contacto</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">IEC 61340</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Antiestático · Zonas ATEX · Gas inflamable</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Oblig. zonas explosivas. Complementa NFPA 2112.</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">DS 594</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Condiciones sanitarias trabajo · MINSAL Chile</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Base legal obligatoria para todo EPP en Chile</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">DS 132</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Seguridad Minera · SERNAGEOMIN · Chile</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Obligatorio minería. Incluye requisitos FR para subterránea.</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">ISP Chile</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Certificación nacional EPP · Eikona certificado</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Obligatorio para comercializar EPP en Chile. Verificar vigencia.</div></div></div>
+          </div>
+        </div>
+
+        <!-- Panel Usuarios -->
+        <div id="ipanel-usuarios" style="display:none;">
+          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.7rem;">Equipo de ventas Eikona</div>
+          <div style="display:flex;flex-direction:column;gap:.55rem;">
+            <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">JJ</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Juanjo</div><div style="font-size:.7rem;color:var(--muted);">Coordinador Comercial · Eikona</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25);">Admin</span></div>
+            <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:var(--surface2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">V1</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Vendedor 1</div><div style="font-size:.7rem;color:var(--muted);">Pendiente de configurar</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.25);">Vendedor</span></div>
+            <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:var(--surface2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">V2</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Vendedor 2</div><div style="font-size:.7rem;color:var(--muted);">Pendiente de configurar</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.25);">Vendedor</span></div>
+          </div>
+          <div style="margin-top:.8rem;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;">
+            <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.4rem;">Modo de datos</div>
+            <div style="display:flex;gap:.5rem;align-items:center;font-size:.73rem;color:var(--muted);">
+              <span style="background:rgba(16,185,129,.15);color:#10b981;font-size:.65rem;padding:2px 7px;border-radius:6px;border:1px solid rgba(16,185,129,.3);">● Offline activo</span>
+              <span>Funciona sin internet · Sincroniza con Firebase</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /vipSubBuscaigni -->
 
     </div><!-- /zonaComprador -->
 
@@ -8100,7 +8261,7 @@ function mostrarPaneVIP() {
 
 // ── Sub-tabs zona comprador ────────────────────────────────
 function vipSubTab(tab, btn) {
-  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico','Manuales'].forEach(t => {
+  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico','Manuales','Buscaigni'].forEach(t => {
     const el = document.getElementById('vipSub'+t);
     if (el) el.style.display = t.toLowerCase() === tab ? 'block' : 'none';
   });
@@ -10357,6 +10518,366 @@ renderFilters();
 renderProducts();
 // Registrar visita
 setTimeout(registrarVisita, 1500);
+
+// ═══════════════════════════════════════════════════════════════
+// BUSCAIGNI VIP — v2.0 con 6 mejoras
+// ═══════════════════════════════════════════════════════════════
+
+// ── Catálogo Eikona completo ────────────────────────────────
+const EIKONA_CATALOGO = [
+  { id:'unisafe260', nombre:'UNISAFE 260 g/m²', tipo:'Overol FR', fibra:'100% algodón FR tratado', gramaje:'260 g/m²', normas:['NFPA 2112','ISO 11612'], isp:'Certificado ISP Chile', color:'Azul marino / Naranja', uso:['petroquímica','celulosa','soldadura','mantención','gas','refinería'], descripcion:'Overol de trabajo en tejido algodón 100% con tratamiento ignífugo permanente. Costura FR, cinta reflectante 5cm, cierre de aluminio. Ideal para faenas con riesgo de flash fire de baja a media intensidad.' },
+  { id:'lask_aramida', nombre:'PF LASK Aramida', tipo:'Overol FR Premium', fibra:'Mezcla Nomex/Kevlar (meta-aramida/para-aramida)', gramaje:'215 g/m²', normas:['NFPA 2112','EN ISO 11612 A1 B1 C2','ASTM F1506'], isp:'Certificado ISP Chile', color:'Azul marino / Beige natural', uso:['minería','petroquímica','refinería','acería','fundición','alto_riesgo'], descripcion:'Overol de máxima protección en fibra aramida. No funde ni gotea. Resistencia térmica superior, LOI >28%. Para ambientes de alto riesgo térmico sostenido. Vida útil ≥2 años con lavados industriales.' },
+  { id:'vcs_multi', nombre:'VCS Multiprotección', tipo:'Overol FR Multiriesgo', fibra:'FR + Antiestático + Alta visibilidad', gramaje:'280 g/m²', normas:['NFPA 70E','IEC 61340-5','EN ISO 20471 Clase 2'], isp:'Certificado ISP Chile', color:'Naranja fluorescente / Azul marino', uso:['eléctrica','ATEX','gas','zona_explosiva','subestación','vialidad'], descripcion:'Overol combinado para protección simultánea: llama, arco eléctrico y visibilidad. Ideal para técnicos eléctricos, operadores de subestación y trabajadores en zonas ATEX. Disipa carga estática.' },
+  { id:'pf_cotton', nombre:'PF Cotton 350 g/m²', tipo:'Overol FR Pesado', fibra:'Algodón FR ennoblecido', gramaje:'350 g/m²', normas:['NFPA 2112','ISO 11612 A1 B1'], isp:'Certificado ISP Chile', color:'Gris / Azul petróleo', uso:['soldadura','corte','acería','fundición','caldera'], descripcion:'Overol de algodón de alta gramaje para trabajos con chispa intensa, soldadura y calor radiante. Mayor durabilidad mecánica. Recomendado para soldadores de mantención y operadores de caldera.' },
+  { id:'camisa_fr', nombre:'Camisa FR Manga Larga', tipo:'Camisa FR', fibra:'Algodón FR 180 g/m²', gramaje:'180 g/m²', normas:['NFPA 2112','EN 14116'], isp:'Certificado ISP Chile', color:'Varios', uso:['mantención','supervisión','faena_baja_riesgo','petroquímica'], descripcion:'Camisa de trabajo ignífuga para uso en faenas de riesgo moderado. Puede usarse sola o como segunda capa bajo overol. Botones FR, etiqueta de norma bordada.' },
+  { id:'pantalon_fr', nombre:'Pantalón FR Industrial', tipo:'Pantalón FR', fibra:'Algodón FR 280 g/m²', gramaje:'280 g/m²', normas:['ISO 11612 A1','EN 14116 índice 3'], isp:'Certificado ISP Chile', color:'Azul marino / Gris', uso:['soldadura','mantención','industrial'], descripcion:'Pantalón ignífugo con refuerzos en rodillas y bolsillos FR. Compatible con sistemas de suspensión antiestática. Corte industrial ergonómico.' },
+];
+
+// ── Base competidores FR Chile (47 empresas) ───────────────
+const COMPETIDORES = [
+  { nombre:'Lakeland Chile', fortaleza:'Línea Tychem y PyroGard', debilidad:'Precio alto, importado', tipo:'fuerte' },
+  { nombre:'Fyrban Chile', fortaleza:'Fabricante FR local, ropa industrial', debilidad:'Distribución regional limitada', tipo:'fuerte' },
+  { nombre:'Ignifuga Chile', fortaleza:'Especialista FR, variedad aramida', debilidad:'Sin soporte técnico amplio', tipo:'fuerte' },
+  { nombre:'Indura Safety', fortaleza:'Distribución nacional, multimarca', debilidad:'No fabricante, FR genérico', tipo:'medio' },
+  { nombre:'MSA Chile', fortaleza:'Marca global EPP, confianza', debilidad:'FR no es su foco principal', tipo:'medio' },
+  { nombre:'3M Chile', fortaleza:'Reconocimiento de marca', debilidad:'FR limitado a accesorios', tipo:'medio' },
+  { nombre:'Marcotex', fortaleza:'Fabricante textil nacional', debilidad:'Menor certificación', tipo:'medio' },
+  { nombre:'Aracor', fortaleza:'FR industrial, aramida', debilidad:'Web y distribución limitada', tipo:'medio' },
+  { nombre:'Zetawork', fortaleza:'Workwear FR variado', debilidad:'Stock irregular', tipo:'medio' },
+  { nombre:'North Pole Safety', fortaleza:'Distribución FR + EPP', debilidad:'Precio variable', tipo:'medio' },
+  { nombre:'HIMA Insumos', fortaleza:'Insumos industriales integrales', debilidad:'FR secundario en catálogo', tipo:'bajo' },
+  { nombre:'Kupfer Hnos.', fortaleza:'Distribución amplia Chile', debilidad:'FR genérico, sin certificación ISP propia', tipo:'bajo' },
+  { nombre:'Apro Seguridad', fortaleza:'Referente EPP Chile', debilidad:'FR no especializado', tipo:'bajo' },
+  { nombre:'Proteknica', fortaleza:'EPP completo', debilidad:'FR básico', tipo:'bajo' },
+  { nombre:'Treck', fortaleza:'Calzado y EPP', debilidad:'Sin línea FR propia', tipo:'bajo' },
+  { nombre:'Segurycel', fortaleza:'EPP nacional', debilidad:'FR limitado', tipo:'bajo' },
+  { nombre:'Worksafe Chile', fortaleza:'Seguridad industrial', debilidad:'FR no es especialidad', tipo:'bajo' },
+  { nombre:'Securitech Chile', fortaleza:'Distribución industrial', debilidad:'Catálogo FR básico', tipo:'bajo' },
+  { nombre:'Redsafe Safety', fortaleza:'Seguridad vial y industrial', debilidad:'FR menor presencia', tipo:'bajo' },
+  { nombre:'MSA Chile', fortaleza:'EPP integral global', debilidad:'FR secundario', tipo:'bajo' },
+  { nombre:'Safety Store Chile', fortaleza:'E-commerce EPP', debilidad:'Sin asesoría técnica FR', tipo:'bajo' },
+  { nombre:'Proveedores Industriales SPI', fortaleza:'Proveedor industrial integral', debilidad:'FR no especializado', tipo:'bajo' },
+  { nombre:'EPP Chile', fortaleza:'Directorio y distribución', debilidad:'Sin fabricación propia', tipo:'bajo' },
+  { nombre:'ISM Global Safety', fortaleza:'Multinacional EPP', debilidad:'FR limitado Chile', tipo:'bajo' },
+  { nombre:'Grupo HW', fortaleza:'Distribución regional', debilidad:'FR bajo stock', tipo:'bajo' },
+  { nombre:'Leben Safety', fortaleza:'EPP variado', debilidad:'Sin línea FR establecida', tipo:'bajo' },
+  { nombre:'Marshall Moffat Chile', fortaleza:'Equipos industriales', debilidad:'FR muy básico', tipo:'bajo' },
+  { nombre:'Chilesin Seguridad', fortaleza:'Industrial integral', debilidad:'FR no destacado', tipo:'bajo' },
+  { nombre:'Redsafe Industrial', fortaleza:'Seguridad industrial', debilidad:'Sin FR certificado ISP', tipo:'bajo' },
+  { nombre:'Indura Safety', fortaleza:'Gases y soldadura', debilidad:'FR no es core', tipo:'bajo' },
+  { nombre:'Sodimac Empresas', fortaleza:'Cobertura nacional masiva', debilidad:'FR sin certificación industrial', tipo:'bajo' },
+  { nombre:'Construmart', fortaleza:'Distribución construcción', debilidad:'FR para construcción solamente', tipo:'bajo' },
+  { nombre:'Salfa Mantenciones', fortaleza:'Mantención industrial', debilidad:'FR no es producto', tipo:'bajo' },
+  { nombre:'SK Comercial', fortaleza:'Distribución EPP', debilidad:'Sin especialidad FR', tipo:'bajo' },
+  { nombre:'Ultraprotección Chile', fortaleza:'EPP especializado', debilidad:'FR emergente', tipo:'bajo' },
+  { nombre:'Tecseg Chile', fortaleza:'Seguridad técnica', debilidad:'FR básico', tipo:'bajo' },
+  { nombre:'Segpro Chile', fortaleza:'Prevención industrial', debilidad:'Sin FR certificado propio', tipo:'bajo' },
+  { nombre:'Protex Chile', fortaleza:'Ropa protección', debilidad:'FR genérico', tipo:'bajo' },
+  { nombre:'Andes Safety', fortaleza:'EPP minería', debilidad:'FR no es especialidad', tipo:'bajo' },
+  { nombre:'Seguridad Total Chile', fortaleza:'EPP completo', debilidad:'FR sin ISP propio', tipo:'bajo' },
+  { nombre:'Grupo SIMMA', fortaleza:'Industrial integral', debilidad:'FR bajo portafolio', tipo:'bajo' },
+  { nombre:'Elemental Safety', fortaleza:'EPP variado', debilidad:'FR básico', tipo:'bajo' },
+  { nombre:'Corpmatch', fortaleza:'Vestuario corporativo', debilidad:'FR no certificado NFPA', tipo:'bajo' },
+  { nombre:'Working Apparel', fortaleza:'Workwear industrial', debilidad:'FR sin norma acreditada', tipo:'bajo' },
+  { nombre:'Word Matrix', fortaleza:'Vestuario laboral', debilidad:'FR no industrial', tipo:'bajo' },
+  { nombre:'Bata Industrials Chile', fortaleza:'Calzado seguridad', debilidad:'FR no aplica', tipo:'bajo' },
+  { nombre:'Dercomaq Seguridad', fortaleza:'Seguridad maquinaria', debilidad:'FR no especialidad', tipo:'bajo' },
+];
+
+// ── Matcher industria→productos Eikona ─────────────────────
+const INDUSTRY_MAP = {
+  petroquimica:  ['lask_aramida','unisafe260','pf_cotton'],
+  refineria:     ['lask_aramida','unisafe260','vcs_multi'],
+  mineria:       ['lask_aramida','unisafe260','vcs_multi'],
+  soldadura:     ['pf_cotton','lask_aramida','pantalon_fr'],
+  caldera:       ['pf_cotton','lask_aramida','pantalon_fr'],
+  electrica:     ['vcs_multi','unisafe260'],
+  atex:          ['vcs_multi','lask_aramida'],
+  gas:           ['unisafe260','vcs_multi','lask_aramida'],
+  celulosa:      ['unisafe260','lask_aramida'],
+  fundicion:     ['lask_aramida','pf_cotton'],
+  aceria:        ['lask_aramida','pf_cotton'],
+  mantencion:    ['unisafe260','camisa_fr','pantalon_fr'],
+  quimica:       ['unisafe260','lask_aramida','vcs_multi'],
+  naval:         ['unisafe260','lask_aramida'],
+  supervision:   ['camisa_fr','unisafe260'],
+};
+
+const NORMAS_MAP = {
+  petroquimica: { primaria:'NFPA 2112', secundaria:'ISO 11612 A1-B1', ds:'DS 594 Art.53', extra:'Aplica también DS 78 sobre ICHA (gases inflamables).' },
+  refineria:    { primaria:'NFPA 2112', secundaria:'NFPA 70E (si hay riesgo eléctrico)', ds:'DS 594', extra:'Coordinar con prevencionista de planta la evaluación de riesgo.' },
+  mineria:      { primaria:'NFPA 2112', secundaria:'DS 132 SERNAGEOMIN', ds:'DS 594', extra:'Obligatorio también cinta reflectante Clase 2 en subterránea.' },
+  soldadura:    { primaria:'ISO 11612 A1-B1-C2', secundaria:'EN 348 (salpicadura metales)', ds:'DS 594', extra:'Requiere también protección ocular (NCh 1407) y guantes (EN 12477).' },
+  caldera:      { primaria:'ISO 11612 B1-C2', secundaria:'NFPA 2112', ds:'DS 594 Art.36', extra:'Riesgo de calor radiante + vapor. Verificar temperatura de operación.' },
+  electrica:    { primaria:'NFPA 70E (cal/cm²)', secundaria:'IEC 61340-5 (antiestático)', ds:'DS 594', extra:'Calcular energía incidente del arco. Cat.1: min.4 cal/cm², Cat.2: 8 cal/cm².' },
+  atex:         { primaria:'IEC 61340-5', secundaria:'ATEX Directiva 2014/34/UE', ds:'DS 594', extra:'Zonas ATEX requieren calzado ESD + overol antiestático certificado.' },
+  gas:          { primaria:'NFPA 2112', secundaria:'IEC 61340 (antiestático)', ds:'DS 594', extra:'En operaciones con gas inflamable, priorizar algodón FR o aramida.' },
+  celulosa:     { primaria:'ISO 11612 A1', secundaria:'EN 14116 índice 3', ds:'DS 594', extra:'Riesgo de salpicaduras de ácido + calor. Evaluar también química.' },
+  fundicion:    { primaria:'ISO 11612 A1-B1-C2-F1', secundaria:'NFPA 2112', ds:'DS 594', extra:'Máxima protección térmica. Cubrecara FR y guantes alta temperatura.' },
+};
+
+function getNormas(industria) {
+  const k = Object.keys(NORMAS_MAP).find(k => industria.includes(k));
+  return k ? NORMAS_MAP[k] : { primaria:'ISO 11612', secundaria:'NFPA 2112', ds:'DS 594', extra:'Consultar con el prevencionista de la empresa.' };
+}
+
+function getProductos(industria) {
+  const k = Object.keys(INDUSTRY_MAP).find(k => industria.includes(k));
+  const ids = k ? INDUSTRY_MAP[k] : ['unisafe260'];
+  return ids.map(id => EIKONA_CATALOGO.find(p => p.id === id)).filter(Boolean);
+}
+
+function getCompetidores(cantidad=3) {
+  return COMPETIDORES.filter(c => c.tipo === 'fuerte').slice(0, cantidad);
+}
+
+function buildRespuesta(industria, query) {
+  const productos = getProductos(industria);
+  const normas = getNormas(industria);
+  const competidores = getCompetidores(3);
+  const prod = productos[0];
+  const alt = productos[1];
+
+  let html = `<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.6rem;">Asesor BuscaIgni — Respuesta técnica</div>`;
+
+  // Marco legal
+  html += `<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.7rem .9rem;margin-bottom:.7rem;">
+    <div style="font-size:.65rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.3rem;">📋 Marco legal aplicable</div>
+    <div style="font-size:.8rem;color:var(--text);"><strong>${normas.primaria}</strong> (norma principal) · ${normas.secundaria}</div>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">${normas.ds} · ${normas.extra}</div>
+  </div>`;
+
+  // Producto sugerido Eikona
+  if (prod) {
+    html += `<div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;">
+      <div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.4rem;">🔥 Producto Eikona sugerido</div>
+      <div style="font-size:.88rem;font-weight:700;color:var(--text);font-family:'Barlow Condensed',sans-serif;">${prod.nombre}</div>
+      <div style="font-size:.75rem;color:var(--muted);margin:.2rem 0;">${prod.tipo} · ${prod.fibra} · ${prod.gramaje}</div>
+      <div style="font-size:.75rem;color:rgba(252,165,165,.85);line-height:1.5;margin-top:.3rem;">${prod.descripcion}</div>
+      <div style="margin-top:.4rem;">${prod.normas.map(n=>`<span style="background:rgba(239,68,68,.15);color:#fca5a5;font-size:.62rem;padding:2px 7px;border-radius:5px;border:1px solid rgba(239,68,68,.3);margin-right:.2rem;">${n}</span>`).join('')}<span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.62rem;padding:2px 7px;border-radius:5px;border:1px solid rgba(16,185,129,.3);">${prod.isp}</span></div>
+    </div>`;
+  }
+
+  // Alternativa
+  if (alt) {
+    html += `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;margin-bottom:.6rem;">
+      <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.3rem;">Alternativa Eikona</div>
+      <div style="font-size:.82rem;font-weight:700;color:var(--text);font-family:'Barlow Condensed',sans-serif;">${alt.nombre} <span style="font-size:.7rem;font-weight:400;color:var(--muted);">— ${alt.tipo}</span></div>
+      <div style="font-size:.73rem;color:var(--muted);margin-top:.15rem;">${alt.fibra} · ${alt.gramaje} · ${alt.normas.join(' / ')}</div>
+    </div>`;
+  }
+
+  // Análisis comparativo competencia
+  html += `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem;">
+    <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.5rem;">⚔️ Homologación competencia</div>
+    <div style="display:flex;flex-direction:column;gap:.4rem;">
+      ${competidores.map(c => `<div style="display:flex;justify-content:space-between;align-items:center;font-size:.75rem;">
+        <span style="color:var(--text);font-weight:600;">${c.nombre}</span>
+        <span style="color:var(--muted);font-size:.7rem;text-align:right;max-width:55%;">${c.fortaleza} · <em style="color:rgba(239,68,68,.7);">${c.debilidad}</em></span>
+      </div>`).join('')}
+    </div>
+    <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem;border-top:1px solid var(--border);padding-top:.4rem;">💡 Ventaja Eikona: certificación ISP Chile + asesoría técnica local + precio competitivo.</div>
+  </div>`;
+
+  return html;
+}
+
+// ── Detectar industria desde texto ─────────────────────────
+function detectarIndustria(q) {
+  const ql = q.toLowerCase();
+  if (ql.match(/caldera|vapor|boiler/)) return 'caldera';
+  if (ql.match(/soldad|soldadura|arco.*metal|electrodo/)) return 'soldadura';
+  if (ql.match(/petroquim|refineri|refiner|petroqu/)) return 'petroquimica';
+  if (ql.match(/electr|arco.*elec|subestac|alta.*tensión|baja.*tensión/)) return 'electrica';
+  if (ql.match(/miner|subterran|mina|túnel/)) return 'mineria';
+  if (ql.match(/atex|zona.*explos|explos.*zona|atmosfera/)) return 'atex';
+  if (ql.match(/gas.*inflam|gnl|gnc|gas natural|gasoducto/)) return 'gas';
+  if (ql.match(/celulosa|papel|pulpa/)) return 'celulosa';
+  if (ql.match(/fundic|acero|acería|alto horno|colada/)) return 'fundicion';
+  if (ql.match(/quimic|ácido|corros|laboratorio/)) return 'quimica';
+  if (ql.match(/naval|barco|puerto|astillero/)) return 'naval';
+  if (ql.match(/mantenc|manten|mantención/)) return 'mantencion';
+  if (ql.match(/supervis|jefe.*terreno|visit|inspección/)) return 'supervision';
+  return 'mantencion'; // default
+}
+
+// ── Función principal de respuesta ─────────────────────────
+function igniLocalResp(q) {
+  const industria = detectarIndustria(q);
+  return buildRespuesta(industria, q);
+}
+
+// ── Navegación interna BuscaIgni ───────────────────────────
+function igniTab(id) {
+  ['asesoria','catalogo','competencia','normativa','usuarios'].forEach(p => {
+    const el = document.getElementById('ipanel-'+p);
+    const btn = document.getElementById('inav-'+p);
+    if (el) el.style.display = p === id ? 'block' : 'none';
+    if (btn) {
+      if (p === id) { btn.style.background='rgba(239,68,68,.08)'; btn.style.borderBottom='2px solid #ef4444'; btn.style.color='#ef4444'; }
+      else { btn.style.background='none'; btn.style.borderBottom='2px solid transparent'; btn.style.color='var(--muted)'; }
+    }
+  });
+}
+
+function igniSelCat(el) {
+  document.querySelectorAll('#igniCats .igni-cat').forEach(c => { c.style.border='1px solid var(--border)'; c.style.background='var(--card)'; });
+  el.style.border = '2px solid #ef4444';
+  el.style.background = 'rgba(239,68,68,.06)';
+}
+
+function igniFilterComps(v) {
+  document.querySelectorAll('#igniCompGrid .igni-comp').forEach(c => {
+    const n = (c.querySelector('.igni-comp-name')?.textContent || '').toLowerCase();
+    c.style.display = n.includes(v.toLowerCase()) || v === '' ? '' : 'none';
+  });
+}
+
+function igniRunQuery() {
+  const q = document.getElementById('igniQuery').value.trim();
+  if (!q) return;
+  const box = document.getElementById('igniResponse');
+  box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:var(--muted)">Analizando consulta y buscando productos Eikona...</span>';
+  setTimeout(() => { box.innerHTML = igniLocalResp(q); }, 800);
+}
+
+function igniQuick(q) {
+  abrirVIP();
+  setTimeout(() => {
+    vipSubTab('buscaigni', null);
+    document.querySelectorAll('#vipZonaComprador > div:first-child .calc-btn').forEach(b => b.classList.remove('selected'));
+    const btns = document.querySelectorAll('#vipZonaComprador > div:first-child .calc-btn');
+    if (btns.length) btns[btns.length-1].classList.add('selected');
+    igniTab('asesoria');
+    document.getElementById('igniQuery').value = q;
+    igniRunQuery();
+  }, 200);
+}
+
+// ── Reconocimiento de voz mejorado ─────────────────────────
+let igniRecognition = null;
+
+function igniToggleMic() {
+  const btn = document.getElementById('igniMic');
+  const box = document.getElementById('igniResponse');
+
+  if (igniRecognition) {
+    igniRecognition.stop();
+    igniRecognition = null;
+    btn.style.background = 'rgba(239,68,68,.12)';
+    btn.style.color = '#ef4444';
+    btn.textContent = '🎙';
+    return;
+  }
+
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) {
+    box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:var(--muted)">⚠️ Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge y escribe tu consulta.</span>';
+    return;
+  }
+
+  igniRecognition = new SpeechRec();
+  igniRecognition.lang = 'es-CL';
+  igniRecognition.continuous = false;
+  igniRecognition.interimResults = true;
+
+  btn.style.background = '#ef4444';
+  btn.style.color = '#fff';
+  btn.textContent = '⏹';
+  box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:#ef4444">🎙 Escuchando... habla ahora</span>';
+
+  igniRecognition.onresult = (e) => {
+    const transcript = Array.from(e.results).map(r => r[0].transcript).join('');
+    document.getElementById('igniQuery').value = transcript;
+    if (e.results[e.results.length-1].isFinal) {
+      box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:var(--muted)">Procesando: <em>' + transcript + '</em></span>';
+    }
+  };
+
+  igniRecognition.onend = () => {
+    igniRecognition = null;
+    btn.style.background = 'rgba(239,68,68,.12)';
+    btn.style.color = '#ef4444';
+    btn.textContent = '🎙';
+    const q = document.getElementById('igniQuery').value.trim();
+    if (q) igniRunQuery();
+  };
+
+  igniRecognition.onerror = (e) => {
+    igniRecognition = null;
+    btn.style.background = 'rgba(239,68,68,.12)';
+    btn.style.color = '#ef4444';
+    btn.textContent = '🎙';
+    box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:var(--muted)">⚠️ No se pudo capturar audio (' + e.error + '). Escribe tu consulta.</span>';
+  };
+
+  igniRecognition.start();
+}
+
+// ── Cambio de contraseña VIP ────────────────────────────────
+function abrirCambioPass() {
+  document.getElementById('modalCambioPass').style.display = 'flex';
+  document.getElementById('cpActual').value = '';
+  document.getElementById('cpNueva').value = '';
+  document.getElementById('cpConfirm').value = '';
+  document.getElementById('cpError').style.display = 'none';
+  document.getElementById('cpOk').style.display = 'none';
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarCambioPass() {
+  document.getElementById('modalCambioPass').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function guardarNuevaPass() {
+  const actual  = document.getElementById('cpActual').value.trim();
+  const nueva   = document.getElementById('cpNueva').value.trim();
+  const confirm = document.getElementById('cpConfirm').value.trim();
+  const errEl   = document.getElementById('cpError');
+  const okEl    = document.getElementById('cpOk');
+  errEl.style.display = 'none';
+  okEl.style.display  = 'none';
+
+  if (!actual || !nueva || !confirm) { errEl.textContent = '❌ Completa todos los campos.'; errEl.style.display='block'; return; }
+  if (nueva.length < 6) { errEl.textContent = '❌ La nueva contraseña debe tener al menos 6 caracteres.'; errEl.style.display='block'; return; }
+  if (nueva !== confirm) { errEl.textContent = '❌ Las contraseñas nuevas no coinciden.'; errEl.style.display='block'; return; }
+
+  const u = vipUsuarioActual;
+  if (!u) { errEl.textContent = '❌ Sesión no encontrada. Inicia sesión nuevamente.'; errEl.style.display='block'; return; }
+
+  // Admin master: verificar contra VIP_MASTER_PASS (solo informativo, no puede cambiar master)
+  if (u.tipo === 'admin' && actual !== VIP_MASTER_PASS) {
+    errEl.textContent = '❌ Contraseña actual incorrecta.'; errEl.style.display='block'; return;
+  }
+
+  // Usuario Firebase: actualizar en Firestore
+  if (u.tipo !== 'admin') {
+    if (actual !== (u._passPlain || '')) {
+      errEl.textContent = '❌ Contraseña actual incorrecta.'; errEl.style.display='block'; return;
+    }
+    try {
+      const { db, doc, updateDoc } = window._FB;
+      await updateDoc(doc(db, 'vip_usuarios', u._id), { password: nueva });
+      vipUsuarioActual._passPlain = nueva;
+      const sesion = JSON.parse(sessionStorage.getItem('buscaepp_vip') || '{}');
+      sesion._passPlain = nueva;
+      sessionStorage.setItem('buscaepp_vip', JSON.stringify(sesion));
+    } catch(e) {
+      errEl.textContent = '❌ Error al guardar. Verifica tu conexión.'; errEl.style.display='block'; return;
+    }
+  } else {
+    // Admin: solo mostrar aviso
+    okEl.textContent = '✅ Para cambiar la clave maestra, edita VIP_MASTER_PASS en el código fuente del index.html.';
+    okEl.style.display = 'block';
+    return;
+  }
+
+  okEl.style.display = 'block';
+  setTimeout(() => cerrarCambioPass(), 2000);
+}
+
+// ── FIN BUSCAIGNI v2.0 ──────────────────────────────────────
 // Cargar tema guardado
 const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'oscuro';
 setTema(_temaGuardado);
@@ -10419,6 +10940,25 @@ if (_langGuardado !== 'es') setLang(_langGuardado);
     <button onclick="karyEnviar()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:8px;padding:.5rem .8rem;cursor:pointer;font-weight:700;font-size:.85rem;">↑</button>
   </div>
 
+</div>
+
+<!-- MODAL CAMBIO CONTRASEÑA VIP -->
+<div id="modalCambioPass" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:380px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,.7);margin:1rem;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;">🔑 Cambiar contraseña</div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.3rem;">Ingresa tu contraseña actual y la nueva clave que deseas usar.</p>
+    <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1rem;">
+      <input type="password" id="cpActual" placeholder="Contraseña actual" style="padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;">
+      <input type="password" id="cpNueva" placeholder="Nueva contraseña" style="padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;">
+      <input type="password" id="cpConfirm" placeholder="Confirmar nueva contraseña" style="padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;">
+    </div>
+    <div id="cpError" style="display:none;font-size:.78rem;color:#ef4444;margin-bottom:.8rem;padding:8px 10px;background:rgba(239,68,68,.08);border-radius:6px;border:1px solid rgba(239,68,68,.2);"></div>
+    <div id="cpOk" style="display:none;font-size:.78rem;color:#10b981;margin-bottom:.8rem;padding:8px 10px;background:rgba(16,185,129,.08);border-radius:6px;border:1px solid rgba(16,185,129,.2);">✅ Contraseña actualizada correctamente.</div>
+    <div style="display:flex;gap:.7rem;">
+      <button onclick="guardarNuevaPass()" style="flex:1;padding:11px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.5px;">GUARDAR</button>
+      <button onclick="cerrarCambioPass()" style="padding:11px 18px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
 </div>
 
 </body>
