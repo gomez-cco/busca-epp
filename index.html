@@ -2235,6 +2235,12 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       💼 Directorio de servicios profesionales y talentos del sector EPP y seguridad industrial en Chile. Si quieres publicar tu perfil o servicio, contáctanos a través de BuscaEPP.
     </div>
 
+    <!-- Botón recuperar desde Firebase -->
+    <div id="talentosRecuperarBanner" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;">
+      <div style="font-size:.8rem;color:var(--accent);">⚠️ Si no aparecen los registros de talentos, pueden estar en Firebase esperando ser cargados.</div>
+      <button onclick="recuperarTalentosFirebase()" style="background:rgba(245,158,11,.2);color:var(--accent);border:1px solid rgba(245,158,11,.4);border-radius:7px;padding:5px 14px;cursor:pointer;font-size:.78rem;font-family:'DM Sans',sans-serif;white-space:nowrap;">🔄 Recuperar desde Firebase</button>
+    </div>
+
     <!-- Filtros -->
     <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;">
       <button onclick="filtrarTalentos('todos',this)" class="calc-btn selected" style="font-size:.78rem;">🔍 Todos</button>
@@ -3167,6 +3173,23 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
 
+    <!-- Cambio de clave admin -->
+    <div class="admin-card" style="margin-bottom:1rem;border-color:rgba(245,158,11,.3);">
+      <h3 style="color:var(--accent);">🔑 Seguridad del Administrador</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:.7rem;">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem;">Nueva clave maestra VIP</div>
+          <input type="password" id="nuevaClaveVip" placeholder="Nueva clave VIP (mín. 6 caracteres)" style="width:100%;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;">
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem;">Nueva clave admin (Panel ⚙️)</div>
+          <input type="password" id="nuevaClaveAdmin" placeholder="Nueva clave admin (mín. 6 caracteres)" style="width:100%;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;">
+        </div>
+      </div>
+      <button onclick="cambiarClavesAdmin()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:8px;padding:.5rem 1.4rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;letter-spacing:.5px;">💾 GUARDAR CLAVES</button>
+      <div id="adminClaveMsg" style="margin-top:.5rem;font-size:.75rem;"></div>
+    </div>
+
     <!-- ══════════════════════════════════════════════ -->
     <!-- ESTADÍSTICAS DE VISITAS                        -->
     <!-- ══════════════════════════════════════════════ -->
@@ -3208,6 +3231,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       </div>
 
       <button onclick="cargarEstadisticasVisitas()" style="margin-top:.8rem;background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">🔄 Actualizar</button>
+      <button onclick="forzarRegistroVisita()" style="margin-top:.5rem;margin-left:.5rem;background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">⚠️ Forzar registro hoy</button>
     </div>
 
     <!-- ── GESTIÓN USUARIOS VIP ── -->
@@ -3248,7 +3272,64 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
 
       <!-- Lista usuarios activos -->
       <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">👥 USUARIOS ACTIVOS</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);letter-spacing:.5px;">👥 USUARIOS ACTIVOS</div>
+          <button onclick="mostrarFormNuevoUsuario()" style="background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3);border-radius:7px;padding:4px 12px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;">+ Agregar usuario</button>
+        </div>
+        <!-- Form nuevo usuario directo -->
+        <div id="formNuevoUsuario" style="display:none;background:var(--surface2);border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:1rem;margin-bottom:.8rem;">
+          <div style="font-size:.75rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem;">Nuevo usuario VIP</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+            <input id="nuNombre" placeholder="Nombre *" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <input id="nuEmpresa" placeholder="Empresa" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <input id="nuEmail" placeholder="Email *" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <input id="nuPass" placeholder="Contraseña *" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <select id="nuTipo" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+              <option value="comprador">🛒 Comprador</option>
+              <option value="prevencionista">🦺 Prevencionista</option>
+              <option value="proveedor">🏭 Proveedor</option>
+            </select>
+            <select id="nuDias" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+              <option value="30">30 días</option>
+              <option value="60">60 días</option>
+              <option value="90">90 días</option>
+              <option value="365">1 año</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:.5rem;">
+            <button onclick="crearUsuarioDirecto()" style="flex:1;padding:8px;background:#10b981;color:#000;border:none;border-radius:7px;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">✅ CREAR USUARIO</button>
+            <button onclick="document.getElementById('formNuevoUsuario').style.display='none'" style="padding:8px 14px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;">Cancelar</button>
+          </div>
+          <div id="nuMsg" style="margin-top:.5rem;font-size:.75rem;"></div>
+        </div>
+        <!-- Form editar usuario -->
+        <div id="formEditarUsuario" style="display:none;background:var(--surface2);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:1rem;margin-bottom:.8rem;">
+          <div style="font-size:.75rem;font-weight:700;color:#38bdf8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem;">Editar usuario VIP</div>
+          <input type="hidden" id="editUid">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+            <input id="editNombre" placeholder="Nombre *" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <input id="editEmpresa" placeholder="Empresa" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <input id="editEmail" placeholder="Email *" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <input id="editPass" placeholder="Nueva contraseña (vacío=no cambiar)" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+            <select id="editTipo" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+              <option value="comprador">🛒 Comprador</option>
+              <option value="prevencionista">🦺 Prevencionista</option>
+              <option value="proveedor">🏭 Proveedor</option>
+            </select>
+            <select id="editDias" style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
+              <option value="0">Sin cambio de fecha</option>
+              <option value="30">Renovar +30 días</option>
+              <option value="60">Renovar +60 días</option>
+              <option value="90">Renovar +90 días</option>
+              <option value="365">Renovar +1 año</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:.5rem;">
+            <button onclick="guardarEdicionUsuario()" style="flex:1;padding:8px;background:#38bdf8;color:#000;border:none;border-radius:7px;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">💾 GUARDAR CAMBIOS</button>
+            <button onclick="document.getElementById('formEditarUsuario').style.display='none'" style="padding:8px 14px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;">Cancelar</button>
+          </div>
+          <div id="editMsg" style="margin-top:.5rem;font-size:.75rem;"></div>
+        </div>
         <div id="adminVipUsuarios" style="font-size:.82rem;color:var(--muted);">Cargando...</div>
       </div>
     </div>
@@ -6186,7 +6267,7 @@ function clearSearch() {
 // ─── ADMIN AUTH ──────────────────────────────────────────────
 // Contraseña encriptada con SHA-256. Para cambiarla: https://emn178.github.io/online-tools/sha256.html
 // Contraseña actual: BuscaEPP2025@
-const ADMIN_HASH = 'fefe85e172bbca370964ffed91c5630a7c57b53c4c7ddd21bd9c5725a597a1f6';
+const ADMIN_HASH = localStorage.getItem('buscaepp_admin_hash') || 'fefe85e172bbca370964ffed91c5630a7c57b53c4c7ddd21bd9c5725a597a1f6';
 
 async function hashPass(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -8071,7 +8152,7 @@ function setTema(tema) {
 }
 
 // ─── ZONA VIP ─────────────────────────────────────────────────
-const VIP_MASTER_PASS = 'BuscaEPP2025@';
+let VIP_MASTER_PASS = localStorage.getItem('buscaepp_vip_masterpass') || 'BuscaEPP2025@';
 const WA_ADMIN = '56954146523';
 let vipUsuarioActual = null;
 let vipListaCompra = JSON.parse(localStorage.getItem('buscaepp_lista_compra') || '[]');
@@ -9423,8 +9504,10 @@ async function cargarAdminVIP() {
           <span style="color:var(--muted);font-size:.72rem;"> — ${u.email}</span>
           <span style="color:${color};font-size:.72rem;font-weight:700;margin-left:.4rem;">${estado}</span></div>
           <div style="display:flex;gap:.4rem;">
-            <button onclick="renovarVIP('${u._id}')" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🔄 +30d</button>
+            <button onclick="abrirEditarUsuario('${u._id}','${u.nombre}','${u.empresa||''}','${u.email}','${u.tipo||'comprador'}')" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">✏️ Editar</button>
+            <button onclick="renovarVIP('${u._id}')" style="background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🔄 +30d</button>
             <button onclick="bloquearVIP('${u._id}')" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">⛔ Bloquear</button>
+            <button onclick="eliminarUsuarioVIP('${u._id}','${u.nombre}')" style="background:rgba(239,68,68,.25);color:#fca5a5;border:1px solid rgba(239,68,68,.4);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🗑️</button>
           </div></div>`;
       }).join('');
     }
@@ -10516,6 +10599,162 @@ setTimeout(() => {
 
 renderFilters();
 renderProducts();
+
+// ══════════════════════════════════════════════════════
+// GESTIÓN DE USUARIOS VIP — ADMIN MEJORADO
+// ══════════════════════════════════════════════════════
+
+function mostrarFormNuevoUsuario() {
+  document.getElementById('formNuevoUsuario').style.display = 'block';
+  document.getElementById('formEditarUsuario').style.display = 'none';
+  document.getElementById('nuNombre').focus();
+}
+
+async function crearUsuarioDirecto() {
+  const nombre  = document.getElementById('nuNombre').value.trim();
+  const empresa = document.getElementById('nuEmpresa').value.trim();
+  const email   = document.getElementById('nuEmail').value.trim().toLowerCase();
+  const pass    = document.getElementById('nuPass').value.trim();
+  const tipo    = document.getElementById('nuTipo').value;
+  const dias    = parseInt(document.getElementById('nuDias').value);
+  const msgEl   = document.getElementById('nuMsg');
+  if (!nombre || !email || !pass) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ Nombre, email y contraseña son obligatorios.</span>'; return; }
+  try {
+    const { db, collection, addDoc } = window._FB;
+    await addDoc(collection(db, 'vip_usuarios'), {
+      nombre, empresa, email, password: pass, tipo,
+      estado: 'activo', vencimiento: Date.now() + dias * 86400000,
+      fechaInicio: new Date().toLocaleDateString('es-CL'), ts: Date.now()
+    });
+    msgEl.innerHTML = '<span style="color:#10b981;">✅ Usuario creado correctamente.</span>';
+    ['nuNombre','nuEmpresa','nuEmail','nuPass'].forEach(id => document.getElementById(id).value = '');
+    setTimeout(() => { document.getElementById('formNuevoUsuario').style.display='none'; msgEl.innerHTML=''; }, 1800);
+    cargarAdminVIP();
+  } catch(e) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ Error al crear: ' + e.message + '</span>'; }
+}
+
+function abrirEditarUsuario(uid, nombre, empresa, email, tipo) {
+  document.getElementById('formEditarUsuario').style.display = 'block';
+  document.getElementById('formNuevoUsuario').style.display = 'none';
+  document.getElementById('editUid').value    = uid;
+  document.getElementById('editNombre').value = nombre;
+  document.getElementById('editEmpresa').value= empresa;
+  document.getElementById('editEmail').value  = email;
+  document.getElementById('editPass').value   = '';
+  document.getElementById('editTipo').value   = tipo || 'comprador';
+  document.getElementById('editDias').value   = '0';
+  document.getElementById('editMsg').innerHTML= '';
+  document.getElementById('formEditarUsuario').scrollIntoView({ behavior:'smooth' });
+}
+
+async function guardarEdicionUsuario() {
+  const uid     = document.getElementById('editUid').value;
+  const nombre  = document.getElementById('editNombre').value.trim();
+  const empresa = document.getElementById('editEmpresa').value.trim();
+  const email   = document.getElementById('editEmail').value.trim().toLowerCase();
+  const pass    = document.getElementById('editPass').value.trim();
+  const tipo    = document.getElementById('editTipo').value;
+  const dias    = parseInt(document.getElementById('editDias').value);
+  const msgEl   = document.getElementById('editMsg');
+  if (!nombre || !email) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ Nombre y email son obligatorios.</span>'; return; }
+  try {
+    const { db, doc, updateDoc, getDoc } = window._FB;
+    const ref = doc(db, 'vip_usuarios', uid);
+    const updates = { nombre, empresa, email, tipo };
+    if (pass) updates.password = pass;
+    if (dias > 0) {
+      const snap = await getDoc(ref);
+      const actual = snap.data()?.vencimiento || Date.now();
+      updates.vencimiento = Math.max(actual, Date.now()) + dias * 86400000;
+      updates.estado = 'activo';
+    }
+    await updateDoc(ref, updates);
+    msgEl.innerHTML = '<span style="color:#10b981;">✅ Usuario actualizado.</span>';
+    setTimeout(() => { document.getElementById('formEditarUsuario').style.display='none'; msgEl.innerHTML=''; }, 1500);
+    cargarAdminVIP();
+  } catch(e) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ Error: ' + e.message + '</span>'; }
+}
+
+async function eliminarUsuarioVIP(uid, nombre) {
+  if (!confirm(`¿Eliminar definitivamente al usuario "${nombre}"? Esta acción no se puede deshacer.`)) return;
+  try {
+    const { db, doc, deleteDoc } = window._FB;
+    await deleteDoc(doc(db, 'vip_usuarios', uid));
+    showToast('🗑️ Usuario eliminado');
+    cargarAdminVIP();
+  } catch(e) { showToast('❌ Error al eliminar: ' + e.message); }
+}
+
+// ══════════════════════════════════════════════════════
+// RECUPERAR TALENTOS DESDE FIREBASE
+// ══════════════════════════════════════════════════════
+
+async function recuperarTalentosFirebase() {
+  if (!window._FB) { showToast('⚠️ Firebase no disponible'); return; }
+  try {
+    const { db, collection, getDocs, query, orderBy } = window._FB;
+    const q = query(collection(db, 'talentos'), orderBy('ts', 'desc'));
+    const snap = await getDocs(q);
+    window.talentosData = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+    renderTalentos();
+    showToast(`✅ ${window.talentosData.length} talentos cargados desde Firebase`);
+  } catch(e) { showToast('❌ Error al recuperar: ' + e.message); }
+}
+
+// ══════════════════════════════════════════════════════
+// FIX CONTADOR DE VISITAS — forzar re-registro si falla
+// ══════════════════════════════════════════════════════
+
+async function forzarRegistroVisita() {
+  if (!window._FB?.db) { showToast('⚠️ Firebase no disponible'); return; }
+  try {
+    const { db, doc, updateDoc, getDoc, setDoc, increment } = window._FB;
+    const hoy = new Date();
+    const fechaKey = `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`;
+    sessionStorage.removeItem(`visita_${fechaKey}`);
+    const visitaRef = doc(db, 'visitas', fechaKey);
+    const snap = await getDoc(visitaRef);
+    if (snap.exists()) {
+      await updateDoc(visitaRef, { count: increment(1) });
+    } else {
+      await setDoc(visitaRef, { fecha: fechaKey, count: 1, ts: Date.now() });
+    }
+    sessionStorage.setItem(`visita_${fechaKey}`, '1');
+    showToast('✅ Visita registrada para hoy: ' + fechaKey);
+    setTimeout(cargarEstadisticasVisitas, 500);
+  } catch(e) { showToast('❌ Error: ' + e.message); }
+}
+
+// ── Cambio de claves admin ─────────────────────────
+async function cambiarClavesAdmin() {
+  const nuevaVip   = document.getElementById('nuevaClaveVip').value.trim();
+  const nuevaAdmin = document.getElementById('nuevaClaveAdmin').value.trim();
+  const msgEl      = document.getElementById('adminClaveMsg');
+  msgEl.innerHTML  = '';
+  if (!nuevaVip && !nuevaAdmin) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ Ingresa al menos una clave a cambiar.</span>'; return; }
+  if (nuevaVip && nuevaVip.length < 6) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ La clave VIP debe tener al menos 6 caracteres.</span>'; return; }
+  if (nuevaAdmin && nuevaAdmin.length < 6) { msgEl.innerHTML = '<span style="color:#fca5a5;">❌ La clave admin debe tener al menos 6 caracteres.</span>'; return; }
+
+  let msgs = [];
+  if (nuevaVip) {
+    // Actualizar VIP_MASTER_PASS en memoria de sesión
+    window._VIP_MASTER_PASS_OVERRIDE = nuevaVip;
+    // Guardar en localStorage para persistir entre sesiones
+    localStorage.setItem('buscaepp_vip_masterpass', nuevaVip);
+    msgs.push('✅ Clave VIP actualizada en esta sesión');
+  }
+  if (nuevaAdmin) {
+    // Generar nuevo hash SHA-256 para la clave admin
+    const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(nuevaAdmin));
+    const hash = Array.from(new Uint8Array(buf)).map(x => x.toString(16).padStart(2,'0')).join('');
+    window._ADMIN_HASH_OVERRIDE = hash;
+    localStorage.setItem('buscaepp_admin_hash', hash);
+    msgs.push('✅ Clave Admin actualizada en esta sesión');
+  }
+  msgEl.innerHTML = `<span style="color:#10b981;">${msgs.join(' · ')}</span><br><span style="color:var(--muted);font-size:.7rem;">⚠️ Para que los cambios sean permanentes, copia el nuevo hash de la clave admin y reemplaza ADMIN_HASH en el código fuente. La clave VIP se guarda en localStorage.</span>`;
+  document.getElementById('nuevaClaveVip').value   = '';
+  document.getElementById('nuevaClaveAdmin').value = '';
+}
 // Registrar visita
 setTimeout(registrarVisita, 1500);
 
