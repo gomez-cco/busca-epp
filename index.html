@@ -1107,6 +1107,7 @@
   <div class="tab tab-port" onclick="showTab('portales')"  id="tab-portales"  title="Portales de Proveedores">  <span class="tab-ico">🌐</span><span class="tab-lbl">PORTAL</span></div>
   <div class="tab tab-proy" onclick="showTab('proyectos')" id="tab-proyectos" title="Proyectos e Inversiones">   <span class="tab-ico">🗂️</span><span class="tab-lbl">PROYECT</span></div>
   <div class="tab tab-ind"  onclick="showTab('industrias')" id="tab-industrias" title="Centro de Industrias">    <span class="tab-ico">🏗️</span><span class="tab-lbl">INDUST</span></div>
+  <div class="tab"        onclick="showTab('estudia')"   id="tab-estudia"  title="Estudia con BuscaEPP"><span class="tab-ico">📚</span><span class="tab-lbl">ESTUDIA</span></div>
   <div class="tab"        onclick="showTab('admin')"     id="tab-admin"    title="Administrador" style="display:none;"><span class="tab-ico">⚙️</span><span class="tab-lbl">ADMIN</span></div>
 </div>
 
@@ -1196,23 +1197,6 @@
   <div class="results-area">
     <div class="results-meta" id="resultsMeta"></div>
 
-    <!-- Banner Eikona -->
-    <div id="banner-eikona" style="display:none;background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.04));border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.2rem;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:.8rem;">
-          <div style="background:rgba(239,68,68,.15);border-radius:10px;padding:.5rem .8rem;font-size:1.4rem;border:1px solid rgba(239,68,68,.3);">🔥</div>
-          <div>
-            <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
-              <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);">EIKONA</span>
-              <span style="font-size:.68rem;background:rgba(245,158,11,.2);color:#f59e0b;border:1px solid rgba(245,158,11,.4);border-radius:20px;padding:2px 8px;font-weight:700;">⭐ PROVEEDOR DESTACADO</span>
-            </div>
-            <div style="font-size:.75rem;color:#fca5a5;font-weight:600;margin-top:1px;">Especialistas en Ropa Ignífuga Certificada — Santiago de Chile</div>
-            <div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Líneas UNISAFE · PF LASK · VCS · CURRENT — Certificación ISP · Registro RFI</div>
-          </div>
-        </div>
-        <a href="https://eikona.cl/categoria/ropa-ignifuga/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:700;text-decoration:none;white-space:nowrap;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;">Ver catálogo →</a>
-      </div>
-    </div>
 
     <div class="products-grid" id="productsGrid"></div>
     <div class="empty" id="emptyState" style="display:none;">
@@ -3045,15 +3029,15 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
           <div style="width:44px;height:44px;background:rgba(239,68,68,.25);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:1;flex-shrink:0;">🔥</div>
           <div style="z-index:1;">
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:1px;">BuscaIgni <span style="background:rgba(16,185,129,.2);color:#10b981;font-size:.58rem;padding:2px 7px;border-radius:7px;border:1px solid rgba(16,185,129,.3);margin-left:.3rem;vertical-align:middle;">● Offline/Online</span></div>
-            <div style="color:rgba(255,255,255,.6);font-size:.75rem;">Asesor ignífugo con catálogo Eikona · Marco legal Chile · Análisis competencia</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.75rem;">Asesor ignífugo · Marco legal Chile · Tipos de protección FR por industria</div>
           </div>
           <div style="margin-left:auto;z-index:1;background:rgba(245,158,11,.2);color:var(--accent);font-size:.7rem;font-weight:700;padding:4px 11px;border-radius:14px;border:1px solid rgba(245,158,11,.4);">★ VIP EXCLUSIVO</div>
         </div>
 
         <!-- Stats -->
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;">
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">6</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Líneas Eikona</div></div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">47</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Competidores</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">6</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Tipos FR</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">15</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Industrias</div></div>
           <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ef4444;">8</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">Normativas</div></div>
         </div>
 
@@ -3061,7 +3045,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
         <div style="display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.1rem;flex-wrap:wrap;">
           <button onclick="igniTab('asesoria')" id="inav-asesoria" style="flex:1;min-width:80px;padding:10px 5px;background:rgba(239,68,68,.08);border:none;border-bottom:2px solid #ef4444;color:#ef4444;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">🤖 Asesoría IA</button>
           <button onclick="igniTab('catalogo')" id="inav-catalogo" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📋 Catálogo</button>
-          <button onclick="igniTab('competencia')" id="inav-competencia" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">⚔️ Competencia</button>
+          <button onclick="igniTab('proveedores')" id="inav-proveedores" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">🔍 Proveedores</button>
           <button onclick="igniTab('normativa')" id="inav-normativa" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📜 Normativas</button>
           <button onclick="igniTab('usuarios')" id="inav-usuarios" style="flex:1;min-width:80px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">👥 Usuarios</button>
         </div>
@@ -3074,7 +3058,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
           </div>
           <div id="igniResponse" style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:1rem;font-size:.82rem;color:rgba(252,165,165,.9);line-height:1.65;min-height:52px;">
             <div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div>
-            Escribe o habla tu consulta. La respuesta incluirá <strong>marco legal + producto Eikona + comparativa de competencia</strong>. Ej: <em>"necesito ropa para trabajar en caldera"</em>
+            Escribe o habla tu consulta. La respuesta incluirá <strong>marco legal + tipo de protección FR recomendado + criterios de evaluación</strong>. Ej: <em>"necesito ropa para trabajar en caldera"</em>
           </div>
           <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.5rem;">Consultas de ejemplo</div>
           <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;">
@@ -3090,77 +3074,70 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
 
         <!-- Panel Catálogo -->
         <div id="ipanel-catalogo" style="display:none;">
+          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.6rem;">Tipos de protección FR — haz clic para consultar</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:1rem;">
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('Overol FR UNISAFE 260 Eikona características y para qué cliente')">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="document.getElementById('igniQuery').value='Necesito overol FR algodón para trabajo industrial o mantención'; igniRunQuery(); igniTab('asesoria');">
               <div style="font-size:1.4rem;margin-bottom:.3rem;">🦺</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">UNISAFE 260</div>
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 260 g/m²</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Algodón FR 260 g/m²</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Uso general · Riesgo moderado</div>
               <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">NFPA 2112</span></div>
             </div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('PF LASK Aramida Eikona para qué industrias y ventajas competitivas')">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="document.getElementById('igniQuery').value='Necesito overol FR aramida Nomex para petroquímica o minería'; igniRunQuery(); igniTab('asesoria');">
               <div style="font-size:1.4rem;margin-bottom:.3rem;">🛡️</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">PF LASK Aramida</div>
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Nomex/Kevlar 215 g/m²</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Aramida / Nomex</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Alto riesgo · No funde</div>
               <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">ISO 11612 A1-B1</span></div>
             </div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('VCS Multiprotección Eikona sector eléctrico y ATEX')">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="document.getElementById('igniQuery').value='Técnico en subestación eléctrica con riesgo de arco eléctrico ATEX'; igniRunQuery(); igniTab('asesoria');">
               <div style="font-size:1.4rem;margin-bottom:.3rem;">⚡</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">VCS Multiprotección</div>
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">FR + Antiestático 280 g/m²</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">FR Antiestático</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Arco eléctrico · ATEX</div>
               <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">NFPA 70E</span></div>
             </div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('PF Cotton 350 Eikona para caldera y soldadura pesada')">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="document.getElementById('igniQuery').value='Soldador o trabajador de caldera con exposición a chispa intensa'; igniRunQuery(); igniTab('asesoria');">
               <div style="font-size:1.4rem;margin-bottom:.3rem;">🔥</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">PF Cotton 350</div>
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 350 g/m²</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">FR Pesado 350 g/m²</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Soldadura · Caldera</div>
               <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">ISO 11612 B1-C2</span></div>
             </div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('Camisa FR manga larga Eikona para supervisión y mantención')">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="document.getElementById('igniQuery').value='Supervisor o inspector con exposición moderada a riesgo ignífugo'; igniRunQuery(); igniTab('asesoria');">
               <div style="font-size:1.4rem;margin-bottom:.3rem;">👕</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Camisa FR M/L</div>
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 180 g/m²</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Camisa FR Manga Larga</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Supervisión · Riesgo bajo</div>
               <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">NFPA 2112</span></div>
             </div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="igniQuick('Pantalón FR industrial Eikona para soldadura y trabajo industrial')">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;" onclick="document.getElementById('igniQuery').value='Operario de planta industrial con riesgo de chispa o calor moderado'; igniRunQuery(); igniTab('asesoria');">
               <div style="font-size:1.4rem;margin-bottom:.3rem;">👖</div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Pantalón FR</div>
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Algodón FR 280 g/m²</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);">Pantalón FR Industrial</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.1rem;">Industrial · Multiuso</div>
               <div style="margin-top:.4rem;"><span style="background:rgba(239,68,68,.12);color:#fca5a5;font-size:.6rem;padding:2px 6px;border-radius:4px;">ISO 11612 A1</span></div>
             </div>
           </div>
         </div>
 
-        <!-- Panel Competencia (47 empresas) -->
-        <div id="ipanel-competencia" style="display:none;">
-          <div style="display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap;align-items:center;">
-            <input type="text" placeholder="Buscar entre 47 competidores..." oninput="igniFilterComps(this.value)" style="flex:1;min-width:200px;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;">
-            <button onclick="igniQuick('Análisis comparativo completo de todos los competidores de ropa ignífuga en Chile versus Eikona')" style="padding:9px 14px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.35);border-radius:8px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;white-space:nowrap;">📊 Análisis completo →</button>
+        <!-- Panel Proveedores FR -->
+        <div id="ipanel-proveedores" style="display:none;">
+          <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:1rem 1.1rem;margin-bottom:.9rem;">
+            <div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.4rem;">🔍 Buscar proveedores de ropa ignífuga en BuscaEPP</div>
+            <div style="font-size:.8rem;color:var(--text);line-height:1.6;margin-bottom:.7rem;">Usa el buscador de BuscaEPP para encontrar proveedores y productos FR certificados ISP Chile. Filtra por tipo de prenda, norma o industria.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+              <button onclick="showTab('epp'); document.getElementById('mainSearch').value='ignifugo overol FR'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));" style="padding:8px 14px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.35);border-radius:8px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;">🦺 Overoles FR →</button>
+              <button onclick="showTab('epp'); document.getElementById('mainSearch').value='ropa ignifuga aramida'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));" style="padding:8px 14px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.35);border-radius:8px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;">🛡️ Aramida / Nomex →</button>
+              <button onclick="showTab('epp'); document.getElementById('mainSearch').value='ignifugo NFPA'; document.getElementById('mainSearch').dispatchEvent(new Event('input'));" style="padding:8px 14px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.35);border-radius:8px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;">📋 Por norma NFPA →</button>
+            </div>
           </div>
-          <div id="igniCompGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.5rem;max-height:420px;overflow-y:auto;">
-            <div style="background:var(--card);border:2px solid #ef4444;border-radius:10px;padding:.75rem;" class="igni-comp"><span style="background:#ef4444;color:#fff;font-size:.58rem;padding:2px 6px;border-radius:4px;margin-bottom:.3rem;display:inline-block;">★ Tu empresa</span><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.3rem;">Eikona</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;">ISP Chile</span><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;">NFPA 2112</span><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;">Aramida</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Lakeland Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Tychem/PyroGard</span><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Precio alto</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Fyrban Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR local</span><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. limitada</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Ignifuga Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Especialista FR</span><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin soporte</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Indura Safety</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. nacional</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR genérico</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">MSA Chile</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Marca global</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR secundario</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">3M Chile</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Reconocimiento</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR limitado</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Marcotex</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Textil FR</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Menor cert.</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Aracor</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Aramida</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. limitada</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Zetawork</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Workwear FR</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Stock bajo</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">North Pole Safety</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR+EPP</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Precio variable</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">HIMA Insumos</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR secundario</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Kupfer Hnos.</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Dist. amplia</span><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin ISP propio</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Apro Seguridad</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR no esp.</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Proteknica</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR básico</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Worksafe Chile</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR no esp.</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Segurycel</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR limitado</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Treck</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin FR propio</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Redsafe Safety</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">FR menor</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">EPP Chile</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin fab. propia</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Safety Store</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin asesoría FR</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Sodimac Emp.</div><span style="background:rgba(239,68,68,.1);color:#fca5a5;font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">Sin cert. ind.</span></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;" class="igni-comp"><div class="igni-comp-name" style="font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Lakeland + más</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;margin:1px;display:inline-block;">+25 distribuidores</span><button onclick="igniQuick('Lista completa de los 47 competidores FR Chile')" style="display:block;margin-top:.3rem;font-size:.6rem;color:#ef4444;background:none;border:none;cursor:pointer;padding:0;">Ver todos →</button></div>
+          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.5rem;">Proveedores especializados en ropa FR — Chile</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Lakeland Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">PyroGard / Tychem</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Fyrban Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">FR fabricación local</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Ignifuga Chile</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">Especialista aramida</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Indura Safety</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">Distribución nacional</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Aracor</div><span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">Ropa aramida FR</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Marcotex</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">Textil FR industrial</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Zetawork</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">Workwear FR variado</span></div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">North Pole Safety</div><span style="background:rgba(245,158,11,.1);color:var(--accent);font-size:.6rem;padding:2px 5px;border-radius:4px;display:inline-block;">FR + EPP integral</span></div>
           </div>
+          <div style="margin-top:.8rem;font-size:.7rem;color:var(--muted);">💡 Para más proveedores FR certificados ISP, usa el buscador principal en la pestaña EPP.</div>
         </div>
 
         <!-- Panel Normativas -->
@@ -3180,15 +3157,15 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
             <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">IEC 61340</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Antiestático · Zonas ATEX · Gas inflamable</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Oblig. zonas explosivas. Complementa NFPA 2112.</div></div></div>
             <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">DS 594</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Condiciones sanitarias trabajo · MINSAL Chile</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Base legal obligatoria para todo EPP en Chile</div></div></div>
             <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">DS 132</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Seguridad Minera · SERNAGEOMIN · Chile</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Obligatorio minería. Incluye requisitos FR para subterránea.</div></div></div>
-            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">ISP Chile</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Certificación nacional EPP · Eikona certificado</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Obligatorio para comercializar EPP en Chile. Verificar vigencia.</div></div></div>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><span style="background:#ef4444;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;">ISP Chile</span><div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">Certificación nacional EPP · Resolución de Incorporación (RFI)</div><div style="font-size:.68rem;color:var(--muted);margin-top:.15rem;">Obligatorio para comercializar EPP en Chile. Verificar vigencia del N° RFI.</div></div></div>
           </div>
         </div>
 
         <!-- Panel Usuarios -->
         <div id="ipanel-usuarios" style="display:none;">
-          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.7rem;">Equipo de ventas Eikona</div>
+          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.7rem;">Equipo BuscaEPP VIP</div>
           <div style="display:flex;flex-direction:column;gap:.55rem;">
-            <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">JJ</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Juanjo</div><div style="font-size:.7rem;color:var(--muted);">Coordinador Comercial · Eikona</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25);">Admin</span></div>
+            <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">JJ</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Juanjo</div><div style="font-size:.7rem;color:var(--muted);">Coordinador · BuscaEPP</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25);">Admin</span></div>
             <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:var(--surface2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">V1</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Vendedor 1</div><div style="font-size:.7rem;color:var(--muted);">Pendiente de configurar</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.25);">Vendedor</span></div>
             <div style="display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem .9rem;"><div style="width:33px;height:33px;border-radius:50%;background:var(--surface2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;">V2</div><div><div style="font-weight:600;font-size:.85rem;color:var(--text);">Vendedor 2</div><div style="font-size:.7rem;color:var(--muted);">Pendiente de configurar</div></div><span style="margin-left:auto;font-size:.62rem;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.25);">Vendedor</span></div>
           </div>
@@ -3431,6 +3408,221 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
     <div class="corp-grid" id="corpGrid"></div>
   </div>
 </div>
+
+<!-- ESTUDIA CON BUSCA EPP TAB -->
+<div id="pane-estudia" style="display:none;">
+  <div style="max-width:960px;margin:0 auto;padding:.5rem 0 2rem;">
+
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#1e3a5f,#1a2e4a 60%,#0f1f33);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:1.1rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(59,130,246,.04) 12px,rgba(59,130,246,.04) 24px);"></div>
+      <div style="width:48px;height:48px;background:rgba(59,130,246,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;z-index:1;flex-shrink:0;">📚</div>
+      <div style="z-index:1;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:1px;">ESTUDIA CON BUSCA EPP</div>
+        <div style="color:rgba(255,255,255,.6);font-size:.75rem;">Glosarios de terminología profesional · Comercial · Financiera · Logística</div>
+      </div>
+      <div style="margin-left:auto;z-index:1;text-align:right;">
+        <div style="font-size:.62rem;color:rgba(255,255,255,.45);margin-bottom:.2rem;">Elaborado por</div>
+        <div style="font-size:.8rem;font-weight:700;color:rgba(255,255,255,.75);">Juan Gómez</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;" onclick="estudiaTab('comercial')"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#3b82f6;">24</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">📊 Términos Comerciales</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;" onclick="estudiaTab('financiero')"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#10b981;">25</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">💰 Términos Financieros</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;" onclick="estudiaTab('logistica')"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#f59e0b;">26</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">🚚 Terminología Logística</div></div>
+    </div>
+
+    <!-- Search -->
+    <div style="position:relative;margin-bottom:1.1rem;">
+      <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:.9rem;pointer-events:none;">🔍</span>
+      <input id="estudiaSearch" type="text" placeholder="Buscar término en los 3 glosarios..." oninput="estudiaFiltrar(this.value)"
+        style="width:100%;box-sizing:border-box;padding:12px 14px 12px 38px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;">
+    </div>
+
+    <!-- Sub-nav -->
+    <div style="display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.1rem;flex-wrap:wrap;">
+      <button onclick="estudiaTab('todos')" id="etab-todos" style="flex:1;min-width:70px;padding:10px 5px;background:rgba(59,130,246,.1);border:none;border-bottom:2px solid #3b82f6;color:#3b82f6;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📖 Todos</button>
+      <button onclick="estudiaTab('comercial')" id="etab-comercial" style="flex:1;min-width:70px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📊 Comercial</button>
+      <button onclick="estudiaTab('financiero')" id="etab-financiero" style="flex:1;min-width:70px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">💰 Financiero</button>
+      <button onclick="estudiaTab('logistica')" id="etab-logistica" style="flex:1;min-width:70px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">🚚 Logística</button>
+    </div>
+
+    <!-- Section label -->
+    <div id="estudia-section-label" style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.7rem;"></div>
+
+    <!-- Cards container -->
+    <div id="estudia-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem;"></div>
+    <div id="estudia-empty" style="display:none;text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;">No se encontraron términos que coincidan.</div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// ESTUDIA CON BUSCA EPP — Glosarios interactivos
+// ═══════════════════════════════════════════════════════════════
+
+const GLOSARIO_COMERCIAL = [
+  // Ventas y negociación
+  { termino:'Prospección', seccion:'Ventas y negociación', def:'Proceso de identificar y contactar potenciales clientes (prospectos) que podrían estar interesados en un producto o servicio.', ejemplo:'Un ejecutivo de ventas de EPP identifica empresas mineras con licitaciones abiertas de seguridad y las agrega a su lista de prospectos para contactar.' },
+  { termino:'Ciclo de Venta', seccion:'Ventas y negociación', def:'Conjunto de etapas que recorre una oportunidad comercial desde el primer contacto con el cliente hasta el cierre del contrato o la compra.', ejemplo:'En ventas de vestuario industrial el ciclo puede durar 30 a 90 días: cotización → validación técnica → aprobación de compras → orden de compra → despacho.' },
+  { termino:'Ticket Promedio', seccion:'Ventas y negociación', def:'Valor promedio de cada transacción o venta realizada en un período determinado.', ejemplo:'Si una empresa vende EPP por $12.000.000 en 40 órdenes al mes, su ticket promedio es de $300.000 por orden.' },
+  { termino:'Margen de Contribución', seccion:'Ventas y negociación', def:'Diferencia entre el precio de venta y los costos variables directos del producto. Indica cuánto aporta cada unidad vendida a cubrir costos fijos y generar utilidad.', ejemplo:'Un overol industrial con precio de venta $35.000 y costo variable de $22.000 tiene un margen de contribución de $13.000 (37%).' },
+  { termino:'Cierre de Venta', seccion:'Ventas y negociación', def:'Etapa final del ciclo de ventas en que el cliente confirma la compra. Incluye técnicas para superar objeciones y lograr el compromiso final.', ejemplo:'Después de una cotización técnica y visita a planta, el ejecutivo logra el cierre cuando el jefe de compras emite la orden de compra formal.' },
+  { termino:'Follow-up', seccion:'Ventas y negociación', def:'Seguimiento activo que realiza el equipo de ventas luego de enviar una cotización o propuesta, para resolver dudas y mantener vivo el interés del cliente.', ejemplo:'Tres días después de enviar la propuesta de EPP, el vendedor llama al cliente para consultar si tiene preguntas sobre las normas y plazos de entrega.' },
+  { termino:'Pipeline', seccion:'Ventas y negociación', def:'Conjunto de todas las oportunidades de venta activas en distintas etapas del ciclo comercial. Permite proyectar ingresos futuros.', ejemplo:'El gerente de ventas revisa el pipeline semanal: hay 5 cotizaciones en etapa de evaluación técnica, 2 en aprobación de compras y 1 lista para cierre.' },
+  // Estrategia comercial y mercado
+  { termino:'Posicionamiento', seccion:'Estrategia comercial y mercado', def:'Imagen o percepción que tiene el mercado sobre una marca, producto o empresa en comparación con la competencia.', ejemplo:'Una empresa de EPP puede posicionarse como "la opción más certificada" o "la más económica", dependiendo del segmento al que apunta.' },
+  { termino:'Market Share', seccion:'Estrategia comercial y mercado', def:'Participación de mercado: porcentaje de las ventas totales de un sector que corresponde a una empresa específica.', ejemplo:'Si el mercado de EPP en Chile mueve $500MM anuales y una empresa vende $50MM, su market share es 10%.' },
+  { termino:'Nicho de Mercado', seccion:'Estrategia comercial y mercado', def:'Segmento específico y bien definido de un mercado más amplio, con necesidades particulares que no siempre son atendidas por los grandes actores.', ejemplo:'La ropa ignífuga certificada para la minería subterránea es un nicho dentro del mercado general de vestuario de trabajo.' },
+  { termino:'Propuesta de Valor', seccion:'Estrategia comercial y mercado', def:'Conjunto de beneficios que una empresa ofrece a sus clientes y que la diferencia de la competencia. Responde a: ¿por qué deberían comprarte a ti?', ejemplo:'"EPP certificado ISP, entrega en 48 horas y asesoría técnica incluida" es una propuesta de valor concreta para un comprador industrial.' },
+  { termino:'Benchmark', seccion:'Estrategia comercial y mercado', def:'Proceso de comparar los procesos, productos o métricas de una empresa con los de los mejores del sector, para identificar oportunidades de mejora.', ejemplo:'Al revisar tiempos de entrega, una empresa de EPP hace benchmark con líderes del mercado para detectar ineficiencias en su logística.' },
+  { termino:'Go-to-Market', seccion:'Estrategia comercial y mercado', def:'Plan de acción para lanzar un producto o servicio al mercado: define quién es el cliente, cómo se llegará a él, a qué precio y por qué canales.', ejemplo:'Para lanzar una nueva línea de EPP para pyme, el plan go-to-market incluye distribución por ferretería industrial y campaña digital dirigida a prevencionistas.' },
+  { termino:'Segmentación', seccion:'Estrategia comercial y mercado', def:'División del mercado en grupos homogéneos de clientes con características o necesidades similares, para enfocar mejor los esfuerzos comerciales.', ejemplo:'Una empresa de EPP puede segmentar sus clientes por sector (minería, construcción, industria) o por tamaño (gran empresa, pyme, empresa pública).' },
+  // Gestión de clientes
+  { termino:'CRM', seccion:'Gestión de clientes', def:'Customer Relationship Management: sistema o software para gestionar la relación con clientes, registrar interacciones y hacer seguimiento de oportunidades comerciales.', ejemplo:'El equipo de ventas usa un CRM para ver el historial de pedidos de cada cliente, programar seguimientos y no perder ninguna cotización.' },
+  { termino:'KAM', seccion:'Gestión de clientes', def:'Key Account Manager: ejecutivo especializado en gestionar las cuentas clave o clientes estratégicos de una empresa, que por su volumen o relevancia requieren atención diferenciada.', ejemplo:'El KAM de una empresa de EPP es el responsable de la relación con CODELCO, visitándola mensualmente y gestionando contratos marco.' },
+  { termino:'Churn', seccion:'Gestión de clientes', def:'Tasa de abandono o pérdida de clientes en un período determinado. Un churn alto indica problemas de retención o satisfacción.', ejemplo:'Si una empresa tenía 80 clientes activos a inicio de año y al final tiene 72, su churn anual es del 10%.' },
+  { termino:'LTV', seccion:'Gestión de clientes', def:'Lifetime Value: valor total que un cliente genera para la empresa durante toda la relación comercial. Ayuda a decidir cuánto invertir en adquirir o retener clientes.', ejemplo:'Un cliente industrial que compra $4.000.000 anuales de EPP durante 5 años tiene un LTV de $20.000.000.' },
+  { termino:'NPS', seccion:'Gestión de clientes', def:'Net Promoter Score: indicador que mide la satisfacción y lealtad de los clientes. Se basa en la pregunta "¿Recomendarías esta empresa?" en escala del 0 al 10.', ejemplo:'Después de cada entrega de EPP, se envía una encuesta NPS. Si 7 de 10 clientes son promotores (9-10) y 2 son detractores (0-6), el NPS es (70%-20%) = 50.' },
+  { termino:'Onboarding', seccion:'Gestión de clientes', def:'Proceso de incorporación y bienvenida a un nuevo cliente, para asegurar que entienda cómo usar el producto o servicio y maximice su valor desde el inicio.', ejemplo:'Al firmar un contrato marco, el onboarding incluye reunión de kickoff, envío de catálogo técnico y asignación de un ejecutivo de cuenta.' },
+  // Marketing y canales
+  { termino:'Lead', seccion:'Marketing y canales', def:'Potencial cliente que ha mostrado algún nivel de interés en el producto o servicio, ya sea completando un formulario, solicitando cotización o interactuando en redes sociales.', ejemplo:'Un prevencionista que descarga una guía técnica de EPP desde un sitio web se convierte en un lead para el equipo de ventas.' },
+  { termino:'Embudo de Conversión', seccion:'Marketing y canales', def:'Representación visual del recorrido que hace un potencial cliente desde que conoce la empresa hasta que realiza una compra, mostrando cómo se va reduciendo el volumen en cada etapa.', ejemplo:'De 1.000 visitantes al sitio web, 200 piden cotización, 50 reciben propuesta y 10 cierran compra. La tasa de conversión final es 1%.' },
+  { termino:'Omnicanalidad', seccion:'Marketing y canales', def:'Estrategia de atención al cliente que integra todos los canales de contacto (tienda física, web, teléfono, correo, redes sociales) para ofrecer una experiencia uniforme.', ejemplo:'Un cliente de EPP puede cotizar en el sitio web, recibir atención por WhatsApp y hacer el pago en la sala de ventas, todo de forma coherente.' },
+  { termino:'B2B', seccion:'Marketing y canales', def:'Business to Business: modelo comercial en que las ventas se realizan entre empresas, no al consumidor final. Implica ciclos de venta más largos y decisiones más racionales.', ejemplo:'Una empresa que vende EPP a mineras, constructoras e industrias opera en modelo B2B, a diferencia de una tienda retail que vende a personas naturales.' },
+];
+
+const GLOSARIO_FINANCIERO = [
+  // Estados financieros y contabilidad
+  { termino:'Balance General', seccion:'Estados financieros y contabilidad', def:'Estado financiero que muestra la situación patrimonial de una empresa en un momento determinado: activos (lo que tiene), pasivos (lo que debe) y patrimonio (lo que es de los dueños).', ejemplo:'El balance de una distribuidora de EPP al 31 de diciembre muestra activos por $800MM, pasivos por $350MM y un patrimonio neto de $450MM.' },
+  { termino:'Estado de Resultados', seccion:'Estados financieros y contabilidad', def:'Informe financiero que resume los ingresos, costos y gastos de una empresa en un período, mostrando si operó con utilidad o pérdida.', ejemplo:'El estado de resultados de una empresa de EPP del primer semestre muestra ingresos por $500MM, costos de ventas por $320MM y una utilidad operacional de $90MM.' },
+  { termino:'Flujo de Caja', seccion:'Estados financieros y contabilidad', def:'Registro de entradas y salidas de dinero en efectivo de una empresa durante un período. Permite evaluar la capacidad de pago y la liquidez real.', ejemplo:'Aunque una empresa muestre utilidades contables, su flujo de caja puede ser negativo si los clientes pagan a 90 días pero proveedores cobran a 30 días.' },
+  { termino:'Activo Circulante', seccion:'Estados financieros y contabilidad', def:'Recursos de la empresa que se espera convertir en dinero en menos de un año: caja, cuentas por cobrar, inventarios y otros activos de corto plazo.', ejemplo:'El stock de EPP en bodega y las facturas pendientes de cobro son activos circulantes de una distribuidora.' },
+  { termino:'Pasivo Exigible', seccion:'Estados financieros y contabilidad', def:'Deudas u obligaciones de la empresa que deben pagarse en un plazo definido, tanto a corto como a largo plazo.', ejemplo:'Un crédito bancario a 3 años y las facturas por pagar a proveedores forman parte del pasivo exigible de una empresa.' },
+  { termino:'Patrimonio Neto', seccion:'Estados financieros y contabilidad', def:'Diferencia entre los activos y los pasivos totales de una empresa. Representa el valor residual que pertenece a los accionistas o dueños.', ejemplo:'Si una empresa de EPP tiene activos totales de $1.200MM y pasivos de $700MM, su patrimonio neto es de $500MM.' },
+  // Rentabilidad y costos
+  { termino:'EBITDA', seccion:'Rentabilidad y costos', def:'Earnings Before Interest, Taxes, Depreciation and Amortization: utilidad antes de descontar intereses, impuestos, depreciaciones y amortizaciones. Mide la capacidad operativa de generar caja.', ejemplo:'Una empresa de EPP con ventas de $600MM, costos operacionales de $480MM y gastos administrativos de $60MM tiene un EBITDA de $60MM.' },
+  { termino:'Margen Bruto', seccion:'Rentabilidad y costos', def:'Porcentaje que representa la diferencia entre ingresos y costo directo de ventas sobre el total de ingresos. Indica la rentabilidad básica del producto.', ejemplo:'Si una empresa vende EPP por $200MM y el costo de los productos es $140MM, su margen bruto es 30% (60/200).' },
+  { termino:'Punto de Equilibrio', seccion:'Rentabilidad y costos', def:'Nivel de ventas en que los ingresos totales igualan a los costos totales, sin generar ni utilidad ni pérdida. Por encima de ese punto, la empresa gana; por debajo, pierde.', ejemplo:'Si los costos fijos mensuales son $8MM y el margen de contribución por unidad de EPP es $4.000, el punto de equilibrio es vender 2.000 unidades al mes.' },
+  { termino:'Costo de Ventas (COGS)', seccion:'Rentabilidad y costos', def:'Costo de Ventas o Goods Sold: suma de todos los costos directamente asociados a la producción o adquisición de los productos vendidos en un período.', ejemplo:'Para una distribuidora de EPP, el COGS incluye el precio de compra al fabricante, el flete de importación y los aranceles.' },
+  { termino:'ROI', seccion:'Rentabilidad y costos', def:'Return on Investment: retorno sobre la inversión. Mide el beneficio obtenido en relación al capital invertido, expresado como porcentaje.', ejemplo:'Si se invierten $5MM en una campaña de marketing de EPP y se generan $15MM adicionales en ventas con un margen del 30%, la ganancia es $4,5MM y el ROI es 90%.' },
+  { termino:'Depreciación', seccion:'Rentabilidad y costos', def:'Reducción del valor contable de un activo fijo a lo largo de su vida útil, reconocida como gasto en el estado de resultados cada período.', ejemplo:'Una máquina de corte para fabricar EPP comprada en $24MM y con vida útil de 8 años se deprecia a razón de $3MM anuales.' },
+  // Liquidez y capital de trabajo
+  { termino:'Liquidez Corriente', seccion:'Liquidez y capital de trabajo', def:'Indicador que mide la capacidad de la empresa para pagar sus deudas de corto plazo con sus activos circulantes. Se calcula como: Activo Circulante / Pasivo Circulante.', ejemplo:'Si una empresa de EPP tiene activos circulantes de $80MM y pasivos circulantes de $40MM, su liquidez corriente es 2.0, considerada saludable.' },
+  { termino:'Capital de Trabajo', seccion:'Liquidez y capital de trabajo', def:'Diferencia entre el activo circulante y el pasivo circulante. Representa los recursos disponibles para financiar las operaciones del día a día.', ejemplo:'Con $80MM en activos circulantes y $40MM en pasivos circulantes, el capital de trabajo de la empresa es $40MM.' },
+  { termino:'Días de Cobranza', seccion:'Liquidez y capital de trabajo', def:'Promedio de días que tarda la empresa en cobrar sus facturas emitidas. Un plazo elevado afecta el flujo de caja.', ejemplo:'Si las cuentas por cobrar de EPP son $60MM y las ventas mensuales son $30MM, los días de cobranza son 60 días.' },
+  { termino:'Rotación de Inventario', seccion:'Liquidez y capital de trabajo', def:'Número de veces que el inventario se renueva en un período. Una rotación alta indica eficiencia; una baja puede señalar sobrestock o productos de lenta salida.', ejemplo:'Si el costo de ventas anual de EPP es $480MM y el inventario promedio es $80MM, la rotación es 6 veces al año (cada 2 meses se renueva el stock).' },
+  // Financiamiento e inversión
+  { termino:'Financiamiento', seccion:'Financiamiento e inversión', def:'Obtención de recursos económicos externos para financiar operaciones, inversiones o crecimiento. Puede ser deuda (banco) o capital (inversionistas).', ejemplo:'Una empresa de EPP pide un crédito de $100MM para importar un contenedor de overoles y pagar a 90 días, cuando ya habrá vendido gran parte del lote.' },
+  { termino:'TIR', seccion:'Financiamiento e inversión', def:'Tasa Interna de Retorno: tasa de descuento que hace que el VAN de un proyecto sea igual a cero. Se usa para evaluar si una inversión es rentable (TIR > costo del capital → rentable).', ejemplo:'Un proyecto de expansión de bodega de EPP que requiere $50MM y genera flujos anuales de $12MM durante 6 años tiene una TIR aproximada del 15%.' },
+  { termino:'VAN', seccion:'Financiamiento e inversión', def:'Valor Actual Neto: suma de los flujos de caja futuros de un proyecto descontados a una tasa de costo de capital, menos la inversión inicial. Si VAN > 0, el proyecto agrega valor.', ejemplo:'Si un proyecto de EPP genera flujos de $10MM anuales durante 5 años y la tasa de descuento es 10%, el VAN depende de la inversión inicial; si es $30MM, el VAN es positivo.' },
+  { termino:'Leasing', seccion:'Financiamiento e inversión', def:'Contrato de arrendamiento financiero que permite usar un activo (máquina, vehículo) pagando cuotas, con opción de compra al final. Alternativa al crédito tradicional.', ejemplo:'Una empresa de EPP arrienda un vehículo de reparto bajo leasing en lugar de comprarlo, preservando capital de trabajo para stock.' },
+  { termino:'WACC', seccion:'Financiamiento e inversión', def:'Weighted Average Cost of Capital: costo promedio ponderado de capital. Representa la tasa mínima de retorno que debe generar una inversión para ser aceptable.', ejemplo:'Si una empresa se financia 50% con deuda al 8% y 50% con capital propio al 14%, su WACC aproximado es 11%. Todo proyecto debe superar esa tasa.' },
+  // Indicadores financieros y análisis
+  { termino:'KPI Financiero', seccion:'Indicadores financieros y análisis', def:'Key Performance Indicator: indicador clave de desempeño financiero usado para medir el avance hacia objetivos específicos de rentabilidad, liquidez o eficiencia.', ejemplo:'Un KPI financiero típico para una distribuidora de EPP es "días de cobranza < 45" o "margen bruto > 28%".' },
+  { termino:'Apalancamiento', seccion:'Indicadores financieros y análisis', def:'Uso de deuda para financiar inversiones con el objetivo de amplificar el retorno sobre el capital propio. Aumenta el potencial de ganancia, pero también el riesgo.', ejemplo:'Una empresa de EPP que invierte $100MM propios y pide $200MM prestados para comprar mercadería está usando apalancamiento financiero de 3x.' },
+  { termino:'Análisis de Sensibilidad', seccion:'Indicadores financieros y análisis', def:'Evaluación de cómo cambia el resultado de un proyecto o modelo financiero al variar sus supuestos clave (precio, volumen, costo). Permite identificar las variables críticas.', ejemplo:'Al proyectar ventas de EPP, se analiza qué pasa si el precio cae 10% o si el volumen baja 20%, para estimar el impacto en la utilidad.' },
+  { termino:'Due Diligence', seccion:'Indicadores financieros y análisis', def:'Proceso de revisión exhaustiva de los aspectos financieros, legales, operativos y comerciales de una empresa antes de una inversión, compra o fusión.', ejemplo:'Antes de adquirir una distribuidora de EPP, el comprador realiza un due diligence para verificar la solidez de su cartera de clientes, deudas y contratos.' },
+];
+
+const GLOSARIO_LOGISTICA = [
+  // KPI logísticos
+  { termino:'OTIF', seccion:'KPI logísticos', def:'On Time In Full: indicador que mide el porcentaje de pedidos entregados completos y en la fecha comprometida. Es el KPI más relevante del desempeño logístico.', ejemplo:'Si un proveedor de EPP despacha 100 pedidos en un mes y 92 llegan completos y en la fecha comprometida, su OTIF es 92%.' },
+  { termino:'Fill Rate', seccion:'KPI logísticos', def:'Tasa de cumplimiento de pedidos: porcentaje de líneas o unidades despachadas del total solicitado. Mide si el inventario es suficiente para cubrir la demanda.', ejemplo:'Si un cliente pide 200 unidades de EPP y solo hay 170 disponibles, el fill rate de ese pedido es 85%.' },
+  { termino:'Lead Time', seccion:'KPI logísticos', def:'Tiempo total desde que se realiza un pedido hasta que el cliente lo recibe. Incluye procesamiento, preparación, transporte y entrega.', ejemplo:'Un EPP importado desde Asia puede tener un lead time de 45 días (producción + flete + aduana + distribución local).' },
+  { termino:'Costo Logístico %', seccion:'KPI logísticos', def:'Porcentaje que representan los costos logísticos totales (almacenaje, transporte, distribución) sobre el total de ventas. Indica la eficiencia de la cadena de suministro.', ejemplo:'Si una empresa de EPP factura $400MM y sus costos logísticos son $40MM, el costo logístico como porcentaje de ventas es 10%.' },
+  { termino:'Tasa de Devolución', seccion:'KPI logísticos', def:'Porcentaje de productos que los clientes devuelven respecto al total despachado. Una tasa alta puede indicar problemas de calidad, talla o descripción incorrecta.', ejemplo:'Si de 1.000 overoles de EPP despachados, 30 son devueltos por talla incorrecta, la tasa de devolución es 3%.' },
+  // Gestión de inventario y demanda
+  { termino:'SKU', seccion:'Gestión de inventario y demanda', def:'Stock Keeping Unit: código único que identifica cada producto en su versión específica (talla, color, modelo). Permite gestionar el inventario con precisión.', ejemplo:'Un overol de EPP talla M en color azul marino es un SKU distinto al mismo overol talla L o al mismo en color naranja.' },
+  { termino:'Stock de Seguridad', seccion:'Gestión de inventario y demanda', def:'Cantidad mínima de inventario que se mantiene como colchón para absorber variaciones inesperadas en la demanda o retrasos en el abastecimiento.', ejemplo:'Si el tiempo de reposición de EPP es 15 días y la venta diaria promedio es 20 unidades, un stock de seguridad razonable podría ser 100 unidades.' },
+  { termino:'Rotación de Inventario', seccion:'Gestión de inventario y demanda', def:'Número de veces que el inventario se consume y repone en un período. Una rotación alta indica eficiencia; una baja puede reflejar sobrestock o productos sin salida.', ejemplo:'Si el costo de ventas anual de EPP es $480MM y el inventario promedio valorado es $80MM, la rotación es 6 veces al año.' },
+  { termino:'Análisis ABC', seccion:'Gestión de inventario y demanda', def:'Método de clasificación de inventario que divide los productos en tres categorías según su importancia: A (alta rotación o alto valor ~80% del valor total), B (media) y C (baja rotación o bajo valor).', ejemplo:'Los modelos de EPP de mayor rotación se clasifican como categoría A (~20% de los SKUs generan ~80% del valor), mientras que accesorios de baja rotación caen en categoría C.' },
+  { termino:'Forecast de Demanda', seccion:'Gestión de inventario y demanda', def:'Proyección de la demanda futura de productos, basada en datos históricos de ventas, estacionalidad y tendencias del mercado. Sirve para planificar compras y producción.', ejemplo:'Antes de la temporada de licitaciones públicas, una empresa de EPP proyecta mayor demanda de overoles FR y aumenta su stock con anticipación.' },
+  { termino:'EOQ', seccion:'Gestión de inventario y demanda', def:'Economic Order Quantity: cantidad óptima de pedido que minimiza los costos totales de inventario (costos de ordenar + costos de mantener stock).', ejemplo:'Si el costo de procesar un pedido de EPP es $150.000 y el costo de mantener una unidad en bodega es $3.000 al año, el EOQ indica cuántas unidades pedir cada vez para minimizar costos.' },
+  { termino:'FIFO', seccion:'Gestión de inventario y demanda', def:'First In, First Out: método de gestión de inventario en que los primeros productos ingresados a bodega son los primeros en ser despachados, evitando la obsolescencia.', ejemplo:'En una bodega de EPP con fechas de fabricación, los overoles más antiguos se despachan primero para respetar la fecha de expiración de tratamientos químicos FR.' },
+  // Transporte y distribución
+  { termino:'Incoterms', seccion:'Transporte y distribución', def:'International Commercial Terms: términos estandarizados que definen las responsabilidades de comprador y vendedor en el transporte internacional: quién paga el flete, seguro y aduana.', ejemplo:'Un contrato CIF (Cost, Insurance, Freight) indica que el vendedor de EPP paga el flete y seguro hasta el puerto de destino; a partir de ahí el comprador asume los riesgos.' },
+  { termino:'Last Mile', seccion:'Transporte y distribución', def:'Última etapa de la cadena de distribución: el tramo entre el centro de distribución y el punto de entrega final al cliente. Es la más costosa e importante para la experiencia del usuario.', ejemplo:'Entregar EPP directamente en la faena minera en vez de en la bodega del cliente es una solución de last mile que reduce el trabajo del área de abastecimiento.' },
+  { termino:'Cross-docking', seccion:'Transporte y distribución', def:'Técnica de distribución en que la mercadería que llega a un centro de distribución se transfiere directamente a los vehículos de reparto, sin almacenamiento intermedio.', ejemplo:'Una empresa de EPP recibe un contenedor de overoles a las 8 AM y los distribuye en camiones a distintas faenas el mismo día, sin pasar por bodega.' },
+  { termino:'Consolidación de Carga', seccion:'Transporte y distribución', def:'Agrupación de varios envíos pequeños de distintos clientes o proveedores en un solo embarque o vehículo, para reducir costos de transporte.', ejemplo:'Importar EPP de varios proveedores en un solo contenedor consolidado (LCL) es más económico que hacer un flete exclusivo por cada proveedor.' },
+  { termino:'TMS', seccion:'Transporte y distribución', def:'Transportation Management System: software para planificar, ejecutar y optimizar el transporte de mercancías. Permite gestionar rutas, costos y seguimiento de envíos.', ejemplo:'Una distribuidora de EPP usa su TMS para asignar automáticamente los pedidos urgentes al vehículo más cercano a cada faena.' },
+  { termino:'Tracking', seccion:'Transporte y distribución', def:'Seguimiento en tiempo real del estado y ubicación de un envío, disponible tanto para la empresa como para el cliente. Mejora la transparencia y la experiencia de compra.', ejemplo:'Un cliente puede revisar en el portal de EPP el número de tracking y saber que su pedido está "en tránsito, llegará mañana entre 10-13 hrs".' },
+  // Tecnología y sistemas
+  { termino:'WMS', seccion:'Tecnología y sistemas', def:'Warehouse Management System: sistema de gestión de bodegas que controla el inventario, ubicaciones de productos, entradas, salidas y procesos de picking y packing.', ejemplo:'Una bodega de EPP usa su WMS para saber exactamente en qué pasillo y nivel de rack está cada talla de overol, reduciendo errores de picking.' },
+  { termino:'ERP', seccion:'Tecnología y sistemas', def:'Enterprise Resource Planning: sistema integrado de gestión empresarial que conecta finanzas, inventario, ventas, compras y logística en una sola plataforma.', ejemplo:'Al emitir una factura de EPP en el ERP, automáticamente se descuenta el stock en bodega, se genera la guía de despacho y se actualiza la cuenta por cobrar.' },
+  { termino:'Código de Barras / QR', seccion:'Tecnología y sistemas', def:'Tecnologías de identificación de productos mediante lectura óptica. El código de barras es unidimensional; el QR (Quick Response) es bidimensional y almacena más información.', ejemplo:'Cada SKU de EPP lleva un código de barras que se escanea al ingresar a bodega y al despachar, actualizando el inventario en tiempo real.' },
+  { termino:'EDI', seccion:'Tecnología y sistemas', def:'Electronic Data Interchange: intercambio electrónico de documentos comerciales estándar (órdenes de compra, facturas, despachos) entre empresas, sin intervención manual.', ejemplo:'Grandes cadenas de EPP reciben las órdenes de compra de sus clientes directamente en su sistema vía EDI, eliminando la digitación manual y los errores asociados.' },
+  { termino:'RFID', seccion:'Tecnología y sistemas', def:'Radio Frequency Identification: tecnología que usa ondas de radio para identificar y rastrear productos mediante etiquetas electrónicas, sin necesidad de línea de visión directa.', ejemplo:'Una bodega de EPP puede hacer un inventario completo en minutos usando lectores RFID que detectan cada etiqueta sin necesidad de escanear una por una.' },
+  // Logística inversa y sostenibilidad
+  { termino:'Logística Inversa', seccion:'Logística inversa y sostenibilidad', def:'Gestión del flujo de productos desde el cliente de vuelta al origen: devoluciones, reciclaje, reparaciones o disposición final. Es parte de la responsabilidad post-venta.', ejemplo:'Una empresa de EPP que retira overoles usados para reciclar la fibra y entrega un descuento al cliente en la próxima compra practica logística inversa.' },
+  { termino:'Embalaje Sostenible', seccion:'Logística inversa y sostenibilidad', def:'Uso de materiales de empaque reciclables, reciclados o reducidos al mínimo necesario, con el fin de disminuir el impacto ambiental del proceso logístico.', ejemplo:'Cambiar las cajas de cartón virgen por cajas recicladas para despachar EPP, o eliminar el plástico de relleno, son medidas de embalaje sostenible.' },
+  { termino:'Huella de Carbono', seccion:'Logística inversa y sostenibilidad', def:'Cantidad total de gases de efecto invernadero (expresada en CO₂ equivalente) generada directa o indirectamente por las actividades logísticas de una empresa.', ejemplo:'Calcular la huella de carbono de los envíos de EPP permite identificar que el transporte aéreo genera 20x más emisiones que el marítimo, e incentivar el cambio de modo.' },
+];
+
+// ── Control de la pestaña activa ───────────────────────────
+let estudiaTabActivo = 'todos';
+let estudiaIniciado = false;
+let estudiaQueryActiva = '';
+
+function estudiaTab(id) {
+  estudiaTabActivo = id;
+  ['todos','comercial','financiero','logistica'].forEach(t => {
+    const btn = document.getElementById('etab-'+t);
+    if (!btn) return;
+    if (t === id) { btn.style.background='rgba(59,130,246,.1)'; btn.style.borderBottom='2px solid #3b82f6'; btn.style.color='#3b82f6'; }
+    else { btn.style.background='none'; btn.style.borderBottom='2px solid transparent'; btn.style.color='var(--muted)'; }
+  });
+  document.getElementById('estudiaSearch').value = '';
+  estudiaQueryActiva = '';
+  estudiaRenderizar();
+}
+
+function estudiaFiltrar(q) {
+  estudiaQueryActiva = q.trim().toLowerCase();
+  estudiaRenderizar();
+}
+
+function estudiaRenderizar() {
+  const container = document.getElementById('estudia-cards');
+  const empty = document.getElementById('estudia-empty');
+  const label = document.getElementById('estudia-section-label');
+  if (!container) return;
+
+  let todos = [];
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'comercial') todos = todos.concat(GLOSARIO_COMERCIAL.map(t => ({...t, glosario:'comercial', color:'#3b82f6', bgColor:'rgba(59,130,246,.08)', borderColor:'rgba(59,130,246,.2)'})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'financiero') todos = todos.concat(GLOSARIO_FINANCIERO.map(t => ({...t, glosario:'financiero', color:'#10b981', bgColor:'rgba(16,185,129,.08)', borderColor:'rgba(16,185,129,.2)'})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'logistica') todos = todos.concat(GLOSARIO_LOGISTICA.map(t => ({...t, glosario:'logistica', color:'#f59e0b', bgColor:'rgba(245,158,11,.08)', borderColor:'rgba(245,158,11,.2)'})));
+
+  if (estudiaQueryActiva) {
+    todos = todos.filter(t => t.termino.toLowerCase().includes(estudiaQueryActiva) || t.def.toLowerCase().includes(estudiaQueryActiva) || t.ejemplo.toLowerCase().includes(estudiaQueryActiva) || t.seccion.toLowerCase().includes(estudiaQueryActiva));
+  }
+
+  const labels = { todos:`Mostrando ${todos.length} términos (todos los glosarios)`, comercial:'Glosario Comercial — 24 términos', financiero:'Glosario Financiero — 25 términos', logistica:'Terminología Logística — 26 términos' };
+  label.textContent = estudiaQueryActiva ? `${todos.length} resultado${todos.length !== 1 ? 's' : ''} para "${estudiaQueryActiva}"` : (labels[estudiaTabActivo] || '');
+
+  if (todos.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  container.innerHTML = todos.map(t => `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text);">${t.termino}</div>
+        <span style="background:${t.bgColor};color:${t.color};font-size:.58rem;padding:2px 8px;border-radius:5px;border:1px solid ${t.borderColor};white-space:nowrap;flex-shrink:0;">${t.seccion}</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.6;">${t.def}</div>
+      <div style="background:${t.bgColor};border:1px solid ${t.borderColor};border-radius:8px;padding:.55rem .75rem;font-size:.73rem;color:var(--muted);line-height:1.55;">
+        <span style="font-weight:700;color:${t.color};">Ej: </span>${t.ejemplo}
+      </div>
+    </div>
+  `).join('');
+}
+</script>
 
 <!-- ADMIN TAB -->
 <div id="pane-admin" style="display:none;">
@@ -5112,7 +5304,7 @@ const PROVIDERS = {
   proteknica: { name:'Proteknica',        url:'https://www.proteknica.cl' },
   acetogen:   { name:'Acetogen',          url:'https://acetogen.cl' },
   ispch:      { name:'ISPCH (Listado EPP)',url:'https://www.ispch.gob.cl/listadoepp/' },
-  eikona:     { name:'Eikona',            url:'https://eikona.cl', destacado:true, badge:'⭐ Proveedor Destacado', desc:'Especialistas en ropa ignífuga certificada — Líneas UNISAFE, PF LASK, VCS y CURRENT' },
+  eikona:     { name:'Eikona',            url:'https://eikona.cl' },
   under:      { name:'Under / Matrix World Group', url:'https://www.matrixworldgroup.cl' },
   aracor:     { name:'ARACOR',            url:'https://www.aracor.cl' },
   abaindus:   { name:'Abaindus',          url:'https://www.abaindus.cl' },
@@ -5411,67 +5603,6 @@ let products = [
     providers:['safetystore','gsp',,'novaseg','apro','kupfer',,'impsafety','qsupply','eppindustrial','segindustrial','hseguridad','safetyfirst','proteknica','prosafety','atm'] },
 
   // ROPA IGNÍFUGA
-  // ── EIKONA — Ropa Ignífuga Destacada ⭐ ──────────────────────
-  { id:5600, name:'Overol UNISAFE Eikona — Ignífugo FR', family:'ignifugo',
-    desc:'Overol ignífugo UNISAFE certificado ISP. Protección fuego repentino, arco eléctrico y soldadura. Tela europea. Composición: Gabardina 80% Algodón, 19% Poliéster, 1% Antiestática.',
-    tags:['overol','unisafe','eikona','ignifugo','fr','arco electrico','isp','certificado','soldadura','fuego'],
-    providers:['eikona'], destacado:true },
-
-  { id:5601, name:'Camisa UNISAFE Eikona — Ignífuga FR', family:'ignifugo',
-    desc:'Camisa/blusa ignífuga UNISAFE, manga larga, certificada ISP. Protección fuego repentino y arco eléctrico. Tela FR europea.',
-    tags:['camisa','blusa','unisafe','eikona','ignifugo','fr','arco electrico','isp','manga larga'],
-    providers:['eikona'], destacado:true },
-
-  { id:5602, name:'Chaqueta UNISAFE Eikona — Ignífuga FR', family:'ignifugo',
-    desc:'Chaqueta ignífuga UNISAFE Eikona, certificada ISP. Protección fuego repentino, soldadura y arco eléctrico. Tela de fabricación europea.',
-    tags:['chaqueta','unisafe','eikona','ignifugo','fr','arco electrico','isp','soldadura'],
-    providers:['eikona'], destacado:true },
-
-  { id:5603, name:'Pantalón UNISAFE Eikona — Ignífugo FR', family:'ignifugo',
-    desc:'Pantalón ignífugo UNISAFE Eikona, certificado ISP. Resistente a fuego repentino y arco eléctrico. Compatible con overol y chaqueta UNISAFE.',
-    tags:['pantalon','unisafe','eikona','ignifugo','fr','arco electrico','isp'],
-    providers:['eikona'], destacado:true },
-
-  { id:5604, name:'Geólogo UNISAFE Eikona — Ignífugo FR', family:'ignifugo',
-    desc:'Geólogo (chaleco multibolsillos) ignífugo UNISAFE Eikona, certificado ISP. Ideal para profesionales en terreno con riesgo de llama.',
-    tags:['geologo','chaleco','unisafe','eikona','ignifugo','fr','isp','multibolsillos'],
-    providers:['eikona'], destacado:true },
-
-  { id:5605, name:'Overol PF LASK Eikona — Ignífugo Antiestático', family:'ignifugo',
-    desc:'Overol línea PF LASK Eikona. Tafetán Rip Stop 50% Modacrílico, 40% Algodón, 8% Poliamida, 2% Fibra Antiestática. Inherencia permanente. UV 50+. Protección antiestática y antiácida.',
-    tags:['overol','lask','pf lask','eikona','ignifugo','antiestatico','modacrilico','uv50','inherente','antiácido'],
-    providers:['eikona'], destacado:true },
-
-  { id:5606, name:'Pantalón PF LASK Eikona — Ignífugo Antiestático', family:'ignifugo',
-    desc:'Pantalón línea PF LASK Eikona. Propiedades antiflama y antiestática permanentes independiente de lavados. Tela Rip Stop.',
-    tags:['pantalon','lask','pf lask','eikona','ignifugo','antiestatico','modacrilico','inherente'],
-    providers:['eikona'], destacado:true },
-
-  { id:5607, name:'Camisa PF LASK Eikona — Ignífuga Antiestática', family:'ignifugo',
-    desc:'Camisa línea PF LASK Eikona, protección inherente antiflama y antiestática. Mantenimiento de propiedades después de múltiples lavados.',
-    tags:['camisa','lask','pf lask','eikona','ignifugo','antiestatico','inherente','lavados'],
-    providers:['eikona'], destacado:true },
-
-  { id:5608, name:'Parka PF LASK Eikona — Ignífuga FR', family:'ignifugo',
-    desc:'Parka ignífuga línea PF LASK Eikona. Protección térmica y contra fuego, ideal para ambientes fríos con riesgo de llama.',
-    tags:['parka','lask','pf lask','eikona','ignifugo','fr','frio','termica'],
-    providers:['eikona'], destacado:true },
-
-  { id:5609, name:'Overol VCS Eikona — Ignífugo FR', family:'ignifugo',
-    desc:'Overol línea VCS Eikona. Ropa ignífuga corporativa de alta calidad para industria minera, petroquímica y eléctrica.',
-    tags:['overol','vcs','eikona','ignifugo','fr','mineria','petroleo','electrico'],
-    providers:['eikona'], destacado:true },
-
-  { id:5610, name:'Balaclava Ignífuga Eikona — UNISAFE / PF LASK', family:'ignifugo',
-    desc:'Balaclava ignífuga Eikona. Protección cabeza y cuello contra fuego repentino y arco eléctrico. Disponible en líneas UNISAFE y PF LASK.',
-    tags:['balaclava','eikona','ignifugo','cabeza','cuello','arco electrico','fuego','unisafe','lask'],
-    providers:['eikona'], destacado:true },
-
-  { id:5611, name:'Primera Capa Ignífuga Eikona — STIFF / PF LASK', family:'ignifugo',
-    desc:'Ropa interior ignífuga (primera capa) Eikona líneas STIFF y PF LASK. Protección básica contra calor radiante como capa base.',
-    tags:['primera capa','interior','eikona','ignifugo','stiff','lask','base','calor'],
-    providers:['eikona'], destacado:true },
-
   { id:56, name:'Pantalón ignífugo FR (flame resistant)', family:'ignifugo', desc:'Tela 100% algodón tratado o Nomex, resistente a llama, certificación NFPA 2112, colores variados', tags:['pantalon','ignifugo','fr','flame resistant','nomex','algodon','nfpa','llama','fuego'],
     providers:['eikona','under','aracor','acetogen','apro','treck','safetystore','novaseg','kupfer','eppchile','prosafety','vicsa',,'impsafety','segindustrial','hseguridad','eppindustrial','safetyfirst','proteknica'] },
   { id:57, name:'Camisa / polera ignífuga FR', family:'ignifugo', desc:'Manga larga, tela FR certificada, con logo bordado, uso en faenas con riesgo de arco eléctrico o llama', tags:['camisa','polera','ignifugo','fr','manga larga','arco electrico','llama','nomex','certificado'],
@@ -7332,7 +7463,6 @@ function renderProducts() {
   const grid = document.getElementById('productsGrid');
   const empty = document.getElementById('emptyState');
   const meta  = document.getElementById('resultsMeta');
-  const bannerEikona = document.getElementById('banner-eikona');
 
   // ── Si no hay familia seleccionada ni búsqueda → pantalla de bienvenida ──
   if (activeFamily === 'all' && !searchQuery) {
@@ -7361,7 +7491,6 @@ function renderProducts() {
       </style>`;
     if (meta) meta.innerHTML = '';
     if (empty) empty.style.display = 'none';
-    if (bannerEikona) bannerEikona.style.display = 'none';
     return;
   }
 
@@ -7376,15 +7505,6 @@ function renderProducts() {
     return matcher(haystack);
   });
 
-  // ── Mostrar banner Eikona si se filtra ignifugo o búsqueda relacionada ──
-  const esIgnifugo = activeFamily === 'ignifugo' ||
-    (searchQuery && ['ignifug','fr ','flame','fuego','arco electrico','eikona','unisafe','lask','vcs'].some(k => searchQuery.toLowerCase().includes(k)));
-  if (bannerEikona) bannerEikona.style.display = esIgnifugo ? 'block' : 'none';
-
-  // ── Priorizar productos Eikona al inicio ─────────────────────
-  const eikona = filtered.filter(p => p.destacado && (p.providers||[]).includes('eikona'));
-  const resto  = filtered.filter(p => !(p.destacado && (p.providers||[]).includes('eikona')));
-  filtered = [...eikona, ...resto];
 
   const wildcardBadge = isWildcard
     ? ` <span style="background:rgba(245,158,11,.15);color:var(--accent);border:1px solid rgba(245,158,11,.3);padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;">✦ COMODÍN</span>`
@@ -7402,14 +7522,8 @@ function renderProducts() {
       ? `Ver proveedores (${provCount})`
       : `View suppliers (${provCount})`;
 
-    // ── Estrella dorada + borde destacado para Eikona ──────────
-    const esEikona = p.destacado && (p.providers||[]).includes('eikona');
-    const borderStyle = esEikona
-      ? 'border:1px solid rgba(245,158,11,.5);box-shadow:0 0 0 1px rgba(245,158,11,.15);'
-      : '';
-    const starBadge = esEikona
-      ? `<span style="position:absolute;top:.55rem;right:.6rem;font-size:.85rem;" title="Proveedor Destacado">⭐</span>`
-      : '';
+    const borderStyle = '';
+    const starBadge = '';
 
     return `<div class="product-card" onclick="openModal(${p.id})" style="position:relative;${borderStyle}">
       ${starBadge}
@@ -7665,7 +7779,7 @@ function showTab(tab, skipAuth=false) {
     showIndLogin();
     return;
   }
-  ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin','industrias','portales','proyectos'].forEach(t => {
+  ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia'].forEach(t => {
     const pane = document.getElementById('pane-'+t);
     const tb = document.getElementById('tab-'+t);
     if (pane) pane.style.display = t===tab?'block':'none';
@@ -7678,6 +7792,7 @@ function showTab(tab, skipAuth=false) {
   if (tab==='talentos') renderTalentos();
   if (tab==='admin') { setTimeout(cargarAdminVIP, 500); setTimeout(verificarVencimientosVIP, 1000); setTimeout(cargarEstadisticasVisitas, 800); }
   if (tab==='prov') renderProveedores();
+  if (tab==='estudia' && typeof estudiaRenderizar === 'function') estudiaRenderizar();
 }
 
 function addProduct() {
@@ -9969,13 +10084,13 @@ ignifugo: `
     </div>
 
     <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.8rem 1rem;">
-      <div style="font-weight:700;color:var(--accent);font-size:.82rem;margin-bottom:.4rem;">⭐ LÍNEAS EIKONA — Fabricante Destacado BuscaEPP</div>
+      <div style="font-weight:700;color:var(--accent);font-size:.82rem;margin-bottom:.4rem;">🔥 Tipos de protección ignífuga certificada ISP</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;font-size:.75rem;">
         ${[
-          ['UNISAFE','Uso general industria y minería'],
-          ['PF LASK','Alta protección petroquímica'],
-          ['VCS','Soldadura y calor radiante'],
-          ['CURRENT','Arco eléctrico certificado'],
+          ['Tela tratada FR','Algodón tratado, uso general'],
+          ['Tela inherente','Protección permanente lavado tras lavado'],
+          ['Modacrílico','Antiestática + antiflama, petroquímica'],
+          ['Arco eléctrico','Certificación NFPA 70E / IEC 61482'],
         ].map(([linea,desc]) => `
         <div style="background:var(--surface2);border-radius:6px;padding:.4rem .6rem;">
           <span style="color:var(--accent);font-weight:700;">${linea}</span>
@@ -10546,7 +10661,7 @@ function actualizarTablaOrganismos(listado) {
 
 function generarEjemplosHistorico(q, anio) {
   return [
-    { Nombre:`Adquisición overoles ignífugos FR para personal planta ${anio}`, NombreOrganismo:'CODELCO División Andina', NombreRegion:'Región de Valparaíso', CodigoExterno:`1234-5-LP${anio.slice(2)}`, MontoEstimado:45000000, MontoAdjudicado:42300000, EmpresaAdjudicada:'Eikona SPA', RutAdjudicatario:'76.123.456-7', FechaAdjudicacion:`${anio}-06-15` },
+    { Nombre:`Adquisición overoles ignífugos FR para personal planta ${anio}`, NombreOrganismo:'CODELCO División Andina', NombreRegion:'Región de Valparaíso', CodigoExterno:`1234-5-LP${anio.slice(2)}`, MontoEstimado:45000000, MontoAdjudicado:42300000, EmpresaAdjudicada:'Proveedor FR Certificado ISP', RutAdjudicatario:'76.xxx.xxx-x', FechaAdjudicacion:`${anio}-06-15` },
     { Nombre:`Compra EPP y equipamiento seguridad industrial faenas mineras`, NombreOrganismo:'ENAP Refinerías S.A.', NombreRegion:'Región del Biobío', CodigoExterno:`2345-6-LE${anio.slice(2)}`, MontoEstimado:18500000, MontoAdjudicado:17800000, EmpresaAdjudicada:'Vicsa Safety Chile Ltda.', RutAdjudicatario:'78.234.567-8', FechaAdjudicacion:`${anio}-04-20` },
     { Nombre:`Vestuario de seguridad y calzado industrial para trabajadores`, NombreOrganismo:'MOP — Ministerio de Obras Públicas', NombreRegion:'Región Metropolitana', CodigoExterno:`3456-7-LP${anio.slice(2)}`, MontoEstimado:32000000, MontoAdjudicado:29900000, EmpresaAdjudicada:'Prosafety Ltda.', RutAdjudicatario:'77.345.678-9', FechaAdjudicacion:`${anio}-03-10` },
     { Nombre:`Cascos, guantes y lentes de seguridad para obras viales`, NombreOrganismo:'Municipalidad de Antofagasta', NombreRegion:'Región de Antofagasta', CodigoExterno:`4567-8-L1${anio.slice(2)}`, MontoEstimado:2100000, MontoAdjudicado:1980000, EmpresaAdjudicada:'SafetyStore Chile', RutAdjudicatario:'76.456.789-0', FechaAdjudicacion:`${anio}-08-05` },
@@ -10611,7 +10726,7 @@ const FABRICANTES = {
     { nombre:'MSA Safety',  tipo:'Fabricante Mundial',   desc:'Sistemas anticaída V-Series para altura y espacios confinados.', url:'https://cl.msasafety.com', norma:'NCh 1258', destacado:false },
   ]},
   ignifugo:    { label:'🔥 Ignífugo',    color:'#ef4444', items:[
-    { nombre:'Eikona',      tipo:'⭐ FABRICANTE DESTACADO', desc:'Ropa ignífuga certificada ISP. Líneas UNISAFE, PF LASK, VCS y CURRENT. Santiago de Chile.', url:'https://eikona.cl/categoria/ropa-ignifuga/', norma:'NFPA 2112 · EN ISO 11612', destacado:true },
+    { nombre:'Eikona',      tipo:'Fabricante Nacional',    desc:'Ropa ignífuga certificada ISP. Santiago de Chile.', url:'https://eikona.cl', norma:'NFPA 2112 · EN ISO 11612', destacado:false },
     { nombre:'DuPont Nomex',tipo:'Fabricante Mundial',   desc:'Fibra Nomex — estándar mundial en protección ignífuga para petroquímica.', url:'https://www.dupont.com', norma:'NFPA 2112 / EN ISO 11612', destacado:false },
     { nombre:'Indura',      tipo:'Fabricante Internacional',desc:'Telas tratadas ignífugas Proban y Pyrovatex distribuidas en Chile.', url:'https://www.indura.net', norma:'NFPA 2112', destacado:false },
   ]},
@@ -11408,9 +11523,9 @@ const KARY_CONOCIMIENTO = [
     respuesta:'🎧 Protectores auditivos NCh 462. El DS 594 exige protección sobre 85dB. Tenemos tapones, orejeras y semi-insertos.',
     accion:{ texto:'🎧 Ver protección auditiva', fn:"karyMostrarProductos('auditiv');" }},
 
-  { palabras:['ignifugo','ignifuga','fuego','llama','fr','flame','eikona','unisafe','lask','ropa fuego','ropa ignifuga','overol ignifugo'],
-    respuesta:'🔥 Para ropa ignífuga tenemos a <strong>Eikona ⭐</strong> con líneas UNISAFE, PF LASK y VCS — todas certificadas ISP.',
-    accion:{ texto:'🔥 Ver ropa ignífuga Eikona', fn:"karyMostrarProductos('ignifugo');" }},
+  { palabras:['ignifugo','ignifuga','fuego','llama','fr','flame','ropa fuego','ropa ignifuga','overol ignifugo'],
+    respuesta:'🔥 Para ropa ignífuga tenemos múltiples proveedores certificados ISP con líneas FR para minería, eléctrica y construcción.',
+    accion:{ texto:'🔥 Ver ropa ignífuga', fn:"karyMostrarProductos('ignifugo');" }},
 
   { palabras:['overol','uniforme','ropa trabajo','vestuario','ropa industrial','mono','buzo','ropa corporativa'],
     respuesta:'👕 Tenemos overoles, uniformes y ropa de trabajo para distintas faenas. ¿La necesitas ignífuga, vial, térmica o corporativa?',
@@ -11494,7 +11609,7 @@ const KARY_CONOCIMIENTO = [
 
   // ── Proveedores ─────────────────────────────────────────────
   { palabras:['proveedor','proveedores','donde comprar','distribuidor','tienda','comprar'],
-    respuesta:'🏭 Tenemos proveedores como Vicsa, Prosafety, SafetyStore, Kupfer, Eikona y más. ¿Qué producto necesitas?',
+    respuesta:'🏭 Tenemos proveedores como Vicsa, Prosafety, SafetyStore, Kupfer, Aracor y más. ¿Qué producto necesitas?',
     accion:{ texto:'🏭 Ver proveedores', fn:"showTab('prov'); karyToggle();" }},
 
   { palabras:['calculadora','calcular','ruido calculo','iluminacion'],
@@ -11648,11 +11763,9 @@ function karyMostrarProductos(termino) {
           ${resultados.map(p => {
             const fam = FAMILIES[p.family] || {};
             const provCount = (p.providers||[]).length;
-            const esEikona = p.destacado && (p.providers||[]).includes('eikona');
-            const borde = esEikona ? 'border-color:rgba(245,158,11,.5);' : '';
-            return `<div style="background:var(--surface2);border:1px solid var(--border);${borde}border-radius:8px;padding:.5rem .7rem;">
+            return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:.3rem;margin-bottom:.2rem;">
-                <div style="font-size:.75rem;font-weight:700;color:var(--text);">${fam.icon||'📦'} ${p.name}${esEikona?' ⭐':''}</div>
+                <div style="font-size:.75rem;font-weight:700;color:var(--text);">${fam.icon||'📦'} ${p.name}</div>
               </div>
               <div style="font-size:.68rem;color:var(--muted);margin-bottom:.3rem;">${p.desc ? p.desc.substring(0,65)+'...' : ''}</div>
               <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
@@ -12151,85 +12264,28 @@ document.addEventListener('keydown', e => {
 // BUSCAIGNI VIP — v2.0 con 6 mejoras
 // ═══════════════════════════════════════════════════════════════
 
-// ── Catálogo Eikona completo ────────────────────────────────
-const EIKONA_CATALOGO = [
-  { id:'unisafe260', nombre:'UNISAFE 260 g/m²', tipo:'Overol FR', fibra:'100% algodón FR tratado', gramaje:'260 g/m²', normas:['NFPA 2112','ISO 11612'], isp:'Certificado ISP Chile', color:'Azul marino / Naranja', uso:['petroquímica','celulosa','soldadura','mantención','gas','refinería'], descripcion:'Overol de trabajo en tejido algodón 100% con tratamiento ignífugo permanente. Costura FR, cinta reflectante 5cm, cierre de aluminio. Ideal para faenas con riesgo de flash fire de baja a media intensidad.' },
-  { id:'lask_aramida', nombre:'PF LASK Aramida', tipo:'Overol FR Premium', fibra:'Mezcla Nomex/Kevlar (meta-aramida/para-aramida)', gramaje:'215 g/m²', normas:['NFPA 2112','EN ISO 11612 A1 B1 C2','ASTM F1506'], isp:'Certificado ISP Chile', color:'Azul marino / Beige natural', uso:['minería','petroquímica','refinería','acería','fundición','alto_riesgo'], descripcion:'Overol de máxima protección en fibra aramida. No funde ni gotea. Resistencia térmica superior, LOI >28%. Para ambientes de alto riesgo térmico sostenido. Vida útil ≥2 años con lavados industriales.' },
-  { id:'vcs_multi', nombre:'VCS Multiprotección', tipo:'Overol FR Multiriesgo', fibra:'FR + Antiestático + Alta visibilidad', gramaje:'280 g/m²', normas:['NFPA 70E','IEC 61340-5','EN ISO 20471 Clase 2'], isp:'Certificado ISP Chile', color:'Naranja fluorescente / Azul marino', uso:['eléctrica','ATEX','gas','zona_explosiva','subestación','vialidad'], descripcion:'Overol combinado para protección simultánea: llama, arco eléctrico y visibilidad. Ideal para técnicos eléctricos, operadores de subestación y trabajadores en zonas ATEX. Disipa carga estática.' },
-  { id:'pf_cotton', nombre:'PF Cotton 350 g/m²', tipo:'Overol FR Pesado', fibra:'Algodón FR ennoblecido', gramaje:'350 g/m²', normas:['NFPA 2112','ISO 11612 A1 B1'], isp:'Certificado ISP Chile', color:'Gris / Azul petróleo', uso:['soldadura','corte','acería','fundición','caldera'], descripcion:'Overol de algodón de alta gramaje para trabajos con chispa intensa, soldadura y calor radiante. Mayor durabilidad mecánica. Recomendado para soldadores de mantención y operadores de caldera.' },
-  { id:'camisa_fr', nombre:'Camisa FR Manga Larga', tipo:'Camisa FR', fibra:'Algodón FR 180 g/m²', gramaje:'180 g/m²', normas:['NFPA 2112','EN 14116'], isp:'Certificado ISP Chile', color:'Varios', uso:['mantención','supervisión','faena_baja_riesgo','petroquímica'], descripcion:'Camisa de trabajo ignífuga para uso en faenas de riesgo moderado. Puede usarse sola o como segunda capa bajo overol. Botones FR, etiqueta de norma bordada.' },
-  { id:'pantalon_fr', nombre:'Pantalón FR Industrial', tipo:'Pantalón FR', fibra:'Algodón FR 280 g/m²', gramaje:'280 g/m²', normas:['ISO 11612 A1','EN 14116 índice 3'], isp:'Certificado ISP Chile', color:'Azul marino / Gris', uso:['soldadura','mantención','industrial'], descripcion:'Pantalón ignífugo con refuerzos en rodillas y bolsillos FR. Compatible con sistemas de suspensión antiestática. Corte industrial ergonómico.' },
-];
-
-// ── Base competidores FR Chile (47 empresas) ───────────────
-const COMPETIDORES = [
-  { nombre:'Lakeland Chile', fortaleza:'Línea Tychem y PyroGard', debilidad:'Precio alto, importado', tipo:'fuerte' },
-  { nombre:'Fyrban Chile', fortaleza:'Fabricante FR local, ropa industrial', debilidad:'Distribución regional limitada', tipo:'fuerte' },
-  { nombre:'Ignifuga Chile', fortaleza:'Especialista FR, variedad aramida', debilidad:'Sin soporte técnico amplio', tipo:'fuerte' },
-  { nombre:'Indura Safety', fortaleza:'Distribución nacional, multimarca', debilidad:'No fabricante, FR genérico', tipo:'medio' },
-  { nombre:'MSA Chile', fortaleza:'Marca global EPP, confianza', debilidad:'FR no es su foco principal', tipo:'medio' },
-  { nombre:'3M Chile', fortaleza:'Reconocimiento de marca', debilidad:'FR limitado a accesorios', tipo:'medio' },
-  { nombre:'Marcotex', fortaleza:'Fabricante textil nacional', debilidad:'Menor certificación', tipo:'medio' },
-  { nombre:'Aracor', fortaleza:'FR industrial, aramida', debilidad:'Web y distribución limitada', tipo:'medio' },
-  { nombre:'Zetawork', fortaleza:'Workwear FR variado', debilidad:'Stock irregular', tipo:'medio' },
-  { nombre:'North Pole Safety', fortaleza:'Distribución FR + EPP', debilidad:'Precio variable', tipo:'medio' },
-  { nombre:'HIMA Insumos', fortaleza:'Insumos industriales integrales', debilidad:'FR secundario en catálogo', tipo:'bajo' },
-  { nombre:'Kupfer Hnos.', fortaleza:'Distribución amplia Chile', debilidad:'FR genérico, sin certificación ISP propia', tipo:'bajo' },
-  { nombre:'Apro Seguridad', fortaleza:'Referente EPP Chile', debilidad:'FR no especializado', tipo:'bajo' },
-  { nombre:'Proteknica', fortaleza:'EPP completo', debilidad:'FR básico', tipo:'bajo' },
-  { nombre:'Treck', fortaleza:'Calzado y EPP', debilidad:'Sin línea FR propia', tipo:'bajo' },
-  { nombre:'Segurycel', fortaleza:'EPP nacional', debilidad:'FR limitado', tipo:'bajo' },
-  { nombre:'Worksafe Chile', fortaleza:'Seguridad industrial', debilidad:'FR no es especialidad', tipo:'bajo' },
-  { nombre:'Securitech Chile', fortaleza:'Distribución industrial', debilidad:'Catálogo FR básico', tipo:'bajo' },
-  { nombre:'Redsafe Safety', fortaleza:'Seguridad vial y industrial', debilidad:'FR menor presencia', tipo:'bajo' },
-  { nombre:'MSA Chile', fortaleza:'EPP integral global', debilidad:'FR secundario', tipo:'bajo' },
-  { nombre:'Safety Store Chile', fortaleza:'E-commerce EPP', debilidad:'Sin asesoría técnica FR', tipo:'bajo' },
-  { nombre:'Proveedores Industriales SPI', fortaleza:'Proveedor industrial integral', debilidad:'FR no especializado', tipo:'bajo' },
-  { nombre:'EPP Chile', fortaleza:'Directorio y distribución', debilidad:'Sin fabricación propia', tipo:'bajo' },
-  { nombre:'ISM Global Safety', fortaleza:'Multinacional EPP', debilidad:'FR limitado Chile', tipo:'bajo' },
-  { nombre:'Grupo HW', fortaleza:'Distribución regional', debilidad:'FR bajo stock', tipo:'bajo' },
-  { nombre:'Leben Safety', fortaleza:'EPP variado', debilidad:'Sin línea FR establecida', tipo:'bajo' },
-  { nombre:'Marshall Moffat Chile', fortaleza:'Equipos industriales', debilidad:'FR muy básico', tipo:'bajo' },
-  { nombre:'Chilesin Seguridad', fortaleza:'Industrial integral', debilidad:'FR no destacado', tipo:'bajo' },
-  { nombre:'Redsafe Industrial', fortaleza:'Seguridad industrial', debilidad:'Sin FR certificado ISP', tipo:'bajo' },
-  { nombre:'Indura Safety', fortaleza:'Gases y soldadura', debilidad:'FR no es core', tipo:'bajo' },
-  { nombre:'Sodimac Empresas', fortaleza:'Cobertura nacional masiva', debilidad:'FR sin certificación industrial', tipo:'bajo' },
-  { nombre:'Construmart', fortaleza:'Distribución construcción', debilidad:'FR para construcción solamente', tipo:'bajo' },
-  { nombre:'Salfa Mantenciones', fortaleza:'Mantención industrial', debilidad:'FR no es producto', tipo:'bajo' },
-  { nombre:'SK Comercial', fortaleza:'Distribución EPP', debilidad:'Sin especialidad FR', tipo:'bajo' },
-  { nombre:'Ultraprotección Chile', fortaleza:'EPP especializado', debilidad:'FR emergente', tipo:'bajo' },
-  { nombre:'Tecseg Chile', fortaleza:'Seguridad técnica', debilidad:'FR básico', tipo:'bajo' },
-  { nombre:'Segpro Chile', fortaleza:'Prevención industrial', debilidad:'Sin FR certificado propio', tipo:'bajo' },
-  { nombre:'Protex Chile', fortaleza:'Ropa protección', debilidad:'FR genérico', tipo:'bajo' },
-  { nombre:'Andes Safety', fortaleza:'EPP minería', debilidad:'FR no es especialidad', tipo:'bajo' },
-  { nombre:'Seguridad Total Chile', fortaleza:'EPP completo', debilidad:'FR sin ISP propio', tipo:'bajo' },
-  { nombre:'Grupo SIMMA', fortaleza:'Industrial integral', debilidad:'FR bajo portafolio', tipo:'bajo' },
-  { nombre:'Elemental Safety', fortaleza:'EPP variado', debilidad:'FR básico', tipo:'bajo' },
-  { nombre:'Corpmatch', fortaleza:'Vestuario corporativo', debilidad:'FR no certificado NFPA', tipo:'bajo' },
-  { nombre:'Working Apparel', fortaleza:'Workwear industrial', debilidad:'FR sin norma acreditada', tipo:'bajo' },
-  { nombre:'Word Matrix', fortaleza:'Vestuario laboral', debilidad:'FR no industrial', tipo:'bajo' },
-  { nombre:'Bata Industrials Chile', fortaleza:'Calzado seguridad', debilidad:'FR no aplica', tipo:'bajo' },
-  { nombre:'Dercomaq Seguridad', fortaleza:'Seguridad maquinaria', debilidad:'FR no especialidad', tipo:'bajo' },
-];
-
-// ── Matcher industria→productos Eikona ─────────────────────
-const INDUSTRY_MAP = {
-  petroquimica:  ['lask_aramida','unisafe260','pf_cotton'],
-  refineria:     ['lask_aramida','unisafe260','vcs_multi'],
-  mineria:       ['lask_aramida','unisafe260','vcs_multi'],
-  soldadura:     ['pf_cotton','lask_aramida','pantalon_fr'],
-  caldera:       ['pf_cotton','lask_aramida','pantalon_fr'],
-  electrica:     ['vcs_multi','unisafe260'],
-  atex:          ['vcs_multi','lask_aramida'],
-  gas:           ['unisafe260','vcs_multi','lask_aramida'],
-  celulosa:      ['unisafe260','lask_aramida'],
-  fundicion:     ['lask_aramida','pf_cotton'],
-  aceria:        ['lask_aramida','pf_cotton'],
-  mantencion:    ['unisafe260','camisa_fr','pantalon_fr'],
-  quimica:       ['unisafe260','lask_aramida','vcs_multi'],
-  naval:         ['unisafe260','lask_aramida'],
-  supervision:   ['camisa_fr','unisafe260'],
-};
+// ── Recomendaciones FR por industria ───────────────────────
+function getFRRecomendacion(industria) {
+  const map = {
+    petroquimica: { tipo:'Overol FR Premium (Aramida o algodón FR certificado)', fibra:'Nomex/meta-aramida o 100% algodón FR', norma:'NFPA 2112 + ISO 11612 A1-B1', descripcion:'Máxima protección contra flash fire. No funde ni gotea. Verificar certificación ISP Chile y N° RFI en etiqueta.' },
+    refineria:    { tipo:'Overol FR con protección eléctrica', fibra:'Aramida o FR multiriesgo certificado', norma:'NFPA 2112 + NFPA 70E', descripcion:'Combinar protección llama y arco eléctrico según evaluación de energía incidente del arco en la faena.' },
+    mineria:      { tipo:'Overol FR con alta visibilidad', fibra:'Algodón FR certificado o aramida', norma:'NFPA 2112 + DS 132 SERNAGEOMIN', descripcion:'Obligatorio reflectante Clase 2 en trabajo subterráneo. Verificar certificación ISP y N° RFI vigente.' },
+    soldadura:    { tipo:'Overol FR Pesado (350 g/m²)', fibra:'Algodón FR de alto gramaje ennoblecido', norma:'ISO 11612 A1-B1-C2', descripcion:'Protección frente a chispa intensa y calor radiante. Complementar con guantes EN 12477 y protección ocular NCh 1407.' },
+    caldera:      { tipo:'Overol FR Pesado 350+ g/m²', fibra:'Algodón FR ≥350 g/m² ennoblecido', norma:'ISO 11612 B1-C2 + NFPA 2112', descripcion:'Riesgo combinado de calor radiante y vapor. Verificar temperatura de operación y seleccionar gramaje adecuado.' },
+    electrica:    { tipo:'Overol FR Antiestático Multiriesgo', fibra:'FR + antiestático certificado IEC 61340', norma:'NFPA 70E + IEC 61340-5', descripcion:'Calcular energía incidente del arco (cal/cm²). Cat.1: mín. 4 cal/cm², Cat.2: 8 cal/cm². Disipación de carga estática obligatoria.' },
+    atex:         { tipo:'Overol FR Antiestático Zona ATEX', fibra:'FR + antiestático IEC 61340 certificado', norma:'IEC 61340-5 + ATEX 2014/34/UE', descripcion:'Zonas explosivas: calzado ESD + overol antiestático certificado. Sin accesorios metálicos sin protección.' },
+    gas:          { tipo:'Overol FR con propiedad antiestática', fibra:'Algodón FR o aramida con tratamiento ESD', norma:'NFPA 2112 + IEC 61340', descripcion:'En operaciones con gas inflamable priorizar algodón FR o aramida. Evitar sintéticos sin certificación FR.' },
+    celulosa:     { tipo:'Overol FR Estándar certificado', fibra:'Algodón FR certificado 260 g/m²', norma:'ISO 11612 A1 + EN 14116', descripcion:'Riesgo de salpicaduras de ácido + calor. Evaluar si se requiere protección química adicional (NCh3272).' },
+    fundicion:    { tipo:'Overol FR Alta Protección Térmica', fibra:'Aramida de alta resistencia (Nomex/Kevlar)', norma:'ISO 11612 A1-B1-C2-F1 + NFPA 2112', descripcion:'Máxima protección. Complementar con cubrecara FR y guantes de alta temperatura certificados. Sin excepciones.' },
+    mantencion:   { tipo:'Overol FR Estándar o Conjunto Camisa+Pantalón FR', fibra:'Algodón FR 260 g/m²', norma:'NFPA 2112 + ISO 11612 A1', descripcion:'Riesgo moderado. El conjunto camisa+pantalón es válido para mayor comodidad en tareas de mantención industrial.' },
+    supervision:  { tipo:'Camisa FR Manga Larga', fibra:'Algodón FR 180–260 g/m²', norma:'NFPA 2112 + EN 14116', descripcion:'Para supervisores con exposición ocasional. Puede usarse sola o como segunda capa bajo overol ignífugo.' },
+    quimica:      { tipo:'Overol FR con resistencia química', fibra:'FR + barrera química según agente', norma:'ISO 11612 A1 + NCh3272', descripcion:'Evaluar el agente químico específico. Puede requerirse barrera adicional contra salpicaduras líquidas.' },
+    naval:        { tipo:'Overol FR certificado', fibra:'Algodón FR o aramida según exposición', norma:'NFPA 2112 + ISO 11612', descripcion:'En astilleros y mantención naval verificar también requisitos de alta visibilidad y flotabilidad si aplica.' },
+    aceria:       { tipo:'Overol FR Alta Protección Térmica', fibra:'Aramida de alta resistencia', norma:'ISO 11612 A1-B1-C2-F1', descripcion:'Mismo nivel que fundición. Protección total: cubrecara FR, guantes y calzado de seguridad con puntera de acero.' },
+  };
+  const k = Object.keys(map).find(k => industria.includes(k));
+  return k ? map[k] : { tipo:'Overol FR Estándar certificado ISP', fibra:'Algodón FR o aramida según evaluación de riesgo', norma:'ISO 11612 + NFPA 2112', descripcion:'Solicitar evaluación de riesgo térmico al prevencionista y exigir certificación ISP Chile en la prenda.' };
+}
 
 const NORMAS_MAP = {
   petroquimica: { primaria:'NFPA 2112', secundaria:'ISO 11612 A1-B1', ds:'DS 594 Art.53', extra:'Aplica también DS 78 sobre ICHA (gases inflamables). Verificar N° de registro RFI vigente en la etiqueta.' },
@@ -12251,22 +12307,22 @@ const ACTUALIZACION_NORMATIVA = {
     {
       titulo: 'RFI — Renovación automática (Res. Exenta N°45/2023, ISP)',
       detalle: 'El ISP estableció renovación automática para los EPP con resolución de incorporación vigente al 18-mar-2023. No se debe solicitar renovación manual: el ISP ya no recibe ese tipo de solicitudes. Cada EPP con RFI vigente debe llevar su número de registro en la etiqueta.',
-      impacto: 'Verificar que todas las prendas Eikona muestren el N° de registro RFI actualizado en su folleto informativo y etiqueta.'
+      impacto: 'Verificar que todas las prendas EPP muestren el N° de registro RFI actualizado en su folleto informativo y etiqueta.'
     },
     {
       titulo: 'NFPA 2112 — Edición 2023 vigente (sin cambios mayores en 2026)',
       detalle: 'La edición 2023 de NFPA 2112 (vigente) incorporó como exigencia la certificación completa de cubrecaras (Barrier Face Coverings) bajo ASTM F3502-21, revirtiendo una flexibilización de la edición 2018.',
-      impacto: 'Si Eikona vende cubrecaras o balaclavas FR como accesorio, deben venir certificadas bajo este estándar.'
+      impacto: 'Cubrecaras o balaclavas FR comercializadas como accesorio deben venir certificadas bajo este estándar.'
     },
     {
       titulo: 'INN Chile — normas aprobadas enero 2026',
       detalle: 'Las normas nuevas del INN en 2026 se enfocan en ropa de protección química (NCh3272 / ISO 22608, repelencia a plaguicidas) y métodos de ensayo de gases — no hay cambios directos a normas de ropa ignífuga térmica.',
-      impacto: 'Sin impacto en líneas FR de Eikona. Si se diversifica a ropa anti-químico líquido, revisar NCh3272 vigente.'
+      impacto: 'Sin impacto en ropa FR ignífuga. Para ropa anti-químico líquido, revisar NCh3272 vigente.'
     },
     {
       titulo: 'Sin cambios en NFPA 70E, ISO 11612 ni DS 594',
-      detalle: 'Estas normas siguen vigentes en su versión actual. No se identificaron actualizaciones que afecten los productos certificados del catálogo Eikona.',
-      impacto: 'Catálogo actual sigue siendo válido sin necesidad de recertificación.'
+      detalle: 'Estas normas siguen vigentes en su versión actual. No se identificaron actualizaciones que afecten los EPP certificados vigentes.',
+      impacto: 'Los EPP certificados con estas normas siguen siendo válidos sin necesidad de recertificación.'
     }
   ]
 };
@@ -12276,22 +12332,9 @@ function getNormas(industria) {
   return k ? NORMAS_MAP[k] : { primaria:'ISO 11612', secundaria:'NFPA 2112', ds:'DS 594', extra:'Consultar con el prevencionista de la empresa.' };
 }
 
-function getProductos(industria) {
-  const k = Object.keys(INDUSTRY_MAP).find(k => industria.includes(k));
-  const ids = k ? INDUSTRY_MAP[k] : ['unisafe260'];
-  return ids.map(id => EIKONA_CATALOGO.find(p => p.id === id)).filter(Boolean);
-}
-
-function getCompetidores(cantidad=3) {
-  return COMPETIDORES.filter(c => c.tipo === 'fuerte').slice(0, cantidad);
-}
-
 function buildRespuesta(industria, query) {
-  const productos = getProductos(industria);
   const normas = getNormas(industria);
-  const competidores = getCompetidores(3);
-  const prod = productos[0];
-  const alt = productos[1];
+  const frRec = getFRRecomendacion(industria);
 
   let html = `<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.6rem;">Asesor BuscaIgni — Respuesta técnica</div>`;
 
@@ -12302,36 +12345,23 @@ function buildRespuesta(industria, query) {
     <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">${normas.ds} · ${normas.extra}</div>
   </div>`;
 
-  // Producto sugerido Eikona
-  if (prod) {
-    html += `<div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;">
-      <div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.4rem;">🔥 Producto Eikona sugerido</div>
-      <div style="font-size:.88rem;font-weight:700;color:var(--text);font-family:'Barlow Condensed',sans-serif;">${prod.nombre}</div>
-      <div style="font-size:.75rem;color:var(--muted);margin:.2rem 0;">${prod.tipo} · ${prod.fibra} · ${prod.gramaje}</div>
-      <div style="font-size:.75rem;color:rgba(252,165,165,.85);line-height:1.5;margin-top:.3rem;">${prod.descripcion}</div>
-      <div style="margin-top:.4rem;">${prod.normas.map(n=>`<span style="background:rgba(239,68,68,.15);color:#fca5a5;font-size:.62rem;padding:2px 7px;border-radius:5px;border:1px solid rgba(239,68,68,.3);margin-right:.2rem;">${n}</span>`).join('')}<span style="background:rgba(16,185,129,.12);color:#10b981;font-size:.62rem;padding:2px 7px;border-radius:5px;border:1px solid rgba(16,185,129,.3);">${prod.isp}</span></div>
-    </div>`;
-  }
+  // Protección FR recomendada
+  html += `<div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;">
+    <div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.4rem;">🔥 Protección FR recomendada</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--text);font-family:'Barlow Condensed',sans-serif;">${frRec.tipo}</div>
+    <div style="font-size:.75rem;color:var(--muted);margin:.2rem 0;">${frRec.fibra} · ${frRec.norma}</div>
+    <div style="font-size:.75rem;color:rgba(252,165,165,.85);line-height:1.5;margin-top:.3rem;">${frRec.descripcion}</div>
+  </div>`;
 
-  // Alternativa
-  if (alt) {
-    html += `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;margin-bottom:.6rem;">
-      <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.3rem;">Alternativa Eikona</div>
-      <div style="font-size:.82rem;font-weight:700;color:var(--text);font-family:'Barlow Condensed',sans-serif;">${alt.nombre} <span style="font-size:.7rem;font-weight:400;color:var(--muted);">— ${alt.tipo}</span></div>
-      <div style="font-size:.73rem;color:var(--muted);margin-top:.15rem;">${alt.fibra} · ${alt.gramaje} · ${alt.normas.join(' / ')}</div>
-    </div>`;
-  }
-
-  // Análisis comparativo competencia
+  // Criterios de evaluación al comprar
   html += `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem;">
-    <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.5rem;">⚔️ Homologación competencia</div>
-    <div style="display:flex;flex-direction:column;gap:.4rem;">
-      ${competidores.map(c => `<div style="display:flex;justify-content:space-between;align-items:center;font-size:.75rem;">
-        <span style="color:var(--text);font-weight:600;">${c.nombre}</span>
-        <span style="color:var(--muted);font-size:.7rem;text-align:right;max-width:55%;">${c.fortaleza} · <em style="color:rgba(239,68,68,.7);">${c.debilidad}</em></span>
-      </div>`).join('')}
+    <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.5rem;">✅ Criterios de evaluación al comprar</div>
+    <div style="display:flex;flex-direction:column;gap:.35rem;font-size:.75rem;color:var(--text);">
+      <div>🏷️ <strong>Certificación ISP Chile</strong> — Resolución de Incorporación (N° RFI) vigente en la etiqueta</div>
+      <div>📄 <strong>Norma acreditada</strong> — ${normas.primaria} con ensayo en laboratorio acreditado</div>
+      <div>🧵 <strong>Fibra certificada</strong> — Tratamiento FR permanente o fibra intrínsecamente ignífuga</div>
+      <div>🔄 <strong>Vida útil</strong> — Verificar ciclos de lavado que mantienen la protección (≥50 lavados industriales)</div>
     </div>
-    <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem;border-top:1px solid var(--border);padding-top:.4rem;">💡 Ventaja Eikona: certificación ISP Chile + asesoría técnica local + precio competitivo.</div>
   </div>`;
 
   return html;
@@ -12364,7 +12394,7 @@ function igniLocalResp(q) {
 
 // ── Navegación interna BuscaIgni ───────────────────────────
 function igniTab(id) {
-  ['asesoria','catalogo','competencia','normativa','usuarios'].forEach(p => {
+  ['asesoria','catalogo','proveedores','normativa','usuarios'].forEach(p => {
     const el = document.getElementById('ipanel-'+p);
     const btn = document.getElementById('inav-'+p);
     if (el) el.style.display = p === id ? 'block' : 'none';
@@ -12385,7 +12415,7 @@ function renderActualizacionNormativa() {
     <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.65rem .85rem;">
       <div style="font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">${c.titulo}</div>
       <div style="font-size:.73rem;color:var(--muted);line-height:1.5;margin-bottom:.3rem;">${c.detalle}</div>
-      <div style="font-size:.71rem;color:#10b981;line-height:1.4;"><strong>→ Impacto Eikona:</strong> ${c.impacto}</div>
+      <div style="font-size:.71rem;color:#10b981;line-height:1.4;"><strong>→ Impacto:</strong> ${c.impacto}</div>
     </div>
   `).join('');
 }
@@ -12407,7 +12437,7 @@ function igniRunQuery() {
   const q = document.getElementById('igniQuery').value.trim();
   if (!q) return;
   const box = document.getElementById('igniResponse');
-  box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:var(--muted)">Analizando consulta y buscando productos Eikona...</span>';
+  box.innerHTML = '<div style="font-size:.65rem;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem;">Asesor BuscaIgni</div><span style="color:var(--muted)">Analizando consulta y detectando requerimientos FR...</span>';
   setTimeout(() => { box.innerHTML = igniLocalResp(q); }, 800);
 }
 
