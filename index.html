@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BuscaEPP – Encuentra tu Elemento de Protección Personal</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0f1a;
@@ -19,32 +19,37 @@
     --card: #141e2e;
   }
 
-  /* TEMA CLARO */
+  /* TEMA CLARO — estilo Proteknica */
   body.tema-claro {
-    --bg: #ffffff;
+    --bg: #f5f7fa;
     --surface: #ffffff;
-    --surface2: #f5f5f5;
-    --border: #d1d5db;
+    --surface2: #eef0f4;
+    --border: #dde1e9;
     --accent: #d97706;
     --accent2: #dc2626;
     --accent3: #059669;
     --text: #111827;
     --muted: #6b7280;
     --card: #ffffff;
+    font-family: 'Montserrat', sans-serif;
   }
-  body.tema-claro header { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
-  body.tema-claro .tab-bar { background: #ffffff; border-bottom: 2px solid #e5e7eb; }
-  body.tema-claro .tab { color: #374151; font-weight:600; }
+  body.tema-claro header { background: linear-gradient(135deg, #1a2744 0%, #263556 100%); }
+  body.tema-claro .tab-bar { background: #ffffff; border-bottom: 2px solid #dde1e9; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  body.tema-claro .tab { color: #374151; font-weight:600; font-family:'Montserrat',sans-serif; font-size:.65rem; letter-spacing:.4px; }
   body.tema-claro .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  body.tema-claro .hero { background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; }
+  body.tema-claro .hero { background: linear-gradient(135deg, #1a2744 0%, #263556 100%) !important; }
   body.tema-claro .hero h1, body.tema-claro .hero h2, body.tema-claro .hero p, body.tema-claro .hero .hero-sub { color: #ffffff !important; }
   body.tema-claro .hero h1 span:last-child, body.tema-claro .hero h2 span { color: #fbbf24 !important; }
-  body.tema-claro .search-input { background:#ffffff; color:#111827; border-color:#d1d5db; }
-  body.tema-claro .tag { background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; }
-  body.tema-claro .card, body.tema-claro .product-card { background:#ffffff; border-color:#e5e7eb; }
-  body.tema-claro .section-box { background:#ffffff; border-color:#e5e7eb; }
-  body.tema-claro h2, body.tema-claro h3, body.tema-claro h4 { color:#111827; }
-  body.tema-claro .results-area { background:#f9fafb; }
+  body.tema-claro .search-input { background:#ffffff; color:#111827; border-color:#dde1e9; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  body.tema-claro .tag { background:#f0f2f6; color:#374151; border:1px solid #dde1e9; }
+  body.tema-claro .card, body.tema-claro .product-card { background:#ffffff; border-color:#dde1e9; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  body.tema-claro .section-box { background:#ffffff; border-color:#dde1e9; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+  body.tema-claro h2, body.tema-claro h3, body.tema-claro h4 { color:#111827; font-family:'Montserrat',sans-serif; font-weight:700; }
+  body.tema-claro h1 { font-family:'Montserrat',sans-serif; font-weight:900; }
+  body.tema-claro .results-area { background:#f5f7fa; }
+  body.tema-claro input, body.tema-claro select, body.tema-claro textarea { font-family:'Montserrat',sans-serif; }
+  body.tema-claro .logo-text { font-family:'Montserrat',sans-serif; font-weight:900; }
+  body.tema-claro .tab-lbl { font-family:'Montserrat',sans-serif; font-weight:700; letter-spacing:.3px; }
 
   /* TEMA BEIGE */
   body.tema-beige {
@@ -12739,7 +12744,7 @@ async function guardarNuevaPass() {
 
 // ── FIN BUSCAIGNI v2.0 ──────────────────────────────────────
 // Cargar tema guardado
-const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'oscuro';
+const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'claro';
 setTema(_temaGuardado);
 // Cargar idioma guardado
 const _langGuardado = localStorage.getItem('buscaepp_lang') || 'es';
