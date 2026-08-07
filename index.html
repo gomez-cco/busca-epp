@@ -3410,51 +3410,153 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
 </div>
 
 <!-- ESTUDIA CON BUSCA EPP TAB -->
-<div id="pane-estudia" style="display:none;">
-  <div style="max-width:960px;margin:0 auto;padding:.5rem 0 2rem;">
+<style>
+/* ── ESTUDIA — Shopify Polaris–style dark ─────────────── */
+#pane-estudia .ecard {
+  transition: transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.05);
+}
+#pane-estudia .ecard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08);
+}
+#pane-estudia .ecard-elev {
+  box-shadow: 0 3px 10px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.07);
+}
+#pane-estudia .ecard-elev:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.1);
+}
+@keyframes efadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+#pane-estudia .estat {
+  transition: transform .15s ease, box-shadow .15s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.05);
+}
+#pane-estudia .estat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08);
+}
+#pane-estudia .etab-btn { transition: background .12s, color .12s, border-color .12s; }
+#pane-estudia .etab-btn:hover { opacity: .85; }
+#pane-estudia #estudiaSearch:focus {
+  border-color: rgba(99,102,241,.7) !important;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+#pane-estudia .esec-header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-top: .9rem;
+  margin-bottom: .2rem;
+}
+#pane-estudia .esec-line { flex: 1; height: 1px; background: rgba(255,255,255,.08); }
+#pane-estudia .epill {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+#pane-estudia .eex {
+  border-radius: 8px;
+  padding: .7rem .9rem;
+  font-size: .73rem;
+  line-height: 1.6;
+  border-top: 2px solid;
+}
+</style>
 
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,#1e3a5f,#1a2e4a 60%,#0f1f33);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:1.1rem;position:relative;overflow:hidden;">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(59,130,246,.04) 12px,rgba(59,130,246,.04) 24px);"></div>
-      <div style="width:48px;height:48px;background:rgba(59,130,246,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;z-index:1;flex-shrink:0;">📚</div>
-      <div style="z-index:1;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:1px;">ESTUDIA CON BUSCA EPP</div>
-        <div style="color:rgba(255,255,255,.6);font-size:.75rem;">Glosarios de terminología profesional · Comercial · Financiera · Logística</div>
+<div id="pane-estudia" style="display:none;">
+  <div style="max-width:980px;margin:0 auto;padding:.5rem 0 2.5rem;">
+
+    <!-- Header ── más impactante -->
+    <div style="background:linear-gradient(135deg,#0f2848 0%,#162f56 45%,#0a1e36 100%);border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:1.3rem;position:relative;overflow:hidden;">
+      <!-- fondo geométrico decorativo -->
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 20px,rgba(59,130,246,.03) 20px,rgba(59,130,246,.03) 21px);"></div>
+      <div style="position:absolute;top:-30px;right:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.12),transparent 70%);"></div>
+      <div style="position:relative;z-index:1;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+        <div style="width:52px;height:52px;background:linear-gradient(135deg,rgba(59,130,246,.35),rgba(99,102,241,.25));border:1px solid rgba(59,130,246,.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📚</div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1.5px;line-height:1;">ESTUDIA CON BUSCA<span style="color:#60a5fa;"> EPP</span></div>
+          <div style="color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.25rem;letter-spacing:.3px;">Glosarios de terminología profesional — 75 términos en 3 áreas</div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <span style="background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.4);color:#93c5fd;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">📊 COMERCIAL</span>
+          <span style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">💰 FINANCIERO</span>
+          <span style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.35);color:#fcd34d;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">🚚 LOGÍSTICA</span>
+        </div>
       </div>
-      <div style="margin-left:auto;z-index:1;text-align:right;">
-        <div style="font-size:.62rem;color:rgba(255,255,255,.45);margin-bottom:.2rem;">Elaborado por</div>
-        <div style="font-size:.8rem;font-weight:700;color:rgba(255,255,255,.75);">Juan Gómez</div>
+      <div style="position:relative;z-index:1;margin-top:1rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="font-size:.7rem;color:rgba(255,255,255,.38);">Elaborado por <strong style="color:rgba(255,255,255,.6);">Juan Gómez</strong> · Para uso profesional y formativo</div>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;" onclick="estudiaTab('comercial')"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#3b82f6;">24</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">📊 Términos Comerciales</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;" onclick="estudiaTab('financiero')"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#10b981;">25</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">💰 Términos Financieros</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;" onclick="estudiaTab('logistica')"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#f59e0b;">26</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:.1rem;">🚚 Terminología Logística</div></div>
+    <!-- Stats ── Shopify metric cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1.2rem;">
+      <div class="estat" onclick="estudiaTab('comercial')" style="background:#1c2d52;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#93c5fd,rgba(59,130,246,.15));"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+          <span style="font-size:1.3rem;">📊</span>
+          <span class="epill" style="background:rgba(59,130,246,.3);color:#bfdbfe;font-size:.58rem;">4 secc.</span>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#93c5fd;line-height:1;margin-bottom:.2rem;">24</div>
+        <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Comercial</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
+      </div>
+      <div class="estat" onclick="estudiaTab('financiero')" style="background:#0e2e24;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#6ee7b7,rgba(16,185,129,.15));"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+          <span style="font-size:1.3rem;">💰</span>
+          <span class="epill" style="background:rgba(16,185,129,.3);color:#a7f3d0;font-size:.58rem;">5 secc.</span>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#6ee7b7;line-height:1;margin-bottom:.2rem;">25</div>
+        <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Financiero</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
+      </div>
+      <div class="estat" onclick="estudiaTab('logistica')" style="background:#2d2108;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#fcd34d,rgba(245,158,11,.15));"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+          <span style="font-size:1.3rem;">🚚</span>
+          <span class="epill" style="background:rgba(245,158,11,.3);color:#fde68a;font-size:.58rem;">5 secc.</span>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#fcd34d;line-height:1;margin-bottom:.2rem;">26</div>
+        <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Logística</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
+      </div>
     </div>
 
     <!-- Search -->
-    <div style="position:relative;margin-bottom:1.1rem;">
-      <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:.9rem;pointer-events:none;">🔍</span>
-      <input id="estudiaSearch" type="text" placeholder="Buscar término en los 3 glosarios..." oninput="estudiaFiltrar(this.value)"
-        style="width:100%;box-sizing:border-box;padding:12px 14px 12px 38px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;">
+    <div style="position:relative;margin-bottom:1rem;">
+      <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.95rem;pointer-events:none;opacity:.6;">🔍</span>
+      <input id="estudiaSearch" type="text" placeholder="Buscar cualquier término en los 3 glosarios..." oninput="estudiaFiltrar(this.value)"
+        style="width:100%;box-sizing:border-box;padding:13px 14px 13px 40px;background:var(--surface2);border:1px solid var(--border);border-radius:11px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s;">
     </div>
 
-    <!-- Sub-nav -->
-    <div style="display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.1rem;flex-wrap:wrap;">
-      <button onclick="estudiaTab('todos')" id="etab-todos" style="flex:1;min-width:70px;padding:10px 5px;background:rgba(59,130,246,.1);border:none;border-bottom:2px solid #3b82f6;color:#3b82f6;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📖 Todos</button>
-      <button onclick="estudiaTab('comercial')" id="etab-comercial" style="flex:1;min-width:70px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">📊 Comercial</button>
-      <button onclick="estudiaTab('financiero')" id="etab-financiero" style="flex:1;min-width:70px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">💰 Financiero</button>
-      <button onclick="estudiaTab('logistica')" id="etab-logistica" style="flex:1;min-width:70px;padding:10px 5px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;">🚚 Logística</button>
+    <!-- Sub-nav ── pills estilo -->
+    <div style="display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap;">
+      <button onclick="estudiaTab('todos')" id="etab-todos" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid rgba(59,130,246,.5);background:rgba(59,130,246,.15);color:#60a5fa;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">📖 Todos (75)</button>
+      <button onclick="estudiaTab('comercial')" id="etab-comercial" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">📊 Comercial (24)</button>
+      <button onclick="estudiaTab('financiero')" id="etab-financiero" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">💰 Financiero (25)</button>
+      <button onclick="estudiaTab('logistica')" id="etab-logistica" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">🚚 Logística (26)</button>
     </div>
 
-    <!-- Section label -->
-    <div id="estudia-section-label" style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.7rem;"></div>
+    <!-- Label resultado -->
+    <div id="estudia-section-label" style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.8rem;min-height:1em;"></div>
 
     <!-- Cards container -->
-    <div id="estudia-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem;"></div>
-    <div id="estudia-empty" style="display:none;text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;">No se encontraron términos que coincidan.</div>
+    <div id="estudia-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:.8rem;"></div>
+    <div id="estudia-empty" style="display:none;text-align:center;padding:3rem;color:var(--muted);font-size:.88rem;">
+      <div style="font-size:2rem;margin-bottom:.5rem;">🔍</div>
+      No se encontraron términos que coincidan con "<span id="estudia-empty-q"></span>"
+    </div>
   </div>
 </div>
 
@@ -3566,21 +3668,33 @@ let estudiaTabActivo = 'todos';
 let estudiaIniciado = false;
 let estudiaQueryActiva = '';
 
+const ETAB_STYLES = {
+  todos:      { active: { background:'rgba(59,130,246,.18)', border:'1px solid rgba(59,130,246,.5)', color:'#60a5fa' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
+  comercial:  { active: { background:'rgba(59,130,246,.18)', border:'1px solid rgba(59,130,246,.5)', color:'#60a5fa' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
+  financiero: { active: { background:'rgba(16,185,129,.18)',  border:'1px solid rgba(16,185,129,.5)',  color:'#6ee7b7' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
+  logistica:  { active: { background:'rgba(245,158,11,.18)', border:'1px solid rgba(245,158,11,.5)', color:'#fcd34d' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
+};
+
 function estudiaTab(id) {
   estudiaTabActivo = id;
   ['todos','comercial','financiero','logistica'].forEach(t => {
     const btn = document.getElementById('etab-'+t);
     if (!btn) return;
-    if (t === id) { btn.style.background='rgba(59,130,246,.1)'; btn.style.borderBottom='2px solid #3b82f6'; btn.style.color='#3b82f6'; }
-    else { btn.style.background='none'; btn.style.borderBottom='2px solid transparent'; btn.style.color='var(--muted)'; }
+    const s = (t === id) ? ETAB_STYLES[t].active : ETAB_STYLES[t].inactive;
+    btn.style.background = s.background;
+    btn.style.border = s.border;
+    btn.style.color = s.color;
   });
-  document.getElementById('estudiaSearch').value = '';
+  const srch = document.getElementById('estudiaSearch');
+  if (srch) { srch.value = ''; }
   estudiaQueryActiva = '';
   estudiaRenderizar();
 }
 
 function estudiaFiltrar(q) {
   estudiaQueryActiva = q.trim().toLowerCase();
+  const empty = document.getElementById('estudia-empty-q');
+  if (empty) empty.textContent = q.trim();
   estudiaRenderizar();
 }
 
@@ -3590,17 +3704,26 @@ function estudiaRenderizar() {
   const label = document.getElementById('estudia-section-label');
   if (!container) return;
 
+  const META = {
+    comercial:  { color:'#93c5fd', rgb:'59,130,246',   bg:'rgba(59,130,246,.12)',  border:'rgba(59,130,246,.3)',  bgAlts:['#1a2848','#1e2e54','#1c2b50'],  pillBg:'rgba(59,130,246,.28)',  exBg:'rgba(59,130,246,.12)'  },
+    financiero: { color:'#6ee7b7', rgb:'52,211,153',   bg:'rgba(16,185,129,.12)',  border:'rgba(16,185,129,.3)',  bgAlts:['#0d2a20','#102e24','#0e2c22'],  pillBg:'rgba(16,185,129,.28)', exBg:'rgba(16,185,129,.12)'  },
+    logistica:  { color:'#fcd34d', rgb:'245,158,11',   bg:'rgba(245,158,11,.12)',  border:'rgba(245,158,11,.3)', bgAlts:['#271e07','#2c2409','#2a2108'],  pillBg:'rgba(245,158,11,.28)', exBg:'rgba(245,158,11,.12)'  },
+  };
+
   let todos = [];
-  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'comercial') todos = todos.concat(GLOSARIO_COMERCIAL.map(t => ({...t, glosario:'comercial', color:'#3b82f6', bgColor:'rgba(59,130,246,.08)', borderColor:'rgba(59,130,246,.2)'})));
-  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'financiero') todos = todos.concat(GLOSARIO_FINANCIERO.map(t => ({...t, glosario:'financiero', color:'#10b981', bgColor:'rgba(16,185,129,.08)', borderColor:'rgba(16,185,129,.2)'})));
-  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'logistica') todos = todos.concat(GLOSARIO_LOGISTICA.map(t => ({...t, glosario:'logistica', color:'#f59e0b', bgColor:'rgba(245,158,11,.08)', borderColor:'rgba(245,158,11,.2)'})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'comercial')  todos = todos.concat(GLOSARIO_COMERCIAL.map(t  => ({...t, glosario:'comercial',  ...META.comercial})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'financiero') todos = todos.concat(GLOSARIO_FINANCIERO.map(t => ({...t, glosario:'financiero', ...META.financiero})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'logistica')  todos = todos.concat(GLOSARIO_LOGISTICA.map(t  => ({...t, glosario:'logistica',  ...META.logistica})));
 
   if (estudiaQueryActiva) {
-    todos = todos.filter(t => t.termino.toLowerCase().includes(estudiaQueryActiva) || t.def.toLowerCase().includes(estudiaQueryActiva) || t.ejemplo.toLowerCase().includes(estudiaQueryActiva) || t.seccion.toLowerCase().includes(estudiaQueryActiva));
+    const q = estudiaQueryActiva;
+    todos = todos.filter(t => t.termino.toLowerCase().includes(q) || t.def.toLowerCase().includes(q) || t.ejemplo.toLowerCase().includes(q) || t.seccion.toLowerCase().includes(q));
   }
 
-  const labels = { todos:`Mostrando ${todos.length} términos (todos los glosarios)`, comercial:'Glosario Comercial — 24 términos', financiero:'Glosario Financiero — 25 términos', logistica:'Terminología Logística — 26 términos' };
-  label.textContent = estudiaQueryActiva ? `${todos.length} resultado${todos.length !== 1 ? 's' : ''} para "${estudiaQueryActiva}"` : (labels[estudiaTabActivo] || '');
+  if (label) {
+    const base = { todos:`75 términos — todos los glosarios`, comercial:'Glosario Comercial · 4 secciones · 24 términos', financiero:'Glosario Financiero · 5 secciones · 25 términos', logistica:'Terminología Logística · 5 secciones · 26 términos' };
+    label.textContent = estudiaQueryActiva ? `${todos.length} resultado${todos.length !== 1 ? 's' : ''} para "${estudiaQueryActiva}"` : (base[estudiaTabActivo] || '');
+  }
 
   if (todos.length === 0) {
     container.innerHTML = '';
@@ -3609,18 +3732,55 @@ function estudiaRenderizar() {
   }
   empty.style.display = 'none';
 
-  container.innerHTML = todos.map(t => `
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text);">${t.termino}</div>
-        <span style="background:${t.bgColor};color:${t.color};font-size:.58rem;padding:2px 8px;border-radius:5px;border:1px solid ${t.borderColor};white-space:nowrap;flex-shrink:0;">${t.seccion}</span>
+  // Agrupar por sección (solo cuando no hay búsqueda activa y estamos en un glosario individual)
+  const agrupar = !estudiaQueryActiva && estudiaTabActivo !== 'todos';
+  let html = '';
+  let seccionActual = '';
+  let cardIdx = 0;
+
+  todos.forEach((t, i) => {
+    // Separador de sección
+    if (agrupar && t.seccion !== seccionActual) {
+      seccionActual = t.seccion;
+      html += `<div class="esec-header"><span class="esec-line"></span><span style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:${t.color};white-space:nowrap;padding:0 .5rem;">${t.seccion}</span><span class="esec-line"></span></div>`;
+    }
+
+    const delay = (cardIdx * 28) + 'ms';
+    const cycle = cardIdx % 3;
+    const cardBg = t.bgAlts[cycle];
+    const elevClass = cycle === 1 ? 'ecard ecard-elev' : 'ecard';
+    cardIdx++;
+
+    html += `
+    <div class="${elevClass}" style="background:${cardBg};border-radius:14px;padding:1.2rem 1.3rem 1.1rem;display:flex;flex-direction:column;gap:0;animation:efadein .22s ease ${delay} both;overflow:hidden;">
+
+      <!-- Top bar coloreado muy sutil -->
+      <div style="height:3px;background:linear-gradient(to right,${t.color},rgba(${t.rgb},.15));border-radius:3px 3px 0 0;margin:-1.2rem -1.3rem .9rem;"></div>
+
+      <!-- Pill sección + índice -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem;">
+        <span class="epill" style="background:${t.pillBg};color:${t.color};">${t.seccion}</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:900;color:rgba(255,255,255,.32);">${String(i+1).padStart(2,'0')}</span>
       </div>
-      <div style="font-size:.78rem;color:var(--text);line-height:1.6;">${t.def}</div>
-      <div style="background:${t.bgColor};border:1px solid ${t.borderColor};border-radius:8px;padding:.55rem .75rem;font-size:.73rem;color:var(--muted);line-height:1.55;">
-        <span style="font-weight:700;color:${t.color};">Ej: </span>${t.ejemplo}
+
+      <!-- Término -->
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#ffffff;letter-spacing:.2px;line-height:1.05;margin-bottom:.7rem;">${t.termino}</div>
+
+      <!-- Definición -->
+      <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.7;margin-bottom:.8rem;flex:1;">${t.def}</div>
+
+      <!-- Ejemplo — callout estilo Shopify -->
+      <div class="eex" style="background:${t.exBg};border-top-color:${t.color};color:rgba(255,255,255,.72);">
+        <div style="display:flex;gap:.4rem;align-items:flex-start;">
+          <span style="font-weight:800;color:${t.color};font-size:.75rem;margin-top:.05rem;flex-shrink:0;">→</span>
+          <span style="font-size:.73rem;line-height:1.6;">${t.ejemplo}</span>
+        </div>
       </div>
-    </div>
-  `).join('');
+
+    </div>`;
+  });
+
+  container.innerHTML = html;
 }
 </script>
 
