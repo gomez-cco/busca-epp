@@ -7,16 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0f1a;
-    --surface: #111827;
-    --surface2: #1a2235;
-    --border: #1f2d45;
-    --accent: #f59e0b;
+    --bg: #0f1d30;
+    --surface: #162438;
+    --surface2: #1e3049;
+    --border: rgba(255,255,255,.1);
+    --accent: #fbbf24;
     --accent2: #ef4444;
     --accent3: #10b981;
-    --text: #f1f5f9;
-    --muted: #64748b;
-    --card: #141e2e;
+    --text: #cce0f5;
+    --muted: #6a97c0;
+    --card: #1e3049;
   }
 
   /* TEMA CLARO — estilo Proteknica */
@@ -327,11 +327,11 @@
   .vip-btn { width:100%; background:linear-gradient(135deg,#f59e0b,#d97706); color:#000; border:none; border-radius:8px; padding:.8rem; font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; cursor:pointer; letter-spacing:.5px; }
   .vip-error { font-size:.78rem; color:#ef4444; margin-bottom:.5rem; display:none; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; }
+  body { background:var(--bg); color:var(--text); font-family:'Montserrat','DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; }
 
   /* HEADER */
   header {
-    background: linear-gradient(135deg, #0a0f1a 0%, #0f1e35 100%);
+    background: linear-gradient(135deg, #0a1628 0%, #162438 100%);
     border-bottom: 2px solid var(--accent);
     padding: 0 2rem;
     position: sticky; top:0; z-index:100;
@@ -12744,7 +12744,7 @@ async function guardarNuevaPass() {
 
 // ── FIN BUSCAIGNI v2.0 ──────────────────────────────────────
 // Cargar tema guardado
-const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'claro';
+const _temaGuardado = localStorage.getItem('buscaepp_tema') || 'oscuro';
 setTema(_temaGuardado);
 // Cargar idioma guardado
 const _langGuardado = localStorage.getItem('buscaepp_lang') || 'es';
