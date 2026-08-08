@@ -631,7 +631,7 @@
   /* Cards con gradiente sutil y sombra cálida */
   .stat-box, .epp-card, .norm-card, .calc-box, .prov-card, .cert-card,
   .fab-card, .exp-card, .tal-card, .ind-card, .port-card, .proj-card,
-  .est-card, [class*="-card"], [class*="-box"] {
+  .est-card, .proy-portal-card, .ind-pick-card, .est-card, .calc-box {
     background: linear-gradient(145deg, #2c1e0c 0%, #342208 100%) !important;
     border: 1px solid rgba(251,191,36,.15) !important;
     box-shadow: 0 4px 18px rgba(0,0,0,.38), 0 1px 0 rgba(251,191,36,.07) inset !important;
@@ -640,7 +640,7 @@
   .stat-box:hover, .epp-card:hover, .norm-card:hover, .prov-card:hover,
   .cert-card:hover, .fab-card:hover, .exp-card:hover, .tal-card:hover,
   .ind-card:hover, .port-card:hover, .proj-card:hover, .est-card:hover,
-  [class*="-card"]:hover, [class*="-box"]:hover {
+  .proy-portal-card:hover, .ind-pick-card:hover {
     border-color: rgba(251,191,36,.42) !important;
     box-shadow: 0 6px 28px rgba(0,0,0,.48), 0 0 0 1px rgba(251,191,36,.1) !important;
     transform: translateY(-2px) !important;
@@ -4620,6 +4620,13 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
 <!-- ADMIN TAB -->
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
+
+    <!-- ACCESO RÁPIDO A SECCIONES -->
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.2rem;">
+      <button onclick="showTab('proyectos')" style="padding:.6rem 1.2rem;background:rgba(249,115,22,.15);border:1px solid #f97316;border-radius:8px;color:#f97316;cursor:pointer;font-weight:700;font-size:.9rem;">🗂️ Ir a PROYECTOS</button>
+      <button onclick="indUnlocked=true;showTab('industrias',true)" style="padding:.6rem 1.2rem;background:rgba(16,185,129,.15);border:1px solid #10b981;border-radius:8px;color:#10b981;cursor:pointer;font-weight:700;font-size:.9rem;">🏗️ Ir a INDUSTRIAS</button>
+      <button onclick="showTab('estudia')" style="padding:.6rem 1.2rem;background:rgba(251,191,36,.15);border:1px solid var(--accent);border-radius:8px;color:var(--accent);cursor:pointer;font-weight:700;font-size:.9rem;">📚 Ir a ESTUDIA</button>
+    </div>
 
     <!-- ══════════════════════════════════════════════ -->
     <!-- ESTADÍSTICAS DE VISITAS                        -->
@@ -8740,16 +8747,23 @@ async function checkAdminPass() {
   try { const hashed = await hashPass(input); hashMatch = (hashed === ADMIN_HASH); } catch(e) {}
   if (directMatch || hashMatch) {
     adminUnlocked = true;
+    indUnlocked = true;
     closeAdminLogin();
-    // Mostrar panel admin
-    ['epp','corp','admin'].forEach(t => {
-      document.getElementById('pane-'+t).style.display = t==='admin'?'block':'none';
-      document.getElementById('tab-'+t).classList.toggle('active', t==='admin');
+    ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
+      const pane = document.getElementById('pane-'+t);
+      const tb = document.getElementById('tab-'+t);
+      if (pane) pane.style.display = t==='admin'?'block':'none';
+      if (tb) tb.classList.toggle('active', t==='admin');
     });
     renderAdminTable();
-    // Re-renderizar expertos y talentos para mostrar botones de edición
+    setTimeout(cargarAdminVIP, 500);
+    setTimeout(verificarVencimientosVIP, 1000);
+    setTimeout(cargarEstadisticasVisitas, 800);
     renderExpertos();
     renderTalentos();
+    // Asegurar que tab-industrias es visible y la barra de tabs muestra las pestañas extra
+    const tabInd2 = document.getElementById('tab-industrias');
+    if (tabInd2) tabInd2.style.display = 'flex';
   } else {
     const inp = document.getElementById('adminPassInput');
     const err = document.getElementById('adminErrorMsg');
