@@ -4440,7 +4440,7 @@ function estudiaRenderizar() {
     <div class="ifr-cat-ico" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);">🥾</div>
     <div class="ifr-cat-ttl" style="color:#2dd4bf;">Protección de Pies</div>
     <div class="ifr-cat-line" style="background:rgba(45,212,191,.15);"></div>
-    <div class="ifr-cat-count" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);color:#2dd4bf;">1 infograma</div>
+    <div class="ifr-cat-count" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);color:#2dd4bf;">2 recursos</div>
   </div>
   <div class="ifr-grid">
     <div class="ifr-card" onclick="abrirInfograma('calzado')" style="border-top:3px solid #2dd4bf;">
@@ -4458,7 +4458,120 @@ function estudiaRenderizar() {
         <button class="ifr-btn" style="background:rgba(45,212,191,.15);color:#2dd4bf;border:1px solid rgba(45,212,191,.3);">📊 Ver</button>
       </div>
     </div>
+
+    <!-- Guía de Preguntas y Respuestas — Cómo elegir calzado de seguridad -->
+    <div class="ifr-card" onclick="abrirManualCalzado()" style="border-top:3px solid #2dd4bf;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0a1f1c,#0d2925);">
+        📄
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(45,212,191,.55);letter-spacing:.4px;">P&R · 4 bloques</div>
+      </div>
+      <div class="ifr-body">
+        <div class="ifr-tag" style="color:#2dd4bf;">Guía Técnica</div>
+        <div class="ifr-ttl">Cómo Elegir el Calzado de Seguridad Correcto</div>
+        <div class="ifr-desc">Preguntas y respuestas: normativa chilena, punteras, tipos de cuero, suelas, propiedades eléctricas, ajuste y cuidado — información neutral, sin marcas.</div>
+      </div>
+      <div class="ifr-foot">
+        <span class="ifr-meta">20 preguntas</span>
+        <button class="ifr-btn" style="background:rgba(45,212,191,.15);color:#2dd4bf;border:1px solid rgba(45,212,191,.3);">📄 Ver</button>
+      </div>
+    </div>
   </div>
+
+  <!-- Modal — Guía P&R Calzado de Seguridad -->
+  <div id="modal-manual-calzado" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,12,25,.9);backdrop-filter:blur(4px);" onclick="if(event.target===this)cerrarManualCalzado()">
+    <div style="position:absolute;inset:2vh 2vw;background:#0f1d30;border:1px solid rgba(45,212,191,.25);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);">
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#0a1f1c,#0d2925);padding:.9rem 1.2rem;display:flex;align-items:center;gap:1rem;border-bottom:2px solid rgba(45,212,191,.3);flex-shrink:0;">
+        <span style="font-size:22px;">🥾</span>
+        <div style="flex:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;color:#fff;letter-spacing:1px;">CÓMO ELEGIR EL CALZADO DE SEGURIDAD CORRECTO</div>
+          <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem;">BuscaEPP · 20 preguntas · Normativa chilena · Información neutral, sin marcas</div>
+        </div>
+        <button onclick="cerrarManualCalzado()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.75rem;font-weight:700;transition:background .12s;" onmouseover="this.style.background='rgba(255,255,255,.16)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">✕ Cerrar</button>
+      </div>
+      <!-- Contenido scrollable -->
+      <div style="flex:1;overflow-y:auto;padding:1.4rem 1.6rem;scrollbar-color:rgba(45,212,191,.3) transparent;" id="manual-calzado-body">
+
+        <!-- Intro -->
+        <div style="background:rgba(45,212,191,.07);border:1px solid rgba(45,212,191,.2);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
+          <p style="margin:0;font-size:.82rem;color:rgba(204,224,245,.75);line-height:1.6;">Esta guía está dirigida a compradores técnicos, prevencionistas y profesionales de seguridad industrial. La información se basa en la normativa chilena vigente (NCh772 y familia asociada, DS 594, Ley 16.744) y en características técnicas generales del calzado de seguridad. No promueve ni recomienda marcas o proveedores específicos.</p>
+        </div>
+
+        <!-- BLOQUE 1 -->
+        <div class="mfr-blk">
+          <div class="mfr-blk-hdr">BLOQUE 1 · NORMATIVA Y CERTIFICACIÓN EN CHILE</div>
+
+          <div class="mfr-qa"><div class="mfr-q">P1. ¿Qué hace que un zapato sea legalmente "calzado de seguridad" y no solo un zapato resistente?</div><div class="mfr-a">Debe estar certificado bajo una norma técnica reconocida — en Chile, principalmente la <b>NCh772/1</b> — por un laboratorio autorizado por el ISP, y contar con una puntera de seguridad ensayada contra impacto y compresión. Un zapato "resistente" sin esa certificación no garantiza el nivel de protección exigido en un lugar de trabajo.</div><div class="mfr-n">NCh772/1</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P2. ¿Cuáles son las principales normas chilenas que regulan el calzado de seguridad?</div><div class="mfr-a"><b>NCh772/1</b> (requisitos generales), <b>NCh772/2</b> (punteras y plantillas), <b>NCh1350</b> (plantas/suelas), <b>NCh2147/1</b> (antiestático), <b>NCh2147/2</b> (dieléctrico), <b>NCh1796/1797</b> (calzado de goma), <b>NCh2374</b> (botas de PVC) y <b>NCh721</b> (terminología y clasificación).</div><div class="mfr-n">NCh772 y familia asociada</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P3. ¿Es obligatorio que el empleador entregue el calzado de seguridad sin costo para el trabajador?</div><div class="mfr-a">Sí. La <b>Ley N°16.744</b> establece que el empleador debe proporcionar los elementos de protección personal necesarios sin costo para el trabajador, y el <b>D.S. N°594</b> exige EPP adecuado al riesgo específico de cada puesto de trabajo.</div><div class="mfr-n">Ley 16.744 / DS 594</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P4. ¿Qué es el Registro RFI del ISP y por qué importa al comprar calzado importado?</div><div class="mfr-a">Es el <b>Registro de Fabricantes e Importadores de EPP</b> del ISP. Cuando no existe un laboratorio nacional para cierto tipo de calzado, el ISP puede reconocer una certificación extranjera (como EN ISO 20345 o ASTM F2413) siempre que el producto esté inscrito en ese registro.</div><div class="mfr-n">Registro RFI — ISP Chile</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P5. ¿Qué debe indicar la etiqueta o el marcado del calzado certificado?</div><div class="mfr-a">La norma cumplida, la talla, el material de fabricación, el tipo de puntera y, cuando aplique, la clasificación de propiedades adicionales (antiestático, dieléctrico, resistente a hidrocarburos). Verificar esta información es la única forma confiable de confirmar que el calzado tiene respaldo normativo real.</div></div>
+        </div>
+
+        <!-- BLOQUE 2 -->
+        <div class="mfr-blk">
+          <div class="mfr-blk-hdr">BLOQUE 2 · COMPONENTES, PUNTERA Y CUERO</div>
+
+          <div class="mfr-qa"><div class="mfr-q">P6. ¿Cuál es la diferencia entre puntera de acero y puntera composite?</div><div class="mfr-a">La de <b>acero</b> es metálica, económica y muy resistente, pero conduce electricidad y calor, y puede activar detectores de metales. La <b>composite</b> (fibra de vidrio, kevlar o carbono) es más liviana, no conductora y no metálica — preferida en trabajos eléctricos o donde se pasa por detectores de metal. Ambas deben cumplir el mismo ensayo de impacto y compresión de la norma.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P7. ¿Qué es la plantilla o placa antiperforación y cuándo es necesaria?</div><div class="mfr-a">Es una lámina (metálica o no metálica) ubicada entre la plantilla y la suela que evita que objetos punzantes (clavos, alambres) atraviesen el pie desde abajo. Es recomendable en construcción, demolición y manejo de escombros, donde ese riesgo está presente.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P8. ¿Qué tipos de cuero se usan en calzado de seguridad y qué diferencia hay entre ellos?</div><div class="mfr-a"><b>Cuero graso (engrasado)</b>: mayor resistencia al agua y a hidrocarburos, común en minería y ambientes húmedos. <b>Cuero corregido/pigmentado</b>: superficie más uniforme y económica, buena resistencia a la abrasión. <b>Nobuck</b>: más liviano y transpirable, con menor resistencia al agua. <b>Descarne</b>: capa interna del cuero, usada como forro o refuerzo, no como capellada principal.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P9. Según la norma chilena, ¿qué partes del calzado deben ser de cuero obligatoriamente?</div><div class="mfr-a">La <b>NCh772/1</b> establece que la capellada, la caña y los refuerzos de punta y talón deben ser de cuero (o un material que cumpla los mismos requisitos). Si la puntera va al interior, debe llevar forro de cuero o descarne.</div><div class="mfr-n">NCh772/1</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P10. ¿Qué significa que un calzado sea "Metal Free"?</div><div class="mfr-a">Es un calzado sin ningún componente metálico (puntera, placa antiperforación ni ojales), fabricado con materiales composite. Se usa donde se necesita evitar la detección de metales o reducir el peso total del zapato, manteniendo el nivel de protección exigido por la norma.</div></div>
+        </div>
+
+        <!-- BLOQUE 3 -->
+        <div class="mfr-blk">
+          <div class="mfr-blk-hdr">BLOQUE 3 · SUELAS Y PROPIEDADES ELÉCTRICAS</div>
+
+          <div class="mfr-qa"><div class="mfr-q">P11. ¿Qué tipos de suela existen y en qué se diferencian?</div><div class="mfr-a"><b>PU (poliuretano) inyectado</b>: liviana y con buena absorción de impacto. <b>PU bidensidad</b>: combina una capa más blanda (confort) con una más dura (resistencia). <b>Caucho/nitrilo</b>: mayor resistencia a altas temperaturas e hidrocarburos, típica en minería y fundición. <b>PVC</b>: económica, pero pierde flexibilidad a bajas temperaturas.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P12. ¿Qué es la resistencia a hidrocarburos y por qué es relevante en minería o petroquímica?</div><div class="mfr-a">Es la capacidad de la suela de no degradarse (hincharse, ablandarse o perder adherencia) al contacto con aceites, combustibles o solventes. Sin esa resistencia, la suela puede fallar rápidamente en faenas donde hay derrames de este tipo.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P13. ¿Qué diferencia hay entre calzado dieléctrico, antiestático y conductivo?</div><div class="mfr-a"><b>Dieléctrico</b> (NCh2147/2): aísla al usuario de la corriente eléctrica del entorno, para trabajos eléctricos. <b>Antiestático</b> (NCh2147/1): disipa lentamente la electricidad estática acumulada en el cuerpo, para zonas con riesgo de atmósfera explosiva. <b>Conductivo</b>: descarga la estática de forma más rápida, usado en industrias con explosivos — nunca debe usarse donde hay riesgo eléctrico, porque conduce corriente.</div><div class="mfr-n">NCh2147/1 y NCh2147/2</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P14. ¿Cómo se identifica un calzado antideslizante certificado?</div><div class="mfr-a">Debe indicar en su ficha o etiqueta el ensayo de resistencia al deslizamiento sobre las superficies para las que fue evaluado (por ejemplo, piso cerámico con agua o acero con aceite). Un taco profundo por sí solo no garantiza esta propiedad si no fue ensayado formalmente.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P15. ¿El calzado dieléctrico puede llevar puntera metálica?</div><div class="mfr-a">Depende del ensayo. En varias normas internacionales, la rigidez dieléctrica se prueba sobre la suela completa, por lo que tanto una puntera metálica como una composite pueden cumplir el requisito, siempre que el conjunto completo esté certificado como dieléctrico. La certificación aplica al calzado completo, no solo a la puntera.</div></div>
+        </div>
+
+        <!-- BLOQUE 4 -->
+        <div class="mfr-blk">
+          <div class="mfr-blk-hdr">BLOQUE 4 · SELECCIÓN POR INDUSTRIA, AJUSTE Y CUIDADO</div>
+
+          <div class="mfr-qa"><div class="mfr-q">P16. ¿Qué calzado conviene según el sector? (guía general, no exhaustiva)</div><div class="mfr-a"><b>Construcción</b>: puntera reforzada, plantilla antiperforación y suela con buena tracción para terrenos irregulares. <b>Minería</b>: resistencia a hidrocarburos y aislamiento térmico. <b>Pesca/industria alimentaria</b>: impermeabilidad y resistencia a la humedad. <b>Eléctrico</b>: propiedades dieléctricas. <b>Logística/bodega</b>: liviano y ergonómico para largas jornadas de desplazamiento.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P17. ¿Bota o zapato de seguridad — cuándo conviene cada uno?</div><div class="mfr-a">La <b>bota</b> (caña alta) da mayor soporte de tobillo y protección contra salpicaduras, barro o terrenos irregulares. El <b>zapato</b> (caña baja) es más liviano y cómodo para jornadas de mucho desplazamiento en superficies estables. La elección depende del riesgo del terreno, no solo de preferencia personal.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P18. ¿Cómo se elige la talla correcta?</div><div class="mfr-a">Se recomienda medir el pie a media tarde (cuando está ligeramente más hinchado), probar el calzado con el mismo tipo de calcetín que se usará en el trabajo, y dejar un margen de aproximadamente un dedo entre el dedo más largo y la punta interior, sin que el talón se levante al caminar.</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P19. ¿Cuándo se debe reemplazar el calzado de seguridad?</div><div class="mfr-a">La norma no fija un plazo exacto en años; el criterio es visual y funcional: suela sin relieve antideslizante visible, puntera expuesta o deformada, separación entre el corte y la suela, o humedad interior permanente. El <b>D.S. N°594</b> obliga a reemplazar cualquier EPP deteriorado, independiente de su antigüedad.</div><div class="mfr-n">DS 594 Art. 53</div></div>
+
+          <div class="mfr-qa"><div class="mfr-q">P20. ¿Qué cuidados básicos alargan la vida útil del calzado de seguridad?</div><div class="mfr-a">Dejarlo secar de forma natural (nunca junto a una fuente de calor directa, que puede dañar el cuero y deformar la suela), limpiar el barro o los químicos apenas sea posible, usar el calzado adecuado para cada tarea, y revisar periódicamente el estado de la puntera y la suela.</div></div>
+        </div>
+
+        <div style="text-align:center;font-size:.62rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;">BuscaEPP · buscaepp.cl · Guía técnica calzado de seguridad · Información neutral, sin marcas · Edición 2026</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function abrirManualCalzado(){
+      document.getElementById('modal-manual-calzado').style.display='block';
+      document.body.style.overflow='hidden';
+    }
+    function cerrarManualCalzado(){
+      document.getElementById('modal-manual-calzado').style.display='none';
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof cerrarManualCalzado==='function')cerrarManualCalzado();}});
+  </script>
 
   <!-- ══ CATEGORÍA: SEGURIDAD EN ALTURA ══ -->
   <div class="ifr-cat-hdr">
