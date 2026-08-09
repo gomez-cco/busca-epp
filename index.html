@@ -4496,15 +4496,15 @@ function estudiaRenderizar() {
     <div class="ifr-card" onclick="abrirInfograma('cabeza')" style="border-top:3px solid #fca5a5;">
       <div class="ifr-thumb" style="background:linear-gradient(135deg,#241010,#2e1414);">
         ⛑️
-        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(252,165,165,.55);letter-spacing:.4px;">ANSI Z89.1 · EN 397</div>
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(252,165,165,.55);letter-spacing:.4px;">NCh 461-2001</div>
       </div>
       <div class="ifr-body">
         <div class="ifr-tag" style="color:#fca5a5;">Protección de Cabeza</div>
-        <div class="ifr-ttl">Cascos de Seguridad — Guía de Referencia</div>
-        <div class="ifr-desc">Tipos 1/2, clases E/G/C, colores por cargo Chile, accesorios y vida útil según ANSI Z89.1 / EN 397.</div>
+        <div class="ifr-ttl">Cascos de Seguridad — Guía Normativa</div>
+        <div class="ifr-desc">Componentes, ensayos exigidos, clasificación por clase (A/B/C), requisitos optativos, marcado de fecha y accesorios — según NCh 461-2001.</div>
       </div>
       <div class="ifr-foot">
-        <span class="ifr-meta">6 bloques · guía completa</span>
+        <span class="ifr-meta">6 bloques · NCh 461-2001</span>
         <button class="ifr-btn" style="background:rgba(252,165,165,.15);color:#fca5a5;border:1px solid rgba(252,165,165,.3);">📊 Ver</button>
       </div>
     </div>
@@ -4900,136 +4900,16 @@ const INFOGRAMAS = {
 </div>`
   },
 
+
   cabeza: {
-    titulo: 'Protección de Cabeza — Cascos de Seguridad · Guía de Referencia',
+    titulo: 'Cascos de Seguridad — Guía Normativa',
     ico: '⛑️',
-    html: `<style>
-  #mig-content *{box-sizing:border-box;}
-  .ifg{max-width:860px;margin:0 auto;padding:22px 18px 28px;font-family:'Montserrat','DM Sans',sans-serif;color:#cce0f5;}
-  .ifg-sh{display:flex;align-items:center;gap:8px;margin-bottom:9px;margin-top:16px;}
-  .ifg-sn{width:26px;height:26px;border-radius:50%;background:#fca5a5;color:#0f1d30;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .ifg-st{font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:1rem;font-weight:900;color:#fca5a5;letter-spacing:1px;text-transform:uppercase;}
-  .ifg-sl{flex:1;height:1px;background:rgba(252,165,165,.2);}
-  .ifg-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-  .ifg-g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
-  .ifg-g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
-  .ifg-card{background:#162438;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px 13px;}
-  .ifg-chk{display:flex;align-items:flex-start;gap:8px;background:#162438;border-radius:8px;padding:7px 9px;}
-  .ifg-ci{width:19px;height:19px;border-radius:50%;background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);color:#fca5a5;font-size:.68rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-  .ifg-ct{font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.4;}
-  .hcard{border-radius:12px;padding:11px 9px;text-align:center;}
-  .h1{background:linear-gradient(135deg,#162438,#1a2e44);border:1px solid rgba(110,231,183,.3);}
-  .h2{background:linear-gradient(135deg,#1e2418,#2a3020);border:1px solid rgba(234,179,8,.4);}
-  .he{background:linear-gradient(135deg,#162438,#1a2744);border:1px solid rgba(59,130,246,.4);}
-  .hg{background:linear-gradient(135deg,#162438,#1a2438);border:1px solid rgba(255,255,255,.15);}
-  .hc{background:linear-gradient(135deg,#1e1a14,#262014);border:1px solid rgba(249,115,22,.3);}
-  .hnum{font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:1.4rem;font-weight:900;line-height:1;}
-  .h1 .hnum{color:#6ee7b7;} .h2 .hnum{color:#facc15;} .he .hnum{color:#60a5fa;} .hg .hnum{color:rgba(204,224,245,.7);} .hc .hnum{color:#fb923c;}
-  .hsub{font-size:.72rem;font-weight:700;color:#fff;margin-top:4px;}
-  .hdesc{font-size:.6rem;color:rgba(204,224,245,.52);margin-top:3px;line-height:1.4;}
-  .color-dot{display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.2);flex-shrink:0;margin-top:2px;}
-  .rtbl{width:100%;border-collapse:collapse;font-size:.71rem;margin-bottom:12px;}
-  .rtbl th{background:#1a2744;color:#fca5a5;font-weight:700;padding:7px 9px;text-align:left;border:1px solid rgba(255,255,255,.08);}
-  .rtbl td{padding:6px 9px;border:1px solid rgba(255,255,255,.06);color:rgba(204,224,245,.8);}
-  .rtbl tr:nth-child(odd) td{background:rgba(255,255,255,.02);}
-  .rn{color:#fca5a5;font-weight:700;}
-  .nc{display:inline-block;font-size:.59rem;font-weight:700;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);margin:1px;}
-  .ifg-foot{text-align:center;font-size:.64rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;}
-  @media(max-width:560px){.ifg-g2,.ifg-g3,.ifg-g4{grid-template-columns:1fr 1fr;}}
-</style>
-<div class="ifg">
-  <div style="background:linear-gradient(135deg,#240a0a,#0f1020);border:2px solid #fca5a5;border-radius:16px;padding:15px 19px 12px;margin-bottom:14px;">
-    <div style="font-size:.64rem;font-weight:700;color:#fca5a5;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:3px;">BuscaEPP · buscaepp.cl · Guía Técnica 2026</div>
-    <div style="font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1px;line-height:1.1;">PROTECCIÓN DE <span style="color:#fca5a5;">CABEZA</span> — Guía de Referencia</div>
-    <div style="font-size:.69rem;color:rgba(204,224,245,.42);margin-top:4px;">Tipos · Clases eléctricas · Colores por cargo · Accesorios · Vida útil</div>
-    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;">
-      <span style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇪🇺 EN 397 / EN 12492</span>
-      <span style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇺🇸 ANSI Z89.1</span>
-      <span style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇨🇱 DS 594 · NCh</span>
-    </div>
+    html: `<div style="max-width:760px;margin:0 auto;padding:0 0 16px;">
+  <img src="./cabeza.jpg" alt="Infograma Cascos de Seguridad — NCh 461-2001 Chile · buscaepp.cl" style="width:100%;height:auto;display:block;border-radius:0;" loading="lazy">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px 0;font-size:.65rem;color:rgba(204,224,245,.45);">
+    <span>NCh 461-2001 · DS N°594 · Ley N°16.744 · Resolución N°19 Exenta (2013)</span>
+    <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" rel="noopener" style="color:#fca5a5;text-decoration:none;font-weight:700;border:1px solid rgba(252,165,165,.3);border-radius:5px;padding:3px 8px;background:rgba(252,165,165,.08);">🔗 Ver ISP →</a>
   </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">1</div><div class="ifg-st">Tipos de casco · ANSI Z89.1</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g2" style="margin-bottom:10px;">
-    <div class="hcard h1">
-      <div class="hnum">Tipo 1</div>
-      <div class="hsub">Protección superior</div>
-      <div class="hdesc">Solo protege la corona (arriba). El golpe debe ser vertical. Es el más común en construcción y minería tradicional.</div>
-    </div>
-    <div class="hcard h2">
-      <div class="hnum">Tipo 2</div>
-      <div class="hsub">Protección lateral + superior</div>
-      <div class="hdesc">Protege también los costados de la cabeza. Obligatorio en trabajos de altura y espacios confinados. Absorbe impactos laterales.</div>
-    </div>
-  </div>
-  <div class="ifg-card" style="margin-bottom:12px;background:rgba(252,165,165,.07);border-color:rgba(252,165,165,.2);">
-    <div style="font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.5;"><b style="color:#fca5a5;">EN 397 (Europa):</b> equivalente al Tipo 1. <b style="color:#fff;">EN 12492:</b> para escalada y trabajo en altura — absorción lateral obligatoria (similar Tipo 2). En Chile se referencian ambos estándares según el tipo de proyecto.</div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">2</div><div class="ifg-st">Clases eléctricas · ANSI Z89.1</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g3">
-    <div class="hcard he">
-      <div class="hnum">Clase E</div>
-      <div class="hsub">Eléctrica · 20 000 V</div>
-      <div class="hdesc">Dieléctrica hasta 20 kV. Uso en electricistas, técnicos AT/BT. Sin metal expuesto.</div>
-    </div>
-    <div class="hcard hg">
-      <div class="hnum">Clase G</div>
-      <div class="hsub">General · 2 200 V</div>
-      <div class="hdesc">Protección básica eléctrica hasta 2.2 kV. Uso general construcción, sin riesgo eléctrico alto.</div>
-    </div>
-    <div class="hcard hc">
-      <div class="hnum">Clase C</div>
-      <div class="hsub">Conductivo · 0 V</div>
-      <div class="hdesc">Sin protección eléctrica (puede tener metal). Usado en minería subterránea con gases (sin chispa estática).</div>
-    </div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">3</div><div class="ifg-st">Colores de casco por función · Chile (estándar industria)</div><div class="ifg-sl"></div></div>
-  <table class="rtbl">
-    <thead><tr><th>Color</th><th>Función / Cargo habitual</th><th>Notas</th></tr></thead>
-    <tbody>
-      <tr><td><span style="display:inline-block;width:14px;height:14px;background:#fff;border-radius:50%;border:1px solid #444;vertical-align:middle;margin-right:5px;"></span><span class="rn">Blanco</span></td><td>Supervisores, jefes de área, ingenieros</td><td>Puede incluir visera para mayor distinción</td></tr>
-      <tr><td><span style="display:inline-block;width:14px;height:14px;background:#f97316;border-radius:50%;vertical-align:middle;margin-right:5px;"></span><span class="rn">Naranjo</span></td><td>Trabajadores nuevos / en inducción</td><td>Fácil identificación de personas en inducción</td></tr>
-      <tr><td><span style="display:inline-block;width:14px;height:14px;background:#eab308;border-radius:50%;vertical-align:middle;margin-right:5px;"></span><span class="rn">Amarillo</span></td><td>Operadores, trabajadores en general</td><td>Color más común en faenas y obras</td></tr>
-      <tr><td><span style="display:inline-block;width:14px;height:14px;background:#3b82f6;border-radius:50%;vertical-align:middle;margin-right:5px;"></span><span class="rn">Azul</span></td><td>Electricistas, técnicos en instalaciones</td><td>Indica especialidad eléctrica — usar Clase E</td></tr>
-      <tr><td><span style="display:inline-block;width:14px;height:14px;background:#22c55e;border-radius:50%;vertical-align:middle;margin-right:5px;"></span><span class="rn">Verde</span></td><td>Prevencionistas, área de seguridad HSE</td><td>Identifica al responsable de seguridad en terreno</td></tr>
-      <tr><td><span style="display:inline-block;width:14px;height:14px;background:#dc2626;border-radius:50%;vertical-align:middle;margin-right:5px;"></span><span class="rn">Rojo</span></td><td>Brigadistas, emergencias, algunos contratistas</td><td>Variable según empresa — consultar estándar interno</td></tr>
-    </tbody>
-  </table>
-
-  <div class="ifg-sh"><div class="ifg-sn">4</div><div class="ifg-st">Accesorios compatibles</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g4" style="margin-bottom:10px;">
-    <div class="ifg-card" style="text-align:center;padding:10px 7px;"><div style="font-size:1.4rem;margin-bottom:4px;">🥽</div><div style="font-size:.7rem;font-weight:700;color:#fff;margin-bottom:2px;">Visera</div><div style="font-size:.6rem;color:rgba(204,224,245,.52);">Ocular y facial integrada. Levantar en zonas sin riesgo.</div></div>
-    <div class="ifg-card" style="text-align:center;padding:10px 7px;"><div style="font-size:1.4rem;margin-bottom:4px;">🎧</div><div style="font-size:.7rem;font-weight:700;color:#fff;margin-bottom:2px;">Orejeras acopladas</div><div style="font-size:.6rem;color:rgba(204,224,245,.52);">Se montan en el casco. Verificar compatibilidad y NRR.</div></div>
-    <div class="ifg-card" style="text-align:center;padding:10px 7px;"><div style="font-size:1.4rem;margin-bottom:4px;">🔦</div><div style="font-size:.7rem;font-weight:700;color:#fff;margin-bottom:2px;">Linterna frontal</div><div style="font-size:.6rem;color:rgba(204,224,245,.52);">Riel ATEX para zonas explosivas. Verificar categoría.</div></div>
-    <div class="ifg-card" style="text-align:center;padding:10px 7px;"><div style="font-size:1.4rem;margin-bottom:4px;">🔗</div><div style="font-size:.7rem;font-weight:700;color:#fff;margin-bottom:2px;">Barbiquejo</div><div style="font-size:.6rem;color:rgba(204,224,245,.52);">Obligatorio en trabajos en altura &gt;1.8 m. 4 puntos de anclaje ideal.</div></div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">5</div><div class="ifg-st">Vida útil y criterios de retiro</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g2" style="margin-bottom:10px;">
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Casco:</b> reemplazar cada 5 años desde fecha fabricación (marcada interior) o antes si recibe impacto</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Suspensión interna:</b> reemplazar cada 2-3 años — es lo que absorbe el impacto, no la carcasa</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Tras impacto:</b> retirar INMEDIATAMENTE aunque no haya daño visible (las fibras internas se fracturan)</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Pintura y stickers:</b> solo los aprobados por fabricante — pueden degradar el polímero del casco</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>UV:</b> casco expuesto a sol intenso por años pierde resistencia. Verificar color (pérdida de brillo = señal)</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Registro ISP:</b> cascos vendidos en Chile deben tener número de registro ISP vigente</div></div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">6</div><div class="ifg-st">Riesgo → tipo de casco que exigir</div><div class="ifg-sl"></div></div>
-  <table class="rtbl">
-    <thead><tr><th>Entorno / Riesgo</th><th>Tipo + Clase</th><th>Norma</th></tr></thead>
-    <tbody>
-      <tr><td class="rn">⚡ Trabajo eléctrico AT/MT</td><td>Tipo 1 + Clase E · sin metal</td><td>ANSI Z89.1 / EN 397+LD</td></tr>
-      <tr><td class="rn">🏗️ Construcción / obra</td><td>Tipo 1 + Clase G mínimo</td><td>ANSI Z89.1 / EN 397</td></tr>
-      <tr><td class="rn">🏔️ Trabajo en altura &gt;1.8 m</td><td>Tipo 2 + barbiquejo 4 puntos</td><td>ANSI Z89.1 T2 / EN 12492</td></tr>
-      <tr><td class="rn">⛏️ Minería subterránea</td><td>Tipo 2 + linterna ATEX + Clase C/G</td><td>ANSI Z89.1 / EN 397</td></tr>
-      <tr><td class="rn">🏭 Industria proceso</td><td>Tipo 1 + Clase G + visera si splash</td><td>ANSI Z89.1 / EN 397</td></tr>
-      <tr><td class="rn">🌡️ Calor extremo (fundición)</td><td>Tipo 1 + Clase G + suspensión refractaria</td><td>EN 397 + opciones HV/LD</td></tr>
-    </tbody>
-  </table>
-
-  <div class="ifg-foot">BuscaEPP · buscaepp.cl · Guía técnica protección de cabeza · Edición 2026 · Para uso educativo</div>
 </div>`
   },
 
