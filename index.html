@@ -3831,15 +3831,15 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       document.addEventListener('keydown',function(e){if(e.key==='Escape'){cerrarManualFR();if(typeof cerrarManualExcel==='function')cerrarManualExcel();}});
     </script>
 
-    <!-- Manual Excel — visor inline -->
-    <div onclick="abrirManualExcel()" style="background:linear-gradient(135deg,#0d2b12 0%,#133a19 50%,#0a2410 100%);border:1px solid rgba(34,197,94,.28);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;cursor:pointer;transition:border-color .15s,box-shadow .15s;" onmouseover="this.style.borderColor='rgba(34,197,94,.6)';this.style.boxShadow='0 4px 18px rgba(34,197,94,.12)';" onmouseout="this.style.borderColor='rgba(34,197,94,.28)';this.style.boxShadow='none';">
-      <div style="width:46px;height:46px;background:linear-gradient(135deg,rgba(34,197,94,.25),rgba(16,185,129,.18));border:1px solid rgba(34,197,94,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📊</div>
+    <!-- Manual Excel — visor infograma -->
+    <div onclick="abrirInfograma('excel')" style="background:linear-gradient(135deg,#0d2b12 0%,#133a19 50%,#0a2410 100%);border:1px solid rgba(34,197,94,.28);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;cursor:pointer;transition:border-color .15s,box-shadow .15s;" onmouseover="this.style.borderColor='rgba(34,197,94,.6)';this.style.boxShadow='0 4px 18px rgba(34,197,94,.12)';" onmouseout="this.style.borderColor='rgba(34,197,94,.28)';this.style.boxShadow='none';">
+      <div style="width:46px;height:46px;background:linear-gradient(135deg,rgba(34,197,94,.25),rgba(16,185,129,.18));border:1px solid rgba(34,197,94,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📗</div>
       <div style="flex:1;min-width:200px;">
-        <div style="font-size:.7rem;color:rgba(34,197,94,.8);font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:.2rem;">Manual de Referencia · 63 fórmulas</div>
+        <div style="font-size:.7rem;color:rgba(34,197,94,.8);font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:.2rem;">Infograma Visual · 5 secciones</div>
         <div style="font-size:.97rem;font-weight:700;color:#fff;line-height:1.25;">Manual Completo de Excel</div>
         <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:.2rem;">Fórmulas A–Z · Formato condicional · Datos · Simbología · Tecla F5</div>
       </div>
-      <div style="display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-size:.75rem;font-weight:800;padding:9px 18px;border-radius:22px;letter-spacing:.3px;flex-shrink:0;box-shadow:0 2px 8px rgba(34,197,94,.3);">📖 Ver Manual</div>
+      <div style="display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-size:.75rem;font-weight:800;padding:9px 18px;border-radius:22px;letter-spacing:.3px;flex-shrink:0;box-shadow:0 2px 8px rgba(34,197,94,.3);">📊 Ver Infograma</div>
     </div>
 
     <!-- Modal Excel -->
@@ -4466,7 +4466,7 @@ function estudiaRenderizar() {
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1.5px;line-height:1;">INFOGRAMAS <span style="color:#a78bfa;">BUSCAEPP</span></div>
         <div style="color:rgba(255,255,255,.42);font-size:.73rem;margin-top:.3rem;">Resúmenes visuales para profesionales de seguridad industrial</div>
       </div>
-      <span style="background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:#c4b5fd;font-size:.67rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;">📊 5 disponibles</span>
+      <span style="background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:#c4b5fd;font-size:.67rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;">📊 6 disponibles</span>
     </div>
   </div>
 
@@ -4630,6 +4630,31 @@ function estudiaRenderizar() {
       <div class="ifr-foot">
         <span class="ifr-meta">6 bloques · guía completa</span>
         <button class="ifr-btn" style="background:rgba(252,165,165,.15);color:#fca5a5;border:1px solid rgba(252,165,165,.3);">📊 Ver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CATEGORÍA: GESTIÓN Y PRODUCTIVIDAD ══ -->
+  <div class="ifr-cat-hdr">
+    <div class="ifr-cat-ico" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);">📗</div>
+    <div class="ifr-cat-ttl" style="color:#4ade80;">Gestión y Productividad</div>
+    <div class="ifr-cat-line" style="background:rgba(34,197,94,.15);"></div>
+    <div class="ifr-cat-count" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:#4ade80;">1 infograma</div>
+  </div>
+  <div class="ifr-grid">
+    <div class="ifr-card" onclick="abrirInfograma('excel')" style="border-top:3px solid #4ade80;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0a2d1c,#133a19);">
+        📗
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(74,222,128,.55);letter-spacing:.4px;">Fórmulas · Datos · F5</div>
+      </div>
+      <div class="ifr-body">
+        <div class="ifr-tag" style="color:#4ade80;">Gestión y Productividad</div>
+        <div class="ifr-ttl">Manual Completo de Excel</div>
+        <div class="ifr-desc">40+ fórmulas A–Z, formato condicional, pestaña Datos, simbología y la tecla F5 con casos aplicados.</div>
+      </div>
+      <div class="ifr-foot">
+        <span class="ifr-meta">5 secciones · guía visual</span>
+        <button class="ifr-btn" style="background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3);">📊 Ver</button>
       </div>
     </div>
   </div>
@@ -5286,6 +5311,344 @@ const INFOGRAMAS = {
   </table>
 
   <div class="ifg-foot">BuscaEPP · buscaepp.cl · Guía técnica protección de cabeza · Edición 2026 · Para uso educativo</div>
+</div>`
+  },
+
+  excel: {
+    titulo: 'Manual Completo de Excel — Fórmulas · Formato · Datos · Simbología · F5',
+    ico: '📗',
+    html: `<style>
+  #mig-content *{box-sizing:border-box;}
+  .xifg{max-width:960px;margin:0 auto;padding:0 0 20px;font-family:'Montserrat','DM Sans',sans-serif;color:#cce0f5;}
+  .xifg-hdr{background:linear-gradient(135deg,#0a3d2e 0%,#115740 50%,#0a3020 100%);padding:18px 22px 16px;}
+  .xifg-htop{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap;}
+  .xifg-logo{width:52px;height:52px;background:#217346;border:3px solid rgba(255,255,255,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:#fff;flex-shrink:0;}
+  .xifg-title{font-family:'Barlow Condensed',sans-serif;font-size:1.9rem;font-weight:900;color:#fff;letter-spacing:1px;line-height:1;text-transform:uppercase;}
+  .xifg-sub{font-size:.65rem;color:rgba(255,255,255,.7);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+  .xifg-desc{font-size:.7rem;color:rgba(255,255,255,.62);line-height:1.55;margin-top:8px;max-width:700px;}
+  .xifg-toc{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;min-width:180px;flex-shrink:0;}
+  .xifg-toc-ttl{font-size:.6rem;font-weight:700;color:#4ade80;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+  .xifg-toc-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+  .xifg-toc-num{width:18px;height:18px;background:#217346;border-radius:50%;font-size:.6rem;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .xifg-toc-txt{font-size:.65rem;color:rgba(255,255,255,.8);}
+  .xifg-body{padding:14px 16px 6px;}
+  .xifg-sec-hdr{background:linear-gradient(135deg,rgba(33,115,70,.35),rgba(15,79,45,.4));border-left:4px solid #22c55e;padding:9px 14px;border-radius:0 8px 8px 0;margin:14px 0 11px;display:flex;align-items:center;gap:8px;}
+  .xifg-sec-num{width:26px;height:26px;background:#d97706;border-radius:50%;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .xifg-sec-ttl{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:#fff;letter-spacing:.8px;text-transform:uppercase;}
+  .xifg-sec-sub{font-size:.62rem;color:rgba(255,255,255,.45);margin-left:auto;}
+  .xfl-hdr{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#22c55e;background:rgba(34,197,94,.1);border-radius:6px;display:inline-block;margin-bottom:7px;min-width:28px;text-align:center;padding:2px 8px;}
+  .xfl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:12px;}
+  .xfl-col{min-width:0;}
+  .xfc2{background:#162438;border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:9px 11px;margin-bottom:7px;}
+  .xfc2-top{display:flex;justify-content:space-between;align-items:flex-start;gap:4px;margin-bottom:4px;flex-wrap:wrap;}
+  .xfc2-name{font-size:.82rem;font-weight:800;color:#4ade80;letter-spacing:.2px;}
+  .xfc2-cat{font-size:.52rem;font-weight:700;padding:1px 6px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+  .cmat{background:rgba(59,130,246,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+  .cbus{background:rgba(249,115,22,.2);color:#fdba74;border:1px solid rgba(249,115,22,.3);}
+  .ctxt{background:rgba(20,184,166,.2);color:#5eead4;border:1px solid rgba(20,184,166,.3);}
+  .cfec{background:rgba(34,197,94,.2);color:#86efac;border:1px solid rgba(34,197,94,.3);}
+  .cest{background:rgba(168,85,247,.2);color:#d8b4fe;border:1px solid rgba(168,85,247,.3);}
+  .cinf{background:rgba(6,182,212,.2);color:#67e8f9;border:1px solid rgba(6,182,212,.3);}
+  .clog{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
+  .xfc2-desc{font-size:.65rem;color:rgba(204,224,245,.68);line-height:1.4;margin-bottom:5px;}
+  .xfc2-row{font-size:.6rem;margin-bottom:4px;}
+  .xfc2-lbl{display:block;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase;font-size:.5rem;letter-spacing:.5px;margin-bottom:2px;}
+  .xfc2-code{display:inline-block;font-family:monospace;color:#86efac;background:rgba(34,197,94,.1);border-radius:4px;padding:2px 6px;font-size:.65rem;word-break:break-all;max-width:100%;line-height:1.45;}
+  .xfc2-res{display:inline-block;font-family:monospace;background:#1e4a26;color:#4ade80;border-radius:4px;padding:2px 7px;font-size:.65rem;font-weight:700;word-break:break-word;max-width:100%;}
+  .xifg-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+  .xifg-box{background:#162438;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:12px 14px;}
+  .xifg-box-ttl{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;}
+  .xtbl2{width:100%;border-collapse:collapse;font-size:.67rem;margin-bottom:8px;}
+  .xtbl2 th{background:rgba(33,115,70,.35);color:#4ade80;font-weight:700;padding:5px 7px;text-align:left;border:1px solid rgba(34,197,94,.15);}
+  .xtbl2 td{padding:5px 7px;border:1px solid rgba(255,255,255,.06);color:rgba(204,224,245,.8);}
+  .xtbl2 tr:nth-child(odd) td{background:rgba(255,255,255,.02);}
+  .xtbl2 .sym{color:#4ade80;font-weight:700;font-family:monospace;font-size:.78rem;}
+  .xtbl2 .code2{font-family:monospace;background:rgba(34,197,94,.1);color:#86efac;padding:0 4px;border-radius:3px;font-size:.63rem;}
+  .xcaso{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px 11px;margin-top:9px;}
+  .xcaso-ttl{font-size:.6rem;font-weight:700;color:#4ade80;letter-spacing:.6px;text-transform:uppercase;margin-bottom:5px;}
+  .xcaso-s{font-size:.66rem;color:rgba(204,224,245,.7);line-height:1.55;display:flex;gap:5px;align-items:flex-start;margin-bottom:3px;}
+  .xcaso-n{width:16px;height:16px;background:#217346;border-radius:50%;font-size:.58rem;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .xcaso-res{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:6px;padding:5px 8px;margin-top:6px;font-size:.66rem;color:#4ade80;font-weight:700;}
+  .xfunc-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:6px;}
+  .xfunc-ico{font-size:.9rem;flex-shrink:0;margin-top:1px;}
+  .xfunc-txt{font-size:.67rem;color:rgba(204,224,245,.72);line-height:1.4;}
+  .xfunc-name{color:#4ade80;font-weight:700;}
+  .xifg-footer{background:linear-gradient(135deg,#0a3d2e,#115740);padding:10px 16px;border-radius:8px;display:flex;align-items:center;gap:9px;margin:6px 16px 0;}
+  @media(max-width:640px){.xfl-grid{grid-template-columns:1fr 1fr;} .xifg-2col{grid-template-columns:1fr;} .xifg-htop{flex-wrap:wrap;}}
+</style>
+<div class="xifg">
+  <!-- HEADER -->
+  <div class="xifg-hdr">
+    <div class="xifg-htop">
+      <div style="flex:1;min-width:240px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+          <div class="xifg-logo">X</div>
+          <div>
+            <div class="xifg-title">MANUAL COMPLETO DE EXCEL</div>
+            <div class="xifg-sub">Fórmulas · Formato Condicional · Datos · Simbología · F5</div>
+          </div>
+        </div>
+        <div class="xifg-desc">Guía visual de referencia rápida. Fórmulas ordenadas A–Z con descripción, sintaxis y ejemplo orientado a análisis comercial. Incluye secciones de formato condicional, la pestaña Datos, simbología y la tecla F5 (Ir a Especial).</div>
+      </div>
+      <div class="xifg-toc">
+        <div class="xifg-toc-ttl">Contenido</div>
+        <div class="xifg-toc-row"><div class="xifg-toc-num">1</div><div class="xifg-toc-txt">Fórmulas (A–Z) · 40+ fórmulas</div></div>
+        <div class="xifg-toc-row"><div class="xifg-toc-num">2</div><div class="xifg-toc-txt">Formato condicional · teoría + caso</div></div>
+        <div class="xifg-toc-row"><div class="xifg-toc-num">3</div><div class="xifg-toc-txt">La pestaña Datos · teoría + caso</div></div>
+        <div class="xifg-toc-row"><div class="xifg-toc-num">4</div><div class="xifg-toc-txt">Simbología y operadores</div></div>
+        <div class="xifg-toc-row"><div class="xifg-toc-num">5</div><div class="xifg-toc-txt">La tecla F5 · Ir a Especial</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="xifg-body">
+
+  <!-- SECCIÓN 1: FÓRMULAS -->
+  <div class="xifg-sec-hdr">
+    <div class="xifg-sec-num">1</div>
+    <div class="xifg-sec-ttl">Fórmulas de Excel (A–Z)</div>
+    <div class="xifg-sec-sub">Selección de las más utilizadas con ejemplos prácticos</div>
+  </div>
+
+  <div class="xfl-grid">
+    <!-- A -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">A</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">ABS</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Valor absoluto (sin signo).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=ABS(número)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=ABS(-25)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">25</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">AGREGAR</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Suma, promedio, etc. ignorando errores y filas ocultas.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=AGREGAR(f;o;rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=AGREGAR(9;5;B2:B50)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Suma sin ocultos</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">ALEATORIO</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Decimal aleatorio entre 0 y 1.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=ALEATORIO()</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">0,482...</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">ALEA.ENTRE</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Entero aleatorio entre dos límites.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=ALEA.ENTRE(inf;sup)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=ALEA.ENTRE(1;100)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">57</span></div></div>
+    </div>
+    <!-- B -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">B</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">BUSCARH</span><span class="xfc2-cat cbus">Búsqueda</span></div><div class="xfc2-desc">Busca en la primera fila y devuelve valor de la misma columna.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=BUSCARH(v;m;f;[o])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=BUSCARH("Marzo";A1:D3;2;FALSO)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Valor bajo Marzo</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">BUSCARV</span><span class="xfc2-cat cbus">Búsqueda</span></div><div class="xfc2-desc">Busca en la primera columna y devuelve valor de la misma fila.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=BUSCARV(v;m;c;[o])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=BUSCARV("E101";A2:C50;3;FALSO)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Precio de E101</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">BUSCARX</span><span class="xfc2-cat cbus">Búsqueda</span></div><div class="xfc2-desc">Versión moderna: busca en cualquier dirección. Si no encuentra no da #N/A.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=BUSCARX(v;r_b;r_r;[si_no])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=BUSCARX("E101";A2:A50;C2:C50;"N/D")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Precio de E101</span></div></div>
+    </div>
+    <!-- C -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">C</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">CELDA</span><span class="xfc2-cat cinf">Información</span></div><div class="xfc2-desc">Extrae información de una celda (formato, dirección, contenido).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=CELDA(tipo;[ref])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=CELDA("direccion";A1)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">$A$1</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">COINCIDIR</span><span class="xfc2-cat cbus">Búsqueda</span></div><div class="xfc2-desc">Devuelve la posición de un valor dentro de un rango.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=COINCIDIR(v;rango;[tipo])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=COINCIDIR("VII";C2:C5;0)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">8</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">CONCAT</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Une el texto de varias celdas o rangos.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=CONCAT(texto1;texto2...)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=CONCAT("Eikona ";"SpA")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Eikona SpA</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">CONTAR</span><span class="xfc2-cat cest">Estadística</span></div><div class="xfc2-desc">Cuenta celdas que contienen números.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=CONTAR(rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=CONTAR(A1:A10)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">7</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">CONTAR.SI</span><span class="xfc2-cat cest">Estadística</span></div><div class="xfc2-desc">Cuenta celdas que cumplen un criterio.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=CONTAR.SI(rango;criterio)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=CONTAR.SI(B:B;"Activo")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">42</span></div></div>
+    </div>
+    <!-- D -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">D</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">DERECHA</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Extrae caracteres desde el final de un texto.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=DERECHA(texto;n)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=DERECHA("Curicó-VII";3)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">VII</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">DESREF</span><span class="xfc2-cat cbus">Búsqueda</span></div><div class="xfc2-desc">Devuelve referencia desplazada n filas/columnas. Útil en rangos dinámicos.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=DESREF(ref;filas;cols;[alto];[ancho])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=DESREF(A1;2;1)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Valor 2 filas abajo, 1 a la dcha</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">DIA</span><span class="xfc2-cat cfec">Fecha</span></div><div class="xfc2-desc">Día del mes de una fecha (1-31).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=DIA(fecha)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=DIA("29-06-2026")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">29</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">DIAS.LAB</span><span class="xfc2-cat cfec">Fecha</span></div><div class="xfc2-desc">Días laborables entre dos fechas (excluye fines de semana).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=DIAS.LAB(ini;fin;[festivos])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=DIAS.LAB("01-06-2026";"30-06-2026")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">21</span></div></div>
+    </div>
+    <!-- E-F -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">E</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">ENCONTRAR</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Posición de texto dentro de otro (distingue mayúsculas).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=ENCONTRAR(buscar;texto;[ini])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=ENCONTRAR("-";"Curicó-VII")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">7</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">ESNUMERO</span><span class="xfc2-cat cinf">Información</span></div><div class="xfc2-desc">Devuelve VERDADERO si la celda contiene un número.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=ESNUMERO(valor)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=ESNUMERO(A1)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">VERDADERO</span></div></div>
+      <div class="xfl-hdr" style="margin-top:6px;">H–I</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">HOY</span><span class="xfc2-cat cfec">Fecha</span></div><div class="xfc2-desc">Fecha actual del sistema (se actualiza al abrir).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=HOY()</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">08-08-2026</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">IZQUIERDA</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Extrae caracteres desde el inicio de un texto.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=IZQUIERDA(texto;n)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=IZQUIERDA("Curicó";6)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Curicó</span></div></div>
+    </div>
+  </div>
+
+  <!-- Row 2: M, P, R, S, T-V -->
+  <div class="xfl-grid">
+    <!-- M -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">M</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">MAX</span><span class="xfc2-cat cest">Estadística</span></div><div class="xfc2-desc">Valor máximo en un rango.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=MAX(rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=MAX(B2:B100)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">980.000</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">MES</span><span class="xfc2-cat cfec">Fecha</span></div><div class="xfc2-desc">Número de mes de una fecha (1-12).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=MES(fecha)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=MES("29-06-2026")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">6</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">MIN</span><span class="xfc2-cat cest">Estadística</span></div><div class="xfc2-desc">Valor mínimo en un rango.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=MIN(rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=MIN(B2:B100)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">12.000</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">MAYUSC</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Convierte texto a mayúsculas.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=MAYUSC(texto)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=MAYUSC("overol")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">OVEROL</span></div></div>
+    </div>
+    <!-- P-R -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">P</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">PROMEDIO</span><span class="xfc2-cat cest">Estadística</span></div><div class="xfc2-desc">Promedio aritmético de un rango.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=PROMEDIO(rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=PROMEDIO(B2:B100)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">245.600</span></div></div>
+      <div class="xfl-hdr" style="margin-top:6px;">R</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">REDONDEAR</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Redondea un número al número de decimales indicado.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=REDONDEAR(número;decimales)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=REDONDEAR(3,14159;2)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">3,14</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">RESIDUO</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Resto de la división entre dos números.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=RESIDUO(dividendo;divisor)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=RESIDUO(10;3)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">1</span></div></div>
+    </div>
+    <!-- S -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">S</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">SI</span><span class="xfc2-cat clog">Lógica</span></div><div class="xfc2-desc">Devuelve un valor si condición es verdadera, otro si es falsa.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=SI(condición;si_v;si_f)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=SI(A1&gt;100000;"Grande";"Chico")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Grande</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">SI.ERROR</span><span class="xfc2-cat clog">Lógica</span></div><div class="xfc2-desc">Devuelve un valor alternativo si la fórmula produce un error.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=SI.ERROR(valor;si_error)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=SI.ERROR(BUSCARV(...);"-")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">- (en vez de #N/A)</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">SUMA</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Suma todos los valores en un rango.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=SUMA(rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=SUMA(B2:B100)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">24.560.000</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">SUMAR.SI</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Suma los valores que cumplen un criterio.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=SUMAR.SI(rango;criterio;[suma])</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=SUMAR.SI(A:A;"Norte";B:B)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Suma ventas Norte</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">SUMAR.SI.CONJUNTO</span><span class="xfc2-cat cmat">Matemática</span></div><div class="xfc2-desc">Suma con múltiples criterios simultáneos.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=SUMAR.SI.CONJUNTO(suma_r;r1;c1;r2;c2...)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Ventas Norte + Activo</span></div></div>
+    </div>
+    <!-- T -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">T</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">TEXTO</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Convierte número a texto con un formato específico.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=TEXTO(valor;formato)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=TEXTO(HOY();"dd-mm-yyyy")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">08-08-2026</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">TRANSPONER</span><span class="xfc2-cat cbus">Búsqueda</span></div><div class="xfc2-desc">Gira una tabla de filas a columnas (o viceversa).</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=TRANSPONER(matriz)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Nota</span><span class="xfc2-code">Ctrl+Shift+Enter en versiones antiguas</span></div></div>
+      <div class="xfl-hdr" style="margin-top:6px;">V</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">VALOR</span><span class="xfc2-cat cinf">Información</span></div><div class="xfc2-desc">Convierte un texto que parece número a número real.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=VALOR(texto)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=VALOR("1.250")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">1250</span></div></div>
+    </div>
+    <!-- AÑO-EXTRA -->
+    <div class="xfl-col">
+      <div class="xfl-hdr">Y–Z+</div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">AÑO</span><span class="xfc2-cat cfec">Fecha</span></div><div class="xfc2-desc">Extrae el año de una fecha.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=AÑO(fecha)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=AÑO("29-06-2026")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">2026</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">LARGO</span><span class="xfc2-cat ctxt">Texto</span></div><div class="xfc2-desc">Número de caracteres de un texto.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=LARGO(texto)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=LARGO("EPP Chile")</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">9</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">MEDIANA</span><span class="xfc2-cat cest">Estadística</span></div><div class="xfc2-desc">Valor central de un conjunto ordenado.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=MEDIANA(rango)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">Valor central</span></div></div>
+      <div class="xfc2"><div class="xfc2-top"><span class="xfc2-name">FIN.MES</span><span class="xfc2-cat cfec">Fecha</span></div><div class="xfc2-desc">Último día del mes, n meses adelante o atrás.</div><div class="xfc2-row"><span class="xfc2-lbl">Sintaxis</span><span class="xfc2-code">=FIN.MES(fecha;meses)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Ejemplo</span><span class="xfc2-code">=FIN.MES(HOY();0)</span></div><div class="xfc2-row"><span class="xfc2-lbl">Resultado</span><span class="xfc2-res">31-08-2026</span></div></div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2+3 -->
+  <div class="xifg-sec-hdr"><div class="xifg-sec-num">2</div><div class="xifg-sec-ttl">Formato Condicional</div><div class="xifg-sec-sub">Inicio ▶ Formato condicional</div></div>
+  <div class="xifg-2col" style="margin-bottom:8px;">
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Tipos de reglas</div>
+      <table class="xtbl2">
+        <thead><tr><th>Tipo</th><th>Para qué sirve</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#4ade80;font-weight:600;">Resaltar reglas de celdas</td><td>Mayor que, menor que, igual a, contiene texto.</td></tr>
+          <tr><td style="color:#4ade80;font-weight:600;">Reglas superiores/inferiores</td><td>Top 10, 10% más alto, sobre/bajo el promedio.</td></tr>
+          <tr><td style="color:#4ade80;font-weight:600;">Barras de datos</td><td>Barra proporcional al valor dentro de la celda.</td></tr>
+          <tr><td style="color:#4ade80;font-weight:600;">Escalas de color</td><td>Degradado rojo–amarillo–verde según valor.</td></tr>
+          <tr><td style="color:#4ade80;font-weight:600;">Conjuntos de iconos</td><td>Semáforos, flechas o señales según rangos.</td></tr>
+          <tr><td style="color:#4ade80;font-weight:600;">Fórmula personalizada</td><td>Formato cuando una fórmula devuelve VERDADERO.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Caso aplicado · Resaltar ventas altas, medias y bajas</div>
+      <table class="xtbl2">
+        <thead><tr><th>Rango</th><th>Regla</th><th>Formato</th></tr></thead>
+        <tbody>
+          <tr><td>Mayor o igual a 100.000</td><td>Mayor que</td><td style="color:#4ade80;font-weight:700;">Verde</td></tr>
+          <tr><td>Entre 50.000 y 99.999</td><td>Entre</td><td style="color:#facc15;font-weight:700;">Amarillo</td></tr>
+          <tr><td>Menor a 50.000</td><td>Menor que</td><td style="color:#fca5a5;font-weight:700;">Rojo</td></tr>
+        </tbody>
+      </table>
+      <div class="xcaso">
+        <div class="xcaso-ttl">Pasos</div>
+        <div class="xcaso-s"><div class="xcaso-n">1</div><span>Seleccionar B2:B850 (Ventas)</span></div>
+        <div class="xcaso-s"><div class="xcaso-n">2</div><span>Inicio ▶ Formato condicional ▶ Nueva regla</span></div>
+        <div class="xcaso-s"><div class="xcaso-n">3</div><span>Usar fórmula: <span style="font-family:monospace;color:#86efac;font-size:.65rem;">=$B2&gt;=100000</span> → relleno verde</span></div>
+        <div class="xcaso-res">Resultado: ventas coloreadas al instante.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="xifg-sec-hdr"><div class="xifg-sec-num">3</div><div class="xifg-sec-ttl">La Pestaña Datos</div><div class="xifg-sec-sub">Herramientas para obtener, transformar y analizar datos</div></div>
+  <div class="xifg-2col">
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Funciones clave</div>
+      <div class="xfunc-row"><div class="xfunc-ico">📥</div><div class="xfunc-txt"><span class="xfunc-name">Obtener datos:</span> importar desde diversas fuentes (web, PDF, bases de datos).</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico">🔄</div><div class="xfunc-txt"><span class="xfunc-name">Actualizar todo:</span> refresca todas las conexiones de datos.</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico">🔽</div><div class="xfunc-txt"><span class="xfunc-name">Ordenar y filtrar:</span> organiza y filtra registros. Atajo: <span style="font-family:monospace;color:#86efac;font-size:.67rem;">Ctrl+Shift+L</span></div></div>
+      <div class="xfunc-row"><div class="xfunc-ico">✂️</div><div class="xfunc-txt"><span class="xfunc-name">Texto en columnas:</span> divide una columna por un separador.</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico">🚫</div><div class="xfunc-txt"><span class="xfunc-name">Quitar duplicados:</span> elimina filas repetidas según columnas elegidas.</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico">✅</div><div class="xfunc-txt"><span class="xfunc-name">Validación de datos:</span> restringe qué se puede ingresar (listas, rangos).</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico">📊</div><div class="xfunc-txt"><span class="xfunc-name">Consolidar/Subtotal:</span> resume datos desde varias hojas o grupos.</div></div>
+    </div>
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Caso aplicado · Limpieza de base de clientes</div>
+      <div class="xcaso">
+        <div class="xcaso-ttl">Pasos</div>
+        <div class="xcaso-s"><div class="xcaso-n">1</div><span>Quitar duplicados en RUT</span></div>
+        <div class="xcaso-s"><div class="xcaso-n">2</div><span>Texto en columnas para separar nombre y apellido</span></div>
+        <div class="xcaso-s"><div class="xcaso-n">3</div><span>Validación de datos para limitar regiones</span></div>
+        <div class="xcaso-s"><div class="xcaso-n">4</div><span>Filtrar clientes Activos y exportar resumen</span></div>
+        <div class="xcaso-res">Resultado: Base de datos limpia, confiable y lista para analizar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4+5 -->
+  <div class="xifg-sec-hdr"><div class="xifg-sec-num">4</div><div class="xifg-sec-ttl">Simbología y Operadores</div><div class="xifg-sec-sub">Tablas de referencia</div></div>
+  <div class="xifg-2col">
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Operadores aritméticos</div>
+      <table class="xtbl2" style="margin-bottom:10px;">
+        <thead><tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">+</td><td>Suma</td><td><span class="code2">=A1+B1</span></td><td>A1 + B1</td></tr>
+          <tr><td class="sym">-</td><td>Resta</td><td><span class="code2">=A1-B1</span></td><td>A1 − B1</td></tr>
+          <tr><td class="sym">*</td><td>Multiplicación</td><td><span class="code2">=A1*B1</span></td><td>A1 × B1</td></tr>
+          <tr><td class="sym">/</td><td>División</td><td><span class="code2">=A1/B1</span></td><td>A1 ÷ B1</td></tr>
+          <tr><td class="sym">^</td><td>Potencia</td><td><span class="code2">=A1^2</span></td><td>A1²</td></tr>
+          <tr><td class="sym">%</td><td>Porcentaje</td><td><span class="code2">=A1*10%</span></td><td>10% de A1</td></tr>
+        </tbody>
+      </table>
+      <div class="xifg-box-ttl" style="margin-top:4px;">Símbolos importantes</div>
+      <table class="xtbl2">
+        <thead><tr><th>Símbolo</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">$</td><td>Fija fila o columna: <span class="code2">=$A$1</span></td></tr>
+          <tr><td class="sym">:</td><td>Define rango: <span class="code2">=SUMA(A1:A50)</span></td></tr>
+          <tr><td class="sym">&amp;</td><td>Concatena textos: <span class="code2">=A1&amp;" "&amp;B1</span></td></tr>
+          <tr><td class="sym">""</td><td>Texto o vacío: <span class="code2">=SI(A1=0;"";A1)</span></td></tr>
+          <tr><td class="sym">*</td><td>Comodín (cualquier texto): <span class="code2">"Norte*"</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Operadores de comparación</div>
+      <table class="xtbl2" style="margin-bottom:10px;">
+        <thead><tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">=</td><td>Igual a</td><td><span class="code2">=A1=100</span></td></tr>
+          <tr><td class="sym">&gt;</td><td>Mayor que</td><td><span class="code2">=A1&gt;100</span></td></tr>
+          <tr><td class="sym">&lt;</td><td>Menor que</td><td><span class="code2">=A1&lt;100</span></td></tr>
+          <tr><td class="sym">&gt;=</td><td>Mayor o igual</td><td><span class="code2">=A1&gt;=100</span></td></tr>
+          <tr><td class="sym">&lt;=</td><td>Menor o igual</td><td><span class="code2">=A1&lt;=100</span></td></tr>
+          <tr><td class="sym">&lt;&gt;</td><td>Distinto de</td><td><span class="code2">=A1&lt;&gt;100</span></td></tr>
+        </tbody>
+      </table>
+      <div class="xifg-box-ttl" style="margin-top:4px;">Errores frecuentes</div>
+      <table class="xtbl2">
+        <thead><tr><th>Error</th><th>Causa</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#fca5a5;font-family:monospace;">######</td><td>Columna muy angosta para mostrar el número.</td></tr>
+          <tr><td style="color:#fca5a5;font-family:monospace;">#¡DIV/0!</td><td>División entre cero o celda vacía.</td></tr>
+          <tr><td style="color:#fca5a5;font-family:monospace;">#¡VALOR!</td><td>Se opera texto donde se esperaba un número.</td></tr>
+          <tr><td style="color:#fca5a5;font-family:monospace;">#¡REF!</td><td>La fórmula apunta a una celda eliminada.</td></tr>
+          <tr><td style="color:#fca5a5;font-family:monospace;">#N/A</td><td>BUSCARV/BUSCARX no encontró el valor.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="xifg-sec-hdr"><div class="xifg-sec-num">5</div><div class="xifg-sec-ttl">La Tecla F5 — Ir a Especial</div><div class="xifg-sec-sub">Selecciones avanzadas en segundos</div></div>
+  <div class="xifg-2col" style="margin-bottom:8px;">
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Principales usos de "Ir a Especial"</div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Celdas en blanco</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Constantes (números, texto, lógicas)</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Fórmulas</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Precedentes / Dependientes</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Última celda</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Celdas con formato condicional</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Validación de datos</div></div>
+      <div class="xfunc-row"><div class="xfunc-ico" style="color:#4ade80;">☑</div><div class="xfunc-txt">Filas diferencias</div></div>
+    </div>
+    <div class="xifg-box">
+      <div class="xifg-box-ttl">Caso aplicado · Corregir celdas vacías en una base</div>
+      <div class="xcaso">
+        <div class="xcaso-ttl">Pasos</div>
+        <div class="xcaso-s"><div class="xcaso-n">1</div><span>Presionar <span style="font-family:monospace;color:#86efac;font-size:.65rem;">F5</span></span></div>
+        <div class="xcaso-s"><div class="xcaso-n">2</div><span>Clic en Especial → Celdas en blanco</span></div>
+        <div class="xcaso-s"><div class="xcaso-n">3</div><span>Escribir "Sin dato" o la fórmula <span style="font-family:monospace;color:#86efac;font-size:.65rem;">=celda_arriba</span></span></div>
+        <div class="xcaso-s"><div class="xcaso-n">4</div><span>Presionar <span style="font-family:monospace;color:#86efac;font-size:.65rem;">Ctrl + Enter</span></span></div>
+        <div class="xcaso-res">Resultado: Todas las celdas vacías quedan completadas al instante.</div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /xifg-body -->
+
+  <div class="xifg-footer">
+    <span style="font-size:1.2rem;">💡</span>
+    <span style="font-size:.72rem;color:rgba(255,255,255,.75);"><b style="color:#4ade80;">Consejo final:</b> Combina fórmulas + formato condicional + datos limpios para tomar mejores decisiones con tu información.</span>
+    <span style="margin-left:auto;font-size:.62rem;color:rgba(255,255,255,.35);">BuscaEPP · 2026</span>
+  </div>
 </div>`
   }
 };
