@@ -4432,6 +4432,31 @@ function estudiaRenderizar() {
     </div>
   </div>
 
+  <!-- ══ CATEGORÍA: PROTECCIÓN DE PIES ══ -->
+  <div class="ifr-cat-hdr">
+    <div class="ifr-cat-ico" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);">🥾</div>
+    <div class="ifr-cat-ttl" style="color:#2dd4bf;">Protección de Pies</div>
+    <div class="ifr-cat-line" style="background:rgba(45,212,191,.15);"></div>
+    <div class="ifr-cat-count" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);color:#2dd4bf;">1 infograma</div>
+  </div>
+  <div class="ifr-grid">
+    <div class="ifr-card" onclick="abrirInfograma('calzado')" style="border-top:3px solid #2dd4bf;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0a1f1c,#0d2925);">
+        🥾
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(45,212,191,.55);letter-spacing:.4px;">ISP · NCh772 · EN ISO 20345</div>
+      </div>
+      <div class="ifr-body">
+        <div class="ifr-tag" style="color:#2dd4bf;">Calzado de Seguridad</div>
+        <div class="ifr-ttl">Calzado de Seguridad — Guía Normativa</div>
+        <div class="ifr-desc">Normas chilenas ISP/INN, normas internacionales, anatomía del calzado, tipos de cuero según uso y diferencias entre dieléctrico, antiestático y conductivo.</div>
+      </div>
+      <div class="ifr-foot">
+        <span class="ifr-meta">4 bloques · NCh772 y afines</span>
+        <button class="ifr-btn" style="background:rgba(45,212,191,.15);color:#2dd4bf;border:1px solid rgba(45,212,191,.3);">📊 Ver</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ CATEGORÍA: SEGURIDAD EN ALTURA ══ -->
   <div class="ifr-cat-hdr">
     <div class="ifr-cat-ico" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);">🦺</div>
@@ -5807,6 +5832,19 @@ const INFOGRAMAS = {
       <span class="vis-foot-tag">Res. ISP N°3002</span>
     </div>
     <a href="https://www.ispch.cl/salud-de-los-trabajadores/" target="_blank" rel="noopener" style="font-size:.6rem;color:#93c5fd;text-decoration:none;font-weight:700;border:1px solid rgba(96,165,250,.3);border-radius:5px;padding:3px 8px;background:rgba(96,165,250,.08);">🔗 Ver ISP →</a>
+  </div>
+</div>`
+  }
+
+  ,
+  calzado: {
+    titulo: 'Calzado de Seguridad — Guía Normativa',
+    ico: '🥾',
+    html: `<div style="max-width:760px;margin:0 auto;padding:0 0 16px;">
+  <img src="./calzado.jpg" alt="Infograma Calzado de Seguridad — Normativa ISP Chile · buscaepp.cl" style="width:100%;height:auto;display:block;border-radius:0;" loading="lazy">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px 0;font-size:.65rem;color:rgba(204,224,245,.45);">
+    <span>NCh772/1 · NCh772/2 · NCh1350 · NCh2147/1 · NCh2147/2 · NCh1796/97 · NCh2374</span>
+    <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" rel="noopener" style="color:#2dd4bf;text-decoration:none;font-weight:700;border:1px solid rgba(45,212,191,.3);border-radius:5px;padding:3px 8px;background:rgba(45,212,191,.08);">🔗 Ver ISP →</a>
   </div>
 </div>`
   }
