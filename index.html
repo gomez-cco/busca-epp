@@ -4292,7 +4292,7 @@ function estudiaRenderizar() {
     <div class="ifr-cat-ico" style="background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);">🧯</div>
     <div class="ifr-cat-ttl" style="color:#fbbf24;">Ropa Ignífuga</div>
     <div class="ifr-cat-line" style="background:rgba(251,191,36,.18);"></div>
-    <div class="ifr-cat-count" style="background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:#fbbf24;">1 infograma</div>
+    <div class="ifr-cat-count" style="background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:#fbbf24;">2 infogramas</div>
   </div>
 
   <div class="ifr-grid">
@@ -4314,17 +4314,20 @@ function estudiaRenderizar() {
       </div>
     </div>
 
-    <!-- Próximamente -->
-    <div class="ifr-card coming">
-      <div class="ifr-thumb" style="background:linear-gradient(135deg,#1a1e2a,#1e2438);">🧥</div>
+    <!-- Infograma Alta Visibilidad -->
+    <div class="ifr-card" onclick="abrirInfograma('altavis')" style="border-top:3px solid #f97316;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#241a08,#2e2008);">
+        🦺
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(249,115,22,.55);letter-spacing:.4px;">NCh 3254 · EN ISO 20471 · MOP</div>
+      </div>
       <div class="ifr-body">
-        <div class="ifr-tag" style="color:rgba(255,255,255,.25);">Alta Visibilidad</div>
-        <div class="ifr-ttl" style="color:rgba(255,255,255,.35);">Ropa Alta Visibilidad — EN ISO 20471</div>
-        <div class="ifr-desc">Clases, colores, retroreflectantes y requisitos de uso.</div>
+        <div class="ifr-tag" style="color:#f97316;">Alta Visibilidad</div>
+        <div class="ifr-ttl">Ropa Alta Visibilidad — Guía Normativa</div>
+        <div class="ifr-desc">Clases de riesgo, materiales, colores permitidos, cintas MOP para vía pública y combinación con otros riesgos.</div>
       </div>
       <div class="ifr-foot">
-        <span class="ifr-meta">Próximamente</span>
-        <button class="ifr-btn" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.1);cursor:default;">🔒</button>
+        <span class="ifr-meta">7 bloques · NCh 3254 y afines</span>
+        <button class="ifr-btn" style="background:rgba(249,115,22,.15);color:#f97316;border:1px solid rgba(249,115,22,.3);">📊 Ver</button>
       </div>
     </div>
 
@@ -5845,6 +5848,19 @@ const INFOGRAMAS = {
   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px 0;font-size:.65rem;color:rgba(204,224,245,.45);">
     <span>NCh772/1 · NCh772/2 · NCh1350 · NCh2147/1 · NCh2147/2 · NCh1796/97 · NCh2374</span>
     <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" rel="noopener" style="color:#2dd4bf;text-decoration:none;font-weight:700;border:1px solid rgba(45,212,191,.3);border-radius:5px;padding:3px 8px;background:rgba(45,212,191,.08);">🔗 Ver ISP →</a>
+  </div>
+</div>`
+  }
+
+  ,
+  altavis: {
+    titulo: 'Ropa Alta Visibilidad — Guía Normativa',
+    ico: '🦺',
+    html: `<div style="max-width:760px;margin:0 auto;padding:0 0 16px;">
+  <img src="./ropa_vial.jpg" alt="Infograma Ropa de Alta Visibilidad — NCh 3254 Chile · buscaepp.cl" style="width:100%;height:auto;display:block;border-radius:0;" loading="lazy">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px 0;font-size:.65rem;color:rgba(204,224,245,.45);">
+    <span>NCh 3254:2011 · DS N°594 · DS N°132 · MOP Decreto N°78/2012 · EN ISO 20471 · ANSI/ISEA 107</span>
+    <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" rel="noopener" style="color:#f97316;text-decoration:none;font-weight:700;border:1px solid rgba(249,115,22,.3);border-radius:5px;padding:3px 8px;background:rgba(249,115,22,.08);">🔗 Ver ISP →</a>
   </div>
 </div>`
   }
