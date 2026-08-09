@@ -4548,17 +4548,17 @@ function estudiaRenderizar() {
 
   <div class="ifr-grid">
     <div class="ifr-card" onclick="abrirInfograma('resp')" style="border-top:3px solid #6ee7b7;">
-      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0e2420,#142e26);">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0d1a2e,#122238);">
         😷
-        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(110,231,183,.55);letter-spacing:.4px;">EN 149 · NIOSH · ISP</div>
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(110,231,183,.55);letter-spacing:.4px;">ISP Chile · buscaepp.cl</div>
       </div>
       <div class="ifr-body">
         <div class="ifr-tag" style="color:#6ee7b7;">Protección Respiratoria</div>
-        <div class="ifr-ttl">Respiradores — Guía de Referencia</div>
-        <div class="ifr-desc">Clases FFP, filtros EPA/HEPA/ULPA, factor de protección asignado y marco regulatorio ISP NT-140/2026.</div>
+        <div class="ifr-ttl">Protección Respiratoria — Según el ISP de Chile</div>
+        <div class="ifr-desc">Marco normativo, clasificación, tipos (FFP/N95/PAPR/SCBA), filtros por color, aplicación por industria y requisitos ISP.</div>
       </div>
       <div class="ifr-foot">
-        <span class="ifr-meta">7 bloques · guía completa</span>
+        <span class="ifr-meta">9 secciones · infograma ISP</span>
         <button class="ifr-btn" style="background:rgba(110,231,183,.15);color:#6ee7b7;border:1px solid rgba(110,231,183,.3);">📊 Ver</button>
       </div>
     </div>
@@ -4852,136 +4852,41 @@ const INFOGRAMAS = {
   },
 
   resp: {
-    titulo: 'Protección Respiratoria — Guía de Referencia Rápida',
+    titulo: 'Protección Respiratoria — Según el ISP de Chile',
     ico: '😷',
     html: `<style>
-  #mig-content *{box-sizing:border-box;}
-  .ifg{max-width:860px;margin:0 auto;padding:22px 18px 28px;font-family:'Montserrat','DM Sans',sans-serif;color:#cce0f5;}
-  .ifg-sh{display:flex;align-items:center;gap:8px;margin-bottom:9px;margin-top:16px;}
-  .ifg-sn{width:26px;height:26px;border-radius:50%;background:#6ee7b7;color:#0f1d30;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .ifg-st{font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:1rem;font-weight:900;color:#6ee7b7;letter-spacing:1px;text-transform:uppercase;}
-  .ifg-sl{flex:1;height:1px;background:rgba(110,231,183,.2);}
-  .ifg-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-  .ifg-g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
-  .ifg-g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
-  .ifg-card{background:#162438;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px 13px;}
-  .ifg-neu{background:#162438;border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;}
-  .ifg-neu::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
-  .ifg-neu.eu::before{background:linear-gradient(to bottom,#3b82f6,#6366f1);}
-  .ifg-neu.us::before{background:linear-gradient(to bottom,#ef4444,#f97316);}
-  .ifg-neu.cl::before{background:linear-gradient(to bottom,#dc2626,#1d4ed8);}
-  .ifg-neu-hdr{font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;margin-left:8px;}
-  .ifg-neu.eu .ifg-neu-hdr{color:#93c5fd;} .ifg-neu.us .ifg-neu-hdr{color:#fca5a5;} .ifg-neu.cl .ifg-neu-hdr{color:#6ee7b7;}
-  .ifg-nr{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;margin-left:8px;}
-  .ifg-nc{font-size:.69rem;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border-radius:6px;padding:2px 7px;flex-shrink:0;white-space:nowrap;}
-  .ifg-nd{font-size:.69rem;color:rgba(204,224,245,.62);line-height:1.4;}
-  .ifg-chk{display:flex;align-items:flex-start;gap:8px;background:#162438;border-radius:8px;padding:7px 9px;}
-  .ifg-ci{width:19px;height:19px;border-radius:50%;background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);color:#34d399;font-size:.68rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-  .ifg-ct{font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.4;}
-  .r1{background:linear-gradient(135deg,#162438,#1a2e44);border:1px solid rgba(110,231,183,.3);border-radius:12px;padding:11px 9px;text-align:center;}
-  .r2{background:linear-gradient(135deg,#162438,#1a2a38);border:1px solid rgba(59,130,246,.3);border-radius:12px;padding:11px 9px;text-align:center;}
-  .r3{background:linear-gradient(135deg,#1e2418,#2a3020);border:1px solid rgba(234,179,8,.4);border-radius:12px;padding:11px 9px;text-align:center;}
-  .r4{background:linear-gradient(135deg,#271414,#2e1a1a);border:1px solid rgba(239,68,68,.4);border-radius:12px;padding:11px 9px;text-align:center;}
-  .rnum{font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:1.7rem;font-weight:900;line-height:1;}
-  .r1 .rnum{color:#6ee7b7;} .r2 .rnum{color:#60a5fa;} .r3 .rnum{color:#facc15;} .r4 .rnum{color:#f87171;}
-  .rsub{font-size:.72rem;font-weight:700;color:#fff;margin-top:4px;}
-  .rdesc{font-size:.6rem;color:rgba(204,224,245,.52);margin-top:3px;line-height:1.4;}
-  .rtbl{width:100%;border-collapse:collapse;font-size:.71rem;margin-bottom:12px;}
-  .rtbl th{background:#1a2744;color:#6ee7b7;font-weight:700;padding:7px 9px;text-align:left;border:1px solid rgba(255,255,255,.08);}
-  .rtbl td{padding:6px 9px;border:1px solid rgba(255,255,255,.06);color:rgba(204,224,245,.8);}
-  .rtbl tr:nth-child(odd) td{background:rgba(255,255,255,.02);}
-  .rn{color:#6ee7b7;font-weight:700;}
-  .nc{display:inline-block;font-size:.59rem;font-weight:700;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);margin:1px;}
-  .ifg-foot{text-align:center;font-size:.64rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;}
-  @media(max-width:560px){.ifg-g2,.ifg-g3,.ifg-g4{grid-template-columns:1fr 1fr;}}
+  .resp-wrap{max-width:900px;margin:0 auto;font-family:'Montserrat','DM Sans',sans-serif;}
+  .resp-hdr{background:linear-gradient(135deg,#0d1a2e,#122238);border-bottom:2px solid rgba(34,197,94,.25);padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .resp-img-container{padding:12px 16px;background:#0a0f18;}
+  .resp-img-container img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 4px 24px rgba(0,0,0,.6);}
+  .resp-foot{background:rgba(0,0,0,.3);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+  .resp-foot-tag{font-size:.58rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.3px;}
 </style>
-<div class="ifg">
-  <div style="background:linear-gradient(135deg,#1a2744,#0f1d30);border:2px solid #6ee7b7;border-radius:16px;padding:15px 19px 12px;margin-bottom:14px;">
-    <div style="font-size:.64rem;font-weight:700;color:#6ee7b7;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:3px;">BuscaEPP · buscaepp.cl · Guía Técnica 2026</div>
-    <div style="font-family:'Barlow Condensed','Montserrat',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1px;line-height:1.1;">PROTECCIÓN <span style="color:#6ee7b7;">RESPIRATORIA</span> — Guía de Referencia</div>
-    <div style="font-size:.69rem;color:rgba(204,224,245,.42);margin-top:4px;">Tipos · Clases FFP · Filtros · Factor de Protección Asignado · Marco Chile</div>
-    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;">
-      <span style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇪🇺 EN 149 / EN 529</span>
-      <span style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇺🇸 NIOSH / OSHA</span>
-      <span style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇨🇱 ISP NT-140/2026</span>
+<div class="resp-wrap">
+  <div class="resp-hdr">
+    <div style="font-size:2rem;flex-shrink:0;">😷</div>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.5px;line-height:1.1;"><span style="color:#4ade80;">Protección Respiratoria</span> — Según el ISP de Chile</div>
+      <div style="font-size:.65rem;color:rgba(255,255,255,.5);margin-top:3px;">Marco normativo · Clasificación · Tipos · Aplicación por industria · Requisitos ISP</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:3px 10px;font-size:.6rem;font-weight:700;color:#4ade80;letter-spacing:.8px;text-transform:uppercase;">ISP · D.S.594 · EN 149</div>
+      <div style="font-size:.58rem;color:rgba(255,255,255,.3);margin-top:5px;">FFP1/2/3 · N95 · PAPR · SCBA</div>
     </div>
   </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">1</div><div class="ifg-st">Tipos de protectores respiratorios</div><div class="ifg-sl"></div></div>
-  <table class="rtbl">
-    <thead><tr><th>Tipo</th><th>Descripción</th><th>Uso típico</th></tr></thead>
-    <tbody>
-      <tr><td class="rn">😷 Desechable FFP</td><td>Mascarilla completa descartable con filtro integrado</td><td>Polvo, humo, aerosoles · uso corto</td></tr>
-      <tr><td class="rn">🟡 Semi-máscara</td><td>Cubre nariz y boca, filtros reemplazables</td><td>Jornada completa · riesgos moderados</td></tr>
-      <tr><td class="rn">🔵 Máscara completa</td><td>Cubre cara entera, ojos protegidos</td><td>Riesgos altos · gases · emergencias</td></tr>
-      <tr><td class="rn">🌀 PAPR / CAPR</td><td>Motor impulsa aire filtrado · mayor confort</td><td>HEPA/ULPA, salud, limpieza · ISP NT-140</td></tr>
-      <tr><td class="rn">🔗 Aire suministrado</td><td>Línea de aire comprimido externo</td><td>Ambientes IDLH · espacios confinados</td></tr>
-    </tbody>
-  </table>
-
-  <div class="ifg-sh"><div class="ifg-sn">2</div><div class="ifg-st">Clases FFP (EN 149) y equivalentes NIOSH</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g3">
-    <div class="r1"><div class="rnum">FFP1</div><div class="rsub">Eficiencia ≥80%</div><div class="rdesc">Polvo grueso no tóxico · APF 4 · sin aceite</div></div>
-    <div class="r2"><div class="rnum">FFP2</div><div class="rsub">Eficiencia ≥94%</div><div class="rdesc">Polvo fino, aerosoles · APF 10 · equivale N95</div></div>
-    <div class="r3"><div class="rnum">FFP3</div><div class="rsub">Eficiencia ≥99%</div><div class="rdesc">Partículas tóxicas, amianto · APF 20 · equiv. P100</div></div>
+  <div class="resp-img-container">
+    <img src="./respiracion.png" alt="Infograma Protección Respiratoria — ISP Chile · buscaepp.cl" loading="lazy">
   </div>
-  <div class="ifg-card" style="margin-bottom:12px;background:rgba(110,231,183,.07);border-color:rgba(110,231,183,.2);">
-    <div style="font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.5;">
-      <b style="color:#6ee7b7;">Equivalencias NIOSH:</b> N95 ≈ FFP2 (sin aceite, ≥94%) · P100 ≈ FFP3 (con aceite, ≥99.97%) · R95 (resistente aceite) · Sufijo P = con aceite · N = sin aceite.
-    </div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">3</div><div class="ifg-st">Filtros EPA / HEPA / ULPA · ISP NT-140/2026</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g3" style="margin-bottom:10px;">
-    <div class="ifg-card" style="border-top:3px solid #10b981;"><div style="font-size:.59rem;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.7px;text-transform:uppercase;margin-bottom:3px;">EPA (E10-E12)</div><div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px;">≥85% a ≥99.5%</div><div style="font-size:.7rem;color:rgba(204,224,245,.62);line-height:1.45;">Purificadores ambiente y PAPR básico. ISP NT-140 permite E12 en ciertos recintos.</div></div>
-    <div class="ifg-card" style="border-top:3px solid #3b82f6;"><div style="font-size:.59rem;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.7px;text-transform:uppercase;margin-bottom:3px;">HEPA (H13-H14)</div><div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px;">≥99.95% a ≥99.995%</div><div style="font-size:.7rem;color:rgba(204,224,245,.62);line-height:1.45;">Salas limpias, laboratorios, sanitarios. ISP NT-140/2026: H14 mandatorio en exposición a nanopartículas.</div></div>
-    <div class="ifg-card" style="border-top:3px solid #a78bfa;"><div style="font-size:.59rem;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.7px;text-transform:uppercase;margin-bottom:3px;">ULPA (U15-U17)</div><div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px;">≥99.9995%+</div><div style="font-size:.7rem;color:rgba(204,224,245,.62);line-height:1.45;">Farmacéutica, semiconductores, biotecnología. Supera HEPA en partículas ultrafinas.</div></div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">4</div><div class="ifg-st">Factor de Protección Asignado (APF)</div><div class="ifg-sl"></div></div>
-  <div class="ifg-card" style="margin-bottom:10px;">
-    <div style="font-size:.72rem;color:rgba(204,224,245,.8);line-height:1.6;margin-bottom:6px;">El <b style="color:#6ee7b7;">APF</b> indica cuántas veces reduce la concentración de contaminante. Si la concentración en el ambiente es 50× el TLV, se necesita un equipo con APF ≥ 50.</div>
+  <div class="resp-foot">
     <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <span style="background:rgba(110,231,183,.1);border:1px solid rgba(110,231,183,.25);color:#6ee7b7;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;">FFP1 → APF 4</span>
-      <span style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#93c5fd;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;">FFP2/N95 → APF 10</span>
-      <span style="background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.25);color:#facc15;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;">FFP3/P100 → APF 20</span>
-      <span style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#fca5a5;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;">Máscara completa → APF 50+</span>
-      <span style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);color:#c4b5fd;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;">PAPR turbo → APF 1000</span>
+      <span class="resp-foot-tag">D.S. N°594</span><span class="resp-foot-tag">·</span>
+      <span class="resp-foot-tag">NCh ISO 16900</span><span class="resp-foot-tag">·</span>
+      <span class="resp-foot-tag">EN 149 · EN 136 · EN 140</span><span class="resp-foot-tag">·</span>
+      <span class="resp-foot-tag">NT-140/2026</span><span class="resp-foot-tag">·</span>
+      <span class="resp-foot-tag">NIOSH 42 CFR 84</span>
     </div>
+    <a href="https://www.ispch.cl/salud-de-los-trabajadores/" target="_blank" rel="noopener" style="font-size:.6rem;color:#4ade80;text-decoration:none;font-weight:700;border:1px solid rgba(74,222,128,.3);border-radius:5px;padding:3px 8px;background:rgba(74,222,128,.08);">🔗 Ver ISP →</a>
   </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">5</div><div class="ifg-st">Riesgo → respirador que exigir</div><div class="ifg-sl"></div></div>
-  <table class="rtbl">
-    <thead><tr><th>Riesgo</th><th>Mínimo requerido</th><th>Norma referencia</th></tr></thead>
-    <tbody>
-      <tr><td class="rn">💨 Polvo / partículas gruesas</td><td>FFP1 o N95</td><td>EN 149 / NIOSH 42CFR84</td></tr>
-      <tr><td class="rn">🦠 Bioaerosoles / virus</td><td>FFP2 (N95) mínimo · FFP3 ideal</td><td>EN 149 · OMS · ISP</td></tr>
-      <tr><td class="rn">⚗️ Gases y vapores orgánicos</td><td>Semi-máscara + filtro A1/A2</td><td>EN 14387</td></tr>
-      <tr><td class="rn">🏭 Humos de soldadura</td><td>FFP2 o semi-máscara P2</td><td>EN 149 · DS 594</td></tr>
-      <tr><td class="rn">🔬 Nanopartículas</td><td>PAPR con HEPA H14 o ULPA</td><td>ISP NT-140/2026</td></tr>
-      <tr><td class="rn">🧪 Amianto / sílice cristalina</td><td>FFP3 · descartable · doble filtro</td><td>EN 149 · DS 594 Art. 37</td></tr>
-      <tr><td class="rn">💀 IDLH (inmediatamente peligroso)</td><td>Equipo autónomo SCBA o aire suministrado</td><td>OSHA 29 CFR 1910.134</td></tr>
-    </tbody>
-  </table>
-
-  <div class="ifg-sh"><div class="ifg-sn">6</div><div class="ifg-st">Cuidado y uso correcto</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g2" style="margin-bottom:10px;">
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Test de ajuste (fit test)</b> obligatorio para semi-máscara y máscara completa — DS 594 y OSHA</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>FFP descartable:</b> una jornada o cuando esté dañado/húmedo</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Semi-máscara:</b> limpiar y guardar en bolsa cerrada. Reemplazar filtros según fabricante</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Barba:</b> impide sello hermético en FFP y semi-máscara — usar PAPR o capucha</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Caducidad:</b> verificar fecha en embalaje — materiales degradan aunque no se hayan usado</div></div>
-    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Registro ISP:</b> todo respirador vendido en Chile debe tener número ISP activo</div></div>
-  </div>
-
-  <div class="ifg-sh"><div class="ifg-sn">7</div><div class="ifg-st">Marco regulatorio · Chile 🇨🇱</div><div class="ifg-sl"></div></div>
-  <div class="ifg-g3" style="margin-bottom:14px;">
-    <div class="ifg-card" style="border-top:3px solid #10b981;"><div style="font-size:.59rem;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.7px;text-transform:uppercase;margin-bottom:3px;">Base legal</div><div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px;">Ley 16.744 · DS 594</div><div style="font-size:.7rem;color:rgba(204,224,245,.62);line-height:1.45;">Art. 35-37 exige EPP respiratorio al superar TLV. ISP registra y aprueba respiradores.</div></div>
-    <div class="ifg-card" style="border-top:3px solid #3b82f6;"><div style="font-size:.59rem;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.7px;text-transform:uppercase;margin-bottom:3px;">ISP NT-140/2026</div><div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px;">Filtros EPA/HEPA/ULPA</div><div style="font-size:.7rem;color:rgba(204,224,245,.62);line-height:1.45;">Establece clasificación y criterios de uso en recintos laborales Chile. Vigente 2026.</div></div>
-    <div class="ifg-card" style="border-top:3px solid #a78bfa;"><div style="font-size:.59rem;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.7px;text-transform:uppercase;margin-bottom:3px;">Registro ISP</div><div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px;">ispch.gob.cl/listadoepp</div><div style="font-size:.7rem;color:rgba(204,224,245,.62);line-height:1.45;">Verificar RFI vigente (3 años renovable) antes de licitar o comprar.</div></div>
-  </div>
-
-  <div class="ifg-foot">BuscaEPP · buscaepp.cl · Guía técnica protección respiratoria · Edición 2026 · Para uso educativo</div>
 </div>`
   },
 
