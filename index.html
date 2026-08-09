@@ -1099,6 +1099,13 @@
       if (typeof renderExpertos === 'function') renderExpertos();
     }, err => console.warn('Expertos offline:', err));
 
+    // ── Destacado del Mes — banner en tiempo real ───────────
+    onSnapshot(doc(db, 'config', 'destacadoMes'), snap => {
+      window._destacadoMesData = snap.exists() ? snap.data() : null;
+      if (typeof renderDestacadoMesBanner === 'function') renderDestacadoMesBanner();
+      if (typeof renderDestacadoMesAdmin === 'function') renderDestacadoMesAdmin();
+    }, err => console.warn('Destacado del mes offline:', err));
+
     window._fbReady = true;
     console.log('✅ Firebase conectado — BuscaEPP');
   </script>
@@ -1279,6 +1286,10 @@
       </div>
       <div style="background:rgba(255,255,255,.2);border-radius:20px;padding:3px 12px;font-size:.75rem;color:#fff;font-weight:700;white-space:nowrap;">🌱 SEA Chile</div>
     </a>
+
+    <!-- ── DESTACADO DEL MES ── -->
+    <div id="destacadoMesBanner" style="display:none;"></div>
+
     <div id="modelSearchPanel" class="model-search-panel" style="display:none;"></div>
   </div>
 
@@ -6072,6 +6083,38 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
       <button onclick="cargarEstadisticasVisitas()" style="margin-top:.8rem;background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;">🔄 Actualizar</button>
     </div>
 
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- DESTACADO DEL MES                              -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div class="admin-card" style="margin-bottom:1.5rem;">
+      <h3>🌟 Destacado del Mes</h3>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Se muestra en la portada, entre el banner de SEA y el buscador de productos. Solo tú, como administrador, puedes editarlo.</div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;margin-bottom:1rem;">
+        <div>
+          <div id="destMesLogoPreview" style="width:120px;height:120px;border-radius:12px;background:var(--surface2);border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;">🖼️</div>
+          <input type="file" id="destMesImgInput" accept="image/*" style="display:none;" onchange="previewDestMesImg(this)">
+          <div style="display:flex;gap:.4rem;margin-top:.5rem;">
+            <button onclick="document.getElementById('destMesImgInput').click()" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:.35rem .7rem;cursor:pointer;font-size:.72rem;">📷 Subir imagen</button>
+          </div>
+        </div>
+        <div style="flex:1;min-width:240px;display:grid;gap:.5rem;">
+          <input id="destMesActividad" type="text" placeholder="¿A qué se dedica?" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          <input id="destMesProducto" type="text" placeholder="Producto o servicio destacado" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+            <input id="destMesTelefono" type="text" placeholder="Teléfono de contacto" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+            <input id="destMesWeb" type="text" placeholder="Página web de contacto" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;">
+        <button onclick="guardarDestacadoMes()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:8px;padding:.6rem 1.5rem;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.5px;">✅ GUARDAR Y PUBLICAR</button>
+        <button onclick="quitarDestacadoMes()" style="background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:.6rem 1.2rem;cursor:pointer;font-size:.82rem;">🗑️ Quitar banner de la portada</button>
+        <div id="destMesMsg" style="font-size:.78rem;"></div>
+      </div>
+    </div>
+
     <!-- ── GESTIÓN USUARIOS VIP ── -->
     <div class="admin-card" style="margin-bottom:1.5rem;">
       <h3>⭐ Usuarios VIP</h3>
@@ -10211,7 +10254,7 @@ function showTab(tab, skipAuth=false) {
     if (pane) pane.style.display = t===tab?'block':'none';
     if (tb) tb.classList.toggle('active', t===tab);
   });
-  if (tab==='admin') renderAdminTable();
+  if (tab==='admin') { renderAdminTable(); renderDestacadoMesAdmin(); }
   if (tab==='corp') renderCorp();
   if (tab==='fab') renderFabricantes();
   if (tab==='expertos') renderExpertos();
@@ -11621,6 +11664,119 @@ function borrarExpLogo() {
   document.getElementById('expLogoPreview').innerHTML = '🏢';
   document.getElementById('expLogoBorrar').style.display = 'none';
   document.getElementById('expLogoInput').value = '';
+}
+
+// ── Destacado del Mes (banner portada, editable por admin) ─────
+let destMesImgBase64 = null;
+
+function previewDestMesImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 8 * 1024 * 1024) { alert('La imagen no debe superar 8 MB'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      // Comprimir/redimensionar para que quepa cómodo en Firestore (límite 1MB por documento)
+      const maxW = 900;
+      const scale = Math.min(1, maxW / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      destMesImgBase64 = canvas.toDataURL('image/jpeg', 0.75);
+      document.getElementById('destMesLogoPreview').innerHTML = `<img src="${destMesImgBase64}" style="width:100%;height:100%;object-fit:cover;">`;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function guardarDestacadoMes() {
+  const actividad = document.getElementById('destMesActividad').value.trim();
+  const producto  = document.getElementById('destMesProducto').value.trim();
+  const telefono  = document.getElementById('destMesTelefono').value.trim();
+  const web       = document.getElementById('destMesWeb').value.trim();
+  const msgEl = document.getElementById('destMesMsg');
+
+  const existente = window._destacadoMesData || {};
+  const imagen = destMesImgBase64 || existente.imagen || null;
+
+  if (!imagen || !actividad || !producto) {
+    msgEl.style.color = '#f87171';
+    msgEl.textContent = '❌ Completa al menos: imagen, actividad y producto/servicio';
+    return;
+  }
+
+  const datos = { imagen, actividad, producto, telefono, web, activo: true, ts: Date.now() };
+
+  try {
+    const { db, doc, setDoc } = window._FB;
+    await setDoc(doc(db, 'config', 'destacadoMes'), datos);
+    msgEl.style.color = '#4ade80';
+    msgEl.textContent = '✅ Publicado en la portada';
+  } catch (e) {
+    console.error('Firebase error:', e);
+    msgEl.style.color = '#f87171';
+    msgEl.textContent = `❌ Error al guardar: ${e.message || e.code || 'desconocido'}`;
+  }
+}
+
+async function quitarDestacadoMes() {
+  if (!confirm('¿Quitar el banner "Destacado del Mes" de la portada?')) return;
+  try {
+    const { db, doc, setDoc } = window._FB;
+    await setDoc(doc(db, 'config', 'destacadoMes'), { activo: false }, { merge: true });
+    document.getElementById('destMesMsg').style.color = '#4ade80';
+    document.getElementById('destMesMsg').textContent = '✅ Banner retirado de la portada';
+  } catch (e) {
+    console.error('Firebase error:', e);
+  }
+}
+
+// Rellena el formulario admin con lo publicado actualmente
+function renderDestacadoMesAdmin() {
+  const d = window._destacadoMesData;
+  const nombreEl = document.getElementById('destMesActividad');
+  if (!nombreEl) return; // panel admin aún no está en el DOM
+  if (!d) return;
+  document.getElementById('destMesActividad').value = d.actividad || '';
+  document.getElementById('destMesProducto').value  = d.producto  || '';
+  document.getElementById('destMesTelefono').value  = d.telefono  || '';
+  document.getElementById('destMesWeb').value       = d.web       || '';
+  if (d.imagen) {
+    document.getElementById('destMesLogoPreview').innerHTML = `<img src="${d.imagen}" style="width:100%;height:100%;object-fit:cover;">`;
+  }
+}
+
+// Pinta el banner en la portada (solo si está activo)
+function renderDestacadoMesBanner() {
+  const el = document.getElementById('destacadoMesBanner');
+  if (!el) return;
+  const d = window._destacadoMesData;
+  if (!d || !d.activo || !d.imagen) { el.style.display = 'none'; el.innerHTML = ''; return; }
+
+  const telHtml = d.telefono ? `<a href="tel:${d.telefono.replace(/[^0-9+]/g,'')}" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,255,255,.15);border-radius:8px;padding:.3rem .7rem;font-size:.75rem;color:#fff;text-decoration:none;">📞 ${d.telefono}</a>` : '';
+  const webHref = d.web ? (d.web.startsWith('http') ? d.web : `https://${d.web}`) : '';
+  const webHtml = d.web ? `<a href="${webHref}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,255,255,.15);border-radius:8px;padding:.3rem .7rem;font-size:.75rem;color:#fff;text-decoration:none;">🌐 ${d.web}</a>` : '';
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+                background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));
+                border:1px solid rgba(245,158,11,.35);border-radius:14px;padding:1rem 1.2rem;
+                margin:.6rem auto 0;max-width:700px;width:100%;box-sizing:border-box;">
+      <div style="display:flex;align-items:center;gap:.4rem;">
+        <span style="background:var(--accent);color:#000;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;white-space:nowrap;">⭐ DESTACADO DEL MES</span>
+      </div>
+      <img src="${d.imagen}" style="width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0;">
+      <div style="flex:1;min-width:160px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.95rem;">${d.actividad || ''}</div>
+        <div style="font-size:.78rem;color:var(--muted);">${d.producto || ''}</div>
+      </div>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap;">${telHtml}${webHtml}</div>
+    </div>`;
+  el.style.display = 'block';
 }
 
 // ── Archivo adjunto experto ───────────────────────────────────
