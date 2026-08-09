@@ -4471,7 +4471,7 @@ function estudiaRenderizar() {
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1.5px;line-height:1;">INFOGRAMAS <span style="color:#a78bfa;">BUSCAEPP</span></div>
         <div style="color:rgba(255,255,255,.42);font-size:.73rem;margin-top:.3rem;">Resúmenes visuales para profesionales de seguridad industrial</div>
       </div>
-      <span style="background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:#c4b5fd;font-size:.67rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;">📊 8 disponibles</span>
+      <span style="background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:#c4b5fd;font-size:.67rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;">📊 9 disponibles</span>
     </div>
   </div>
 
@@ -4560,6 +4560,31 @@ function estudiaRenderizar() {
       <div class="ifr-foot">
         <span class="ifr-meta">9 secciones · infograma ISP</span>
         <button class="ifr-btn" style="background:rgba(110,231,183,.15);color:#6ee7b7;border:1px solid rgba(110,231,183,.3);">📊 Ver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CATEGORÍA: PROTECCIÓN VISUAL ══ -->
+  <div class="ifr-cat-hdr">
+    <div class="ifr-cat-ico" style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.25);">👓</div>
+    <div class="ifr-cat-ttl" style="color:#93c5fd;">Protección Visual</div>
+    <div class="ifr-cat-line" style="background:rgba(96,165,250,.15);"></div>
+    <div class="ifr-cat-count" style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);color:#93c5fd;">1 infograma</div>
+  </div>
+  <div class="ifr-grid">
+    <div class="ifr-card" onclick="abrirInfograma('visual')" style="border-top:3px solid #60a5fa;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0d1a2e,#0e2240);">
+        👓
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(96,165,250,.55);letter-spacing:.4px;">ISP Chile · buscaepp.cl</div>
+      </div>
+      <div class="ifr-body">
+        <div class="ifr-tag" style="color:#93c5fd;">Protección Visual</div>
+        <div class="ifr-ttl">Protección Visual — Según el ISP de Chile</div>
+        <div class="ifr-desc">Marco normativo, clasificación, marcaciones ANSI Z87.1, filtros de soldadura, aplicación por industria y requisitos ISP.</div>
+      </div>
+      <div class="ifr-foot">
+        <span class="ifr-meta">9 secciones · infograma ISP</span>
+        <button class="ifr-btn" style="background:rgba(96,165,250,.15);color:#93c5fd;border:1px solid rgba(96,165,250,.3);">📊 Ver</button>
       </div>
     </div>
   </div>
@@ -10472,6 +10497,45 @@ const CERT_DATA = {
           ⚠️ Exige siempre certificado de calibración con: N° serie equipo · Gases patrón utilizados · Trazabilidad · Fecha próxima calibración · Firma técnico responsable.
         </div>
       </div>`
+  },
+
+  visual: {
+    titulo: 'Protección Visual — Según el ISP de Chile',
+    ico: '👓',
+    html: `<style>
+  .vis-wrap{max-width:900px;margin:0 auto;font-family:'Montserrat','DM Sans',sans-serif;}
+  .vis-hdr{background:linear-gradient(135deg,#0d1a2e,#0e2240);border-bottom:2px solid rgba(96,165,250,.25);padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .vis-img-container{padding:12px 16px;background:#080e1a;}
+  .vis-img-container img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 4px 24px rgba(0,0,0,.6);}
+  .vis-foot{background:rgba(0,0,0,.3);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+  .vis-foot-tag{font-size:.58rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.3px;}
+</style>
+<div class="vis-wrap">
+  <div class="vis-hdr">
+    <div style="font-size:2rem;flex-shrink:0;">👓</div>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.5px;line-height:1.1;"><span style="color:#60a5fa;">Protección Visual</span> — Según el ISP de Chile</div>
+      <div style="font-size:.65rem;color:rgba(255,255,255,.5);margin-top:3px;">Marco normativo · Clasificación · Marcaciones · Aplicación por industria · Requisitos ISP</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.3);border-radius:20px;padding:3px 10px;font-size:.6rem;font-weight:700;color:#93c5fd;letter-spacing:.8px;text-transform:uppercase;">ISP · ANSI Z87.1 · EN 166</div>
+      <div style="font-size:.58rem;color:rgba(255,255,255,.3);margin-top:5px;">Lentes · Googles · Pantallas · Soldadura</div>
+    </div>
+  </div>
+  <div class="vis-img-container">
+    <img src="./visual.png" alt="Infograma Protección Visual — ISP Chile · buscaepp.cl" loading="lazy">
+  </div>
+  <div class="vis-foot">
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <span class="vis-foot-tag">D.S. N°594/1999</span><span class="vis-foot-tag">·</span>
+      <span class="vis-foot-tag">ANSI/ISEA Z87.1-2020</span><span class="vis-foot-tag">·</span>
+      <span class="vis-foot-tag">EN 166 · EN 169 · EN 170</span><span class="vis-foot-tag">·</span>
+      <span class="vis-foot-tag">NCh-ISO 16321</span><span class="vis-foot-tag">·</span>
+      <span class="vis-foot-tag">Res. ISP N°3002</span>
+    </div>
+    <a href="https://www.ispch.cl/salud-de-los-trabajadores/" target="_blank" rel="noopener" style="font-size:.6rem;color:#93c5fd;text-decoration:none;font-weight:700;border:1px solid rgba(96,165,250,.3);border-radius:5px;padding:3px 8px;background:rgba(96,165,250,.08);">🔗 Ver ISP →</a>
+  </div>
+</div>`
   }
 };
 
