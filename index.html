@@ -3630,7 +3630,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       <div style="flex:1;min-width:200px;">
         <div style="font-size:.7rem;color:rgba(252,211,77,.8);font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:.2rem;">Guía Técnica · 30 preguntas</div>
         <div style="font-size:.97rem;font-weight:700;color:#fff;line-height:1.25;">Guantes de Protección: Pictogramas, Normas y Composición</div>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:.2rem;">EN 388 / EN 374 / EN 407 · ANSI/ISEA 105 · Marco chileno · Información neutral, sin marcas · BuscaEPP</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:.2rem;">Con infograma de pictogramas y explicación en simple · incluye TPR · EN/ANSI · Marco chileno · Sin marcas · BuscaEPP</div>
       </div>
       <div style="display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,#fcd34d,#f59e0b);color:#1a1305;font-size:.75rem;font-weight:800;padding:9px 18px;border-radius:22px;letter-spacing:.3px;flex-shrink:0;box-shadow:0 2px 8px rgba(252,211,77,.3);">📄 Ver Manual</div>
     </div>
@@ -3650,94 +3650,164 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
         <!-- Contenido scrollable -->
         <div style="flex:1;overflow-y:auto;padding:1.4rem 1.6rem;scrollbar-color:rgba(252,211,77,.3) transparent;" id="manual-guantes-body">
 
+
           <!-- Intro -->
           <div style="background:rgba(252,211,77,.07);border:1px solid rgba(252,211,77,.2);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
-            <p style="margin:0;font-size:.82rem;color:rgba(204,224,245,.75);line-height:1.6;">Esta guía está dirigida a compradores técnicos, prevencionistas y profesionales de seguridad industrial. La información se basa en las normas técnicas internacionales que rigen los guantes de protección (EN 388, EN ISO 374, EN 407, EN 511, ANSI/ISEA 105) y en el marco regulatorio chileno (Ley 16.744, DS 594). No promueve ni recomienda marcas o proveedores específicos.</p>
+            <p style="margin:0;font-size:.82rem;color:rgba(204,224,245,.75);line-height:1.6;">Guía pensada para que tanto quien compra como quien vende guantes de protección pueda explicar y entender, en palabras simples, qué significa cada pictograma y cada número. Cada respuesta parte con una idea en simple y luego el detalle técnico con su norma. Se basa en las normas internacionales que rigen los guantes de protección (EN 388, EN ISO 374, EN 407, EN 511, ANSI/ISEA 105) y en el marco regulatorio chileno (Ley 16.744, DS 594). No promueve ni recomienda marcas o proveedores específicos.</p>
+          </div>
+
+          <!-- Infograma de pictogramas -->
+          <div style="background:#0c1626;border:1px solid rgba(252,211,77,.22);border-radius:14px;padding:1.2rem 1.3rem 1.4rem;margin-bottom:1.7rem;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:#fcd34d;letter-spacing:.5px;margin-bottom:.15rem;">🔎 LOS 5 PICTOGRAMAS QUE VAS A VER EN UN GUANTE</div>
+            <div style="font-size:.72rem;color:rgba(204,224,245,.55);margin-bottom:1rem;">Cada símbolo certifica un tipo de riesgo distinto. Si no ves el símbolo, el guante no está certificado para ese riesgo.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;">
+
+              <!-- Martillo - Mecánico -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <rect x="10" y="46" width="44" height="6" rx="1.5" fill="#94a3b8"/>
+                  <rect x="27" y="14" width="10" height="34" rx="2" fill="#cbd5e1"/>
+                  <rect x="16" y="8" width="32" height="14" rx="3" fill="#e2e8f0"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Martillo</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Riesgos mecánicos: golpes, roces, cortes, pinchazos</div>
+                <div style="font-size:.55rem;color:#fcd34d;margin-top:.3rem;font-weight:700;">EN 388</div>
+              </div>
+
+              <!-- Vaso - Químico -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <path d="M24 8 H40 V22 L52 50 A4 4 0 0 1 48 56 H16 A4 4 0 0 1 12 50 L24 22 Z" fill="none" stroke="#7dd3fc" stroke-width="3.5" stroke-linejoin="round"/>
+                  <path d="M17 42 H47" stroke="#7dd3fc" stroke-width="3"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Vaso (beaker)</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Químicos y microorganismos</div>
+                <div style="font-size:.55rem;color:#fcd34d;margin-top:.3rem;font-weight:700;">EN ISO 374</div>
+              </div>
+
+              <!-- Llama - Calor -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <path d="M32 6 C20 20 18 30 24 40 C22 32 26 28 30 26 C28 34 34 38 34 44 C34 50 30 52 28 54 C40 52 46 42 42 32 C46 34 46 26 40 18 C40 24 36 22 36 16 C36 12 34 8 32 6 Z" fill="#fb923c"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Llama</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Calor y fuego</div>
+                <div style="font-size:.55rem;color:#fcd34d;margin-top:.3rem;font-weight:700;">EN 407</div>
+              </div>
+
+              <!-- Copo - Frío -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <g stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round">
+                    <line x1="32" y1="8" x2="32" y2="56"/>
+                    <line x1="10" y1="20" x2="54" y2="44"/>
+                    <line x1="10" y1="44" x2="54" y2="20"/>
+                  </g>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Copo de nieve</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Frío por contacto o ambiente</div>
+                <div style="font-size:.55rem;color:#fcd34d;margin-top:.3rem;font-weight:700;">EN 511</div>
+              </div>
+
+              <!-- Impacto / TPR -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <path d="M32 6 L54 14 V30 C54 44 44 54 32 58 C20 54 10 44 10 30 V14 Z" fill="none" stroke="#4ade80" stroke-width="3.5" stroke-linejoin="round"/>
+                  <text x="32" y="38" font-size="20" font-weight="900" fill="#4ade80" text-anchor="middle" font-family="Arial">P</text>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Escudo con "P"</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Impacto en el dorso — lo da el TPR</div>
+                <div style="font-size:.55rem;color:#fcd34d;margin-top:.3rem;font-weight:700;">EN 388 (P) / ANSI 138</div>
+              </div>
+
+            </div>
           </div>
 
           <!-- BLOQUE 1 -->
           <div class="mfr-blk">
-            <div class="mfr-blk-hdr">BLOQUE 1 · PICTOGRAMAS Y RIESGOS MECÁNICOS — EN 388 / ANSI-ISEA 105</div>
+            <div class="mfr-blk-hdr">BLOQUE 1 · EL PICTOGRAMA DEL MARTILLO, EN SIMPLE (EN 388)</div>
 
-            <div class="mfr-qa"><div class="mfr-q">P1. ¿Qué es el pictograma EN 388 y qué representa el símbolo del martillo?</div><div class="mfr-a">Es el pictograma que certifica la protección de un guante frente a riesgos mecánicos (abrasión, corte, desgarro, perforación y, opcionalmente, impacto). El símbolo del martillo golpeando un yunque es el más reconocido en EPP de manos, y bajo él siempre aparece una serie de números y letras que indican el nivel logrado en cada ensayo.</div><div class="mfr-n">EN 388</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P1. Veo un martillo con números abajo (ej. 4X43C). ¿Qué me está diciendo en simple?</div><div class="mfr-a"><b>En simple:</b> son 4 o 5 "notas" del guante, una por cada tipo de golpe o roce, en orden fijo. Mientras más alto el número (o más adelante la letra), mejor rinde el guante en esa prueba puntual — no es una nota general de "calidad".<br><br><b>El detalle:</b> <b>(1) Abrasión</b> 0-4 — resistencia a la lija/roce. <b>(2) Corte por cuchilla</b> 0-5 — resistencia a que lo corten deslizando un filo. <b>(3) Desgarro</b> 0-4 — resistencia a que lo rompan tirando/rasgando. <b>(4) Perforación</b> 0-4 — resistencia a que lo atraviese algo puntiagudo tipo clavo. <b>(5) Corte TDM</b> A-F — una segunda forma de medir el corte, más precisa, que reemplaza al número (2) cuando ese ensayo no es confiable para el material.</div><div class="mfr-n">EN 388:2016+A1:2018</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P2. ¿Qué significa cada número/letra bajo el pictograma EN 388? (ej. 4X43C)</div><div class="mfr-a">Se leen en orden fijo: <b>(1) Abrasión</b> 0-4 — ciclos de lija hasta desgastarse. <b>(2) Corte por cuchilla</b> (Coupe) 0-5 — puede aparecer como X si el material desafila la cuchilla. <b>(3) Desgarro</b> 0-4 — fuerza para rasgar el guante. <b>(4) Perforación</b> 0-4 — fuerza para atravesarlo con un punzón. <b>(5) Corte TDM/ISO 13997</b> A-F — reemplaza al ensayo de cuchilla cuando este no es confiable. <b>(6) Impacto</b> — aparece solo como "P" si el guante lo supera; si no se ensayó, ese espacio queda vacío.</div><div class="mfr-n">EN 388:2016+A1:2018</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P2. ¿Por qué a veces en vez de un número aparece una "X"?</div><div class="mfr-a"><b>En simple:</b> la X no es un cero ni una falla — significa "este ensayo puntual no aplicó o no se hizo por esta vía". <br><br><b>El detalle:</b> pasa sobre todo en el segundo dígito (corte por cuchilla), cuando el material del guante desafila la cuchilla de prueba y da resultados poco confiables. En ese caso se pasa directamente al ensayo TDM (la letra A-F), y el segundo dígito queda como X.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P3. ¿Por qué a veces aparece una "X" en el pictograma EN 388?</div><div class="mfr-a">Indica que ese ensayo específico no se aplicó o no es válido para ese material — por ejemplo, en el dígito de corte por cuchilla, cuando el material desafila la hoja de ensayo y se pasa directamente al ensayo TDM (la letra A-F). No significa que el guante sea inseguro, solo que ese dato en particular no está reportado por esa vía.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P3. ¿Qué es la letra "P" al final, y qué tiene que ver con el TPR?</div><div class="mfr-a"><b>En simple:</b> la "P" te dice que el guante también protege los nudillos y el dorso de la mano contra golpes — no solo la palma. Si ves guantes con placas o gomas abultadas en el dorso, eso casi siempre es <b>TPR</b> (caucho termoplástico), el material que se usa para lograr esa "P".<br><br><b>El detalle:</b> el TPR se moldea en segmentos sobre los nudillos y los dedos, con canales de flexión para que la mano se siga moviendo con libertad. Es un ensayo aparte y optativo: si un guante no lo tiene, ese espacio queda vacío (no se marca con 0). También existe la norma ANSI/ISEA 138, específica para impacto, con niveles 1 a 3 medidos en julios de energía absorbida.</div><div class="mfr-n">EN 388 (P) / ANSI/ISEA 138</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P4. ¿Cómo funciona el sistema ANSI/ISEA 105 para resistencia al corte, usado en Estados Unidos?</div><div class="mfr-a">Clasifica la resistencia al corte en una escala de nueve niveles, de <b>A1</b> (menor, ~200-499 gramos de fuerza) a <b>A9</b> (mayor, sobre 6.000 gramos), medidos con una máquina TDM que arrastra una hoja recta sobre el material bajo distintas cargas.</div><div class="mfr-n">ANSI/ISEA 105</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P4. En Estados Unidos usan otra escala para el corte (A1 a A9). ¿Es lo mismo que la A-F europea?</div><div class="mfr-a"><b>En simple:</b> no, son dos "idiomas" distintos para medir lo mismo — no conviertas un A5 americano en un nivel 5 europeo pensando que son iguales.<br><br><b>El detalle:</b> el sistema <b>ANSI/ISEA 105</b> (EE.UU.) mide en gramos de fuerza con una hoja recta, en 9 niveles de A1 (más bajo) a A9 (más alto). El sistema <b>EN 388</b> (Europa) mide en Newtons con otra metodología, en niveles A-F. Si te piden un nivel específico, exige la norma exacta que pide la faena o el cliente, no traduzcas "a ojo".</div><div class="mfr-n">ANSI/ISEA 105 vs. EN 388</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P5. ¿Es lo mismo el nivel "A-F" de EN 388 que el nivel "A1-A9" de ANSI/ISEA 105?</div><div class="mfr-a">No. Aunque ambos sistemas miden resistencia al corte, usan metodologías, unidades y escalas distintas (Newtons con hoja circular o TDM en EN 388, gramos de fuerza con hoja recta en ANSI). Un nivel "alto" en una escala no es automáticamente equivalente al mismo número en la otra — siempre hay que revisar la tabla de conversión o exigir la norma específica que pide la faena, no asumir equivalencias directas.</div></div>
-
-            <div class="mfr-qa"><div class="mfr-q">P6. En Chile, ¿los guantes se rigen por la norma europea (EN) o por la norma estadounidense (ANSI)?</div><div class="mfr-a">Chile no tiene una norma chilena (NCh) propia para clasificar riesgos mecánicos de guantes. El <b>D.S. N°594</b> (Art. 54) exige que todo EPP cumpla "las normas y exigencias de calidad que rijan según su naturaleza" — en la práctica, el mercado chileno reconoce mayoritariamente las normas europeas EN 388 / EN 374 / EN 407, aunque también se aceptan guantes certificados bajo ANSI/ISEA 105, especialmente en faenas con estándares de matriz extranjera. Lo importante es que el guante declare la norma exacta bajo la que fue ensayado.</div><div class="mfr-n">DS 594 Art. 54 / DS 181</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P5. En Chile, ¿me tienen que vender guantes con norma europea o puedo aceptar la americana?</div><div class="mfr-a"><b>En simple:</b> en Chile no hay una norma chilena propia para guantes — se exige que declaren una norma internacional reconocida, y en la práctica se ve mayoritariamente la europea (EN), aunque la americana (ANSI) también es válida.<br><br><b>El detalle:</b> el <b>D.S. N°594</b> (Art. 54) exige que todo EPP cumpla "las normas y exigencias de calidad que rijan según su naturaleza". No especifica cuál marco usar, así que lo importante es que el guante declare con claridad la norma exacta bajo la que fue certificado (con año de versión), sea EN o ANSI.</div><div class="mfr-n">DS 594 Art. 54 / DS 181</div></div>
           </div>
 
           <!-- BLOQUE 2 -->
           <div class="mfr-blk">
-            <div class="mfr-blk-hdr">BLOQUE 2 · OTROS PICTOGRAMAS: QUÍMICO, TÉRMICO Y FRÍO</div>
+            <div class="mfr-blk-hdr">BLOQUE 2 · LOS OTROS 3 PICTOGRAMAS, EN SIMPLE</div>
 
-            <div class="mfr-qa"><div class="mfr-q">P7. ¿Qué es el pictograma EN ISO 374 (el vaso de precipitados) y qué mide?</div><div class="mfr-a">Certifica la resistencia del guante a productos químicos y microorganismos. Bajo el pictograma aparecen letras que corresponden a sustancias químicas específicas de una lista normalizada frente a las cuales el guante fue efectivamente ensayado — esas letras no son iniciales comerciales, identifican compuestos concretos.</div><div class="mfr-n">EN ISO 374-1</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P6. Veo un vaso de precipitado con letras abajo. ¿Qué significa?</div><div class="mfr-a"><b>En simple:</b> ese guante fue probado contra químicos específicos — cada letra es una sustancia real de una lista fija, no una calificación general de "resiste químicos".<br><br><b>El detalle:</b> es el pictograma <b>EN ISO 374</b>. Las letras bajo el vaso corresponden a compuestos químicos concretos de una tabla normalizada frente a los cuales el guante fue efectivamente ensayado.</div><div class="mfr-n">EN ISO 374-1</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P8. ¿Qué diferencia hay entre Tipo A, Tipo B y Tipo C en guantes químicos?</div><div class="mfr-a"><b>Tipo A</b> (protección alta): resiste más de 30 minutos frente a al menos 6 sustancias de la lista normalizada. <b>Tipo B</b> (protección media): resiste igual tiempo frente a al menos 3 sustancias. <b>Tipo C</b> (protección baja): resiste al menos 10 minutos frente a 1 sola sustancia. La elección debe basarse en si la sustancia real que se manipula está entre las probadas, no solo en la letra del tipo.</div><div class="mfr-n">EN ISO 374-1</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P7. ¿Qué diferencia hay entre un guante químico Tipo A, Tipo B y Tipo C?</div><div class="mfr-a"><b>En simple:</b> A es el más probado (resiste más sustancias distintas), C es el menos probado (solo 1 sustancia) — pero eso no significa que A "sirva para todo".<br><br><b>El detalle:</b> <b>Tipo A</b>: resiste más de 30 min frente a al menos 6 sustancias de la lista. <b>Tipo B</b>: igual tiempo frente a al menos 3. <b>Tipo C</b>: al menos 10 min frente a 1 sola. Lo que realmente importa es si el químico que vas a usar está en esa lista, no solo la letra.</div><div class="mfr-n">EN ISO 374-1</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P9. ¿Qué mide el pictograma EN 407 (riesgos térmicos)?</div><div class="mfr-a">Evalúa seis niveles de protección frente al calor y/o fuego: resistencia a la inflamabilidad, calor por contacto, calor convectivo, calor radiante, pequeñas salpicaduras de metal fundido y grandes proyecciones de metal fundido. Cada uno se marca del 0 al 4 (o X si no se ensayó).</div><div class="mfr-n">EN 407:2020</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P8. Veo una llama en el pictograma. ¿Qué protege exactamente?</div><div class="mfr-a"><b>En simple:</b> mide qué tan bien aguanta el guante el calor y el fuego, en 6 pruebas distintas — no es un solo número, son varios.<br><br><b>El detalle:</b> es el pictograma <b>EN 407</b>: resistencia a que se prenda fuego, calor por contacto directo, calor que viene por el aire (convectivo), calor que viene por radiación, y dos niveles de salpicadura de metal fundido (pequeña y grande). Cada una se marca del 0 al 4 por separado.</div><div class="mfr-n">EN 407:2020</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P10. ¿Qué mide el pictograma EN 511 (protección contra el frío)?</div><div class="mfr-a">Certifica la resistencia del guante al frío convectivo, al frío de contacto y su resistencia a la penetración de agua, mediante tres dígitos bajo el pictograma correspondiente. Se aplica a guantes usados en cámaras frigoríficas, trabajo a la intemperie en climas extremos, o manipulación de superficies muy frías.</div><div class="mfr-n">EN 511</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P9. ¿Y el copo de nieve, para qué sirve?</div><div class="mfr-a"><b>En simple:</b> es para trabajos con frío — cámaras frigoríficas, intemperie en invierno, o tocar superficies muy frías.<br><br><b>El detalle:</b> es el pictograma <b>EN 511</b>, que mide resistencia al frío del ambiente, frío al tocar una superficie fría, y si el guante deja pasar agua.</div><div class="mfr-n">EN 511</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P11. ¿Un guante puede tener varios pictogramas al mismo tiempo?</div><div class="mfr-a">Sí. Un mismo guante puede estar certificado simultáneamente bajo EN 388 (mecánico), EN 407 (térmico) y/o EN ISO 374 (químico) si fue sometido y aprobó cada ensayo por separado. Es habitual en guantes multipropósito para minería o industria pesada, donde conviven varios riesgos a la vez.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P10. ¿Un mismo guante puede tener varios de estos pictogramas a la vez?</div><div class="mfr-a"><b>En simple:</b> sí, y es bastante común en guantes para minería o industria pesada, donde hay varios riesgos al mismo tiempo.<br><br><b>El detalle:</b> cada pictograma corresponde a un ensayo independiente. Un guante puede aprobar EN 388 (mecánico) y EN 407 (calor) a la vez, por ejemplo, y mostrar ambos símbolos en su etiqueta.</div></div>
           </div>
 
           <!-- BLOQUE 3 -->
           <div class="mfr-blk">
-            <div class="mfr-blk-hdr">BLOQUE 3 · MARCO NORMATIVO EN CHILE</div>
+            <div class="mfr-blk-hdr">BLOQUE 3 · LO QUE EXIGE LA LEY EN CHILE</div>
 
-            <div class="mfr-qa"><div class="mfr-q">P12. ¿Qué obliga la Ley N°16.744 respecto a los guantes de protección?</div><div class="mfr-a">Establece que el empleador debe proporcionar los elementos de protección personal necesarios sin costo para el trabajador, cuando la naturaleza del trabajo así lo requiera.</div><div class="mfr-n">Ley 16.744</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P11. ¿El empleador está obligado a dar los guantes gratis?</div><div class="mfr-a"><b>En simple:</b> sí, siempre que el trabajo lo requiera, el trabajador no debe pagar nada.<br><br><b>El detalle:</b> lo establece la <b>Ley N°16.744</b>: el empleador debe proporcionar los elementos de protección personal necesarios sin costo para el trabajador.</div><div class="mfr-n">Ley 16.744</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P13. ¿Qué exige el D.S. N°594 sobre la certificación de los guantes?</div><div class="mfr-a">El <b>Artículo 54</b> exige que todo EPP comercializado o usado en Chile, sea nacional o importado, cumpla las normas y exigencias de calidad que correspondan según su naturaleza (Decreto N°18 de 1982, Minsal). Para guantes, eso se traduce en exigir la norma internacional específica del riesgo: EN 388, EN 374, EN 407 o ANSI/ISEA 105, según corresponda.</div><div class="mfr-n">DS 594 Art. 54</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P12. ¿Qué dice exactamente el D.S. N°594 sobre los guantes?</div><div class="mfr-a"><b>En simple:</b> obliga a que el guante cumpla una norma de calidad reconocida — no basta con que "parezca" seguro.<br><br><b>El detalle:</b> el <b>Artículo 54</b> exige que todo EPP, nacional o importado, cumpla las normas y exigencias de calidad que correspondan según su naturaleza. Para guantes, eso significa exigir la norma internacional específica del riesgo: EN 388, EN 374, EN 407 o ANSI/ISEA 105, según el caso.</div><div class="mfr-n">DS 594 Art. 54</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P14. ¿El ISP certifica directamente los guantes de protección en Chile?</div><div class="mfr-a">El ISP participa en la fiscalización y registro de EPP en general, pero para guantes de riesgo mecánico, químico o térmico no existe un laboratorio nacional propio como el que certifica calzado o cascos — por eso se reconoce la certificación obtenida en laboratorios extranjeros acreditados bajo las normas EN o ANSI correspondientes.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P13. ¿El ISP certifica los guantes uno por uno en Chile, como hace con los cascos?</div><div class="mfr-a"><b>En simple:</b> no exactamente — para guantes no existe un laboratorio nacional propio como el de cascos o calzado.<br><br><b>El detalle:</b> el ISP participa en la fiscalización general de EPP, pero para guantes se reconoce la certificación obtenida en laboratorios extranjeros acreditados bajo EN o ANSI.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P15. ¿Qué debe verificar el comprador antes de aceptar un lote de guantes como "certificado"?</div><div class="mfr-a">Que la ficha técnica o el empaque muestre el pictograma correspondiente, la norma exacta con su año de versión (ej. "EN 388:2016+A1:2018"), y los dígitos/letras de cada nivel de desempeño — no basta con que el vendedor diga "cumple la norma" sin mostrar el marcado completo.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P14. Como comprador, ¿qué debo pedir para confirmar que un guante realmente está certificado?</div><div class="mfr-a"><b>En simple:</b> pide ver el pictograma completo con sus números/letras y la norma con año — no aceptes solo la palabra "certificado" sin respaldo.<br><br><b>El detalle:</b> la ficha técnica o el empaque debe mostrar el pictograma, la norma exacta con su año de versión (ej. "EN 388:2016+A1:2018"), y todos los dígitos/letras de desempeño.</div></div>
           </div>
 
           <!-- BLOQUE 4 -->
           <div class="mfr-blk">
-            <div class="mfr-blk-hdr">BLOQUE 4 · COMPOSICIÓN Y MATERIALES DE FABRICACIÓN</div>
+            <div class="mfr-blk-hdr">BLOQUE 4 · DE QUÉ ESTÁ HECHO EL GUANTE</div>
 
-            <div class="mfr-qa"><div class="mfr-q">P16. ¿Qué es el nitrilo y para qué se usa principalmente?</div><div class="mfr-a">Es un caucho sintético (copolímero de acrilonitrilo-butadieno). No contiene proteínas de látex, por lo que no causa las alergias asociadas a ese material. Ofrece buena resistencia a aceites, grasas, combustibles, y buena resistencia a la perforación y abrasión — es de los recubrimientos más usados en guantes de trabajo general y automotriz.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P15. ¿Qué es el nitrilo y por qué se ve tanto en guantes de trabajo?</div><div class="mfr-a"><b>En simple:</b> es un caucho sintético, resistente y sin proteínas de látex — por eso no da alergia.<br><br><b>El detalle:</b> es un copolímero de acrilonitrilo-butadieno. Buena resistencia a aceites, grasas y combustibles, y buena resistencia a la perforación y abrasión. Es de los recubrimientos más comunes en guantes de trabajo general y automotriz.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P17. ¿Qué es el látex natural y qué limitación tiene?</div><div class="mfr-a">Es caucho natural, muy elástico y cómodo, con buena sensibilidad táctil. Su principal limitación es que puede causar reacciones alérgicas en personas sensibles a las proteínas del látex, por lo que en muchos entornos (salud, alimentos) se prefiere nitrilo.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P16. ¿Qué es el látex y cuál es su problema?</div><div class="mfr-a"><b>En simple:</b> es caucho natural, muy cómodo y elástico — pero puede causar alergia.<br><br><b>El detalle:</b> algunas personas son sensibles a las proteínas naturales del látex, por eso en salud y alimentos suele preferirse nitrilo.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P18. ¿Qué es el neopreno y en qué se diferencia del nitrilo?</div><div class="mfr-a">Es un caucho sintético (policloropreno). Mientras el nitrilo destaca en resistencia a aceites e hidrocarburos, el neopreno ofrece mejor resistencia frente a ácidos, bases, alcoholes y ciertos cáusticos — la elección depende del químico específico que se manipula, no de cuál "es mejor" en general.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P17. ¿En qué se diferencia el neopreno del nitrilo?</div><div class="mfr-a"><b>En simple:</b> ambos son cauchos sintéticos, pero cada uno "gana" frente a distintos químicos.<br><br><b>El detalle:</b> el nitrilo destaca contra aceites e hidrocarburos; el neopreno ofrece mejor resistencia frente a ácidos, bases y alcoholes. La elección depende del químico real que se manipula.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P19. ¿Qué son las fibras aramidas (conocidas comercialmente bajo nombres como "Kevlar" o "Nomex") y para qué se usan?</div><div class="mfr-a">Son fibras sintéticas de alta resistencia. Las <b>para-aramidas</b> se usan como fibra base para dar resistencia al corte y a la abrasión (por eso aparecen en guantes anticorte de nivel alto). Las <b>meta-aramidas</b> se usan específicamente por su resistencia al calor y a la llama, en guantes para soldadura, fundición o trabajo con arco eléctrico. Ambas suelen combinarse con otras fibras (algodón, HPPE, elastano) para dar flexibilidad al guante.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P18. ¿Qué son las fibras aramidas (las que a veces se conocen por nombres comerciales como "Kevlar" o "Nomex")?</div><div class="mfr-a"><b>En simple:</b> son fibras sintéticas muy resistentes — unas cortan poco, otras aguantan calor.<br><br><b>El detalle:</b> las <b>para-aramidas</b> dan resistencia al corte y abrasión (guantes anticorte). Las <b>meta-aramidas</b> dan resistencia al calor y la llama (soldadura, fundición, arco eléctrico). Suelen mezclarse con otras fibras para que el guante no quede rígido.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P20. ¿Qué es el HPPE y por qué se usa en guantes anticorte?</div><div class="mfr-a">Es polietileno de alto peso molecular (fibra sintética ultraligera y muy resistente al corte). Se usa como fibra base tejida en guantes anticorte de nivel medio-alto, a menudo combinado con fibra de vidrio o hilo de acero para subir el nivel de protección sin aumentar tanto el grosor del guante.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P19. ¿Qué es el HPPE?</div><div class="mfr-a"><b>En simple:</b> una fibra súper liviana y muy resistente al corte.<br><br><b>El detalle:</b> es polietileno de alto peso molecular. Se teje como base de guantes anticorte de nivel medio-alto, a veces combinado con fibra de vidrio o hilo de acero para subir aún más la protección.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P21. ¿Qué significa que un guante tenga "recubrimiento de PU" (poliuretano)?</div><div class="mfr-a">El PU es un recubrimiento delgado que se aplica sobre la palma de un guante tejido (base de nylon, poliéster o HPPE). Da buena destreza, agarre en seco y ligeramente aceitoso, y buena sensibilidad táctil — muy usado en ensamblaje, electrónica y manipulación de piezas pequeñas donde se necesita precisión.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P20. ¿Qué significa "recubrimiento de PU"?</div><div class="mfr-a"><b>En simple:</b> una capa delgada que da buen agarre y mucha destreza para trabajos finos.<br><br><b>El detalle:</b> el poliuretano (PU) se aplica sobre la palma de un guante tejido (nylon, poliéster o HPPE). Ideal para ensamblaje, electrónica y manipulación de piezas pequeñas.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P22. ¿Qué diferencia hay entre PVC y cuero como material de guante?</div><div class="mfr-a">El <b>PVC</b> es un plástico sintético económico, resistente a químicos básicos y al agua, pero se vuelve rígido con el frío. El <b>cuero</b> (vacuno, cabra o cerdo) ofrece buena resistencia mecánica general y calor moderado, pero pierde propiedades si se moja y no protege bien contra químicos líquidos.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P21. ¿PVC o cuero — cuál conviene?</div><div class="mfr-a"><b>En simple:</b> el PVC es más barato y resiste agua/químicos básicos pero se pone duro con el frío; el cuero es más cómodo y resistente al roce pero no le gusta mojarse.<br><br><b>El detalle:</b> el PVC es un plástico sintético económico. El cuero (vacuno, cabra o cerdo) da buena resistencia mecánica y calor moderado, pero pierde propiedades húmedo y no protege bien contra químicos líquidos.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P23. ¿Qué es un guante con acabado "grip" o "diamantado" y de qué material está hecho?</div><div class="mfr-a">"Grip" no es un material en sí, sino una textura o patrón (liso, diamantado, arenado) aplicado sobre el recubrimiento — normalmente nitrilo o PU — para aumentar el agarre en superficies con aceite, grasa o humedad. Al comprar, hay que fijarse en el material base (nitrilo, PU, látex) y, aparte, en el tipo de acabado si el trabajo involucra superficies resbaladizas.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P22. ¿Qué es el TPR y por qué algunos guantes tienen esas "placas" en el dorso?</div><div class="mfr-a"><b>En simple:</b> el TPR es el material de goma dura que arma esas placas — su trabajo es absorber golpes para que no te lastimes los nudillos.<br><br><b>El detalle:</b> TPR significa caucho termoplástico. No es una placa rígida de una sola pieza: va moldeada en segmentos sobre los nudillos y los dedos, con canales flexibles entre cada segmento para que la mano se siga moviendo con libertad. Es lo que le da al guante la "P" de impacto en el pictograma EN 388, o la clasificación por niveles 1-2-3 de la norma ANSI/ISEA 138. Se usa en minería, montaje industrial, petróleo y trabajos con riesgo de golpes o aplastamiento en el dorso de la mano.</div><div class="mfr-n">EN 388 (P) / ANSI/ISEA 138</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P23. ¿Qué es un guante "grip" o diamantado — es un material distinto?</div><div class="mfr-a"><b>En simple:</b> no es un material, es una textura sobre el material — como el dibujo de una llanta, pero en la palma del guante.<br><br><b>El detalle:</b> "grip" o "diamantado" describe el patrón (liso, diamantado, arenado) aplicado sobre el recubrimiento — normalmente nitrilo o PU — para mejorar el agarre en superficies con aceite, grasa o humedad. Al comprar, fíjate primero en el material base y luego, aparte, en el tipo de acabado si el trabajo es en superficies resbaladizas.</div></div>
           </div>
 
           <!-- BLOQUE 5 -->
           <div class="mfr-blk">
-            <div class="mfr-blk-hdr">BLOQUE 5 · SELECCIÓN SEGÚN INDUSTRIA Y BUENAS PRÁCTICAS</div>
+            <div class="mfr-blk-hdr">BLOQUE 5 · QUÉ GUANTE CONVIENE SEGÚN EL TRABAJO</div>
+            <div style="font-size:.68rem;color:rgba(204,224,245,.5);margin:-.3rem 0 .6rem;">Guía general y no exhaustiva — el riesgo real de cada faena siempre manda por sobre esta tabla.</div>
 
-            <div class="mfr-qa"><div class="mfr-q">P24. ¿Qué guante conviene para manipulación general, ensamblaje o logística? (guía general, no exhaustiva)</div><div class="mfr-a">Guante tejido con recubrimiento de PU o nitrilo delgado, nivel EN 388 bajo-medio en abrasión y corte — prioriza destreza y comodidad para tareas repetitivas de manejo de piezas o cajas.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P24. Manipulación general, ensamblaje o logística — ¿qué guante conviene?</div><div class="mfr-a">Guante tejido con recubrimiento de PU o nitrilo delgado, nivel EN 388 bajo-medio en abrasión y corte. Prioriza destreza y comodidad para tareas repetitivas de manejo de piezas o cajas.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P25. ¿Qué guante conviene para minería, construcción o manejo de materiales pesados?</div><div class="mfr-a">Guante con recubrimiento de nitrilo o látex más grueso, buen nivel de abrasión y perforación EN 388, y refuerzo en la palma. En minería, además suele exigirse resistencia a hidrocarburos y, según la tarea, protección al impacto (dorso reforzado).</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P25. Minería, construcción o manejo de materiales pesados — ¿qué guante conviene?</div><div class="mfr-a">Guante con recubrimiento de nitrilo o látex más grueso, buen nivel de abrasión y perforación EN 388, refuerzo en la palma, y resistencia a hidrocarburos. Si hay riesgo de golpes en el dorso, sumar TPR (marca "P").</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P26. ¿Qué guante conviene para trabajos con vidrio, chapa metálica o riesgo de corte alto?</div><div class="mfr-a">Guante con fibra base HPPE o para-aramida, nivel de corte EN 388 D-F o ANSI A4 en adelante, según la severidad del filo que se manipula.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P26. Trabajos con vidrio, chapa metálica o riesgo de corte alto — ¿qué guante conviene?</div><div class="mfr-a">Guante con fibra base HPPE o para-aramida, nivel de corte EN 388 D-F o ANSI A4 en adelante, según qué tan filoso sea lo que se manipula.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P27. ¿Qué guante conviene para manejo de químicos líquidos (ácidos, solventes, aceites industriales)?</div><div class="mfr-a">Guante certificado EN ISO 374 Tipo A o B según la cantidad de sustancias relevantes probadas, en nitrilo o neopreno según el químico específico — siempre cruzando la sustancia real de trabajo con la tabla de compatibilidad química del fabricante, no solo la letra del tipo.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P27. Manejo de químicos líquidos (ácidos, solventes, aceites industriales) — ¿qué guante conviene?</div><div class="mfr-a">Guante certificado EN ISO 374 Tipo A o B según cuántas sustancias relevantes fueron probadas, en nitrilo o neopreno según el químico específico — siempre cruzando la sustancia real de trabajo con la tabla de compatibilidad, no solo la letra del tipo.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P28. ¿Qué guante conviene para soldadura o trabajo con calor directo/arco eléctrico?</div><div class="mfr-a">Guante de cuero curtido al cromo o con inserto de fibra meta-aramida, certificado EN 407 con niveles altos en calor de contacto y resistencia a salpicaduras de metal fundido.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P28. Soldadura o trabajo con calor directo/arco eléctrico — ¿qué guante conviene?</div><div class="mfr-a">Guante de cuero curtido al cromo o con inserto de fibra meta-aramida, certificado EN 407 con niveles altos en calor de contacto y resistencia a salpicaduras de metal fundido.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P29. ¿Qué guante conviene para industria alimentaria o manipulación de alimentos?</div><div class="mfr-a">Guante de nitrilo o látex sin polvo, con certificación de contacto alimentario, priorizando la ausencia de alérgenos (evitar látex si hay riesgo de alergia del personal) y buena resistencia a grasas y aceites.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P29. Industria alimentaria o manipulación de alimentos — ¿qué guante conviene?</div><div class="mfr-a">Guante de nitrilo o látex sin polvo, con certificación de contacto alimentario, evitando látex si hay riesgo de alergia del personal, con buena resistencia a grasas y aceites.</div></div>
 
-            <div class="mfr-qa"><div class="mfr-q">P30. ¿Qué errores comunes se cometen al elegir guantes de protección?</div><div class="mfr-a">Elegir solo por precio sin revisar el pictograma completo; usar el mismo guante para todas las tareas sin diferenciar el riesgo; no verificar la talla (uno grande reduce destreza y puede engancharse, uno pequeño fatiga la mano); y no documentar el criterio de selección, lo que dificulta responder ante una fiscalización o un accidente investigado.</div></div>
+            <div class="mfr-qa"><div class="mfr-q">P30. ¿Cuáles son los errores más comunes al elegir guantes?</div><div class="mfr-a">Elegir solo por precio sin revisar el pictograma completo; usar el mismo guante para todas las tareas sin diferenciar el riesgo; no verificar la talla (uno grande reduce destreza y puede engancharse, uno pequeño fatiga la mano); y no dejar por escrito el criterio de selección, lo que complica responder ante una fiscalización o un accidente investigado.</div></div>
           </div>
 
           <div style="text-align:center;font-size:.62rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;">BuscaEPP · buscaepp.cl · Guía técnica guantes de protección · Información neutral, sin marcas · Edición 2026</div>
