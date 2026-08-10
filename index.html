@@ -3826,6 +3826,214 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof cerrarManualGuantes==='function')cerrarManualGuantes();}});
     </script>
 
+    <!-- Guía P&R — Protección respiratoria: tipos, filtros, cartuchos y cambios -->
+    <div onclick="abrirManualResp()" style="background:linear-gradient(135deg,#082018 0%,#0a2a1f 50%,#051510 100%);border:1px solid rgba(110,231,183,.28);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;cursor:pointer;transition:border-color .15s,box-shadow .15s;" onmouseover="this.style.borderColor='rgba(110,231,183,.6)';this.style.boxShadow='0 4px 18px rgba(110,231,183,.12)';" onmouseout="this.style.borderColor='rgba(110,231,183,.28)';this.style.boxShadow='none';">
+      <div style="width:46px;height:46px;background:linear-gradient(135deg,rgba(110,231,183,.25),rgba(16,185,129,.18));border:1px solid rgba(110,231,183,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">😷</div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:.7rem;color:rgba(110,231,183,.8);font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:.2rem;">Guía Técnica · 30 preguntas</div>
+        <div style="font-size:.97rem;font-weight:700;color:#fff;line-height:1.25;">Protección Respiratoria: Tipos, Filtros, Cartuchos y Cambios</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:.2rem;">Con infograma de qué buscar en la caja · explicación en simple · NIOSH / EN · Marco chileno · Sin marcas · BuscaEPP</div>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,#6ee7b7,#10b981);color:#051510;font-size:.75rem;font-weight:800;padding:9px 18px;border-radius:22px;letter-spacing:.3px;flex-shrink:0;box-shadow:0 2px 8px rgba(110,231,183,.3);">📄 Ver Manual</div>
+    </div>
+
+    <!-- Modal — Guía P&R Protección Respiratoria -->
+    <div id="modal-manual-resp" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,12,25,.9);backdrop-filter:blur(4px);" onclick="if(event.target===this)cerrarManualResp()">
+      <div style="position:absolute;inset:2vh 2vw;background:#0f1d30;border:1px solid rgba(110,231,183,.25);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);">
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#082018,#0a2a1f);padding:.9rem 1.2rem;display:flex;align-items:center;gap:1rem;border-bottom:2px solid rgba(110,231,183,.3);flex-shrink:0;">
+          <span style="font-size:22px;">😷</span>
+          <div style="flex:1;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;color:#fff;letter-spacing:1px;">PROTECCIÓN RESPIRATORIA: TIPOS, FILTROS, CARTUCHOS Y CAMBIOS</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem;">BuscaEPP · 30 preguntas · Normativa NIOSH / EN · Información neutral, sin marcas</div>
+          </div>
+          <button onclick="cerrarManualResp()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.75rem;font-weight:700;transition:background .12s;" onmouseover="this.style.background='rgba(255,255,255,.16)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">✕ Cerrar</button>
+        </div>
+        <!-- Contenido scrollable -->
+        <div style="flex:1;overflow-y:auto;padding:1.4rem 1.6rem;scrollbar-color:rgba(110,231,183,.3) transparent;" id="manual-resp-body">
+
+          <!-- Intro -->
+          <div style="background:rgba(110,231,183,.07);border:1px solid rgba(110,231,183,.2);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
+            <p style="margin:0;font-size:.82rem;color:rgba(204,224,245,.75);line-height:1.6;">Guía pensada para que tanto quien compra como quien vende protección respiratoria pueda explicar y entender, en palabras simples, qué tipo de respirador y filtro corresponde a cada riesgo. Cada respuesta parte con una idea en simple y luego el detalle técnico con su norma. Se basa en las normas internacionales (NIOSH 42 CFR Part 84, EN 149, EN 14387, EN 143) y en el marco regulatorio chileno (Ley 16.744, DS 594). No promueve ni recomienda marcas o proveedores específicos.</p>
+          </div>
+
+          <!-- Infograma: qué buscar en la caja -->
+          <div style="background:#0c1626;border:1px solid rgba(110,231,183,.22);border-radius:14px;padding:1.2rem 1.3rem 1.4rem;margin-bottom:1.7rem;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:#6ee7b7;letter-spacing:.5px;margin-bottom:.15rem;">🔎 QUÉ DEBES ENCONTRAR EN LA CAJA Y EN EL RESPIRADOR</div>
+            <div style="font-size:.72rem;color:rgba(204,224,245,.55);margin-bottom:1rem;">Antes de comprar o aceptar un lote, verifica que aparezcan estos 5 elementos.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;">
+
+              <!-- Sello de aprobación -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <circle cx="32" cy="32" r="24" fill="none" stroke="#4ade80" stroke-width="3.5"/>
+                  <path d="M21 33 L28 40 L44 22" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Sello de aprobación</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Marca NIOSH o marcado CE visible</div>
+                <div style="font-size:.55rem;color:#6ee7b7;margin-top:.3rem;font-weight:700;">NIOSH / CE</div>
+              </div>
+
+              <!-- Número TC / Clase -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <rect x="14" y="8" width="36" height="48" rx="3" fill="none" stroke="#7dd3fc" stroke-width="3.2"/>
+                  <line x1="20" y1="20" x2="44" y2="20" stroke="#7dd3fc" stroke-width="3"/>
+                  <line x1="20" y1="30" x2="44" y2="30" stroke="#7dd3fc" stroke-width="3"/>
+                  <line x1="20" y1="40" x2="36" y2="40" stroke="#7dd3fc" stroke-width="3"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Número TC / clase</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Ej. TC-84A-#### o FFP2/N95</div>
+                <div style="font-size:.55rem;color:#6ee7b7;margin-top:.3rem;font-weight:700;">NIOSH / EN 149</div>
+              </div>
+
+              <!-- Banda de color -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <rect x="12" y="20" width="40" height="24" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="2.5"/>
+                  <rect x="12" y="20" width="40" height="7" fill="#a16207"/>
+                  <rect x="12" y="37" width="40" height="7" fill="#eab308"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Banda de color</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Identifica el tipo de gas/vapor del cartucho</div>
+                <div style="font-size:.55rem;color:#6ee7b7;margin-top:.3rem;font-weight:700;">EN 14387</div>
+              </div>
+
+              <!-- Fecha -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <rect x="10" y="14" width="44" height="40" rx="4" fill="none" stroke="#f87171" stroke-width="3.2"/>
+                  <line x1="10" y1="24" x2="54" y2="24" stroke="#f87171" stroke-width="3"/>
+                  <line x1="20" y1="8" x2="20" y2="18" stroke="#f87171" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="44" y1="8" x2="44" y2="18" stroke="#f87171" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Fecha fabricación/vencimiento</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Caduca aunque esté sin usar</div>
+                <div style="font-size:.55rem;color:#6ee7b7;margin-top:.3rem;font-weight:700;">Empaque sellado</div>
+              </div>
+
+              <!-- Modelo/talla -->
+              <div style="background:#101c30;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:.8rem .7rem;text-align:center;">
+                <svg viewBox="0 0 64 64" style="width:42px;height:42px;margin:0 auto .4rem;display:block;">
+                  <path d="M10 30 L34 10 L54 30 L54 50 A4 4 0 0 1 50 54 L14 54 A4 4 0 0 1 10 50 Z" fill="none" stroke="#c4b5fd" stroke-width="3.2" stroke-linejoin="round"/>
+                  <circle cx="32" cy="34" r="5" fill="#c4b5fd"/>
+                </svg>
+                <div style="font-size:.68rem;font-weight:700;color:#fff;">Modelo y talla</div>
+                <div style="font-size:.6rem;color:rgba(204,224,245,.55);margin-top:.15rem;">Para verificar en la lista de certificación</div>
+                <div style="font-size:.55rem;color:#6ee7b7;margin-top:.3rem;font-weight:700;">Ficha técnica</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- BLOQUE 1 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 1 · TIPOS DE RESPIRADORES Y CUÁNDO USAR CADA UNO</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P1. ¿Qué diferencia hay entre un respirador purificador de aire y uno con suministro de aire?</div><div class="mfr-a"><b>En simple:</b> uno limpia el aire que ya está en el ambiente (con filtro o cartucho); el otro te trae aire limpio desde otra fuente, porque el ambiente es demasiado peligroso para solo filtrarlo.<br><br><b>El detalle:</b> el <b>purificador de aire (APR)</b> usa filtros o cartuchos para retener contaminantes del aire ambiente — depende de que haya suficiente oxígeno. El de <b>suministro de aire</b> (línea de aire o equipo autónomo) entrega aire desde un cilindro o compresor externo, y se usa cuando falta oxígeno o las concentraciones de tóxicos son muy altas.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P2. ¿Mascarilla desechable tipo N95 o respirador de media cara reutilizable — cuál elijo?</div><div class="mfr-a"><b>En simple:</b> la desechable es de un solo uso y solo sirve contra partículas; la de media cara se reutiliza y le puedes cambiar el filtro o cartucho según el riesgo del día.<br><br><b>El detalle:</b> la mascarilla autofiltrante (N95, FFP2, etc.) es una pieza completa desechable, solo protege contra partículas. La media cara reutilizable cubre nariz y boca, sella con la piel, y admite distintos filtros o cartuchos intercambiables — sirve para partículas, gases, o ambos, según lo que se le instale.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P3. ¿Cuándo se necesita una careta completa (full face) en vez de media cara?</div><div class="mfr-a"><b>En simple:</b> cuando además de la respiración hay que proteger los ojos y la cara — salpicaduras, gases irritantes, o cuando el riesgo es más alto.<br><br><b>El detalle:</b> la careta completa cubre desde la frente hasta el mentón con un visor, sella todo el perímetro de la cara, y da un nivel de protección más alto que la media cara usando el mismo filtro o cartucho.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P4. ¿Qué es un respirador motorizado (PAPR) y cuándo conviene?</div><div class="mfr-a"><b>En simple:</b> trae un pequeño motor que empuja el aire ya filtrado hacia tu cara, así respiras con menos esfuerzo — ideal para turnos largos.<br><br><b>El detalle:</b> el PAPR usa un ventilador con batería para forzar el aire a través de los filtros o cartuchos hacia una careta o capucha, generando presión positiva dentro de la pieza — eso además reduce el riesgo de que entre aire contaminado por fugas.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P5. ¿Qué son los equipos de aire suministrado o autónomos, y cuándo son obligatorios?</div><div class="mfr-a"><b>En simple:</b> cuando el aire del lugar no es respirable (falta oxígeno o hay demasiado tóxico), ningún filtro sirve — hay que llevar el aire desde otro lado.<br><br><b>El detalle:</b> se usan en espacios confinados, rescate, o atmósferas con peligro inmediato para la vida o la salud (IDLH) o con deficiencia de oxígeno. Un filtro nunca reemplaza a un equipo de aire suministrado en esos escenarios, sin importar cuán bueno sea el filtro.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P6. ¿Qué significa que un respirador sea de "ajuste hermético" o de "ajuste holgado"?</div><div class="mfr-a"><b>En simple:</b> hermético se pega a la piel y sella (necesita prueba de ajuste); holgado, como una capucha, no toca la piel pero necesita más flujo de aire para mantenerse protegido.<br><br><b>El detalle:</b> los de ajuste hermético (media cara, cara completa) requieren una prueba de ajuste individual porque su protección depende del sello con la cara. Los de ajuste holgado (capuchas, cascos con suministro de aire) no dependen de un sello perfecto, por lo que se adaptan mejor a personas con barba u otros rasgos que dificultan el sello hermético.</div></div>
+          </div>
+
+          <!-- BLOQUE 2 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 2 · FILTROS VS. CARTUCHOS: LA DIFERENCIA</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P7. ¿Cuál es la diferencia real entre un filtro y un cartucho?</div><div class="mfr-a"><b>En simple:</b> el filtro atrapa cosas sólidas o líquidas suspendidas en el aire, como un colador; el cartucho absorbe gases y vapores, como una esponja química.<br><br><b>El detalle:</b> los filtros retienen partículas —polvo, humos metálicos, neblinas— mediante fibras que actúan como barrera física. Los cartuchos usan carbón activado u otros materiales que capturan moléculas de gas o vapor, algo que un filtro común no puede detener.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P8. Veo "N95", "P100" o "R95" en un filtro. ¿Qué significa cada letra y número?</div><div class="mfr-a"><b>En simple:</b> la letra dice si aguanta aceite en el ambiente, el número dice qué porcentaje de partículas detiene.<br><br><b>El detalle:</b> <b>N</b> = No resistente al aceite. <b>R</b> = Resistente al aceite, hasta un turno de 8 horas. <b>P</b> = a Prueba de aceite, uso más prolongado según el fabricante. El número (95, 99, 100) es el porcentaje mínimo de partículas que retiene: 95%, 99% o 99,97%. Ejemplo: N95 = no resiste aceite, retiene 95% de partículas.</div><div class="mfr-n">NIOSH 42 CFR Part 84</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P9. En Chile, ¿se usa la clasificación NIOSH (americana) o la europea (FFP1/2/3)?</div><div class="mfr-a"><b>En simple:</b> en Chile se ven ambas y las dos son válidas — lo importante es que el respirador tenga su marca de aprobación visible.<br><br><b>El detalle:</b> Chile reconoce oficialmente la certificación NIOSH, y también se comercializan productos certificados bajo la norma europea EN 149 (clases FFP1, FFP2, FFP3). El D.S. N°594 exige que el EPP cumpla una norma de calidad reconocida, sin fijar cuál marco usar.</div><div class="mfr-n">DS 594 Art. 54</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P10. Veo letras como "A", "B", "E", "K" en un cartucho, con distintos colores. ¿Qué significan?</div><div class="mfr-a"><b>En simple:</b> cada letra y color es para un tipo de contaminante distinto — no todos los cartuchos sirven para lo mismo.<br><br><b>El detalle</b> (norma europea EN 14387): <b>A</b> (marrón) = vapores orgánicos como solventes. <b>B</b> (gris) = gases y vapores inorgánicos, como cloro. <b>E</b> (amarillo) = gases ácidos y dióxido de azufre. <b>K</b> (verde) = amoníaco y derivados. <b>P</b> (blanco) = partículas. Un cartucho puede combinar varias letras (ej. "ABEK") para cubrir varios riesgos a la vez.</div><div class="mfr-n">EN 14387</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P11. ¿El color del filtro o cartucho me dice todo lo que necesito saber?</div><div class="mfr-a"><b>En simple:</b> no del todo — el color orienta, pero siempre hay que confirmar el modelo exacto en la etiqueta.<br><br><b>El detalle:</b> dentro de una misma clase (por ejemplo, la clase N de NIOSH), el color no distingue un N95 de un N99 o un N100 — pueden verse iguales. Siempre hay que verificar el código impreso contra la ficha técnica, no confiar solo en el color a simple vista.</div></div>
+          </div>
+
+          <!-- BLOQUE 3 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 3 · FILTROS Y CARTUCHOS COMBINADOS</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P12. ¿Por qué existen los filtros o cartuchos combinados?</div><div class="mfr-a"><b>En simple:</b> porque en la vida real casi nunca hay un solo tipo de riesgo — a veces hay polvo y vapores al mismo tiempo, y necesitas cubrir ambos con una sola pieza.<br><br><b>El detalle:</b> un cartucho combinado integra la capa química (contra gases o vapores) junto con una capa de filtro de partículas en la misma pieza, certificado bajo ambas normas a la vez.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P13. ¿En qué trabajos es típico necesitar un cartucho combinado?</div><div class="mfr-a"><b>En simple:</b> pintura con pistola, fumigación agrícola, o limpieza con solventes — ahí hay vapor y partículas suspendidas a la vez.<br><br><b>El detalle:</b> en esas tareas se liberan vapores orgánicos junto con aerosoles o partículas en suspensión, por lo que un cartucho de una sola función dejaría desprotegido alguno de los dos riesgos.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P14. ¿Un cartucho combinado dura lo mismo que uno simple?</div><div class="mfr-a"><b>En simple:</b> normalmente no — suele durar menos, porque está trabajando contra dos tipos de riesgo a la vez.<br><br><b>El detalle:</b> la vida útil de un cartucho combinado depende de la concentración de cada contaminante presente. En general se sigue el criterio más exigente entre el componente químico y el de partículas al momento de definir el cambio.</div></div>
+          </div>
+
+          <!-- BLOQUE 4 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 4 · CUÁNDO CAMBIAR FILTROS, CARTUCHOS Y EL RESPIRADOR</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P15. ¿Cómo sé cuándo cambiar un filtro de partículas?</div><div class="mfr-a"><b>En simple:</b> cuando cuesta más respirar a través de él, o si se ve sucio, mojado o dañado — eso manda, sin importar cuántas horas lleve.<br><br><b>El detalle:</b> los filtros de partículas se saturan físicamente; el aumento de la resistencia a respirar es la señal más confiable. Como referencia general (no una regla fija universal), muchos programas usan un máximo de 40 horas de uso efectivo o un mes de calendario, lo que ocurra primero — siempre sujeto al criterio de deterioro visible.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P16. ¿Cómo sé cuándo cambiar un cartucho de gases o vapores?</div><div class="mfr-a"><b>En simple:</b> a diferencia del filtro, el cartucho no "se ve sucio" cuando se agota — por eso hay que calcularlo antes, no esperar a sentir el olor.<br><br><b>El detalle:</b> el cartucho se agota cuando el material absorbente se satura, y en ese punto el contaminante puede empezar a pasar sin que se note a simple vista. Lo correcto es definir un cronograma de cambio calculado según la concentración del contaminante, la humedad y el tiempo de uso. Si se empieza a percibir olor, sabor o irritación, el cartucho ya se agotó y debe cambiarse de inmediato — eso no es una señal normal de aviso, es una falla.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P17. ¿Qué pasa si sigo usando un filtro o cartucho después de que se agotó?</div><div class="mfr-a"><b>En simple:</b> dejas de estar protegido aunque sigas usando el respirador puesto — es como no llevar nada para ese riesgo específico.<br><br><b>El detalle:</b> un filtro saturado puede liberar partículas ya retenidas, y un cartucho agotado deja pasar el gas o vapor sin retenerlo, muchas veces sin dar ninguna señal física evidente.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P18. ¿Cada cuánto se reemplaza la pieza facial completa (media cara o cara completa), no solo el filtro?</div><div class="mfr-a"><b>En simple:</b> el filtro se cambia seguido; la pieza de goma dura más, pero también se revisa cada vez.<br><br><b>El detalle:</b> se debe inspeccionar antes de cada uso (grietas, rigidez del sello, válvulas dañadas) y reemplazar la pieza facial cuando el material pierde flexibilidad, se agrieta, o ya no logra un sello adecuado en la prueba de ajuste — sin importar la fecha, si falla la prueba de ajuste no debe usarse.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P19. ¿Los filtros y cartuchos vencen aunque nunca se hayan usado?</div><div class="mfr-a"><b>En simple:</b> sí, el empaque sellado también caduca solo.<br><br><b>El detalle:</b> el empaque de fábrica trae una fecha de vencimiento; pasada esa fecha, el material absorbente o filtrante puede perder eficacia por degradación del material con el tiempo, aunque nunca se haya abierto.</div></div>
+          </div>
+
+          <!-- BLOQUE 5 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 5 · ACCESORIOS DEL MERCADO</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P20. ¿Qué es un retenedor de filtro y para qué sirve?</div><div class="mfr-a"><b>En simple:</b> es la piecita que sostiene el filtro de partículas pegado a la pieza facial o al cartucho — sin él, el filtro no queda bien puesto.<br><br><b>El detalle:</b> el retenedor (adaptador) fija el disco o filtro de partículas sobre un cartucho de gases (para armar un combinado) o directamente sobre la pieza facial, asegurando el sello y evitando fugas alrededor del filtro.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P21. ¿Qué es la válvula de exhalación y por qué algunos respiradores la tienen y otros no?</div><div class="mfr-a"><b>En simple:</b> es una válvula que deja salir el aire que exhalas sin forzarlo a pasar por el filtro — respiras más cómodo y se empaña menos la vista.<br><br><b>El detalle:</b> al exhalar, la válvula se abre y libera el aire directamente afuera —ese aire ya no necesita filtrarse—, reduciendo la humedad y el calor dentro de la pieza facial. Los modelos sin válvula obligan a que el aire exhalado también pase por el material filtrante.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P22. ¿Qué es la prueba de ajuste (fit test) y por qué es obligatoria?</div><div class="mfr-a"><b>En simple:</b> es una prueba que confirma que el respirador realmente sella bien en tu cara — el mismo modelo puede sellar perfecto en una persona y fallar en otra.<br><br><b>El detalle:</b> existen dos tipos: la prueba <b>cualitativa</b> (detecta si la persona percibe un sabor o aroma de prueba a través de una fuga) y la <b>cuantitativa</b> (un equipo mide numéricamente cuánto aire de afuera se filtra hacia adentro de la pieza facial, dando un valor de ajuste medible). Se recomienda repetirla al menos una vez al año, y siempre que cambie el modelo de respirador o el rostro de la persona.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P23. ¿Qué otros accesorios existen para complementar un respirador?</div><div class="mfr-a"><b>En simple:</b> piezas que alargan la vida del equipo o lo hacen más cómodo, sin cambiar la protección en sí.<br><br><b>El detalle:</b> pre-filtros (capa desechable que se pone delante del filtro principal para que dure más en ambientes muy sucios), tapas o cubiertas de retenedor, bolsas de almacenamiento hermético para guardar el respirador entre turnos, toallitas de limpieza sin alcohol para no dañar el sello de goma, y correas o arneses de repuesto.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P24. ¿Por qué la barba afecta tanto la elección del respirador?</div><div class="mfr-a"><b>En simple:</b> el vello facial en la zona de sello impide que la media cara o cara completa selle bien — no hay filtro que compense una fuga en el borde.<br><br><b>El detalle:</b> cualquier respirador de ajuste hermético requiere piel lisa en el área de contacto. Si la persona tiene barba, la alternativa correcta no es "apretar más" la mascarilla, sino cambiar a un respirador de ajuste holgado (capucha o casco con suministro de aire) que no depende del sello con la piel.</div></div>
+          </div>
+
+          <!-- BLOQUE 6 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 6 · QUÉ RESPIRADOR CONVIENE SEGÚN LA INDUSTRIA EN CHILE</div>
+            <div style="font-size:.68rem;color:rgba(204,224,245,.5);margin:-.3rem 0 .6rem;">Guía general y no exhaustiva — la evaluación del riesgo real del puesto siempre manda por sobre esta tabla.</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P25. Minería (polvo de sílice, tronaduras) — ¿qué respirador conviene?</div><div class="mfr-a">Para polvo de sílice, filtro N95/P100 o FFP2/FFP3 como mínimo, dado que es un contaminante con límite de exposición estricto. En minería subterránea con riesgo de gases (monóxido de carbono, gases de tronadura) o posible deficiencia de oxígeno, se evalúa equipo de aire suministrado o autónomo — un purificador de aire nunca es apto si falta oxígeno.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P26. Agricultura (fumigación, agroquímicos) — ¿qué respirador conviene?</div><div class="mfr-a">Normalmente se necesita un cartucho combinado, porque los agroquímicos sueltan vapor y partículas al mismo tiempo. Media cara o cara completa con cartucho combinado para vapores orgánicos y partículas, revisando siempre la hoja de datos de seguridad (HDS) del producto específico para confirmar el filtro/cartucho exacto recomendado.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P27. Forestal (polvo de madera, motosierras) — ¿qué respirador conviene?</div><div class="mfr-a">Filtro N95/P95 o FFP2 para polvo de madera en corte y aserrado. En trabajos con motosierra o maquinaria de combustión en espacios poco ventilados, evaluar protección adicional contra monóxido de carbono y otros gases de combustión.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P28. Minería o construcción subterránea / espacios confinados — ¿qué respirador conviene?</div><div class="mfr-a">Acá casi nunca basta un filtro — hay que medir la atmósfera del lugar antes de entrar (oxígeno, gases inflamables, tóxicos). Si hay riesgo de deficiencia de oxígeno o concentración con peligro inmediato para la vida (IDLH), se requiere equipo de aire suministrado o autónomo, nunca un respirador purificador de aire con filtro o cartucho.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P29. Soldadura o trabajos con humos metálicos — ¿qué respirador conviene?</div><div class="mfr-a">Filtro P100/N100 o FFP3 para humos metálicos, considerando además protección ocular y facial (careta de soldar) por separado, ya que el respirador no protege contra la radiación del arco ni las chispas.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P30. Si no estoy seguro de qué respirador necesito, ¿qué debo hacer antes de comprar?</div><div class="mfr-a"><b>En simple:</b> no adivines — revisa la evaluación de riesgo del puesto o la hoja de datos de seguridad de la sustancia antes de elegir el filtro o cartucho.<br><br><b>El detalle:</b> la selección correcta parte de conocer el contaminante específico, su concentración estimada, si hay riesgo de deficiencia de oxígeno, y el tiempo de exposición. Sin esa información, cualquier elección es una suposición, no una decisión técnica — y en ambientes de alto riesgo, una suposición equivocada puede ser grave.</div></div>
+          </div>
+
+          <div style="text-align:center;font-size:.62rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;">BuscaEPP · buscaepp.cl · Guía técnica protección respiratoria · Información neutral, sin marcas · Edición 2026</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function abrirManualResp(){
+        document.getElementById('modal-manual-resp').style.display='block';
+        document.body.style.overflow='hidden';
+      }
+      function cerrarManualResp(){
+        document.getElementById('modal-manual-resp').style.display='none';
+        document.body.style.overflow='';
+      }
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof cerrarManualResp==='function')cerrarManualResp();}});
+    </script>
+
     <!-- Modal visor manual FR — contenido HTML -->
     <div id="modal-manual-fr" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,12,25,.9);backdrop-filter:blur(4px);" onclick="if(event.target===this)cerrarManualFR()">
       <div style="position:absolute;inset:2vh 2vw;background:#0f1d30;border:1px solid rgba(251,191,36,.25);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);">
