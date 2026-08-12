@@ -1207,7 +1207,7 @@
   <div class="tab tab-ind"  onclick="showTab('industrias')" id="tab-industrias" title="Centro de Industrias">    <span class="tab-ico">🏗️</span><span class="tab-lbl">INDUST</span></div>
   <div class="tab"        onclick="showTab('estudia')"   id="tab-estudia"  title="Estudia con BuscaEPP"><span class="tab-ico">📚</span><span class="tab-lbl">ESTUDIA</span></div>
   <div class="tab"        onclick="showTab('infogramas')" id="tab-infogramas" title="Infogramas BuscaEPP"><span class="tab-ico">📊</span><span class="tab-lbl">INFOGR</span></div>
-  <div class="tab"        onclick="showTab('admin')"     id="tab-admin"    title="Administrador" style="display:none;"><span class="tab-ico">⚙️</span><span class="tab-lbl">ADMIN</span></div>
+  <div class="tab"        onclick="showTab('admin')"     id="tab-admin"    title="Administrador"><span class="tab-ico">⚙️</span><span class="tab-lbl">ADMIN</span></div>
 </div>
 
 <!-- INDICADORES ECONÓMICOS CHILE -->
@@ -10442,9 +10442,8 @@ function closeAdminLogin() {
   document.getElementById('adminErrorMsg').classList.remove('show');
   document.getElementById('adminPassInput').classList.remove('error');
   document.body.style.overflow = '';
-  // Ocultar tab y volver a EPP si cancela sin autenticarse
+  // La pestaña ADMIN queda siempre visible; solo se cierra el modal de login si cancela sin autenticarse
   if (!adminUnlocked) {
-    document.getElementById('tab-admin').style.display = 'none';
     showTab('epp', true);
   }
 }
@@ -14269,10 +14268,10 @@ function karyGuardarCotizacion() {
 
 // ── Sugerencias de inicio ─────────────────────────────────────
 const KARY_SUGERENCIAS_INICIO = [
-  { texto:'🔍 Buscar producto',  fn:"karyActivarBuscador()" },
-  { texto:'🏭 Por industria',    fn:"karyMostrarMenuIndustrias()" },
-  { texto:'📋 Mi cotización',    fn:"karyMostrarCotizacion()" },
-  { texto:'⭐ Zona VIP',         fn:"karyResponder('zona vip')" },
+  { texto:'📚 Menú BuscaEPP',        fn:"karyResponder('que puedes hacer')" },
+  { texto:'🔍 Buscar productos',     fn:"karyActivarBuscador()" },
+  { texto:'📋 Buscar licitaciones',  fn:"karyResponder('licitaciones')" },
+  { texto:'🎓 Estudiar con BuscaEPP', fn:"showTab('estudia'); karyToggle();" },
 ];
 
 // ── Menú de industrias ────────────────────────────────────────
@@ -14690,7 +14689,7 @@ function karyResponder(texto) {
 
   // ── Capturar nombre si Kary preguntó ────────────────────────
   if (!karyMemoria.nombre && karyIniciado && texto.trim().length < 20 &&
-      !['si','no','ok','hola','epp','normativa'].some(p => q.includes(p))) {
+      !['si','no','ok','hola','epp','normativa','zona vip','que puedes hacer','licitacion','buscar producto','estudiar'].some(p => q.includes(p))) {
     const posibleNombre = texto.trim().split(' ')[0];
     if (posibleNombre.length > 2) {
       karyGuardarMemoria({ nombre: posibleNombre });
