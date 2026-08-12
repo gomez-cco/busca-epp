@@ -2401,11 +2401,14 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
   <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
 
     <!-- Buscador interno -->
-    <div style="margin-bottom:1.5rem;position:relative;">
+    <div style="margin-bottom:1rem;position:relative;">
       <input id="provSearch" type="text" placeholder="🔍 Filtrar proveedores..."
         oninput="renderProveedores()"
         style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
     </div>
+
+    <!-- Filtro por categoría -->
+    <div id="provCatFiltros" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;"></div>
 
     <!-- Contador -->
     <div id="provCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
@@ -7978,78 +7981,99 @@ const FAMILIES = {
 
 // Proveedores principales EPP
 const PROVIDERS = {
-  apro:       { name:'APRO',              url:'https://www.apro.cl' },
-  treck:      { name:'Treck',             url:'https://www.treck.cl' },
-  mavid:      { name:'Mavid SPA',         url:'https://www.mavid.cl' },
-  safelockout:{ name:'Safelockout',       url:'https://www.safelockout.cl' },
-  segurycel:  { name:'Segurycel',         url:'https://www.segurycel.cl' },
-  maxservice: { name:'MaxService',        url:'https://www.maxservice.cl' },
-  ksltda:     { name:'KSL Ltda.',         url:'https://www.ksltda.cl' },
-  kupfer:     { name:'Kupfer',            url:'https://www.kupfer.cl' },
-  cespal:     { name:'Cespal',            url:'https://www.cespal.cl' },
-  novaseg:    { name:'Nova Seguridad',    url:'https://novaseguridad.cl' },
-  garmendia:  { name:'Garmendia',         url:'https://www.garmendia.cl' },
-  vicsa:      { name:'VICSA',             url:'https://vicsa.cl' },
-  '3m':       { name:'3M Chile',          url:'https://www.3mchile.cl' },
-  kuppel:     { name:'Kuppel',            url:'https://kuppel.cl' },
-  maryun:     { name:'Maryun',            url:'https://maryun.cl' },
-  ppe:        { name:'PPE Chile',         url:'https://ppe.cl' },
-  rac:        { name:'RAC',               url:'https://rac.cl' },
-  gsp:        { name:'GSP Chile',         url:'https://www.gsp-chile.com' },
-  impsafety:  { name:'Importadora Safety',url:'https://importadorasafety.cl' },
-  qsupply:    { name:'Q Supply',          url:'https://qsupply.cl' },
-  atm:        { name:'ATM Safety',        url:'https://www.atmsafety.cl' },
-  safetystore:{ name:'Safety Store',      url:'https://www.safetystore.cl' },
-  prosafety:  { name:'ProSafety',         url:'https://www.prosafety.cl' },
-  segindustrial:{ name:'Seguridad Industrial', url:'https://www.seguridadindustrial.cl' },
-  eppchile:   { name:'EPP Chile',         url:'https://www.eppchile.cl' },
-  hseguridad: { name:'H Seguridad',       url:'https://www.hseguridad.cl' },
-  eppindustrial:{ name:'EPP Industrial',  url:'https://www.eppindustrial.cl' },
-  safetyfirst:{ name:'Safety First',      url:'https://www.safetyfirst.cl' },
-  proteknica: { name:'Proteknica',        url:'https://www.proteknica.cl' },
-  acetogen:   { name:'Acetogen',          url:'https://acetogen.cl' },
-  ispch:      { name:'ISPCH (Listado EPP)',url:'https://www.ispch.gob.cl/listadoepp/' },
-  eikona:     { name:'Eikona',            url:'https://eikona.cl' },
-  under:      { name:'Under / Matrix World Group', url:'https://www.matrixworldgroup.cl' },
-  aracor:     { name:'ARACOR',            url:'https://www.aracor.cl' },
-  abaindus:   { name:'Abaindus',          url:'https://www.abaindus.cl' },
-  ara:        { name:'Comercial Ara - Todo en un solo lugar', url:'https://www.ara.cl' },
-  arcam:      { name:'Arcam',             url:'https://www.arcam.cl' },
-  ataindus:   { name:'Ataindus',          url:'https://www.ataindus.cl' },
-  balut:      { name:'Balut',             url:'https://www.balut.cl' },
-  bsseg:      { name:'BS Seguridad Industrial', url:'https://www.bsseguridad.cl' },
-  castronova: { name:'Castro y Nova',     url:'https://www.castroynova.cl' },
-  cbs:        { name:'CBS',               url:'https://www.cbs.cl' },
-  chelech:    { name:'Comercial Chelech', url:'https://www.chelech.cl' },
-  huayu:      { name:'Comercial Huayu',   url:'https://www.huayu.cl' },
-  dabenco:    { name:'Dabenco',           url:'https://www.dabenco.cl' },
-  desclean:   { name:'Desclean',          url:'https://www.desclean.cl' },
-  dimasur:    { name:'Dimasur',           url:'https://www.dimasur.cl' },
-  dinaseg:    { name:'Dinaseg',           url:'https://www.dinaseg.cl' },
-  eppminerals:{ name:'EPP Minerals',      url:'https://www.eppminerals.cl' },
-  fabmoises:  { name:'Fábrica Moises',    url:'https://www.fabricamoises.cl' },
-  ferrefor:   { name:'Ferrefor',          url:'https://www.ferrefor.cl' },
-  ferrallipen:{ name:'Ferretería Allipén', url:'https://www.ferreteriaallipен.cl' },
-  ferrcj:     { name:'Ferretería C & J',  url:'https://www.ferreteriacyj.cl' },
-  ferrfrontera:{ name:'Ferretería Frontera', url:'https://www.ferreteriafrontera.cl' },
-  ferrhiguerillas:{ name:'Ferretería Higuerillas', url:'https://www.ferreteriahiguerillas.cl' },
-  ferrjaramillo:{ name:'Ferretería Jaramillo', url:'https://www.ferreteriajaramillo.cl' },
-  fetec:      { name:'Fetec',             url:'https://www.fetec.cl' },
-  foryseg:    { name:'Foryseg',           url:'https://www.foryseg.cl' },
-  gya:        { name:'G y A',             url:'https://www.gya.cl' },
-  gygthomashn:{ name:'G y G Thomas Hollstein', url:'https://www.gygthomas.cl' },
-  implementos:{ name:'Implementos',       url:'https://www.implementos.cl' },
-  insuseg:    { name:'Insuseg',           url:'https://www.insuseg.cl' },
-  metalmar:   { name:'Metalmar',          url:'https://www.metalmar.cl' },
-  newfire:    { name:'New Fire',          url:'https://www.newfire.cl' },
-  newseg:     { name:'Newseg',            url:'https://www.newseg.cl' },
-  prosec:     { name:'Prosec',            url:'https://www.prosec.cl' },
-  protege:    { name:'Protege',           url:'https://www.protege.cl' },
-  raptor:     { name:'Raptor',            url:'https://www.raptor.cl' },
-  texam:      { name:'Texam',             url:'https://www.texam.cl' },
-  texora:     { name:'Texora',            url:'https://www.texora.cl' },
-  gdochile:   { name:'GDO Chile',         url:'https://gdo-chile.com' },
+  // ── MULTI EPP ──────────────────────────────────────────────
+  apro:       { name:'APRO',              url:'https://www.apro.cl', cat:'multi' },
+  treck:      { name:'Treck',             url:'https://www.treck.cl', cat:'multi' },
+  mavid:      { name:'Mavid SPA',         url:'https://www.mavid.cl', cat:'multi' },
+  segurycel:  { name:'Segurycel',         url:'https://www.segurycel.cl', cat:'multi' },
+  maxservice: { name:'MaxService',        url:'https://www.maxservice.cl', cat:'multi' },
+  ksltda:     { name:'KSL Ltda.',         url:'https://www.ksltda.cl', cat:'multi' },
+  kupfer:     { name:'Kupfer',            url:'https://www.kupfer.cl', cat:'multi' },
+  cespal:     { name:'Cespal',            url:'https://www.cespal.cl', cat:'multi' },
+  novaseg:    { name:'Nova Seguridad',    url:'https://novaseguridad.cl', cat:'multi' },
+  garmendia:  { name:'Garmendia',         url:'https://www.garmendia.cl', cat:'multi' },
+  vicsa:      { name:'VICSA',             url:'https://vicsa.cl', cat:'multi' },
+  '3m':       { name:'3M Chile',          url:'https://www.3mchile.cl', cat:'multi' },
+  kuppel:     { name:'Kuppel',            url:'https://kuppel.cl', cat:'multi' },
+  maryun:     { name:'Maryun',            url:'https://maryun.cl', cat:'multi' },
+  ppe:        { name:'PPE Chile',         url:'https://ppe.cl', cat:'multi' },
+  rac:        { name:'RAC',               url:'https://rac.cl', cat:'multi' },
+  gsp:        { name:'GSP Chile',         url:'https://www.gsp-chile.com', cat:'multi' },
+  impsafety:  { name:'Importadora Safety',url:'https://importadorasafety.cl', cat:'multi' },
+  qsupply:    { name:'Q Supply',          url:'https://qsupply.cl', cat:'multi' },
+  atm:        { name:'ATM Safety',        url:'https://www.atmsafety.cl', cat:'multi' },
+  safetystore:{ name:'Safety Store',      url:'https://www.safetystore.cl', cat:'multi' },
+  segindustrial:{ name:'Seguridad Industrial', url:'https://www.seguridadindustrial.cl', cat:'multi' },
+  eppchile:   { name:'EPP Chile',         url:'https://www.eppchile.cl', cat:'multi' },
+  proteknica: { name:'Proteknica',        url:'https://www.proteknica.cl', cat:'multi' },
+  acetogen:   { name:'Acetogen',          url:'https://acetogen.cl', cat:'multi' },
+  ispch:      { name:'ISPCH (Listado EPP)',url:'https://www.ispch.gob.cl/listadoepp/', cat:'multi' },
+  under:      { name:'Under / Matrix World Group', url:'https://www.matrixworldgroup.cl', cat:'multi' },
+  aracor:     { name:'ARACOR',            url:'https://www.aracor.cl', cat:'ignifuga' },
+  abaindus:   { name:'Abaindus',          url:'https://www.abaindus.cl', cat:'multi' },
+  ara:        { name:'Comercial Ara - Todo en un solo lugar', url:'https://www.ara.cl', cat:'multi' },
+  arcam:      { name:'Arcam',             url:'https://www.arcam.cl', cat:'multi' },
+  ataindus:   { name:'Ataindus',          url:'https://www.ataindus.cl', cat:'multi' },
+  balut:      { name:'Balut',             url:'https://www.balut.cl', cat:'multi' },
+  bsseg:      { name:'BS Seguridad Industrial', url:'https://www.bsseguridad.cl', cat:'multi' },
+  castronova: { name:'Castro y Nova',     url:'https://www.castroynova.cl', cat:'multi' },
+  cbs:        { name:'CBS',               url:'https://www.cbs.cl', cat:'multi' },
+  chelech:    { name:'Comercial Chelech', url:'https://www.chelech.cl', cat:'multi' },
+  huayu:      { name:'Comercial Huayu',   url:'https://www.huayu.cl', cat:'multi' },
+  dabenco:    { name:'Dabenco',           url:'https://www.dabenco.cl', cat:'multi' },
+  desclean:   { name:'Desclean',          url:'https://www.desclean.cl', cat:'multi' },
+  dinaseg:    { name:'Dinaseg',           url:'https://www.dinaseg.cl', cat:'multi' },
+  eppminerals:{ name:'EPP Minerals',      url:'https://www.eppminerals.cl', cat:'multi' },
+  fabmoises:  { name:'Fábrica Moises',    url:'https://www.fabricamoises.cl', cat:'multi' },
+  ferrefor:   { name:'Ferrefor',          url:'https://www.ferrefor.cl', cat:'ferreteria' },
+  ferrallipen:{ name:'Ferretería Allipén', url:'https://allipen.cl', cat:'ferreteria' },
+  ferrcj:     { name:'Ferretería C & J',  url:'https://www.ferreteriacyj.cl', cat:'ferreteria' },
+  ferrfrontera:{ name:'Ferretería Frontera', url:'https://www.ferreteriafrontera.cl', cat:'ferreteria' },
+  ferrhiguerillas:{ name:'Ferretería Higuerillas', url:'https://www.ferreteriahiguerillas.cl', cat:'ferreteria' },
+  ferrjaramillo:{ name:'Ferretería Jaramillo', url:'https://www.ferreteriajaramillo.cl', cat:'ferreteria' },
+  fetec:      { name:'Fetec',             url:'https://www.fetec.cl', cat:'multi' },
+  foryseg:    { name:'Foryseg',           url:'https://www.foryseg.cl', cat:'multi' },
+  gya:        { name:'G y A',             url:'https://www.gya.cl', cat:'multi' },
+  gygthomashn:{ name:'G y G Thomas Hollstein', url:'https://www.gygthomas.cl', cat:'multi' },
+  implementos:{ name:'Implementos',       url:'https://www.implementos.cl', cat:'multi' },
+  insuseg:    { name:'Insuseg',           url:'https://www.insuseg.cl', cat:'multi' },
+  metalmar:   { name:'Metalmar',          url:'https://www.metalmar.cl', cat:'multi' },
+  newfire:    { name:'New Fire',          url:'https://www.newfire.cl', cat:'multi' },
+  newseg:     { name:'Newseg',            url:'https://www.newseg.cl', cat:'multi' },
+  prosec:     { name:'Prosec',            url:'https://www.prosec.cl', cat:'multi' },
+  texam:      { name:'Texam',             url:'https://www.texam.cl', cat:'multi' },
+  texora:     { name:'Texora',            url:'https://www.texora.cl', cat:'multi' },
+  gdochile:   { name:'GDO Chile',         url:'https://gdo-chile.com', cat:'multi' },
+
+  // ── ESPECIALISTA LOTO (BLOQUEO Y ETIQUETADO) ────────────────
+  safelockout:{ name:'Safelockout',       url:'https://www.safelockout.cl', cat:'loto' },
+
+  // ── Ropa Ignífuga / Corporativa (especialistas) ─────
+  eikona:     { name:'Eikona',            url:'https://eikona.cl', cat:'ignifuga' },
+  hima:       { name:'HIMA',              url:'https://hima.cl', cat:'ignifuga' },
+  northpole:  { name:'North Pole Safety', url:'https://northpolesafety.cl', cat:'ignifuga' },
+  honorato:   { name:'Honorato Chile',    url:'https://honoratochile.cl', cat:'ignifuga' },
+  euroscan:   { name:'Euroscan',          url:'https://euroscan.cl', cat:'ignifuga' },
+  workingapparel:{ name:'Working Apparel', url:'https://ropa-ignifuga.cl', cat:'ignifuga' },
+
+  // ── Inactivos: sin sitio propio verificable — ocultos del directorio ──
+  // (se mantienen en los datos porque cientos de fichas de producto los referencian)
+  prosafety:    { name:'ProSafety',      url:'https://www.prosafety.cl', cat:'inactive' },
+  hseguridad:   { name:'H Seguridad',    url:'https://www.hseguridad.cl', cat:'inactive' },
+  eppindustrial:{ name:'EPP Industrial', url:'https://www.eppindustrial.cl', cat:'inactive' },
+  safetyfirst:  { name:'Safety First',   url:'https://www.safetyfirst.cl', cat:'inactive' },
+  protege:      { name:'Protege',        url:'https://www.protege.cl', cat:'inactive' },
+  raptor:       { name:'Raptor',         url:'https://www.raptor.cl', cat:'inactive' },
+  dimasur:      { name:'Dimasur',        url:'https://www.dimasur.cl', cat:'inactive' },
 };
+
+const PROV_CATEGORIAS = [
+  { id:'todos',     label:'Todos',                    color:'#f59e0b' },
+  { id:'multi',     label:'🧰 Multi EPP',              color:'#38bdf8' },
+  { id:'ignifuga',  label:'🔥 Ropa Ignífuga / Corporativa', color:'#f87171' },
+  { id:'loto',      label:'🔒 Bloqueo y Etiquetado (LOTO)', color:'#a78bfa' },
+  { id:'ferreteria',label:'🔨 Ferretería / Construcción', color:'#94a3b8' },
+];
 
 // ─── PRODUCT DATABASE ────────────────────────────────────────
 let products = [
@@ -10511,7 +10535,7 @@ function showTab(tab, skipAuth=false) {
   if (tab==='expertos') renderExpertos();
   if (tab==='talentos') renderTalentos();
   if (tab==='admin') { setTimeout(cargarAdminVIP, 500); setTimeout(verificarVencimientosVIP, 1000); setTimeout(cargarEstadisticasVisitas, 800); }
-  if (tab==='prov') renderProveedores();
+  if (tab==='prov') { renderProveedores(); renderProvCatFiltros(); }
   if (tab==='estudia' && typeof estudiaRenderizar === 'function') estudiaRenderizar();
 }
 
@@ -10865,6 +10889,20 @@ function mostrarCert(btn, tipo) {
 }
 
 // ─── PROVEEDORES DIRECTORIO ───────────────────────────────────
+let provCatActiva = 'todos';
+
+function renderProvCatFiltros() {
+  const cont = document.getElementById('provCatFiltros');
+  if (!cont) return;
+  cont.innerHTML = PROV_CATEGORIAS.map(c => {
+    const activo = c.id === provCatActiva;
+    return `<button onclick="provCatActiva='${c.id}';renderProveedores();renderProvCatFiltros();"
+      style="background:${activo ? c.color+'22' : 'var(--card)'};border:1px solid ${activo ? c.color : 'var(--border)'};
+      color:${activo ? c.color : 'var(--muted)'};border-radius:20px;padding:.4rem 1rem;font-size:.78rem;
+      font-weight:${activo?700:500};cursor:pointer;white-space:nowrap;transition:all .15s;">${c.label}</button>`;
+  }).join('');
+}
+
 function renderProveedores() {
   const q = (document.getElementById('provSearch')?.value || '').toLowerCase().trim();
   const grid = document.getElementById('provGrid');
@@ -10873,16 +10911,21 @@ function renderProveedores() {
 
   const todos = Object.entries(PROVIDERS)
     .filter(([k]) => k !== 'ispch')
+    .filter(([k, p]) => p.cat !== 'inactive')
+    .filter(([k, p]) => provCatActiva === 'todos' || p.cat === provCatActiva)
     .sort((a, b) => a[1].name.localeCompare(b[1].name, 'es'))
     .filter(([k, p]) => !q || p.name.toLowerCase().includes(q));
 
   countEl.textContent = `${todos.length} proveedor${todos.length !== 1 ? 'es' : ''} encontrado${todos.length !== 1 ? 's' : ''}`;
+
+  const catInfo = { multi:{label:'Multi EPP',color:'#38bdf8'}, ignifuga:{label:'Ropa Ignífuga',color:'#f87171'}, loto:{label:'LOTO',color:'#a78bfa'}, ferreteria:{label:'Ferretería',color:'#94a3b8'} };
 
   grid.innerHTML = todos.map(([k, p]) => {
     const domain = p.url.replace(/https?:\/\/(www\.)?/,'').replace(/\/$/,'');
     const initial = p.name.charAt(0).toUpperCase();
     const colors = ['#f59e0b','#38bdf8','#22c55e','#c084fc','#818cf8','#34d399','#fb923c'];
     const color = colors[p.name.charCodeAt(0) % colors.length];
+    const ci = catInfo[p.cat] || catInfo.multi;
     return `
       <a href="${p.url}" target="_blank" rel="noopener" style="text-decoration:none;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;
@@ -10897,6 +10940,7 @@ function renderProveedores() {
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);line-height:1.2;">${p.name}</div>
           </div>
           <div style="font-size:.72rem;color:var(--muted);word-break:break-all;">${domain}</div>
+          <div style="display:inline-block;width:fit-content;font-size:.62rem;font-weight:700;color:${ci.color};background:${ci.color}18;border:1px solid ${ci.color}33;border-radius:10px;padding:2px 8px;">${ci.label}</div>
           <div style="margin-top:auto;font-size:.7rem;color:${color};font-weight:600;">Visitar sitio →</div>
         </div>
       </a>`;
