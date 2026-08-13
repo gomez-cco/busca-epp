@@ -10969,7 +10969,7 @@ const CERT_DATA = {
   },
   arnes: {
     titulo: 'Arnés y Equipos Anticaída', icono: '🪝',
-    normaCL: 'NCh 1252 / NCh 2374',
+    normaCL: 'NCh 1258 / NCh 2374',
     labCL: 'No hay laboratorio nacional. ISP acepta ISO, EN, ANSI vía RFI.',
     certs: [
       { cert:'NCh 2374', origen:'🇨🇱 Chile', validezCL:'✅ Válida directamente', nivel:'Sistema anticaída completo', obs:'Norma chilena. Exigida por DS 594 para trabajo en altura.' , url:'https://www.inn.cl/tienda/nch-2374-2003'},
@@ -11692,7 +11692,7 @@ const EPP_INFO = {
   calzado_anticorte: { nombre:'Bota forestal anticorte', icono:'🥾', norma:'EN ISO 17249', motivo:'Protección contra corte de motosierra en extremidades inferiores.' },
   chaleco_av: { nombre:'Chaleco de alta visibilidad', icono:'🦺', norma:'NCh 1303 / ANSI 107 Clase 2', motivo:'Obligatorio en vías de tránsito y zonas con maquinaria en movimiento.' },
   chaleco_salvavidas: { nombre:'Chaleco salvavidas / flotación', icono:'🛟', norma:'DS 430 / ISO 12402', motivo:'Obligatorio para trabajo en o sobre el agua según DS 430 MINTRAB.' },
-  arnés: { nombre:'Arnés de seguridad cuerpo completo', icono:'🪝', norma:'NCh 1252 / NCh 2374', motivo:'Obligatorio en trabajos sobre 1,8 m de altura sin protección colectiva (DS 594).' },
+  arnés: { nombre:'Arnés de seguridad cuerpo completo', icono:'🪝', norma:'NCh 1258 / NCh 2374', motivo:'Obligatorio en trabajos sobre 1,8 m de altura sin protección colectiva (DS 594).' },
   respirador_polvo: { nombre:'Respirador desechable (N95/P2)', icono:'😷', norma:'NCh 2378 / NIOSH N95', motivo:'Para polvo y partículas. Obligatorio si concentración supera límites DS 594.' },
   respirador_p100: { nombre:'Respirador con filtro P100', icono:'😷', norma:'NCh 2378 / NIOSH P100', motivo:'Eficiencia 99,97%. Para polvos finos, sílice, asbesto y metales pesados.' },
   respirador_gases: { nombre:'Respirador con filtro gases/vapores (OV/AG)', icono:'😷', norma:'NCh 1284 / EN 14387', motivo:'Para solventes, pesticidas, pinturas y gases tóxicos. Cambiar filtro cada 40 hrs.' },
@@ -11874,7 +11874,7 @@ const NORMAS = {
     titulo: 'Guantes de protección — requisitos generales',
     objetivo: 'Establece los requisitos generales de diseño, materiales, marcación y ensayos que deben cumplir todos los tipos de guantes de protección personal.',
     campo: 'Aplicable a todos los sectores industriales que requieran protección de manos contra riesgos mecánicos, químicos, térmicos o eléctricos.',
-    requisitos: 'Los guantes deben indicar talla, nivel de protección, pictogramas de riesgo y límites de uso. Resistencia al corte según EN 388 (niveles 1–5), resistencia a químicos según permeación y penetración.',
+    requisitos: 'Los guantes deben indicar talla, nivel de protección, pictogramas de riesgo y límites de uso. Resistencia al corte según EN 388 (niveles 1–5), resistencia a químicos según permeación y penetración. Para guantes de cuero y/o textiles específicamente, aplica además la NCh1252/1.Of96 (clasificación, requisitos y métodos de ensayo), que reemplazó a la antigua NCh1252.Of77.',
     categorias: ['Guantes mecánicos', 'Guantes químicos', 'Guantes térmicos', 'Guantes dieléctricos'],
     tags: ['guante', 'mecánico', 'químico', 'dieléctrico', 'térmico', 'corte']
   },
@@ -11918,13 +11918,13 @@ const NORMAS = {
     categorias: ['Calzado conductor semiconductor'],
     tags: ['semiconductor', 'conductor', 'ESD', 'sala blanca', 'electrónica']
   },
-  'NCh 1252': {
-    titulo: 'Cinturones y arneses de seguridad para trabajos en altura',
-    objetivo: 'Establece los requisitos de diseño, materiales, resistencia mecánica y ensayos para cinturones y arneses de seguridad utilizados en trabajos en altura.',
-    campo: 'Construcción, montaje industrial, trabajos en techos, torres de comunicación, faenas forestales y cualquier tarea a más de 1,8 m de altura.',
-    requisitos: 'Los arneses de cuerpo completo deben resistir una carga de prueba estática de 15 kN. La cuerda de vida debe absorber la energía de caída libre de 1,8 m con fuerza de choque no mayor a 6 kN.',
-    categorias: ['Cinturón de posicionamiento', 'Arnés de cuerpo completo', 'Arnés con absorvedor de impacto'],
-    tags: ['arnés', 'altura', 'caída', 'cuerda de vida', 'construcción']
+  'NCh 1258': {
+    titulo: 'Cinturones de seguridad y arneses para trabajos en altura',
+    objetivo: 'Norma compuesta por varias partes que establece terminología, clasificación, requisitos y métodos de ensayo para equipos de protección personal contra caídas de altura: cinturones de seguridad, arneses de cuerpo completo, estrobos y líneas de vida.',
+    campo: 'Construcción, montaje industrial, trabajos en techos, torres de comunicación, faenas forestales y cualquier tarea a más de 1,8 m de altura (DS 594).',
+    requisitos: 'NCh1258/0: terminología y clasificación. NCh1258/1: requisitos del arnés de cuerpo completo. NCh1258/2: estrobos y amortiguadores de impacto. NCh1258/3: líneas de vida autorretráctiles. NCh1258/4: rieles y líneas de vida verticales. NCh1258/5: conectores con compuerta de trabado automático. NCh1258/6: ensayo de comportamiento del sistema completo.',
+    categorias: ['Cinturón de posicionamiento', 'Arnés de cuerpo completo', 'Estrobo con absorbedor de impacto', 'Línea de vida autorretráctil'],
+    tags: ['arnés', 'altura', 'caída', 'cuerda de vida', 'construcción', 'cinturón']
   },
   'NCh 2374': {
     titulo: 'Protección personal — equipos de protección contra caídas',
