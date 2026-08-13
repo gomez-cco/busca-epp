@@ -1191,13 +1191,11 @@
 
 <div class="tabs" id="mainTabs">
   <div class="tab active" onclick="showTab('epp')"       id="tab-epp"      title="EPP & Seguridad">      <span class="tab-ico">🛡️</span><span class="tab-lbl">EPP</span></div>
-  <div class="tab"        onclick="showTab('norm')"      id="tab-norm"     title="Normativas">            <span class="tab-ico">📋</span><span class="tab-lbl">NORMAS</span></div>
+  <div class="tab"        onclick="showTab('norm')"      id="tab-norm"     title="Glosario de normas EPP + Vida útil"><span class="tab-ico">📖</span><span class="tab-lbl">GLOSARIO</span></div>
   <div class="tab"        onclick="showTab('calc')"      id="tab-calc"     title="Calculadora EPP">       <span class="tab-ico">🧮</span><span class="tab-lbl">CALC</span></div>
-  <div class="tab"        onclick="showTab('vida')"      id="tab-vida"     title="Vida Útil EPP">         <span class="tab-ico">⌛</span><span class="tab-lbl">VIDA</span></div>
-  <div class="tab"        onclick="showTab('prov')"      id="tab-prov"     title="Proveedores">           <span class="tab-ico">🤝</span><span class="tab-lbl">PROV</span></div>
+  <div class="tab"        onclick="showTab('infoepp')"   id="tab-infoepp"  title="Información EPP: fabricantes y distribuidores"><span class="tab-ico">🏭</span><span class="tab-lbl">INFO EPP</span></div>
   <div class="tab"        onclick="window.location.href='videos.html'" id="tab-videos" title="Videos EPP"><span class="tab-ico">▶️</span><span class="tab-lbl">VIDEO</span></div>
   <div class="tab"        onclick="showTab('certcomp')"  id="tab-certcomp" title="Certificaciones ISP">   <span class="tab-ico">🏅</span><span class="tab-lbl">CERT</span></div>
-  <div class="tab"        onclick="showTab('fab')"       id="tab-fab"      title="Fabricantes ISP">       <span class="tab-ico">🔩</span><span class="tab-lbl">FAB</span></div>
   <div class="tab"        onclick="showTab('expertos')"  id="tab-expertos" title="Zona Expertos">         <span class="tab-ico">🎓</span><span class="tab-lbl">EXPER</span></div>
   <div class="tab"        onclick="showTab('talentos')"  id="tab-talentos" title="Bolsa de Talentos">     <span class="tab-ico">💼</span><span class="tab-lbl">TALENT</span></div>
   <div class="tab"        onclick="abrirVIP()"           id="tab-vip"      title="Zona VIP">              <span class="tab-ico">⭐</span><span class="tab-lbl">VIP</span></div>
@@ -1312,8 +1310,8 @@
 <!-- NORMATIVAS TAB -->
 <div id="pane-norm" style="display:none;">
   <div class="hero">
-    <h1><span>NORMATIVAS</span> <span data-es="NCh VIGENTES EPP" data-en="CURRENT EPP STANDARDS" data-pt="NCh VIGENTES EPI" data-zh="现行NCh防护标准">NCh VIGENTES EPP</span></h1>
-    <p data-es="Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas" data-en="Free summary of the main Chilean Standards applicable to PPE — no purchase required" data-pt="Resumo gratuito das principais Normas Chilenas aplicáveis a EPI — sem necessidade de comprá-las" data-zh="适用于个人防护装备的主要智利标准免费摘要">Resumen gratuito de las principales Normas Chilenas aplicables a EPP — sin necesidad de comprarlas</p>
+    <h1><span>GLOSARIO</span> <span data-es="DE NORMAS EPP" data-en="EPP STANDARDS GLOSSARY" data-pt="GLOSSÁRIO DE NORMAS EPI" data-zh="防护装备标准词汇表">DE NORMAS EPP</span></h1>
+    <p data-es="Norma, a qué EPP aplica, link directo para revisarla, y cuándo reemplazar cada equipo — sin necesidad de comprar la norma" data-en="Standard, which PPE it applies to, direct link to review it, and when to replace each item" data-pt="Norma, a que EPI se aplica, link direto para revisar, e quando substituir cada equipamento" data-zh="标准、适用的防护装备、直接查阅链接，以及更换时间">Norma, a qué EPP aplica, link directo para revisarla, y cuándo reemplazar cada equipo — sin necesidad de comprar la norma</p>
   </div>
 
   <!-- EQUIPO JOTA — Revisión Normativa IA -->
@@ -1403,302 +1401,69 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       <div style="font-size:.85rem;color:var(--text);line-height:1.7;">
         <b>Ley N°16.744</b> — Seguro de accidentes del trabajo y enfermedades profesionales. Obliga al empleador a proporcionar EPP certificados sin costo para el trabajador.<br>
         <b>D.S. N°594/99 MINSAL</b> — Reglamento sobre condiciones sanitarias en lugares de trabajo. Exige EPP adecuados según riesgo.<br>
-        <b>D.S. N°44/2023 MINTRAB</b> — Vigente desde febrero 2025. Instruye gestión preventiva de riesgos laborales, incluyendo uso de EPP de calidad certificada.<br>
+        <b>D.S. N°44/2023 MINTRAB</b> — Publicado 27-jul-2024, vigente desde el 1-feb-2025. <strong>Deroga los antiguos DS N°40 y DS N°54 de 1969</strong> (prevención de riesgos y comités paritarios). Instruye gestión preventiva de riesgos laborales, incluyendo uso de EPP de calidad certificada.<br>
         <b>D.S. N°173/82 MINSAL</b> — Define legalmente los EPP como dispositivos para preservar al trabajador de riesgos específicos.
       </div>
     </div>
 
-    <!-- Categorías de normas -->
-    <div style="display:grid;gap:1rem;">
 
-      <!-- Cabeza -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">⛑️</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE CABEZA</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 461')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 461</td>
-                <td style="padding:8px;color:var(--text);">Cascos de protección de uso industrial — requisitos y ensayos</td>
-                <td style="padding:8px;color:var(--muted);">Cascos industriales</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1358')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1358</td>
-                <td style="padding:8px;color:var(--text);">Protectores auditivos — terminología y clasificación</td>
-                <td style="padding:8px;color:var(--muted);">Protectores auditivos</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- GLOSARIO PLANO — Norma · Aplica a -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div style="margin-top:2.5rem;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.8rem;margin-bottom:.3rem;">
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;color:var(--accent);letter-spacing:.5px;margin:0;">📖 Glosario rápido — todas las normas en una lista</h2>
+        <a href="https://ecommerce.inn.cl/" target="_blank" rel="noopener" style="flex-shrink:0;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);color:#38bdf8;border-radius:8px;padding:.5rem 1rem;font-size:.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">🔗 Consultar normas en INN →</a>
       </div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Busca por código de norma o por tipo de EPP. Haz clic en el código para ver el resumen completo (objetivo, campo de aplicación y requisitos). El botón de arriba lleva a la Tienda Virtual del INN, donde se consulta o adquiere el texto oficial de cada norma chilena — la página del INN es general, no por norma específica, así que ahí buscas el código exacto que necesites.</p>
 
-      <!-- Ojos y cara -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">🥽</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE OJOS Y CARA</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 1301')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1301</td>
-                <td style="padding:8px;color:var(--text);">Protección personal — elementos protectores de los ojos, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Lentes de seguridad</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1562')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1562</td>
-                <td style="padding:8px;color:var(--text);">Protección personal — pantallas para soldadores, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Caretas de soldar</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1582')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1582</td>
-                <td style="padding:8px;color:var(--text);">Protección de los ojos — filtros ultravioleta, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Lentes UV</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1583')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1583</td>
-                <td style="padding:8px;color:var(--text);">Protección de los ojos — filtros infrarrojos, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Lentes IR / soldadura</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <input id="glosarioSearch" type="text" placeholder="🔍 Filtrar por norma o EPP (ej: casco, NCh 461, respirador)..."
+        oninput="renderGlosarioNormas()"
+        style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;margin-bottom:1rem;">
+
+      <div id="glosarioCount" style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;"></div>
+
+      <div style="overflow-x:auto;background:var(--card);border:1px solid var(--border);border-radius:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:480px;">
+          <thead>
+            <tr style="color:var(--muted);text-transform:uppercase;font-size:.7rem;letter-spacing:.6px;background:rgba(245,158,11,.06);">
+              <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Norma</th>
+              <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">A qué EPP aplica</th>
+            </tr>
+          </thead>
+          <tbody id="glosarioBody"></tbody>
+        </table>
       </div>
+    </div>
+    <script>
+    function renderGlosarioNormas() {
+      const body = document.getElementById('glosarioBody');
+      const countEl = document.getElementById('glosarioCount');
+      if (!body || typeof NORMAS === 'undefined') return;
+      const q = (document.getElementById('glosarioSearch')?.value || '').toLowerCase().trim();
 
-      <!-- Respiración -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">😷</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN RESPIRATORIA</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 2175')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 2175</td>
-                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — vocabulario</td>
-                <td style="padding:8px;color:var(--muted);">Todo respirador</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2176')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2176</td>
-                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — clasificación</td>
-                <td style="padding:8px;color:var(--muted);">Todo respirador</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2378')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2378</td>
-                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — máscaras, requisitos y métodos de ensayo</td>
-                <td style="padding:8px;color:var(--muted);">Máscaras completas / medias máscara</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1284')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1284</td>
-                <td style="padding:8px;color:var(--text);">Aparatos de protección respiratoria — medias máscaras y cuartos de máscaras, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Semimáscaras / cuarto máscara</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      const filas = Object.entries(NORMAS).map(([codigo, n]) => ({
+        codigo,
+        titulo: n.titulo,
+        aplica: (n.categorias || []).join(', ') || n.campo,
+        tags: (n.tags || []).join(' '),
+      })).filter(f => {
+        if (!q) return true;
+        return (f.codigo + ' ' + f.titulo + ' ' + f.aplica + ' ' + f.tags).toLowerCase().includes(q);
+      }).sort((a, b) => a.codigo.localeCompare(b.codigo, 'es', { numeric: true }));
 
-      <!-- Manos -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">🧤</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE MANOS</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 1115')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1115</td>
-                <td style="padding:8px;color:var(--text);">Cuero para guantes de protección — requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Guantes de cuero</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1805')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1805</td>
-                <td style="padding:8px;color:var(--text);">Guantes de protección — requisitos generales</td>
-                <td style="padding:8px;color:var(--muted);">Todo tipo de guante</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      countEl.textContent = `${filas.length} norma${filas.length !== 1 ? 's' : ''}`;
 
-      <!-- Pies -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">🥾</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN DE PIES Y PIERNAS</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 772/1')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 772/1 Of.92</td>
-                <td style="padding:8px;color:var(--text);">Protección personal — botín de seguridad, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Botines con puntera</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1796')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1796</td>
-                <td style="padding:8px;color:var(--text);">Calzado de seguridad — calzado de goma, requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Botas de goma</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2147/1')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/1</td>
-                <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 1: calzado antiestático</td>
-                <td style="padding:8px;color:var(--muted);">Calzado antiestático</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2147/2')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/2</td>
-                <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 2: calzado aislante hasta 600V</td>
-                <td style="padding:8px;color:var(--muted);">Calzado dieléctrico</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2147/3')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2147/3</td>
-                <td style="padding:8px;color:var(--text);">Calzado de seguridad para riesgos especiales — Parte 3: calzado semiconductor</td>
-                <td style="padding:8px;color:var(--muted);">Calzado semiconductor</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Altura y caídas -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">🪝</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">PROTECCIÓN CONTRA CAÍDAS</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 1252')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1252</td>
-                <td style="padding:8px;color:var(--text);">Cinturones y arneses de seguridad para trabajos en altura — requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Arneses / cinturones</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2374')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2374</td>
-                <td style="padding:8px;color:var(--text);">Protección personal — equipos de protección contra caídas, requisitos y ensayos</td>
-                <td style="padding:8px;color:var(--muted);">Sistemas anticaída</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Ropa de protección -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">🦺</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">ROPA DE PROTECCIÓN</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 1806')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1806</td>
-                <td style="padding:8px;color:var(--text);">Protección personal — ropa para soldadores, confección y requisitos</td>
-                <td style="padding:8px;color:var(--muted);">Ropa para soldadura</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1303')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1303</td>
-                <td style="padding:8px;color:var(--text);">Ropa de protección — requisitos generales</td>
-                <td style="padding:8px;color:var(--muted);">Toda ropa de protección</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Señalética -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div style="background:rgba(56,189,248,.1);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span style="font-size:1.3rem;">🚧</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:#e0f2fe;letter-spacing:.5px;">SEÑALIZACIÓN Y COLORES DE SEGURIDAD</span>
-        </div>
-        <div style="padding:1rem 1.2rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
-            <thead><tr style="color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.8px;">
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Norma</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Descripción</th>
-              <th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);">Aplica a</th>
-            </tr></thead>
-            <tbody>
-              <tr class="norm-row" onclick="openNormModal('NCh 1410')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;white-space:nowrap;">NCh 1410</td>
-                <td style="padding:8px;color:var(--text);">Prevención de riesgos — colores de seguridad</td>
-                <td style="padding:8px;color:var(--muted);">Señalética / colores</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1411/1')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1411/1</td>
-                <td style="padding:8px;color:var(--text);">Prevención de riesgos — letreros de seguridad, aspectos generales</td>
-                <td style="padding:8px;color:var(--muted);">Letreros y señales</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 1411/3 LOTO')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 1411/3</td>
-                <td style="padding:8px;color:var(--text);">Etiquetas y tarjetas de seguridad — requisitos para Tagout (LOTO)</td>
-                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('NCh 2929')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">NCh 2929</td>
-                <td style="padding:8px;color:var(--text);">Seguridad en máquinas — obligación de tarjetas Tagout en puntos de energía</td>
-                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('DS 594 LOTO')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">DS 594 Art. 37</td>
-                <td style="padding:8px;color:var(--text);">Reglamento de Condiciones Sanitarias — exige procedimiento escrito de control de energías peligrosas (LOTO)</td>
-                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
-              </tr>
-              <tr class="norm-row" onclick="openNormModal('OSHA LOTO')">
-                <td style="padding:8px;color:var(--accent);font-weight:700;">OSHA 1910.147</td>
-                <td style="padding:8px;color:var(--text);">Control de Energías Peligrosas (LOTO) — estándar internacional de referencia en Chile (RIC 05 minería)</td>
-                <td style="padding:8px;color:var(--muted);">Bloqueo/Etiquetado</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div><!-- /grid -->
+      body.innerHTML = filas.map((f, i) => `
+        <tr style="background:${i % 2 ? 'rgba(255,255,255,.02)' : 'transparent'};cursor:pointer;" onclick="openNormModal('${f.codigo}')">
+          <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--accent);font-weight:700;white-space:nowrap;">${f.codigo}</td>
+          <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);">${f.titulo}<br><span style="color:var(--muted);font-size:.72rem;">${f.aplica}</span></td>
+        </tr>
+      `).join('');
+    }
+    document.addEventListener('DOMContentLoaded', () => { if (document.getElementById('glosarioBody')) renderGlosarioNormas(); });
+    if (document.getElementById('glosarioBody')) renderGlosarioNormas();
+    </script>
 
     <div style="margin-top:1.5rem;text-align:center;font-size:.78rem;color:var(--muted);padding-bottom:2rem;">
       Fuente: INN — Instituto Nacional de Normalización · SIGWEB · ISP Chile · Información de referencia, no reemplaza los textos oficiales.
@@ -1978,59 +1743,13 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       </div>
     </div>
     </div>
-  </div>
-</div>
 
-<!-- CALCULADORA EPP TAB -->
-<div id="pane-calc" style="display:none;">
-  <div class="hero">
-    <h1><span>CALCULADORA</span> <span data-es="DE EPP POR RIESGO" data-en="PPE BY RISK" data-pt="EPI POR RISCO" data-zh="按风险分类防护">DE EPP POR RIESGO</span></h1>
-    <p data-es="Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile" data-en="Select your industry and task — we tell you what PPE you need by Chilean law" data-pt="Selecione sua indústria e tarefa — dizemos qual EPI você precisa por lei no Chile" data-zh="选择您的行业和任务——我们告诉您智利法律要求的防护装备">Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile</p>
-  </div>
-  <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
-
-    <!-- Leyenda legal -->
-    <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;">
-      <span style="font-size:1.4rem;flex-shrink:0;">👷</span>
-      <span style="font-size:.82rem;color:#fbbf24;line-height:1.6;"><strong>Aviso legal:</strong> Esta herramienta es solo referencial. <strong>Siempre asesórate con un Prevencionista de Riesgos</strong> para determinar los EPP adecuados a tu faena específica.</span>
-    </div>
-    <div style="margin-bottom:1.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 1 — ¿En qué industria trabajas?</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;" id="calcIndustrias">
-        <button onclick="selectIndustria(this,'construccion')" class="calc-btn">🏗️ Construcción</button>
-        <button onclick="selectIndustria(this,'mineria')" class="calc-btn">⛏️ Minería</button>
-        <button onclick="selectIndustria(this,'manufactura')" class="calc-btn">🏭 Manufactura</button>
-        <button onclick="selectIndustria(this,'forestal')" class="calc-btn">🌲 Forestal</button>
-        <button onclick="selectIndustria(this,'quimica')" class="calc-btn">⚗️ Química/Lab</button>
-        <button onclick="selectIndustria(this,'electrico')" class="calc-btn">⚡ Eléctrico</button>
-        <button onclick="selectIndustria(this,'soldadura')" class="calc-btn">🔥 Soldadura</button>
-        <button onclick="selectIndustria(this,'agricultura')" class="calc-btn">🌾 Agricultura</button>
-        <button onclick="selectIndustria(this,'pesca')" class="calc-btn">🐟 Pesca/Mar</button>
-        <button onclick="selectIndustria(this,'salud')" class="calc-btn">🏥 Salud</button>
-        <button onclick="selectIndustria(this,'logistica')" class="calc-btn">📦 Logística/Bodega</button>
-        <button onclick="selectIndustria(this,'altura')" class="calc-btn">🏔️ Trabajo en Altura</button>
-      </div>
-    </div>
-
-    <!-- Paso 2: Faena -->
-    <div id="calcFaenaDiv" style="display:none;margin-bottom:1.5rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 2 — ¿Cuál es tu faena o tarea principal?</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem;" id="calcFaenas"></div>
-    </div>
-
-    <!-- Resultado -->
-    <div id="calcResultado" style="display:none;"></div>
-
-  </div>
-</div>
-
-<!-- VIDA ÚTIL TAB -->
-<div id="pane-vida" style="display:none;">
-  <div class="hero">
-    <h1><span>VIDA ÚTIL</span> <span data-es="DE TUS EPP" data-en="OF YOUR PPE" data-pt="DOS SEUS EPI" data-zh="防护装备寿命">DE TUS EPP</span></h1>
-    <p data-es="Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas" data-en="Guide on when to replace each piece of personal protective equipment" data-pt="Guia de quando substituir cada elemento de proteção pessoal segundo fabricantes e normas" data-zh="根据制造商和法规，了解何时更换每种个人防护装备的指南">Guía de cuándo cambiar cada elemento de protección personal según fabricantes y normativas</p>
-  </div>
-  <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- VIDA ÚTIL DE TUS EPP (fusionado desde pestaña VIDA) -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div style="margin-top:2.8rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;color:var(--accent);letter-spacing:.5px;margin-bottom:.3rem;">⌛ Vida útil de tus EPP</h2>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Guía de cuándo cambiar cada elemento de protección personal, según normativa, fabricante o criterio visual.</p>
 
     <!-- Advertencia principal -->
     <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:1rem 1.3rem;margin-bottom:1rem;font-size:.82rem;color:#fca5a5;line-height:1.6;">
@@ -2389,100 +2108,231 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       Fuentes: DS 594/99 MINSAL · NCh 461, 1301, 772/1, 2374 · ISO 10333 · EN 60903, EN 149, EN 374, EN 14387, EN 13982, NFPA 2112 · NIOSH · ANSI Z87.1, S3.19<br>
       Los datos marcados como 🏭 o ⚠️ son referenciales — consulte siempre al fabricante y a su organismo administrador (ACHS, IST, Mutual).
     </div>
+
+    </div>
+
   </div>
 </div>
 
-<!-- PROVEEDORES TAB -->
-<div id="pane-prov" style="display:none;">
+<!-- CALCULADORA EPP TAB -->
+<div id="pane-calc" style="display:none;">
   <div class="hero">
-    <h1><span>DIRECTORIO</span> <span data-es="DE PROVEEDORES" data-en="OF SUPPLIERS" data-pt="DE FORNECEDORES" data-zh="供应商目录">DE PROVEEDORES</span></h1>
-    <p data-es="Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web" data-en="All PPE suppliers in Chile — click to visit their website" data-pt="Todas as empresas fornecedoras de EPI no Chile — clique para visitar o site" data-zh="智利所有个人防护装备供应商——点击访问其网站">Todas las empresas proveedoras de EPP en Chile — haz clic para visitar su sitio web</p>
+    <h1><span>CALCULADORA</span> <span data-es="DE EPP POR RIESGO" data-en="PPE BY RISK" data-pt="EPI POR RISCO" data-zh="按风险分类防护">DE EPP POR RIESGO</span></h1>
+    <p data-es="Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile" data-en="Select your industry and task — we tell you what PPE you need by Chilean law" data-pt="Selecione sua indústria e tarefa — dizemos qual EPI você precisa por lei no Chile" data-zh="选择您的行业和任务——我们告诉您智利法律要求的防护装备">Selecciona tu industria y faena — te decimos qué EPP necesitas por ley en Chile</p>
+  </div>
+  <div class="results-area" style="max-width:800px;margin:0 auto;padding:1rem;">
+
+    <!-- Leyenda legal -->
+    <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;">
+      <span style="font-size:1.4rem;flex-shrink:0;">👷</span>
+      <span style="font-size:.82rem;color:#fbbf24;line-height:1.6;"><strong>Aviso legal:</strong> Esta herramienta es solo referencial. <strong>Siempre asesórate con un Prevencionista de Riesgos</strong> para determinar los EPP adecuados a tu faena específica.</span>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 1 — ¿En qué industria trabajas?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;" id="calcIndustrias">
+        <button onclick="selectIndustria(this,'construccion')" class="calc-btn">🏗️ Construcción</button>
+        <button onclick="selectIndustria(this,'mineria')" class="calc-btn">⛏️ Minería</button>
+        <button onclick="selectIndustria(this,'manufactura')" class="calc-btn">🏭 Manufactura</button>
+        <button onclick="selectIndustria(this,'forestal')" class="calc-btn">🌲 Forestal</button>
+        <button onclick="selectIndustria(this,'quimica')" class="calc-btn">⚗️ Química/Lab</button>
+        <button onclick="selectIndustria(this,'electrico')" class="calc-btn">⚡ Eléctrico</button>
+        <button onclick="selectIndustria(this,'soldadura')" class="calc-btn">🔥 Soldadura</button>
+        <button onclick="selectIndustria(this,'agricultura')" class="calc-btn">🌾 Agricultura</button>
+        <button onclick="selectIndustria(this,'pesca')" class="calc-btn">🐟 Pesca/Mar</button>
+        <button onclick="selectIndustria(this,'salud')" class="calc-btn">🏥 Salud</button>
+        <button onclick="selectIndustria(this,'logistica')" class="calc-btn">📦 Logística/Bodega</button>
+        <button onclick="selectIndustria(this,'altura')" class="calc-btn">🏔️ Trabajo en Altura</button>
+      </div>
+    </div>
+
+    <!-- Paso 2: Faena -->
+    <div id="calcFaenaDiv" style="display:none;margin-bottom:1.5rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">PASO 2 — ¿Cuál es tu faena o tarea principal?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem;" id="calcFaenas"></div>
+    </div>
+
+    <!-- Resultado -->
+    <div id="calcResultado" style="display:none;"></div>
+
+  </div>
+</div>
+
+<!-- VIDA ÚTIL TAB -->
+
+<!-- PROVEEDORES TAB -->
+<!-- INFORMACIÓN EPP: FABRICANTES + DISTRIBUIDORES (fusión) -->
+<div id="pane-infoepp" style="display:none;">
+  <div class="hero">
+    <h1><span>INFORMACIÓN</span> <span data-es="EPP" data-en="PPE" data-pt="EPI" data-zh="防护装备信息">EPP</span></h1>
+    <p data-es="Fabricantes registrados en el ISP y distribuidores de EPP en Chile" data-en="ISP-registered manufacturers and PPE distributors in Chile" data-pt="Fabricantes registrados no ISP e distribuidores de EPI no Chile" data-zh="ISP注册制造商与智利防护装备经销商">Fabricantes registrados en el ISP y distribuidores de EPP en Chile</p>
   </div>
   <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
 
-    <!-- Buscador interno -->
-    <div style="margin-bottom:1rem;position:relative;">
-      <input id="provSearch" type="text" placeholder="🔍 Filtrar proveedores..."
-        oninput="renderProveedores()"
-        style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+    <!-- Selector Fabricante / Distribuidor -->
+    <div style="display:flex;gap:.6rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <button id="btnInfoEppFab" onclick="mostrarInfoEpp('fab')" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.7rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.5px;">🏭 FABRICANTES</button>
+      <button id="btnInfoEppProv" onclick="mostrarInfoEpp('prov')" style="background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:.7rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.5px;">🤝 DISTRIBUIDORES</button>
     </div>
 
-    <!-- Filtro por categoría -->
-    <div id="provCatFiltros" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;"></div>
+    <div id="pane-fab" style="display:block;">
+      <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.5rem;font-size:.82rem;color:#e0f2fe;line-height:1.6;">
+        🏛️ Empresas con productos inscritos en el <strong>Registro de Fabricantes e Importadores de EPP (RFI)</strong> del ISP, conforme al D.S. N°594/99 y Res. Ex. N°45/2023. Para verificar productos específicos visita <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" style="color:#38bdf8;">ispch.gob.cl/listadoepp</a>
+      </div>
 
-    <!-- Contador -->
-    <div id="provCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
+      <!-- Buscador -->
+      <div style="margin-bottom:1rem;">
+        <input id="fabSearch" type="text" placeholder="🔍 Filtrar fabricantes..."
+          oninput="renderFabricantes()"
+          style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+      </div>
+      <div id="fabCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
+      <div id="fabGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;"></div>
 
-    <!-- Grid de tarjetas -->
-    <div id="provGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;"></div>
-
-    <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
-      ⚠️ Los links son referenciales. Algunos proveedores pueden no tener sitio web activo. Verifica antes de visitar.
+      <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
+        ⚠️ Links referenciales. Verifica el estado actual del registro en ispch.gob.cl/listadoepp
+      </div>
     </div>
+
+    <div id="pane-prov" style="display:none;">
+      <p style="text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:1.2rem;">Todas las empresas distribuidoras de EPP en Chile — haz clic para visitar su sitio web</p>
+
+      <!-- Buscador interno -->
+      <div style="margin-bottom:1rem;position:relative;">
+        <input id="provSearch" type="text" placeholder="🔍 Filtrar proveedores..."
+          oninput="renderProveedores()"
+          style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+      </div>
+
+      <!-- Filtro por categoría -->
+      <div id="provCatFiltros" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;"></div>
+
+      <!-- Contador -->
+      <div id="provCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
+
+      <!-- Grid de tarjetas -->
+      <div id="provGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;"></div>
+
+      <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
+        ⚠️ Los links son referenciales. Algunos proveedores pueden no tener sitio web activo. Verifica antes de visitar.
+      </div>
+    </div>
+
   </div>
 </div>
+<script>
+function mostrarInfoEpp(cual) {
+  const panFab = document.getElementById('pane-fab');
+  const panProv = document.getElementById('pane-prov');
+  const btnFab = document.getElementById('btnInfoEppFab');
+  const btnProv = document.getElementById('btnInfoEppProv');
+  const activo = 'background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.7rem 1.6rem;font-family:\'Barlow Condensed\',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.5px;';
+  const inactivo = 'background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:.7rem 1.6rem;font-family:\'Barlow Condensed\',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.5px;';
+  if (cual === 'fab') {
+    panFab.style.display = 'block'; panProv.style.display = 'none';
+    btnFab.style.cssText = activo; btnProv.style.cssText = inactivo;
+    renderFabricantes();
+  } else {
+    panFab.style.display = 'none'; panProv.style.display = 'block';
+    btnFab.style.cssText = inactivo; btnProv.style.cssText = activo;
+    renderProveedores(); renderProvCatFiltros();
+  }
+}
+</script>
+
 
 <!-- COMPARADOR CERTIFICACIONES TAB -->
 <div id="pane-certcomp" style="display:none;">
   <div class="hero">
-    <h1><span>COMPARADOR</span> <span data-es="DE CERTIFICACIONES" data-en="CERTIFICATIONS COMPARATOR" data-pt="DE CERTIFICAÇÕES" data-zh="认证信息">DE CERTIFICACIONES</span></h1>
-    <p data-es="Verifica si la certificación de un EPP importado es válida en Chile según el ISP" data-en="Verify if the certification of an imported PPE is valid in Chile" data-pt="Verifique se a certificação de um EPI importado é válida no Chile segundo o ISP" data-zh="根据ISP验证进口防护装备的认证在智利是否有效">Verifica si la certificación de un EPP importado es válida en Chile según el ISP</p>
+    <h1><span>CERTIFICACIONES</span> <span data-es="EPP — LISTADO ÚNICO" data-en="PPE — SINGLE LIST" data-pt="EPI — LISTA ÚNICA" data-zh="防护装备认证清单">EPP — LISTADO ÚNICO</span></h1>
+    <p data-es="Todas las certificaciones reconocidas en Chile para EPP, en una sola lista — con familia, origen y link a la norma" data-en="All PPE certifications recognized in Chile, in a single list" data-pt="Todas as certificações reconhecidas no Chile para EPI, em uma única lista" data-zh="智利认可的所有防护装备认证，单一清单">Todas las certificaciones reconocidas en Chile para EPP, en una sola lista — con familia, origen y link a la norma</p>
   </div>
-  <div class="results-area" style="max-width:900px;margin:0 auto;padding:1rem;">
+  <div class="results-area" style="max-width:1100px;margin:0 auto;padding:1rem;">
 
-    <!-- Selector de tipo EPP -->
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;letter-spacing:.5px;">Selecciona el tipo de EPP</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem;" id="certEppBtns">
-        <button onclick="mostrarCert(this,'casco')" class="calc-btn">⛑️ Casco</button>
-        <button onclick="mostrarCert(this,'lentes')" class="calc-btn">🥽 Lentes</button>
-        <button onclick="mostrarCert(this,'respirador')" class="calc-btn">😷 Respirador</button>
-        <button onclick="mostrarCert(this,'guantes')" class="calc-btn">🧤 Guantes</button>
-        <button onclick="mostrarCert(this,'calzado')" class="calc-btn">🥾 Calzado</button>
-        <button onclick="mostrarCert(this,'arnes')" class="calc-btn">🪝 Arnés</button>
-        <button onclick="mostrarCert(this,'auditivo')" class="calc-btn">🎧 Auditivo</button>
-        <button onclick="mostrarCert(this,'ropa')" class="calc-btn">🦺 Ropa</button>
-        <button onclick="mostrarCert(this,'gases')" class="calc-btn">☁️ Detector Gas</button>
-      </div>
+    <!-- Buscador / filtro -->
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem;">
+      <input id="certSearch" type="text" placeholder="🔍 Filtrar por certificación, familia o norma..."
+        oninput="renderCertListaCompleta()"
+        style="flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+      <select id="certOrigenFiltro" onchange="renderCertListaCompleta()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
+        <option value="todos">Todos los orígenes</option>
+        <option value="nacional">🇨🇱 Solo nacional (Chile)</option>
+        <option value="internacional">🌐 Solo internacional</option>
+      </select>
     </div>
 
-    <!-- Tabla comparativa -->
-    <div id="certResultado" style="display:none;"></div>
+    <div id="certCount" style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;"></div>
+
+    <!-- Listado único -->
+    <div style="overflow-x:auto;background:var(--card);border:1px solid var(--border);border-radius:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:760px;">
+        <thead>
+          <tr style="color:var(--muted);text-transform:uppercase;font-size:.7rem;letter-spacing:.6px;background:rgba(245,158,11,.06);">
+            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Certificación</th>
+            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Familia / EPP aplica</th>
+            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Origen</th>
+            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Resumen</th>
+            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Link</th>
+          </tr>
+        </thead>
+        <tbody id="certListaBody"></tbody>
+      </table>
+    </div>
 
     <!-- Info general ISP -->
     <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:1rem 1.3rem;margin-top:1.2rem;font-size:.8rem;color:var(--text);line-height:1.7;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--accent);margin-bottom:.4rem;">⚖️ Marco legal — ¿Cuándo acepta el ISP una certificación extranjera?</div>
       El ISP acepta certificaciones extranjeras (CE, NIOSH, AS/NZS, etc.) cuando <strong>no existe un laboratorio nacional autorizado</strong> para ese tipo de EPP. El importador debe registrarse en el <strong>Registro RFI del ISP</strong> y presentar el certificado original con traducción oficial si está en otro idioma. La validez siempre la determina el ISP caso a caso.
     </div>
+    <div style="text-align:center;font-size:.72rem;color:var(--muted);padding:1rem 0 2rem;">⚠️ Listado de referencia. Verifica siempre la vigencia exacta en <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" style="color:var(--accent);">ispch.gob.cl/listadoepp</a></div>
   </div>
 </div>
+<script>
+function renderCertListaCompleta() {
+  const body = document.getElementById('certListaBody');
+  const countEl = document.getElementById('certCount');
+  if (!body) return;
+  const q = (document.getElementById('certSearch')?.value || '').toLowerCase().trim();
+  const origenFiltro = document.getElementById('certOrigenFiltro')?.value || 'todos';
 
-<!-- FABRICANTES ISP TAB -->
-<div id="pane-fab" style="display:none;">
-  <div class="hero">
-    <h1><span>FABRICANTES</span> <span data-es="REGISTRADOS ISP" data-en="ISP REGISTERED" data-pt="REGISTRADOS ISP" data-zh="ISP注册">REGISTRADOS ISP</span></h1>
-    <p data-es="Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web" data-en="PPE manufacturers and importers registered with ISP Chile" data-pt="Empresas fabricantes e importadoras de EPI registradas no ISP Chile — clique para visitar o site" data-zh="在智利ISP注册的个人防护装备制造商和进口商">Empresas fabricantes e importadoras de EPP registradas en el ISP Chile — haz clic para visitar su sitio web</p>
-  </div>
-  <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
+  const filas = [];
+  Object.entries(CERT_DATA).forEach(([key, fam]) => {
+    (fam.certs || []).forEach(c => {
+      if (!c.url) return; // omitir placeholders "Sin certificación"
+      const esNacional = c.origen && c.origen.includes('🇨🇱');
+      filas.push({
+        cert: c.cert,
+        familia: `${fam.icono} ${fam.titulo}`,
+        origen: c.origen,
+        esNacional,
+        resumen: c.obs,
+        nivel: c.nivel,
+        url: c.url,
+      });
+    });
+  });
 
-    <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.5rem;font-size:.82rem;color:#e0f2fe;line-height:1.6;">
-      🏛️ Empresas con productos inscritos en el <strong>Registro de Fabricantes e Importadores de EPP (RFI)</strong> del ISP, conforme al D.S. N°594/99 y Res. Ex. N°45/2023. Para verificar productos específicos visita <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" style="color:#38bdf8;">ispch.gob.cl/listadoepp</a>
-    </div>
+  const filtradas = filas.filter(f => {
+    if (origenFiltro === 'nacional' && !f.esNacional) return false;
+    if (origenFiltro === 'internacional' && f.esNacional) return false;
+    if (!q) return true;
+    return (f.cert + ' ' + f.familia + ' ' + f.resumen).toLowerCase().includes(q);
+  });
 
-    <!-- Buscador -->
-    <div style="margin-bottom:1rem;">
-      <input id="fabSearch" type="text" placeholder="🔍 Filtrar fabricantes..."
-        oninput="renderFabricantes()"
-        style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-    </div>
-    <div id="fabCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
-    <div id="fabGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;"></div>
+  countEl.textContent = `${filtradas.length} certificación${filtradas.length !== 1 ? 'es' : ''}`;
 
-    <div style="margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2rem;">
-      ⚠️ Links referenciales. Verifica el estado actual del registro en ispch.gob.cl/listadoepp
-    </div>
-  </div>
-</div>
+  body.innerHTML = filtradas.map((f, i) => `
+    <tr style="background:${i % 2 ? 'rgba(255,255,255,.02)' : 'transparent'};">
+      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--accent);font-weight:700;white-space:nowrap;">${f.cert}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap;">${f.familia}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--muted);white-space:nowrap;">${f.origen}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);">${f.resumen}${f.nivel && f.nivel !== '—' ? `<br><span style="color:var(--muted);font-size:.72rem;">Niveles: ${f.nivel}</span>` : ''}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap;"><a href="${f.url}" target="_blank" rel="noopener" style="color:#38bdf8;font-size:.78rem;">🔗 Ver norma</a></td>
+    </tr>
+  `).join('');
+}
+</script>
+
+
 
 <!-- ZONA EXPERTOS TAB -->
 <div id="pane-expertos" style="display:none;">
@@ -10861,7 +10711,7 @@ async function checkAdminPass() {
     adminUnlocked = true;
     indUnlocked = true;
     closeAdminLogin();
-    ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
+    ['epp','norm','calc','infoepp','certcomp','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
       const pane = document.getElementById('pane-'+t);
       const tb = document.getElementById('tab-'+t);
       if (pane) pane.style.display = t==='admin'?'block':'none';
@@ -10902,7 +10752,7 @@ function showTab(tab, skipAuth=false) {
     showIndLogin();
     return;
   }
-  ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
+  ['epp','norm','calc','infoepp','certcomp','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
     const pane = document.getElementById('pane-'+t);
     const tb = document.getElementById('tab-'+t);
     if (pane) pane.style.display = t===tab?'block':'none';
@@ -10910,11 +10760,11 @@ function showTab(tab, skipAuth=false) {
   });
   if (tab==='admin') { renderAdminTable(); renderDestacadoMesAdmin(); }
   if (tab==='corp') renderCorp();
-  if (tab==='fab') renderFabricantes();
+  if (tab==='certcomp' && typeof renderCertListaCompleta === 'function') renderCertListaCompleta();
+  if (tab==='infoepp') { renderFabricantes(); renderProveedores(); renderProvCatFiltros(); }
   if (tab==='expertos') renderExpertos();
   if (tab==='talentos') renderTalentos();
   if (tab==='admin') { setTimeout(cargarAdminVIP, 500); setTimeout(verificarVencimientosVIP, 1000); setTimeout(cargarEstadisticasVisitas, 800); }
-  if (tab==='prov') { renderProveedores(); renderProvCatFiltros(); }
   if (tab==='estudia' && typeof estudiaRenderizar === 'function') estudiaRenderizar();
 }
 
@@ -12032,7 +11882,7 @@ const NORMAS = {
     titulo: 'NCh 772/1 Of.92 — Calzado de seguridad de uso general (norma vigente en Chile)',
     objetivo: 'Establece los requisitos básicos y adicionales (opcionales) para el calzado de seguridad de uso general en Chile. Incluye riesgos mecánicos, resistencia al deslizamiento, riesgos térmicos y comportamiento ergonómico. Reemplaza a NCh 1584 como norma vigente.',
     campo: 'Industria en general, construcción, minería, manufactura y logística donde existe riesgo de caída de objetos sobre el pie.',
-    requisitos: 'Características de fabricación, material y elementos de protección. A diferencia de EN ISO 20345, esta norma no define niveles S1/S2/S3. Para importaciones el ISP reconoce EN ISO 20345 vía registro RFI.',
+    requisitos: 'Características de fabricación, material y elementos de protección. A diferencia de EN ISO 20345, esta norma no define niveles S1/S2/S3. Para importaciones el ISP reconoce EN ISO 20345 vía registro RFI. Actualización verificada: la norma de métodos de ensayo asociada, NCh773/1:1992, fue reemplazada por NCh3749 (adopción de ISO 20344) — la norma de requisitos NCh772/1 no cambió, pero los ensayos de laboratorio ahora se rigen por NCh3749/ISO 20344.',
     categorias: ['Calzado con puntera de protección', 'Calzado con plantilla antiperforación', 'Calzado con resistencia al deslizamiento', 'Calzado con protección térmica'],
     tags: ['calzado', 'seguridad', 'puntera', 'acero', 'composite', 'NCh 772', 'uso general']
   },
@@ -12147,6 +11997,47 @@ const NORMAS = {
     requisitos: 'Candado de llave única por trabajador (KD - Keyed Different). Procedimiento escrito por equipo con secuencia de pasos. Dispositivos de bloqueo aprobados (dieléctricos, resistentes). Verificación de cero energía antes de intervenir. Capacitación documentada de trabajadores autorizados y afectados. Revisión anual del programa.',
     categorias: ['Candados KD (llave única)', 'Hasps (bloqueo múltiple)', 'Bloqueos de válvulas y breakers', 'Cajas de bloqueo grupal', 'Tarjetas Tagout', 'Procedimiento escrito por equipo'],
     tags: ['loto', 'osha', 'lockout', 'tagout', 'ric 05', 'minería', 'internacional']
+  },
+
+  'EN ISO 11612 / NFPA 2112': {
+    titulo: 'Ropa ignífuga / resistente a la llama (FR/AR)',
+    objetivo: 'Chile no cuenta con una NCh específica para ropa ignífuga o resistente al arco eléctrico. El ISP reconoce certificaciones internacionales vía Registro RFI: EN ISO 11612 (protección térmica y contra llama), NFPA 2112 (ropa FR industrial), NFPA 70E (protección arco eléctrico, categorías HRC 1-4).',
+    campo: 'Soldadura, fundición, minería, sector eléctrico (arco eléctrico), petroquímica y cualquier faena con riesgo de llama súbita o calor radiante intenso.',
+    requisitos: 'EN ISO 11612 clasifica por códigos A-F según el tipo de protección térmica (llama, calor convectivo, radiante, metal fundido). NFPA 2112 exige ATPV mínimo. NFPA 70E clasifica por categorías de riesgo de arco (HRC 1-4) según la energía incidente en cal/cm².',
+    categorias: ['Ropa FR industrial', 'Ropa anti-arco eléctrico', 'Overol/mono ignífugo', 'Ropa corporativa con tratamiento FR'],
+    tags: ['ignífuga', 'fr', 'arco eléctrico', 'llama', 'nfpa', 'soldadura']
+  },
+  'DS 594 Art. 45 — Detectores de Gas': {
+    titulo: 'Instrumentación y detectores de gases',
+    objetivo: 'No existe una NCh específica para detectores de gas. El D.S. 594 Art. 45 exige medición y control de atmósferas peligrosas; la certificación técnica del equipo se rige por normas internacionales de zonas explosivas: IEC 60079 (serie), ATEX (Europa), IECEx (internacional).',
+    campo: 'Minería subterránea, espacios confinados, petroquímica, y cualquier faena con riesgo de atmósfera explosiva, tóxica o deficiente en oxígeno.',
+    requisitos: 'El equipo debe estar certificado para la zona de riesgo donde se usará (Zona 0/1/2 gas, Zona 20/21/22 polvo). Calibración periódica obligatoria con gases patrón trazables, con certificado y número de serie del equipo.',
+    categorias: ['Detector portátil 4 gases', 'Detector fijo de área', 'Equipo Ex certificado', 'Calibración periódica'],
+    tags: ['gas', 'detector', 'atex', 'iecex', 'atmósfera explosiva', 'espacio confinado']
+  },
+  'EN 342 / EN ISO 11612 — Ropa Térmica': {
+    titulo: 'Ropa térmica (frío extremo y calor)',
+    objetivo: 'No existe una NCh dedicada a ropa térmica. Para frío extremo se referencia EN 342 (aislación térmica en ambientes fríos); para calor y llama, EN ISO 11612 (ver ficha de ropa ignífuga). El ISP reconoce ambas vía Registro RFI cuando corresponde.',
+    campo: 'Cámaras de frío, trabajo a la intemperie en climas extremos (frío), y hornos/fundición/soldadura (calor) según el caso.',
+    requisitos: 'EN 342 mide aislación térmica (valor Icler) y resistencia al viento y a la penetración de agua. Para calor, aplican los mismos criterios de EN ISO 11612.',
+    categorias: ['Ropa para cámara de frío', 'Ropa de intemperie clima extremo', 'Ropa con aislación térmica certificada'],
+    tags: ['térmica', 'frío', 'calor', 'aislación', 'intemperie']
+  },
+  'DS 594 UV / NCh 3273': {
+    titulo: 'Protección de piel/dérmica y ropa con filtro UV',
+    objetivo: 'El D.S. 594 (modificado en 2011) obliga a las empresas con trabajadores expuestos a radiación UV solar a mantener un programa escrito de protección: informar riesgos, publicar el índice UV diario, y entregar EPP específico. Para la ropa con protección UV, la norma chilena es NCh 3273:2012.',
+    campo: 'Trabajo al aire libre con exposición solar: construcción, agricultura, forestal, minería a rajo abierto, obras viales.',
+    requisitos: 'EPP mínimo: protector solar FPS 30 o más (aplicar al menos 2 veces por jornada), lentes con filtro UV, sombrero de ala ancha o tipo legionario que cubra el cuello, ropa que cubra la mayor parte del cuerpo. NCh 3273:2012 certifica el factor de protección UV (UPF) de la tela. El ISP publicó además la Nota Técnica N°55 sobre productos para la piel con protección solar.',
+    categorias: ['Protector solar FPS 30+', 'Ropa con certificación NCh 3273 (UPF)', 'Sombrero ala ancha / legionario', 'Lentes con filtro UV'],
+    tags: ['piel', 'dérmica', 'uv', 'solar', 'nch 3273', 'protector solar']
+  },
+  'MOP Decreto N°78/2012': {
+    titulo: 'Obras viales — señalización y alta visibilidad en vía pública',
+    objetivo: 'El Manual de Señalización de Tránsito (Decreto N°78/2012, MTT/MOP) regula específicamente cómo debe verse el personal que trabaja en calles y carreteras: colores y tipo de cintas retrorreflectantes exigidas. Se aplica junto a la norma de la prenda (NCh 3254 o EN ISO 20471), no la reemplaza.',
+    campo: 'Cuadrillas, banderilleros y personal de supervisión que trabaja en o cerca de la vía pública: construcción y mantención vial, señalización de obras.',
+    requisitos: 'Personal de campo: camisa o polera amarillo limón. Banderilleros: chaleco naranja con franjas de alta intensidad. La clase de la prenda (1/2/3 según NCh 3254 o EN ISO 20471) se define aparte, según la velocidad y proximidad del tránsito vehicular.',
+    categorias: ['Camisa/polera amarillo limón', 'Chaleco naranja banderillero', 'Franjas de alta intensidad nocturna', 'Clase 2 o 3 según NCh 3254'],
+    tags: ['obras viales', 'mop', 'tránsito', 'banderillero', 'alta visibilidad', 'vía pública']
   }
 };
 
@@ -13023,7 +12914,7 @@ async function solicitarAccesoVIP() {
 
 // ── Mostrar pane VIP ───────────────────────────────────────
 function mostrarPaneVIP() {
-  ['epp','norm','calc','vida','prov','certcomp','fab','expertos','talentos','vip','corp','admin'].forEach(t => {
+  ['epp','norm','calc','infoepp','certcomp','expertos','talentos','vip','corp','admin'].forEach(t => {
     const p = document.getElementById('pane-' + t);
     const tb = document.getElementById('tab-' + t);
     if (p) p.style.display = t === 'vip' ? 'block' : 'none';
@@ -15304,14 +15195,10 @@ function karyBuscarDesdeChat(termino) {
   setTimeout(() => karyMostrarProductos(termino.trim()), 400);
 }
 
-// Saludo automático a los 3 segundos de entrar
+// Aviso visual (badge) a los 3 segundos de entrar — NUNCA abre el chat solo, eso es decisión del usuario
 setTimeout(() => {
   const badge = document.getElementById('karyBadge');
   if (badge) badge.style.display = 'flex';
-  // Abrir automáticamente después de 4 segundos
-  setTimeout(() => {
-    if (!karyAbierto) karyToggle();
-  }, 4000);
 }, 3000);
 
 renderFilters();
