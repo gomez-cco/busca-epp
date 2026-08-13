@@ -4254,6 +4254,168 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
       document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof cerrarManualReflec==='function')cerrarManualReflec();}});
     </script>
 
+    <!-- Guía P&R — Venta de EPP en la Gran Minería: normas, SERNAGEOMIN y familias -->
+    <div onclick="abrirManualMineria()" style="background:linear-gradient(135deg,#1c1006 0%,#241407 50%,#150c04 100%);border:1px solid rgba(217,119,6,.32);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;cursor:pointer;transition:border-color .15s,box-shadow .15s;" onmouseover="this.style.borderColor='rgba(217,119,6,.7)';this.style.boxShadow='0 4px 18px rgba(217,119,6,.15)';" onmouseout="this.style.borderColor='rgba(217,119,6,.32)';this.style.boxShadow='none';">
+      <div style="width:46px;height:46px;background:linear-gradient(135deg,rgba(217,119,6,.28),rgba(180,83,9,.2));border:1px solid rgba(217,119,6,.4);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">⛏️</div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:.7rem;color:rgba(217,119,6,.85);font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:.2rem;">Guía Técnica · 40 preguntas</div>
+        <div style="font-size:.97rem;font-weight:700;color:#fff;line-height:1.25;">Venta de EPP en la Gran Minería: SERNAGEOMIN, Normas y Familias</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:.2rem;">DS 132 · Ley 16.744 · PLANESI · Ley 20.551 · EPP por familia · Departamento de Prevención · BuscaEPP</div>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,#d97706,#b45309);color:#150c04;font-size:.75rem;font-weight:800;padding:9px 18px;border-radius:22px;letter-spacing:.3px;flex-shrink:0;box-shadow:0 2px 8px rgba(217,119,6,.35);">📄 Ver Manual</div>
+    </div>
+
+    <!-- Modal — Guía Venta de EPP en la Gran Minería -->
+    <div id="modal-manual-mineria" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,12,25,.9);backdrop-filter:blur(4px);" onclick="if(event.target===this)cerrarManualMineria()">
+      <div style="position:absolute;inset:2vh 2vw;background:#0f1d30;border:1px solid rgba(217,119,6,.28);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);">
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#1c1006,#241407);padding:.9rem 1.2rem;display:flex;align-items:center;gap:1rem;border-bottom:2px solid rgba(217,119,6,.35);flex-shrink:0;">
+          <span style="font-size:22px;">⛏️</span>
+          <div style="flex:1;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;color:#fff;letter-spacing:1px;">VENTA DE EPP EN LA GRAN MINERÍA: SERNAGEOMIN, NORMAS Y FAMILIAS</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem;">BuscaEPP · 40 preguntas · DS 132 / Ley 16.744 / PLANESI / Ley 20.551 · Información técnica de referencia</div>
+          </div>
+          <button onclick="cerrarManualMineria()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.75rem;font-weight:700;transition:background .12s;" onmouseover="this.style.background='rgba(255,255,255,.16)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">✕ Cerrar</button>
+        </div>
+        <!-- Contenido scrollable -->
+        <div style="flex:1;overflow-y:auto;padding:1.4rem 1.6rem;scrollbar-color:rgba(217,119,6,.3) transparent;" id="manual-mineria-body">
+
+          <!-- Intro -->
+          <div style="background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.22);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
+            <p style="margin:0;font-size:.82rem;color:rgba(204,224,245,.75);line-height:1.6;">Esta guía es para equipos comerciales y de abastecimiento que venden EPP a la gran minería. Cubre el marco legal (DS 132, Ley 16.744, DS 594, PLANESI, Ley 20.551), el rol de SERNAGEOMIN, y cómo se organiza la compra de EPP por familia. Cada respuesta parte con una idea en simple y luego el detalle técnico con su norma. Información de referencia general — no reemplaza la evaluación de riesgo específica de cada faena ni asesoría legal.</p>
+          </div>
+
+          <!-- BLOQUE 1 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 1 · MARCO LEGAL E INSTITUCIONAL: SERNAGEOMIN</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P1. ¿Qué es SERNAGEOMIN y qué rol cumple en la seguridad minera?</div><div class="mfr-a"><b>En simple:</b> es el organismo del Estado que fiscaliza que las faenas mineras cumplan las normas de seguridad — puede inspeccionar, sancionar e incluso paralizar operaciones.<br><br><b>El detalle:</b> el Servicio Nacional de Geología y Minería, dependiente del Ministerio de Minería, aplica y fiscaliza el Reglamento de Seguridad Minera (DS 132), investiga accidentes, y tiene atribuciones legales para exigir medidas correctivas urgentes, incluyendo la paralización parcial o total de una faena si la seguridad de los trabajadores está comprometida.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P2. ¿Cuál es la norma principal que rige la seguridad en la gran minería chilena?</div><div class="mfr-a"><b>En simple:</b> el Decreto Supremo N°132, conocido como Reglamento de Seguridad Minera.<br><br><b>El detalle:</b> publicado en 2004 por el Ministerio de Minería, actualizó al antiguo DS 72 de 1985. Establece el marco regulatorio general para proteger la vida e integridad de los trabajadores mineros y las instalaciones.</div><div class="mfr-n">DS 132 — Ministerio de Minería</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P3. ¿Qué otras normas generales (no exclusivas de minería) también aplican en una faena minera?</div><div class="mfr-a"><b>En simple:</b> las mismas leyes laborales de seguridad que rigen cualquier trabajo en Chile, sumadas a las específicas de minería.<br><br><b>El detalle:</b> la Ley N°16.744 (seguro contra accidentes del trabajo y enfermedades profesionales) y el D.S. N°594 (condiciones sanitarias y ambientales básicas en lugares de trabajo) aplican como marco general; el DS 132 se suma como exigencia adicional específica del rubro minero.</div><div class="mfr-n">Ley 16.744 — seguro de accidentes del trabajo / DS 594 — condiciones básicas de trabajo</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P4. ¿Qué es el "Libro del SERNAGEOMIN" y por qué es importante para el departamento de prevención?</div><div class="mfr-a"><b>En simple:</b> es un cuaderno oficial donde el fiscalizador anota sus observaciones cada vez que visita la faena — y la empresa debe firmarlas.<br><br><b>El detalle:</b> es un libro foliado, registrado ante la Dirección Regional del Servicio, donde se anotan las observaciones y requerimientos de cada inspección. Debe mantenerse en la Administración o en el Departamento de Prevención de Riesgos de la faena, y también deben anotarse ahí las observaciones a empresas contratistas.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P5. ¿Qué significa una "observación tipo A" y qué consecuencia tiene?</div><div class="mfr-a"><b>En simple:</b> es la categoría más grave de hallazgo en una fiscalización — puede significar que paran la faena de inmediato.<br><br><b>El detalle:</b> las observaciones tipo A corresponden a incumplimientos graves detectados por SERNAGEOMIN, que pueden derivar en paralización inmediata de las operaciones afectadas hasta que se corrija la condición de riesgo.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P6. ¿Qué compromiso institucional guía actualmente la política de seguridad minera en Chile?</div><div class="mfr-a"><b>En simple:</b> "fatalidad cero" — el objetivo declarado de que no deberían ocurrir muertes en la actividad minera.<br><br><b>El detalle:</b> es el eje central de las políticas actuales del sector, coordinadas entre SERNAGEOMIN, el Ministerio del Trabajo y organizaciones sindicales, en el marco de la Comisión Sectorial Minera del Consejo Superior Laboral.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P7. ¿Chile tiene compromisos internacionales en seguridad minera?</div><div class="mfr-a"><b>En simple:</b> sí, con la Organización Internacional del Trabajo (OIT).<br><br><b>El detalle:</b> Chile adhiere al Convenio 176 de la OIT sobre seguridad y salud en minas, que establece estándares internacionales de referencia para la fiscalización y gestión de riesgos en la industria minera.</div><div class="mfr-n">Convenio 176 OIT</div></div>
+          </div>
+
+          <!-- BLOQUE 2 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 2 · DS 132 — REGLAMENTO DE SEGURIDAD MINERA</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P8. ¿Qué obligaciones generales impone el DS 132 a las empresas mineras?</div><div class="mfr-a"><b>En simple:</b> cuidar la vida de los trabajadores, cuidar las instalaciones, y cuidar el entorno — con evidencia documentada de cómo lo hacen.<br><br><b>El detalle:</b> exige protección, educación y supervisión de los trabajadores; condiciones sanitarias mínimas en faena; elaboración de planes de emergencia; y cumplimiento de compromisos ambientales, entre otras obligaciones.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P9. ¿Qué dice el DS 132 específicamente sobre los elementos de protección personal?</div><div class="mfr-a"><b>En simple:</b> la empresa debe entregarlos y revisar que estén en buen estado; el trabajador está obligado a usarlos.<br><br><b>El detalle:</b> establece la obligación de verificar el estado de los EPP y su uso por parte de los trabajadores, quienes deben cumplir las exigencias del reglamento interno de la empresa respecto a dichos elementos.</div><div class="mfr-n">DS 132</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P10. ¿El DS 132 regula la circulación de vehículos dentro de la faena?</div><div class="mfr-a"><b>En simple:</b> sí — no es solo sobre EPP, también ordena cómo deben moverse los vehículos dentro del yacimiento.<br><br><b>El detalle:</b> establece requisitos y restricciones específicas para la circulación de vehículos al interior de yacimientos mineros, dado el riesgo de colisión con maquinaria de gran tonelaje.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P11. ¿Aplica el DS 132 a las empresas contratistas, no solo a la titular de la faena?</div><div class="mfr-a"><b>En simple:</b> sí, plenamente — un contratista dentro de una faena minera debe cumplir el mismo reglamento.<br><br><b>El detalle:</b> las observaciones de prevención realizadas a empresas contratistas también deben quedar registradas en el Libro del SERNAGEOMIN de la faena, y la empresa mandante debe garantizar el acceso y las condiciones para la fiscalización de todos quienes trabajen en el yacimiento.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P12. ¿El DS 132 regula el manejo de explosivos y sustancias peligrosas?</div><div class="mfr-a"><b>En simple:</b> sí, con requisitos específicos de almacenamiento, control y aprobación previa.<br><br><b>El detalle:</b> exige que los explosivos y accesorios sean previamente controlados y aprobados, y establece condiciones de temperatura y ventilación para el almacenamiento de reactivos y sustancias peligrosas — su incumplimiento puede derivar en multas o paralización.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P13. ¿Qué pasa si una faena no cumple el DS 132?</div><div class="mfr-a"><b>En simple:</b> desde multas hasta la paralización total de la operación, dependiendo de la gravedad.<br><br><b>El detalle:</b> SERNAGEOMIN puede exigir medidas correctivas urgentes, aplicar sanciones económicas, y ordenar la paralización parcial o total de las operaciones si la seguridad de los trabajadores o la población está comprometida.</div></div>
+          </div>
+
+          <!-- BLOQUE 3 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 3 · SILICOSIS Y PROTECCIÓN RESPIRATORIA (PLANESI)</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P14. ¿Qué es el PLANESI y por qué es tan relevante para la venta de EPP en minería?</div><div class="mfr-a"><b>En simple:</b> es el plan nacional para erradicar la silicosis, una enfermedad pulmonar incurable causada por el polvo de sílice — muy presente en minería.<br><br><b>El detalle:</b> el Plan Nacional para la Erradicación de la Silicosis se lanzó oficialmente en 2009 en Antofagasta, y establece la obligación de vigilancia epidemiológica y control de exposición a sílice en los organismos administradores de la Ley 16.744 y en las empresas donde exista presencia de este contaminante.</div><div class="mfr-n">PLANESI — Minsal / ISP, 2009</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P15. ¿Cuál es el límite de exposición a sílice permitido en Chile?</div><div class="mfr-a"><b>En simple:</b> hay un límite numérico exacto que la faena no puede superar en la jornada de trabajo.<br><br><b>El detalle:</b> el D.S. N°594 fija un límite permisible de exposición a sílice respirable de 0,05 mg/m³ como promedio ponderado en la jornada laboral.</div><div class="mfr-n">DS 594</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P16. ¿Qué tipo de filtro respiratorio se exige frente al riesgo de sílice?</div><div class="mfr-a"><b>En simple:</b> filtros de alta eficiencia para partículas, no cualquier mascarilla básica.<br><br><b>El detalle:</b> se recomiendan respiradores de medio rostro o rostro completo con filtros clase P100 o P3 (alta eficiencia), y su uso correcto exige que el trabajador esté con el rostro afeitado en la zona de sello, para no comprometer el ajuste.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P17. ¿Por qué el departamento de prevención suele ser tan estricto con la protección respiratoria en minería?</div><div class="mfr-a"><b>En simple:</b> porque la silicosis es una enfermedad progresiva e incurable — no hay margen de error una vez que el daño ocurre.<br><br><b>El detalle:</b> al ser irreversible, la exigencia normativa (PLANESI, DS 594) obliga a un control continuo: vigilancia ambiental, vigilancia médica de los trabajadores expuestos, y verificación permanente de que el EPP entregado corresponda exactamente al nivel de riesgo medido en cada área.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P18. Para vender protección respiratoria a una minera, ¿basta con que el producto tenga certificación NIOSH o EN?</div><div class="mfr-a"><b>En simple:</b> no necesariamente — el departamento de prevención suele pedir además que el filtro esté validado para el contaminante y concentración específicos de esa faena.<br><br><b>El detalle:</b> la certificación de fábrica es la base mínima, pero la selección final del filtro exacto depende de la evaluación de riesgo propia de la faena (tipo de mineral, concentración de sílice medida, otros contaminantes presentes) — por eso suelen exigir ficha técnica detallada y, a veces, pruebas de ajuste cuantitativo antes de aceptar un producto nuevo.</div></div>
+          </div>
+
+          <!-- BLOQUE 4 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 4 · MINERÍA SUBTERRÁNEA: REFUGIOS Y AUTORRESCATE</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P19. ¿Qué es un refugio minero y quién lo exige?</div><div class="mfr-a"><b>En simple:</b> es un espacio seguro dentro de la mina subterránea donde los trabajadores pueden resguardarse y sobrevivir si quedan atrapados.<br><br><b>El detalle:</b> exigido por el DS 132 (reforzado tras el accidente de la mina San José en 2010), debe contar con alimentos no perecibles, agua potable renovable, tubos de oxígeno, equipos de comunicación con la superficie, ropa de recambio, elementos de primeros auxilios, y suministro de aire comprimido como principal medio de soporte de vida.</div><div class="mfr-n">DS 132 — refugios mineros</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P20. ¿Qué es un autorescatador y en qué contexto se usa?</div><div class="mfr-a"><b>En simple:</b> es un equipo respiratorio de emergencia, personal e individual, para escapar de una atmósfera irrespirable dentro de la mina.<br><br><b>El detalle:</b> es un dispositivo portátil que cada trabajador de minería subterránea debe portar, diseñado para dar autonomía respiratoria durante el tiempo necesario para evacuar hacia una zona segura o un refugio minero en caso de incendio, explosión o gases tóxicos.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P21. ¿La minería subterránea tiene exigencias de EPP distintas a la minería a rajo abierto?</div><div class="mfr-a"><b>En simple:</b> sí — el subterráneo suma riesgos que no existen (o son menores) a cielo abierto, como gases confinados y colapsos de galería.<br><br><b>El detalle:</b> además del EPP estándar, en minería subterránea se agregan autorescatadores, equipos de comunicación personal, y protocolos de refugio minero — riesgos que en el rajo abierto se gestionan de forma distinta (mayor exposición a polvo en suspensión, tránsito de camiones de gran tonelaje, radiación solar).</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P22. ¿Qué otro elemento es clave en minería subterránea además del autorescatador?</div><div class="mfr-a"><b>En simple:</b> la lámpara minera personal, que no es solo para ver — también es parte del sistema de identificación en una emergencia.<br><br><b>El detalle:</b> la lámpara minera con batería autónoma permite ubicación y señalización del trabajador en caso de corte de energía o evacuación, y suele integrarse al casco de seguridad certificado bajo NCh 461.</div></div>
+          </div>
+
+          <!-- BLOQUE 5 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 5 · CIERRE DE FAENAS Y OTRAS NORMAS ASOCIADAS</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P23. ¿Qué regula la Ley N°20.551?</div><div class="mfr-a"><b>En simple:</b> obliga a las mineras a planificar y financiar, desde antes de cerrar, cómo van a dejar el lugar seguro cuando termine la operación.<br><br><b>El detalle:</b> regula el cierre de faenas e instalaciones mineras en Chile, exigiendo a los titulares presentar a SERNAGEOMIN un plan de cierre con garantía financiera asociada, para asegurar la estabilidad física y química del lugar incluso después del cese de operaciones.</div><div class="mfr-n">Ley 20.551</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P24. ¿Por qué le importaría esto a un vendedor de EPP?</div><div class="mfr-a"><b>En simple:</b> porque una faena en proceso de cierre reduce personal y compra distinto que una faena en plena operación — cambia el volumen y tipo de EPP que necesita.<br><br><b>El detalle:</b> conocer si una faena está en operación plena, en ralentización o en proceso de cierre ayuda a dimensionar correctamente una propuesta comercial — las exigencias de EPP no desaparecen durante el cierre, pero el perfil de riesgo y la dotación cambian.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P25. ¿Qué es el Departamento de Prevención de Riesgos y cuándo es obligatorio tenerlo?</div><div class="mfr-a"><b>En simple:</b> es la unidad interna de la empresa a cargo de la seguridad — obligatoria a partir de cierto tamaño de dotación.<br><br><b>El detalle:</b> la legislación chilena (Ley 16.744 y su reglamento) obliga a las empresas de más de 100 trabajadores a contar con un Departamento de Prevención de Riesgos Profesionales. En la gran minería prácticamente siempre existe, y es el interlocutor técnico principal para cualquier venta de EPP.</div><div class="mfr-n">Ley 16.744 y reglamento (DS 40)</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P26. ¿Qué es el Comité Paritario de Higiene y Seguridad?</div><div class="mfr-a"><b>En simple:</b> un grupo mixto de representantes de la empresa y de los trabajadores que vigila las condiciones de seguridad.<br><br><b>El detalle:</b> obligatorio en empresas con más de 25 trabajadores (Ley 16.744), participa en la evaluación de riesgos y puede influir en las decisiones de compra de EPP, especialmente en la validación de nuevos productos antes de su adopción masiva.</div><div class="mfr-n">Ley 16.744</div></div>
+          </div>
+
+          <!-- BLOQUE 6 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 6 · CÓMO SE ORGANIZA EL EPP POR FAMILIA EN GRAN MINERÍA</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P27. ¿Cómo se organiza típicamente la compra de EPP por familia en una minera?</div><div class="mfr-a"><b>En simple:</b> cada "familia" agrupa un tipo de riesgo (cabeza, pies, respiratorio, etc.), y cada una tiene su propia ficha técnica y norma exigida.<br><br><b>El detalle:</b> la gran minería suele estructurar sus bases de licitación y catálogos internos por familia de producto (protección de cabeza, calzado, manos, respiratoria, auditiva, visual, alta visibilidad, caídas, entre otras), cada una con especificaciones técnicas, normas y clases exigidas de forma independiente.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P28. Familia "Protección de Cabeza" — ¿qué exige minería habitualmente?</div><div class="mfr-a">Casco certificado bajo NCh 461-2001, normalmente Clase B o A según el riesgo eléctrico del área, con compatibilidad para acoplar lámpara minera y protección auditiva o facial según la tarea.</div><div class="mfr-n">NCh 461-2001</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P29. Familia "Calzado de Seguridad" — ¿qué exige minería habitualmente?</div><div class="mfr-a">Calzado bajo NCh 772/1 y normas asociadas, con resistencia a hidrocarburos (frecuente en minería por presencia de combustibles y aceites) y, en áreas eléctricas, calzado dieléctrico certificado bajo NCh 2147/2.</div><div class="mfr-n">NCh 772/1 · NCh 2147/2</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P30. Familia "Protección Respiratoria" — ¿qué exige minería habitualmente?</div><div class="mfr-a">Como mínimo, filtros P100/P3 por el riesgo de sílice (PLANESI), y en áreas de proceso con químicos (fundición, lixiviación) se suman cartuchos para gases y vapores específicos según la hoja de datos de seguridad de cada sustancia.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P31. Familia "Ropa de Alta Visibilidad" — ¿qué exige minería habitualmente?</div><div class="mfr-a">Generalmente Clase 2 en zonas de tránsito moderado y Clase 3 en interior mina o zonas de tránsito de camiones de alto tonelaje, donde la distancia de frenado es crítica.</div><div class="mfr-n">NCh 3254 / EN ISO 20471</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P32. Familia "Protección Auditiva" — ¿por qué es especialmente exigente en minería?</div><div class="mfr-a">La maquinaria minera genera niveles de ruido muy altos y constantes. Se exige protección auditiva certificada con atenuación (NRR/SNR) calculada según el nivel de ruido medido en cada área específica de la faena, no un producto genérico.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P33. Familia "Protección Contra Caídas" — ¿qué exige minería habitualmente?</div><div class="mfr-a">Sistemas anticaídas certificados, con anclajes diseñados para las condiciones específicas de la faena (piques, taludes, estructuras de proceso), normalmente con plan de rescate documentado como exigencia adicional del departamento de prevención.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P34. Familia "Guantes de Protección" — ¿qué exige minería habitualmente?</div><div class="mfr-a">Varía según el área: guantes con nivel de abrasión/corte EN 388 alto para manejo de materiales, guantes dieléctricos certificados en áreas eléctricas, y guantes resistentes a químicos en plantas de proceso (ácidos, reactivos de flotación).</div></div>
+          </div>
+
+          <!-- BLOQUE 7 -->
+          <div class="mfr-blk">
+            <div class="mfr-blk-hdr">BLOQUE 7 · VENDER A GRAN MINERÍA: PROCESO Y EL DEPARTAMENTO DE PREVENCIÓN</div>
+
+            <div class="mfr-qa"><div class="mfr-q">P35. ¿Por qué el departamento de prevención de una minera revisa con tanto detalle cada producto EPP?</div><div class="mfr-a"><b>En simple:</b> porque la faena está sujeta a la fiscalización directa de SERNAGEOMIN, y cualquier producto que ingrese puede quedar registrado en una auditoría o en la investigación de un accidente.<br><br><b>El detalle:</b> esa fiscalización específica exige trazabilidad completa de certificación para todo EPP en uso — por eso el departamento de prevención pide respaldo documentado, no solo la palabra del proveedor.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P36. ¿Qué documentación suele pedir una minera antes de aprobar un nuevo producto EPP?</div><div class="mfr-a"><b>En simple:</b> mucho más que solo la ficha técnica — piden pruebas, certificados de laboratorio, y a veces un piloto de uso en terreno.<br><br><b>El detalle:</b> certificado de ensayo del laboratorio acreditado (no solo la declaración del fabricante), ficha de seguridad si aplica, muestras para prueba piloto con un grupo reducido de trabajadores, y a veces evaluación del Comité Paritario antes de una compra masiva.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P37. ¿Qué significa que un producto esté "homologado" para una faena minera?</div><div class="mfr-a"><b>En simple:</b> que ya pasó por todo el proceso de evaluación interna y quedó aprobado en el catálogo oficial de esa empresa — no puede venderse un reemplazo sin pasar por lo mismo.<br><br><b>El detalle:</b> la homologación es un proceso interno donde el departamento de prevención valida que un producto específico (con su marca, modelo y certificación) cumple los estándares de la faena. Cambiar de proveedor o de modelo, aunque sea "equivalente" en papel, normalmente requiere repetir el proceso.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P38. ¿Qué rol cumplen las mutualidades (ACHS, IST, Mutual de Seguridad) en este proceso?</div><div class="mfr-a"><b>En simple:</b> son organismos que administran el seguro de accidentes laborales y también entregan asesoría técnica en prevención — a veces influyen en qué EPP se valida.<br><br><b>El detalle:</b> como administradores de la Ley 16.744, las mutualidades participan en la vigilancia de riesgos (como el PLANESI) y frecuentemente asesoran a las empresas mineras en la selección técnica de EPP, por lo que sus recomendaciones pueden pesar en el proceso de homologación.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P39. Si SERNAGEOMIN cambia una exigencia normativa, ¿qué pasa con el EPP ya comprado?</div><div class="mfr-a"><b>En simple:</b> la empresa minera es responsable de actualizar su dotación — un EPP que cumplía ayer puede dejar de ser válido si cambia la norma o la evaluación de riesgo.<br><br><b>El detalle:</b> la obligación de cumplimiento es continua, no solo al momento de la compra. Un cambio normativo, una actualización del Reglamento de Seguridad Minera, o una nueva evaluación de riesgo tras un incidente puede obligar a reemplazar EPP que antes cumplía.</div></div>
+
+            <div class="mfr-qa"><div class="mfr-q">P40. En resumen, ¿qué es lo primero que debe entender un vendedor antes de ofrecer EPP a la gran minería?</div><div class="mfr-a"><b>En simple:</b> que no está vendiendo solo un producto — está vendiendo algo que debe sobrevivir una fiscalización de SERNAGEOMIN y, en el peor caso, una investigación de accidente.<br><br><b>El detalle:</b> cualquier propuesta comercial debe venir respaldada con certificación verificable, ficha técnica completa, y idealmente casos de uso en faenas similares — el departamento de prevención no evalúa solo el precio o la comodidad, evalúa si ese producto resiste el nivel de exigencia legal y de fiscalización al que está sometida la operación.</div></div>
+          </div>
+
+          <div style="text-align:center;font-size:.62rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;">BuscaEPP · buscaepp.cl · Guía técnica venta de EPP en la gran minería · Información de referencia, no reemplaza asesoría legal · Edición 2026</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function abrirManualMineria(){
+        document.getElementById('modal-manual-mineria').style.display='block';
+        document.body.style.overflow='hidden';
+      }
+      function cerrarManualMineria(){
+        document.getElementById('modal-manual-mineria').style.display='none';
+        document.body.style.overflow='';
+      }
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof cerrarManualMineria==='function')cerrarManualMineria();}});
+    </script>
+
     <!-- Modal visor manual FR — contenido HTML -->
     <div id="modal-manual-fr" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,12,25,.9);backdrop-filter:blur(4px);" onclick="if(event.target===this)cerrarManualFR()">
       <div style="position:absolute;inset:2vh 2vw;background:#0f1d30;border:1px solid rgba(251,191,36,.25);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);">
