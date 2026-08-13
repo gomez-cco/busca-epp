@@ -1191,11 +1191,11 @@
 
 <div class="tabs" id="mainTabs">
   <div class="tab active" onclick="showTab('epp')"       id="tab-epp"      title="EPP & Seguridad">      <span class="tab-ico">🛡️</span><span class="tab-lbl">EPP</span></div>
-  <div class="tab"        onclick="showTab('norm')"      id="tab-norm"     title="Glosario de normas EPP + Vida útil"><span class="tab-ico">📖</span><span class="tab-lbl">GLOSARIO</span></div>
+  <div class="tab"        onclick="showTab('norm')"      id="tab-norm"     title="Glosario de normas EPP + Vida útil"><span class="tab-ico">📖</span><span class="tab-lbl">G.NORMAS</span></div>
   <div class="tab"        onclick="showTab('calc')"      id="tab-calc"     title="Calculadora EPP">       <span class="tab-ico">🧮</span><span class="tab-lbl">CALC</span></div>
   <div class="tab"        onclick="showTab('infoepp')"   id="tab-infoepp"  title="Información EPP: fabricantes y distribuidores"><span class="tab-ico">🏭</span><span class="tab-lbl">INFO EPP</span></div>
   <div class="tab"        onclick="window.location.href='videos.html'" id="tab-videos" title="Videos EPP"><span class="tab-ico">▶️</span><span class="tab-lbl">VIDEO</span></div>
-  <div class="tab"        onclick="showTab('certcomp')"  id="tab-certcomp" title="Certificaciones ISP">   <span class="tab-ico">🏅</span><span class="tab-lbl">CERT</span></div>
+  <div class="tab"        onclick="showTab('certcomp')"  id="tab-certcomp" title="Glosario Comercial — términos técnicos por familia">   <span class="tab-ico">🏷️</span><span class="tab-lbl">G.COMERCIAL</span></div>
   <div class="tab"        onclick="showTab('expertos')"  id="tab-expertos" title="Zona Expertos">         <span class="tab-ico">🎓</span><span class="tab-lbl">EXPER</span></div>
   <div class="tab"        onclick="showTab('talentos')"  id="tab-talentos" title="Bolsa de Talentos">     <span class="tab-ico">💼</span><span class="tab-lbl">TALENT</span></div>
   <div class="tab"        onclick="abrirVIP()"           id="tab-vip"      title="Zona VIP">              <span class="tab-ico">⭐</span><span class="tab-lbl">VIP</span></div>
@@ -2243,93 +2243,237 @@ function mostrarInfoEpp(cual) {
 <!-- COMPARADOR CERTIFICACIONES TAB -->
 <div id="pane-certcomp" style="display:none;">
   <div class="hero">
-    <h1><span>CERTIFICACIONES</span> <span data-es="EPP — LISTADO ÚNICO" data-en="PPE — SINGLE LIST" data-pt="EPI — LISTA ÚNICA" data-zh="防护装备认证清单">EPP — LISTADO ÚNICO</span></h1>
-    <p data-es="Todas las certificaciones reconocidas en Chile para EPP, en una sola lista — con familia, origen y link a la norma" data-en="All PPE certifications recognized in Chile, in a single list" data-pt="Todas as certificações reconhecidas no Chile para EPI, em uma única lista" data-zh="智利认可的所有防护装备认证，单一清单">Todas las certificaciones reconocidas en Chile para EPP, en una sola lista — con familia, origen y link a la norma</p>
+    <h1><span>GLOSARIO</span> <span data-es="COMERCIAL" data-en="COMMERCIAL GLOSSARY" data-pt="GLOSSÁRIO COMERCIAL" data-zh="商业术语表">COMERCIAL</span></h1>
+    <p data-es="Términos técnicos y comerciales del mercado de EPP en Chile, organizados por familia de producto — sin marcas" data-en="Technical and commercial terms of the PPE market in Chile, organized by product family — brand-free" data-pt="Termos técnicos e comerciais do mercado de EPI no Chile, organizados por família de produto" data-zh="智利个人防护装备市场的技术和商业术语，按产品系列分类">Términos técnicos y comerciales del mercado de EPP en Chile, organizados por familia de producto — sin marcas</p>
   </div>
-  <div class="results-area" style="max-width:1100px;margin:0 auto;padding:1rem;">
+  <div class="results-area" style="max-width:1000px;margin:0 auto;padding:1rem;">
 
-    <!-- Buscador / filtro -->
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem;">
-      <input id="certSearch" type="text" placeholder="🔍 Filtrar por certificación, familia o norma..."
-        oninput="renderCertListaCompleta()"
-        style="flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-      <select id="certOrigenFiltro" onchange="renderCertListaCompleta()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;">
-        <option value="todos">Todos los orígenes</option>
-        <option value="nacional">🇨🇱 Solo nacional (Chile)</option>
-        <option value="internacional">🌐 Solo internacional</option>
-      </select>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:.9rem 1.3rem;margin-bottom:1.3rem;font-size:.8rem;color:var(--text);line-height:1.6;">
+      🏷️ Cuando lees una ficha técnica de EPP aparecen palabras que nadie te explica: "galga", "ATPV", "recubrimiento parcial"... Este glosario junta esos términos y te dice, en simple, qué significan y por qué importan — así entiendes cualquier ficha del mercado chileno sin tener que preguntarle a un vendedor. Un detalle: <strong>no vas a encontrar ninguna marca aquí</strong>. Cada término está explicado por lo que hace, no por cómo lo bautizó tal o cual fabricante — aunque en el mercado circule bajo un nombre comercial registrado.
     </div>
 
-    <div id="certCount" style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;"></div>
+    <input id="glosComSearch" type="text" placeholder="🔍 Buscar término (ej: ripstop, anti-fatigue, cuero, dial)..."
+      oninput="renderGlosarioComercial()"
+      style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.9rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;margin-bottom:1rem;">
 
-    <!-- Listado único -->
-    <div style="overflow-x:auto;background:var(--card);border:1px solid var(--border);border-radius:12px;">
-      <table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:760px;">
-        <thead>
-          <tr style="color:var(--muted);text-transform:uppercase;font-size:.7rem;letter-spacing:.6px;background:rgba(245,158,11,.06);">
-            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Certificación</th>
-            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Familia / EPP aplica</th>
-            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Origen</th>
-            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Resumen</th>
-            <th style="text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);">Link</th>
-          </tr>
-        </thead>
-        <tbody id="certListaBody"></tbody>
-      </table>
-    </div>
+    <div id="glosComCount" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;"></div>
 
-    <!-- Info general ISP -->
-    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:1rem 1.3rem;margin-top:1.2rem;font-size:.8rem;color:var(--text);line-height:1.7;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--accent);margin-bottom:.4rem;">⚖️ Marco legal — ¿Cuándo acepta el ISP una certificación extranjera?</div>
-      El ISP acepta certificaciones extranjeras (CE, NIOSH, AS/NZS, etc.) cuando <strong>no existe un laboratorio nacional autorizado</strong> para ese tipo de EPP. El importador debe registrarse en el <strong>Registro RFI del ISP</strong> y presentar el certificado original con traducción oficial si está en otro idioma. La validez siempre la determina el ISP caso a caso.
+    <div id="glosComResultado" style="display:grid;gap:1rem;"></div>
+
+    <div style="margin-top:1.5rem;text-align:center;font-size:.72rem;color:var(--muted);padding-bottom:2rem;">
+      📚 Para el detalle normativo y clasificación de cada uno de estos EPP, revisa las guías completas en <a href="#" onclick="showTab('estudia');return false;" style="color:var(--accent);">Estudia con BuscaEPP</a> y el <a href="#" onclick="showTab('norm');return false;" style="color:var(--accent);">Glosario de Normas</a>.
     </div>
-    <div style="text-align:center;font-size:.72rem;color:var(--muted);padding:1rem 0 2rem;">⚠️ Listado de referencia. Verifica siempre la vigencia exacta en <a href="https://www.ispch.gob.cl/listadoepp/" target="_blank" style="color:var(--accent);">ispch.gob.cl/listadoepp</a></div>
   </div>
 </div>
 <script>
-function renderCertListaCompleta() {
-  const body = document.getElementById('certListaBody');
-  const countEl = document.getElementById('certCount');
-  if (!body) return;
-  const q = (document.getElementById('certSearch')?.value || '').toLowerCase().trim();
-  const origenFiltro = document.getElementById('certOrigenFiltro')?.value || 'todos';
+const GLOSARIO_EPP_COMERCIAL = {
+  calzado: {
+    label: '🥾 Calzado de Seguridad', color: '#2dd4bf',
+    terminos: [
+      { t: 'Puntera de acero', d: 'Puntera metálica, resistente y económica — conduce electricidad y calor, y puede activar detectores de metal.' },
+      { t: 'Puntera composite', d: 'Puntera no metálica (fibra de vidrio, aramida o carbono), más liviana y no conductora — apta para trabajos eléctricos o zonas con detector de metales.' },
+      { t: 'Plantilla antiperforación', d: 'Lámina bajo la plantilla (metálica o textil de alta densidad) que evita que objetos punzantes atraviesen el pie desde abajo.' },
+      { t: 'Suela de PU monodensidad', d: 'Suela de poliuretano inyectado en una sola capa — liviana, con buena absorción de impacto.' },
+      { t: 'Suela de PU bidensidad', d: 'Combina una capa interior más blanda (confort) con una exterior más dura (resistencia y durabilidad).' },
+      { t: 'Suela de nitrilo/caucho', d: 'Mayor resistencia a altas temperaturas e hidrocarburos — típica en minería y fundición.' },
+      { t: 'Suela antideslizante (SRC/SRA/SRB)', d: 'Clasificación europea de resistencia al deslizamiento; SRC es la más exigente, certificada en ambas superficies de ensayo (cerámica+jabón y acero+glicerina).' },
+      { t: 'Suela anti-fatiga', d: 'Diseño con capas amortiguantes que reduce el cansancio en jornadas de pie prolongadas.' },
+      { t: 'Cuero graso (full grain)', d: 'Cuero engrasado con alta resistencia al agua y a hidrocarburos — común en minería y ambientes húmedos.' },
+      { t: 'Cuero corregido', d: 'Superficie lijada y pigmentada — más económica y uniforme, buena resistencia a la abrasión.' },
+      { t: 'Nobuck', d: 'Cuero más liviano y transpirable, con menor resistencia al agua.' },
+      { t: 'Descarne (split leather)', d: 'Capa interna del cuero, usada como forro o refuerzo — no como capellada principal.' },
+      { t: 'Calzado "Metal Free"', d: 'Sin ningún componente metálico (puntera, placa antiperforación, ojales) — fabricado en materiales composite.' },
+      { t: 'Sistema de ajuste rápido tipo dial', d: 'Cierre giratorio que reemplaza a los cordones tradicionales, para ajuste más rápido y uniforme.' },
+      { t: 'Membrana impermeable/transpirable', d: 'Lámina interna laminada que bloquea el agua líquida pero deja salir el vapor de humedad corporal.' },
+      { t: 'Calzado dieléctrico', d: 'La planta aísla al usuario de la corriente eléctrica del entorno — para trabajos eléctricos.' },
+      { t: 'Calzado antiestático', d: 'Disipa lentamente la electricidad estática acumulada en el cuerpo — para zonas con riesgo de atmósfera explosiva.' },
+      { t: 'Calzado conductivo', d: 'Descarga la estática de forma rápida — para industria de explosivos; nunca usar donde hay riesgo eléctrico.' },
+      { t: 'Water Repellent', d: 'Cuero tratado superficialmente para repeler lluvia leve o garúa — retarda la absorción de humedad, pero no es impermeable total.' },
+      { t: 'Water Resistant', d: 'Nivel intermedio de protección al agua, superior al Water Repellent pero sin sellado completo — resiste humedad moderada y salpicaduras.' },
+      { t: 'Waterproof (impermeable total)', d: 'Bloquea el paso de agua líquida por completo, normalmente mediante una membrana interna — el nivel más alto de protección contra el agua (ver "Membrana impermeable/transpirable").' },
+      { t: 'Cambrillón', d: 'Pieza rígida interna entre la plantilla y la suela, en la zona del arco del pie, que da estabilidad estructural al calzado.' },
+      { t: 'Contrafuerte', d: 'Refuerzo interno en la zona del talón que mantiene la forma del calzado y sujeta el pie al caminar.' },
+      { t: 'Plantilla antibacterial/antimicótica', d: 'Tratamiento que reduce la proliferación de hongos y bacterias dentro del calzado, ayudando a controlar el olor.' },
+    ]
+  },
+  ropa: {
+    label: '🦺 Ropa Corporativa / Industrial', color: '#f97316',
+    terminos: [
+      { t: 'Ripstop', d: 'Tejido con hilos reforzados entrelazados en cuadrícula que detienen el avance de un rasgado o corte una vez iniciado.' },
+      { t: 'Membrana microporosa impermeable/transpirable', d: 'Tejido laminado que bloquea el agua líquida pero deja salir el vapor de humedad corporal — la función detrás de la mayoría de las telas "impermeables y transpirables" del mercado.' },
+      { t: 'Tejido técnico de alta densidad', d: 'Tela de alta resistencia a la abrasión y el desgarro, usada en zonas de refuerzo (rodillas, codos, hombros).' },
+      { t: 'Oxford', d: 'Tejido de trama cruzada, resistente y de buen aspecto — usado en chaquetas y bolsos de trabajo.' },
+      { t: 'Drill', d: 'Tela de algodón o mezcla gruesa y resistente — muy común en overoles industriales en Chile.' },
+      { t: 'Gabardina', d: 'Tejido firme y compacto, resistente al viento — usado en pantalones y chaquetas de trabajo.' },
+      { t: 'Costuras selladas/termoselladas', d: 'Costuras con cinta aplicada por calor que impide el paso de agua a través de los agujeros de la aguja.' },
+      { t: 'Cinta retrorreflectante de alta intensidad', d: 'Banda que refleja la luz de los faros — exigida en ropa de alta visibilidad (ver Glosario de Normas: NCh 3254).' },
+      { t: 'Ropa ignífuga FR/AR', d: 'Resistente a la llama (FR) o al arco eléctrico (AR) — ver Glosario de Normas para EN ISO 11612, NFPA 2112 y NFPA 70E.' },
+      { t: 'Tratamiento antiestático (ESD)', d: 'Acabado o fibra conductiva que disipa cargas estáticas — usado en electrónica y zonas con riesgo de explosión.' },
+      { t: 'Cierre de gancho y felpa', d: 'Sistema de cierre reutilizable (tipo "velcro" genérico) usado en puños, bolsillos y solapas.' },
+      { t: 'Micropolar', d: 'Tejido polar delgado y liviano, con buena aislación térmica y transpirabilidad — usado en poleras y forros de intemperie.' },
+      { t: 'Cortavientos', d: 'Tela exterior tratada para bloquear el paso del viento, sin ser necesariamente impermeable.' },
+      { t: 'Chaleco de geólogo', d: 'Chaleco multibolsillo, sin mangas, usado por personal de terreno para transportar instrumentos y documentos — común en minería y geología.' },
+      { t: 'Parka desmontable (sistema 3 en 1)', d: 'Parka con forro interior independiente que se puede separar de la capa exterior, permitiendo usarlos por separado según el clima.' },
+      { t: 'Ropa antiácida', d: 'Tela con tratamiento o composición que resiste salpicaduras de ácidos y otros químicos corrosivos, sin perder su resistencia mecánica.' },
+      { t: 'UPF (Ultraviolet Protection Factor)', d: 'Factor de protección UV de una tela — indica qué fracción de la radiación ultravioleta bloquea el tejido (ver NCh 3273 en el Glosario de Normas).' },
+      { t: 'ATPV (Arc Thermal Performance Value)', d: 'Valor en cal/cm² que indica la energía de arco eléctrico que una tela puede resistir antes de causar quemadura — el dato clave para elegir ropa anti-arco (NFPA 70E).' },
+      { t: 'Tela inherentemente ignífuga', d: 'La resistencia al fuego viene de la composición química de la fibra misma — no se pierde con los lavados.' },
+      { t: 'Tela con tratamiento ignífugo', d: 'Fibra común (ej. algodón) con un acabado químico ignífugo aplicado — puede perder eficacia con lavados repetidos o el tiempo si no se mantiene según ficha técnica.' },
+      { t: 'Categoría de riesgo de arco (CAT 1-4)', d: 'Clasificación NFPA 70E según la energía de arco a resistir: CAT 1 desde 4 cal/cm², CAT 4 sobre 40 cal/cm² — a mayor categoría, mayor riesgo cubierto.' },
+      { t: 'Legionario ignífugo', d: 'Gorro con cubre-nuca en tela ignífuga, protege del sol y cumple la misma resistencia térmica que el resto de la prenda.' },
+    ]
+  },
+  guantes: {
+    label: '🧤 Guantes de Protección', color: '#fcd34d',
+    terminos: [
+      { t: 'Nitrilo', d: 'Caucho sintético sin proteínas de látex (no alérgico) — buena resistencia a aceites, grasas y perforación.' },
+      { t: 'Látex natural', d: 'Caucho natural muy elástico y con buena sensibilidad táctil — puede causar alergia en personas sensibles.' },
+      { t: 'Neopreno', d: 'Caucho sintético con buena resistencia a ácidos, bases y alcoholes.' },
+      { t: 'Fibra aramida (para-aramida / meta-aramida)', d: 'Fibra sintética de alta resistencia: la para-aramida da resistencia al corte, la meta-aramida da resistencia al calor y la llama.' },
+      { t: 'HPPE', d: 'Polietileno de alto peso molecular — fibra ultraligera y muy resistente al corte, base de guantes anticorte.' },
+      { t: 'Recubrimiento de PU', d: 'Capa delgada de poliuretano sobre la palma — buen agarre y destreza para trabajos finos.' },
+      { t: 'PVC', d: 'Plástico sintético económico, resistente a químicos básicos y al agua — se vuelve rígido con el frío.' },
+      { t: 'TPR', d: 'Caucho termoplástico moldeado en placas sobre nudillos y dedos — absorbe golpes en el dorso de la mano.' },
+      { t: 'Acabado "grip" / diamantado', d: 'Textura sobre el recubrimiento (no es un material) que mejora el agarre en superficies con aceite, grasa o humedad.' },
+      { t: 'Galga (gauge)', d: 'Número que indica la densidad del tejido base del guante — a mayor galga (ej. 18G), el hilo es más fino y el guante más liviano y con mejor destreza; a menor galga (ej. 7G), el tejido es más grueso y resistente.' },
+      { t: 'Recubrimiento parcial (palma)', d: 'El baño de látex, nitrilo o PU cubre solo la palma y los dedos, dejando el dorso sin recubrir para mayor transpiración.' },
+      { t: 'Recubrimiento total (fully coated)', d: 'El baño cubre todo el guante, incluido el dorso — mayor protección ante líquidos, menor transpirabilidad.' },
+      { t: 'Forro/tejido sin costuras', d: 'Base tejida en una sola pieza, sin uniones internas que puedan rozar o irritar la piel en uso prolongado.' },
+      { t: 'Acabado NBR', d: 'Terminación en caucho nitrilo-butadieno con buen agarre en ambientes aceitosos — otra forma de nombrar el recubrimiento de nitrilo.' },
+      { t: 'Puño de punto vs. puño de seguridad', d: 'El puño de punto (tejido elástico) ajusta la muñeca y evita que entren partículas; el puño de seguridad (abierto, sin elástico) permite soltar el guante rápido ante un enganche.' },
+    ]
+  },
+  respiratoria: {
+    label: '😷 Protección Respiratoria', color: '#6ee7b7',
+    terminos: [
+      { t: 'Filtro clase N / R / P', d: 'N = no resistente al aceite. R = resistente al aceite hasta 8 h. P = a prueba de aceite, uso prolongado.' },
+      { t: 'Cartucho combinado', d: 'Integra capa química (gases/vapores) junto con filtro de partículas en la misma pieza.' },
+      { t: 'Código de color A/B/E/K (cartuchos)', d: 'A=marrón (vapores orgánicos), B=gris (gases inorgánicos), E=amarillo (gases ácidos), K=verde (amoníaco).' },
+      { t: 'Válvula de exhalación', d: 'Libera el aire exhalado directamente afuera, sin pasar por el filtro — reduce humedad y calor interno.' },
+      { t: 'Retenedor de filtro', d: 'Pieza/adaptador que fija el filtro de partículas sobre la pieza facial o sobre un cartucho de gases.' },
+      { t: 'Pre-filtro', d: 'Capa desechable que se coloca delante del filtro principal para alargar su vida en ambientes muy sucios.' },
+      { t: 'Conector tipo bayoneta', d: 'Sistema de acople rápido (girar y trabar) entre la pieza facial y el filtro o cartucho — el más común en respiradores de media cara.' },
+      { t: 'Sello facial', d: 'El borde de la pieza facial que hace contacto con la piel — normalmente de silicona (más suave, mejor sello) o TPR (más económico y liviano).' },
+      { t: 'Arnés con sistema drop-down', d: 'Sistema de sujeción que se puede soltar hacia abajo sin quitarse el respirador completo — útil para colocárselo y sacárselo rápido entre tareas.' },
+      { t: 'Factor de Protección Asignado (FPA)', d: 'Nivel de protección que se espera que un tipo de respirador entregue en el lugar de trabajo, si se usa dentro de un programa de protección respiratoria correctamente implementado — es el dato clave para elegir el respirador según el nivel de riesgo medido.' },
+      { t: 'Factor de ajuste (fit factor)', d: 'Resultado numérico de una prueba de ajuste cuantitativa — mide cuánto aire de afuera se filtra hacia adentro de la pieza facial en esa persona específica.' },
+      { t: 'Equipo de prueba cuantitativa con aerosol ambiental', d: 'Instrumento que mide en tiempo real la concentración de partículas del aire ambiente dentro y fuera de la pieza facial, calculando el factor de ajuste sin necesidad de una sustancia de prueba especial ni cámara cerrada.' },
+    ]
+  },
+  auditiva: {
+    label: '🎧 Protección Auditiva', color: '#c4b5fd',
+    terminos: [
+      { t: 'NRR (Noise Reduction Rating)', d: 'Índice americano de atenuación de ruido, en decibeles.' },
+      { t: 'SNR (Single Number Rating)', d: 'Índice europeo equivalente de atenuación, también en decibeles.' },
+      { t: 'Tapón de espuma', d: 'Se comprime e inserta en el canal auditivo, se expande para sellar — uso único o limitado.' },
+      { t: 'Tapón de silicona moldeable', d: 'Reutilizable, se amolda a la forma del oído.' },
+      { t: 'Orejera (copa)', d: 'Cubre completamente el pabellón auditivo, sella con almohadillas.' },
+      { t: 'Orejera adosable a casco', d: 'Se monta en los rieles laterales del casco de seguridad.' },
+      { t: 'Banda de nuca', d: 'Tapones conectados por una banda flexible que se apoya detrás del cuello.' },
+    ]
+  },
+  visual: {
+    label: '🥽 Protección Visual', color: '#93c5fd',
+    terminos: [
+      { t: 'Antiempañante (anti-fog)', d: 'Recubrimiento que evita la condensación de humedad en el lente.' },
+      { t: 'Antirrayado (anti-scratch)', d: 'Recubrimiento que aumenta la resistencia a rayaduras superficiales.' },
+      { t: 'Policarbonato', d: 'Material plástico de los lentes — liviano y de alta resistencia al impacto.' },
+      { t: 'Lente fotocromático', d: 'Se oscurece automáticamente con la luz UV/solar.' },
+      { t: 'Filtro de sombra (shade)', d: 'Nivel de oscurecimiento del lente para soldadura, numerado según la intensidad de la fuente.' },
+      { t: 'Oscurecimiento automático', d: 'Careta de soldar que se oscurece electrónicamente al detectar el arco.' },
+      { t: 'Lente amarillo', d: 'Bloquea la luz azul del espectro visible, aumentando el contraste — indicado para ambientes con poca luz, no recomendado con luz solar intensa.' },
+      { t: 'Lente gris fumé', d: 'Reduce el brillo general — indicado para uso exterior con luz solar intensa, buen reconocimiento de color.' },
+      { t: 'Lente verde', d: 'Protege de reflejos y radiación UV, aunque no reemplaza un filtro de soldadura.' },
+      { t: 'Antiparra vs. anteojo de seguridad', d: 'La antiparra sella todo el contorno del ojo (mejor contra polvo y salpicaduras); el anteojo tipo lente es más liviano pero con menor sello lateral.' },
+      { t: 'Visor tipo arc-flash', d: 'Pantalla facial reforzada específicamente certificada para proteger contra la energía y las partículas de un arco eléctrico.' },
+      { t: 'Puente nasal con inserto soft', d: 'Almohadilla blanda en el puente de la nariz que mejora el calce y evita que el lente se resbale.' },
+    ]
+  },
+  cabeza: {
+    label: '⛑️ Protección de Cabeza', color: '#fca5a5',
+    terminos: [
+      { t: 'Carcasa HDPE/ABS', d: 'Material plástico de la copa exterior del casco — resistente a impacto.' },
+      { t: 'Arnés de suspensión', d: 'Sistema interior de cintas que sostiene el casco separado del cráneo y absorbe parte del impacto.' },
+      { t: 'Rueda de ajuste', d: 'Mecanismo giratorio para ajustar la circunferencia del arnés a la cabeza.' },
+      { t: 'Barbiquejo', d: 'Correa bajo el mentón que sujeta el casco y evita que se caiga.' },
+      { t: 'Ranuras de ventilación', d: 'Orificios en la carcasa para mejorar la circulación de aire.' },
+      { t: 'Portalámpara', d: 'Soporte y clip integrados en el casco para sujetar la lámpara minera y su cable — clave en minería subterránea.' },
+      { t: 'Suspensión tipo trinquete (ratchet)', d: 'Sistema de ajuste con rueda giratoria que permite calzar el arnés a la cabeza sin herramientas, incluso con guantes puestos.' },
+      { t: 'Costillas de refuerzo en la corona', d: 'Nervaduras moldeadas en la parte superior de la carcasa que aumentan la rigidez sin agregar peso significativo.' },
+      { t: 'Banda antisudor', d: 'Cinta interior (normalmente de PU o espuma) en contacto con la frente, que absorbe el sudor y mejora la comodidad.' },
+      { t: '⚠️ Casco con ventilación pierde clase dieléctrica', d: 'Un casco con orificios de ventilación en la carcasa pierde automáticamente su certificación dieléctrica (Clase A/B) — para trabajos eléctricos siempre debe usarse un casco sin perforaciones.' },
+    ]
+  },
+  caidas: {
+    label: '🪝 Protección Contra Caídas', color: '#4ade80',
+    terminos: [
+      { t: 'Argolla dorsal (D-ring)', d: 'Punto de anclaje principal en la espalda del arnés, para detención de caídas.' },
+      { t: 'Argolla esternal', d: 'Punto de anclaje frontal, usado en ascenso/descenso controlado.' },
+      { t: 'Absorbedor de impacto', d: 'Dispositivo que se despliega para reducir la fuerza de choque durante una caída.' },
+      { t: 'Línea de vida autorretráctil', d: 'Cable o cinta que se extiende y retrae solo, bloqueando ante una caída súbita.' },
+      { t: 'Anclaje', d: 'Punto fijo certificado donde se conecta el sistema anticaída.' },
+      { t: 'Mosquetón de doble seguro', d: 'Conector con cierre que requiere dos acciones para abrirse — evita desenganches accidentales.' },
+      { t: 'Clase A / AP / ADP (arnés)', d: 'A = solo detención de caídas (argolla dorsal). AP = detención + posicionamiento (suma argollas laterales). ADP = detención + posicionamiento + ascenso/descenso controlado (suma argolla pectoral) — a más letras, más funciones cubre el mismo arnés.' },
+      { t: 'Argolla ventral', d: 'Punto de anclaje en el abdomen, usado en rescate y descenso en espacios confinados.' },
+      { t: 'Argolla de hombros', d: 'Par de argollas usadas específicamente para izar o rescatar a una persona en posición vertical desde un espacio confinado.' },
+      { t: 'Dispositivo anticaídas de progresión vertical', d: 'Se desliza libremente por una línea de vida vertical y se bloquea automáticamente ante una caída — usado en ascensos/descensos por escalas o torres.' },
+    ]
+  },
+  gases: {
+    label: '☁️ Detección de Gases', color: '#38bdf8',
+    terminos: [
+      { t: 'Sensor electroquímico', d: 'Detecta gases tóxicos específicos mediante una reacción química que genera una señal eléctrica.' },
+      { t: 'Sensor infrarrojo (IR)', d: 'Detecta gases combustibles o CO2 midiendo la absorción de luz infrarroja.' },
+      { t: 'Sensor catalítico (pellistor)', d: 'Detecta gases combustibles mediante combustión controlada sobre un filamento.' },
+      { t: 'Calibración', d: 'Ajuste periódico del equipo contra un gas patrón conocido, para asegurar lecturas precisas.' },
+      { t: 'Bump test', d: 'Prueba rápida que expone el sensor a gas para confirmar que responde, sin ajustar la calibración.' },
+      { t: 'Bomba de succión integrada', d: 'Bomba dentro del propio detector que permite tomar muestra de aire a distancia (ej. dentro de un pozo o tanque) antes de ingresar.' },
+      { t: 'Kit de espacio confinado', d: 'Conjunto de trípode, sistema de descenso/ascenso y anclajes para entrada y rescate vertical en espacios confinados.' },
+    ]
+  },
+  loto: {
+    label: '🔒 Bloqueo y Etiquetado (LOTO)', color: '#a78bfa',
+    terminos: [
+      { t: 'Candado de llave única', d: 'Candado personal donde solo el propio trabajador tiene la llave.' },
+      { t: 'Hasp (mordaza multicandado)', d: 'Dispositivo que permite que varios trabajadores bloqueen el mismo punto, cada uno con su propio candado.' },
+      { t: 'Tarjeta de bloqueo (tag)', d: 'Etiqueta de advertencia que identifica quién bloqueó y por qué, sin capacidad física de bloqueo por sí sola.' },
+      { t: 'Caja de bloqueo grupal', d: 'Contenedor donde se guardan llaves de múltiples candados durante trabajos con varios trabajadores.' },
+    ]
+  },
+};
 
-  const filas = [];
-  Object.entries(CERT_DATA).forEach(([key, fam]) => {
-    (fam.certs || []).forEach(c => {
-      if (!c.url) return; // omitir placeholders "Sin certificación"
-      const esNacional = c.origen && c.origen.includes('🇨🇱');
-      filas.push({
-        cert: c.cert,
-        familia: `${fam.icono} ${fam.titulo}`,
-        origen: c.origen,
-        esNacional,
-        resumen: c.obs,
-        nivel: c.nivel,
-        url: c.url,
-      });
-    });
-  });
+function renderGlosarioComercial() {
+  const cont = document.getElementById('glosComResultado');
+  const countEl = document.getElementById('glosComCount');
+  if (!cont) return;
+  const q = (document.getElementById('glosComSearch')?.value || '').toLowerCase().trim();
 
-  const filtradas = filas.filter(f => {
-    if (origenFiltro === 'nacional' && !f.esNacional) return false;
-    if (origenFiltro === 'internacional' && f.esNacional) return false;
-    if (!q) return true;
-    return (f.cert + ' ' + f.familia + ' ' + f.resumen).toLowerCase().includes(q);
-  });
+  let total = 0;
+  const html = Object.values(GLOSARIO_EPP_COMERCIAL).map(fam => {
+    const terms = fam.terminos.filter(x => !q || (x.t + ' ' + x.d).toLowerCase().includes(q));
+    if (!terms.length) return '';
+    total += terms.length;
+    return `
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:${fam.color}18;padding:.8rem 1.2rem;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:${fam.color};letter-spacing:.5px;">${fam.label}</span>
+        </div>
+        <div style="padding:.9rem 1.2rem;display:grid;gap:.7rem;">
+          ${terms.map(x => `
+            <div>
+              <div style="font-weight:700;color:var(--text);font-size:.85rem;">${x.t}</div>
+              <div style="color:var(--muted);font-size:.8rem;line-height:1.5;">${x.d}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+  }).join('');
 
-  countEl.textContent = `${filtradas.length} certificación${filtradas.length !== 1 ? 'es' : ''}`;
-
-  body.innerHTML = filtradas.map((f, i) => `
-    <tr style="background:${i % 2 ? 'rgba(255,255,255,.02)' : 'transparent'};">
-      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--accent);font-weight:700;white-space:nowrap;">${f.cert}</td>
-      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap;">${f.familia}</td>
-      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--muted);white-space:nowrap;">${f.origen}</td>
-      <td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);">${f.resumen}${f.nivel && f.nivel !== '—' ? `<br><span style="color:var(--muted);font-size:.72rem;">Niveles: ${f.nivel}</span>` : ''}</td>
-      <td style="padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap;"><a href="${f.url}" target="_blank" rel="noopener" style="color:#38bdf8;font-size:.78rem;">🔗 Ver norma</a></td>
-    </tr>
-  `).join('');
+  countEl.textContent = `${total} término${total !== 1 ? 's' : ''}`;
+  cont.innerHTML = html || '<div style="text-align:center;color:var(--muted);padding:2rem;">Sin resultados para tu búsqueda.</div>';
 }
+document.addEventListener('DOMContentLoaded', () => { if (document.getElementById('glosComResultado')) renderGlosarioComercial(); });
+if (document.getElementById('glosComResultado')) renderGlosarioComercial();
 </script>
 
 
@@ -10760,7 +10904,7 @@ function showTab(tab, skipAuth=false) {
   });
   if (tab==='admin') { renderAdminTable(); renderDestacadoMesAdmin(); }
   if (tab==='corp') renderCorp();
-  if (tab==='certcomp' && typeof renderCertListaCompleta === 'function') renderCertListaCompleta();
+  if (tab==='certcomp' && typeof renderGlosarioComercial === 'function') renderGlosarioComercial();
   if (tab==='infoepp') { renderFabricantes(); renderProveedores(); renderProvCatFiltros(); }
   if (tab==='expertos') renderExpertos();
   if (tab==='talentos') renderTalentos();
