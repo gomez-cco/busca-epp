@@ -1232,6 +1232,49 @@
   <a class="ind-src" href="https://www.bcentral.cl/inicio" target="_blank" title="Fuente: Banco Central de Chile">🏦 Banco Central</a>
 </div>
 
+<!-- CLIMA POR CIUDAD -->
+<div id="clima-bar" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--surface2);border-bottom:1px solid var(--border);padding:6px 16px;font-size:.78rem;">
+  <span style="opacity:.8;">🌤️</span>
+  <select id="clima-ciudad" onchange="cargarClima()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:3px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+    <option value="-33.45,-70.66,Santiago">Santiago</option>
+    <option value="-34.98,-71.24,Curicó" selected>Curicó</option>
+    <option value="-23.65,-70.4,Antofagasta">Antofagasta</option>
+    <option value="-33.05,-71.62,Valparaíso">Valparaíso</option>
+    <option value="-36.83,-73.05,Concepción">Concepción</option>
+    <option value="-29.9,-71.25,La Serena">La Serena</option>
+    <option value="-20.21,-70.15,Iquique">Iquique</option>
+    <option value="-38.74,-72.59,Temuco">Temuco</option>
+    <option value="-41.47,-72.94,Puerto Montt">Puerto Montt</option>
+    <option value="-27.37,-70.33,Copiapó">Copiapó</option>
+    <option value="-34.17,-70.74,Rancagua">Rancagua</option>
+    <option value="-53.16,-70.91,Punta Arenas">Punta Arenas</option>
+  </select>
+  <span id="clima-resultado" style="color:var(--muted);">Cargando clima…</span>
+  <a href="https://www.meteored.cl/" target="_blank" rel="noopener" style="margin-left:auto;color:var(--accent);font-size:.72rem;font-weight:600;text-decoration:none;white-space:nowrap;">Ver pronóstico completo en Meteored →</a>
+</div>
+<script>
+async function cargarClima() {
+  const sel = document.getElementById('clima-ciudad');
+  const resEl = document.getElementById('clima-resultado');
+  if (!sel || !resEl) return;
+  const [lat, lon, nombre] = sel.value.split(',');
+  resEl.textContent = 'Cargando clima…';
+  try {
+    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FSantiago`, { cache: 'no-cache' });
+    const data = await r.json();
+    const t = Math.round(data.current.temperature_2m);
+    const viento = Math.round(data.current.wind_speed_10m);
+    const code = data.current.weather_code;
+    const iconos = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'⛈️',71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️'};
+    const icono = iconos[code] || '🌡️';
+    resEl.innerHTML = `<strong style="color:var(--text);">${nombre}</strong>: ${icono} ${t}°C · viento ${viento} km/h`;
+  } catch (e) {
+    resEl.textContent = `No se pudo cargar el clima de ${nombre}.`;
+  }
+}
+if (document.getElementById('clima-resultado')) cargarClima();
+</script>
+
 <!-- EPP TAB -->
 <div id="pane-epp">
   <div class="hero">
