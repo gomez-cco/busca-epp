@@ -723,7 +723,7 @@
   
   /* ── GRADIENTE DUAL — mejoras visuales ─────────────────────────────── */
   /* Fondo fijo para efecto profundidad al hacer scroll */
-  html { background: linear-gradient(135deg, #1e1408 0%, #2a1c0a 100%); background-attachment: fixed; }
+  html { background: linear-gradient(135deg, var(--bg) 0%, var(--bg) 100%); background-attachment: fixed; }
 
   /* Cards con gradiente sutil y sombra cálida */
   .stat-box, .epp-card, .norm-card, .calc-box, .prov-card, .cert-card,
@@ -734,12 +734,49 @@
     box-shadow: 0 4px 18px rgba(0,0,0,.38), 0 1px 0 rgba(251,191,36,.07) inset !important;
     transition: border-color .2s, box-shadow .2s, transform .15s !important;
   }
+  /* ── Mismas 15 clases, pero para temas claro/tierra — esta regla es la que faltaba y causaba
+       que TODAS las tarjetas (Proyectos, stats, EPP, normas, calculadora, fabricantes, expertos,
+       talentos, industrias, portales, infogramas) se vieran oscuras sin importar el tema ── */
+  body.tema-claro .stat-box, body.tema-claro .epp-card, body.tema-claro .norm-card, body.tema-claro .calc-box,
+  body.tema-claro .prov-card, body.tema-claro .cert-card, body.tema-claro .fab-card, body.tema-claro .exp-card,
+  body.tema-claro .tal-card, body.tema-claro .ind-card, body.tema-claro .port-card, body.tema-claro .proj-card,
+  body.tema-claro .est-card, body.tema-claro .proy-portal-card, body.tema-claro .ind-pick-card {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 2px 8px rgba(15,23,42,.06) !important;
+  }
+  body.tema-beige .stat-box, body.tema-beige .epp-card, body.tema-beige .norm-card, body.tema-beige .calc-box,
+  body.tema-beige .prov-card, body.tema-beige .cert-card, body.tema-beige .fab-card, body.tema-beige .exp-card,
+  body.tema-beige .tal-card, body.tema-beige .ind-card, body.tema-beige .port-card, body.tema-beige .proj-card,
+  body.tema-beige .est-card, body.tema-beige .proy-portal-card, body.tema-beige .ind-pick-card {
+    background: #fdf6ed !important;
+    border: 1px solid #c9a87c !important;
+    box-shadow: 0 2px 8px rgba(28,15,0,.05) !important;
+  }
   .stat-box:hover, .epp-card:hover, .norm-card:hover, .prov-card:hover,
   .cert-card:hover, .fab-card:hover, .exp-card:hover, .tal-card:hover,
   .ind-card:hover, .port-card:hover, .proj-card:hover, .est-card:hover,
   .proy-portal-card:hover, .ind-pick-card:hover {
     border-color: rgba(251,191,36,.42) !important;
     box-shadow: 0 6px 28px rgba(0,0,0,.48), 0 0 0 1px rgba(251,191,36,.1) !important;
+    transform: translateY(-2px) !important;
+  }
+  body.tema-claro .stat-box:hover, body.tema-claro .epp-card:hover, body.tema-claro .norm-card:hover,
+  body.tema-claro .prov-card:hover, body.tema-claro .cert-card:hover, body.tema-claro .fab-card:hover,
+  body.tema-claro .exp-card:hover, body.tema-claro .tal-card:hover, body.tema-claro .ind-card:hover,
+  body.tema-claro .port-card:hover, body.tema-claro .proj-card:hover, body.tema-claro .est-card:hover,
+  body.tema-claro .proy-portal-card:hover, body.tema-claro .ind-pick-card:hover {
+    border-color: #2563eb !important;
+    box-shadow: 0 6px 20px rgba(15,23,42,.12) !important;
+    transform: translateY(-2px) !important;
+  }
+  body.tema-beige .stat-box:hover, body.tema-beige .epp-card:hover, body.tema-beige .norm-card:hover,
+  body.tema-beige .prov-card:hover, body.tema-beige .cert-card:hover, body.tema-beige .fab-card:hover,
+  body.tema-beige .exp-card:hover, body.tema-beige .tal-card:hover, body.tema-beige .ind-card:hover,
+  body.tema-beige .port-card:hover, body.tema-beige .proj-card:hover, body.tema-beige .est-card:hover,
+  body.tema-beige .proy-portal-card:hover, body.tema-beige .ind-pick-card:hover {
+    border-color: #92400e !important;
+    box-shadow: 0 6px 20px rgba(28,15,0,.1) !important;
     transform: translateY(-2px) !important;
   }
 
