@@ -1456,6 +1456,172 @@ async function cargarClima() {
 if (document.getElementById('clima-resultado')) cargarClima();
 </script>
 
+<!-- CALCULADORA DE CONVERSIÓN DE UNIDADES -->
+<div id="conv-bar" style="background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 16px;font-size:.78rem;">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="document.getElementById('conv-body').style.display = document.getElementById('conv-body').style.display==='none' ? 'flex' : 'none';">📐 <strong style="color:var(--text);">Conversor de unidades</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
+  </div>
+  <div id="conv-body" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;">
+    <select id="conv-categoria" onchange="convActualizarUnidades()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <option value="longitud">📏 Longitud</option>
+      <option value="peso">⚖️ Peso</option>
+      <option value="temperatura">🌡️ Temperatura</option>
+      <option value="volumen">💧 Volumen</option>
+      <option value="presion">🎛️ Presión</option>
+      <option value="talla">👕 Talla de ropa</option>
+    </select>
+    <span id="conv-unidades-wrap" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <input id="conv-valor" type="number" value="1" oninput="convCalcular()" style="width:90px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <select id="conv-desde" onchange="convCalcular()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;"></select>
+      <span style="color:var(--muted);">=</span>
+      <span id="conv-resultado" style="color:var(--accent);font-weight:700;min-width:90px;"></span>
+      <select id="conv-hasta" onchange="convCalcular()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;"></select>
+      <button onclick="convInvertir()" title="Invertir unidades" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 9px;font-size:.8rem;cursor:pointer;">⇄</button>
+    </span>
+    <!-- UI alternativa para Talla de ropa: es tabla de referencia, no multiplicación -->
+    <span id="conv-talla-wrap" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;">
+      <select id="conv-talla-tipo" onchange="convCalcularTalla()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+        <option value="superior">Camisa / Polera / Chaqueta</option>
+        <option value="pantalon">Pantalón (cintura)</option>
+      </select>
+      <input id="conv-talla-valor" type="number" value="42" oninput="convCalcularTalla()" style="width:70px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">→</span>
+      <span id="conv-talla-resultado" style="color:var(--accent);font-weight:700;min-width:50px;"></span>
+      <span style="color:var(--muted);font-size:.68rem;">Referencial — puede variar según fabricante</span>
+    </span>
+  </div>
+</div>
+<script>
+const CONV_UNIDADES = {
+  longitud: {
+    base: 'm',
+    unidades: { mm:.001, cm:.01, m:1, km:1000, in:.0254, ft:.3048, yd:.9144 },
+    etiquetas: { mm:'Milímetro (mm)', cm:'Centímetro (cm)', m:'Metro (m)', km:'Kilómetro (km)', in:'Pulgada (in)', ft:'Pie (ft)', yd:'Yarda (yd)' },
+    defDesde:'cm', defHasta:'in'
+  },
+  peso: {
+    base: 'kg',
+    unidades: { mg:.000001, g:.001, kg:1, ton:1000, lb:.453592, oz:.0283495 },
+    etiquetas: { mg:'Miligramo (mg)', g:'Gramo (g)', kg:'Kilogramo (kg)', ton:'Tonelada (t)', lb:'Libra (lb)', oz:'Onza (oz)' },
+    defDesde:'kg', defHasta:'lb'
+  },
+  temperatura: {
+    base:'c',
+    unidades: { c:1, f:1, k:1 }, // manejo especial, no lineal
+    etiquetas: { c:'Celsius (°C)', f:'Fahrenheit (°F)', k:'Kelvin (K)' },
+    defDesde:'c', defHasta:'f'
+  },
+  volumen: {
+    base: 'l',
+    unidades: { ml:.001, l:1, m3:1000, gal:3.78541, floz:.0295735 },
+    etiquetas: { ml:'Mililitro (ml)', l:'Litro (l)', m3:'Metro cúbico (m³)', gal:'Galón US (gal)', floz:'Onza líquida (fl oz)' },
+    defDesde:'l', defHasta:'gal'
+  },
+  presion: {
+    base: 'bar',
+    unidades: { bar:1, psi:.0689476, kpa:.01, atm:1.01325 },
+    etiquetas: { bar:'Bar', psi:'PSI', kpa:'Kilopascal (kPa)', atm:'Atmósfera (atm)' },
+    defDesde:'bar', defHasta:'psi'
+  },
+};
+
+function convActualizarUnidades() {
+  const cat = document.getElementById('conv-categoria').value;
+  const unidadesWrap = document.getElementById('conv-unidades-wrap');
+  const tallaWrap = document.getElementById('conv-talla-wrap');
+  if (cat === 'talla') {
+    unidadesWrap.style.display = 'none';
+    tallaWrap.style.display = 'flex';
+    convCalcularTalla();
+    return;
+  }
+  unidadesWrap.style.display = 'flex';
+  tallaWrap.style.display = 'none';
+  const conf = CONV_UNIDADES[cat];
+  const desdeSel = document.getElementById('conv-desde');
+  const hastaSel = document.getElementById('conv-hasta');
+  const opts = Object.keys(conf.etiquetas).map(k => `<option value="${k}">${conf.etiquetas[k]}</option>`).join('');
+  desdeSel.innerHTML = opts;
+  hastaSel.innerHTML = opts;
+  desdeSel.value = conf.defDesde;
+  hastaSel.value = conf.defHasta;
+  convCalcular();
+}
+
+// ── Tallas de ropa: tabla de referencia (Chile/general), no es una multiplicación ──
+const CONV_TALLAS = {
+  superior: [ // Camisa / Polera / Chaqueta — talla numérica chilena, rango estándar del rubro (ref. OPSIAL y similares)
+    { max:36, letra:'XS' },
+    { max:40, letra:'S' },
+    { max:42, letra:'M' },
+    { max:44, letra:'M/L' },
+    { max:46, letra:'L' },
+    { max:48, letra:'XL' },
+    { max:50, letra:'XXL' },
+    { max:52, letra:'XXXL' },
+    { max:Infinity, letra:'4XL+' },
+  ],
+  pantalon: [ // Cintura en talla numérica chilena
+    { max:36, letra:'XS' },
+    { max:40, letra:'S' },
+    { max:44, letra:'M' },
+    { max:46, letra:'M/L' },
+    { max:48, letra:'L' },
+    { max:50, letra:'XL' },
+    { max:52, letra:'XXL' },
+    { max:54, letra:'XXXL' },
+    { max:Infinity, letra:'4XL+' },
+  ],
+};
+
+function convCalcularTalla() {
+  const tipo = document.getElementById('conv-talla-tipo').value;
+  const valor = parseFloat(document.getElementById('conv-talla-valor').value) || 0;
+  const tabla = CONV_TALLAS[tipo];
+  const fila = tabla.find(f => valor <= f.max);
+  document.getElementById('conv-talla-resultado').textContent = fila ? fila.letra : '—';
+}
+
+function convTemperatura(valor, desde, hasta) {
+  let celsius;
+  if (desde === 'c') celsius = valor;
+  else if (desde === 'f') celsius = (valor - 32) * 5/9;
+  else if (desde === 'k') celsius = valor - 273.15;
+  if (hasta === 'c') return celsius;
+  if (hasta === 'f') return celsius * 9/5 + 32;
+  if (hasta === 'k') return celsius + 273.15;
+}
+
+function convCalcular() {
+  const cat = document.getElementById('conv-categoria').value;
+  const conf = CONV_UNIDADES[cat];
+  const valor = parseFloat(document.getElementById('conv-valor').value) || 0;
+  const desde = document.getElementById('conv-desde').value;
+  const hasta = document.getElementById('conv-hasta').value;
+  let resultado;
+  if (cat === 'temperatura') {
+    resultado = convTemperatura(valor, desde, hasta);
+  } else {
+    const enBase = valor * conf.unidades[desde];
+    resultado = enBase / conf.unidades[hasta];
+  }
+  const resEl = document.getElementById('conv-resultado');
+  const redondeado = Math.abs(resultado) >= 1000 ? resultado.toFixed(1) : parseFloat(resultado.toFixed(4));
+  resEl.textContent = redondeado.toLocaleString('es-CL', { maximumFractionDigits: 4 });
+}
+
+function convInvertir() {
+  const desdeSel = document.getElementById('conv-desde');
+  const hastaSel = document.getElementById('conv-hasta');
+  const tmp = desdeSel.value;
+  desdeSel.value = hastaSel.value;
+  hastaSel.value = tmp;
+  convCalcular();
+}
+
+if (document.getElementById('conv-categoria')) convActualizarUnidades();
+</script>
+
 <!-- EPP TAB -->
 <div id="pane-epp">
   <div class="hero">
