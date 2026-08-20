@@ -454,17 +454,18 @@
     white-space:nowrap;
   }
   .tab .tab-ico {
-    font-size:1.5rem; line-height:1;
+    font-size:1.4rem; line-height:1;
     display:flex; align-items:center; justify-content:center;
-    width:30px; height:30px;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:8px;
-    margin-bottom:1px;
-    transition:background .15s,border-color .15s;
+    width:34px; height:34px;
+    background:rgba(251,191,36,.055);
+    border:1px solid rgba(251,191,36,.14);
+    border-radius:10px;
+    margin-bottom:2px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    transition:background .15s,border-color .15s,transform .15s;
   }
-  .tab:hover .tab-ico { background:rgba(255,255,255,.1); }
-  .tab.active .tab-ico { background:rgba(251,191,36,.15); border-color:rgba(251,191,36,.35); }
+  .tab:hover .tab-ico { background:rgba(251,191,36,.1); border-color:rgba(251,191,36,.25); transform:translateY(-1px); }
+  .tab.active .tab-ico { background:rgba(251,191,36,.16); border-color:rgba(251,191,36,.4); }
   .tab .tab-lbl { font-size:.55rem; letter-spacing:.5px; line-height:1; }
   .tab.active { color:var(--accent); border-bottom-color:var(--accent); }
   .tab.active .tab-ico { filter: drop-shadow(0 0 4px rgba(245,158,11,.5)); }
@@ -502,6 +503,10 @@
   /* INTELLIGENCE CARDS */
   .proy-intel-banner { max-width:1100px; margin:2rem auto .5rem; padding:0 1.5rem; }
   .proy-intel-banner-inner { background:linear-gradient(135deg,#1a1000,#0f1e18); border:1.5px solid #f97316; border-radius:14px; padding:1.2rem 1.5rem; display:flex; gap:1rem; align-items:flex-start; }
+  body.tema-claro .proy-intel-banner-inner { background:linear-gradient(135deg,#fff7ed,#ffffff) !important; border-color:#f97316 !important; }
+  body.tema-claro .proy-intel-banner p { color:#334155 !important; }
+  body.tema-beige .proy-intel-banner-inner { background:linear-gradient(135deg,#fdf1de,#fdf6ed) !important; border-color:#c2410c !important; }
+  body.tema-beige .proy-intel-banner p { color:#4a2c05 !important; }
   .proy-intel-banner-ico { font-size:2rem; flex-shrink:0; }
   .proy-intel-banner h3 { font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-size:1.15rem; font-weight:700; color:#f97316; letter-spacing:1px; margin-bottom:.3rem; }
   .proy-intel-banner p  { font-size:.8rem; color:var(--muted); line-height:1.5; }
@@ -802,6 +807,27 @@
     border-color: rgba(251,191,36,.52) !important;
     box-shadow: 0 0 0 3px rgba(251,191,36,.1) !important;
     outline: none !important;
+  }
+  /* ── Mismo problema que las tarjetas: esta regla forzaba fondo casi negro en TODOS los
+       campos de formulario del sitio (Destacado del Mes, selector de clima, VIP, buscadores),
+       sin importar el tema — esta es la corrección para claro y tierra ── */
+  body.tema-claro input, body.tema-claro select, body.tema-claro textarea {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+  }
+  body.tema-claro input:focus, body.tema-claro select:focus, body.tema-claro textarea:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.12) !important;
+  }
+  body.tema-beige input, body.tema-beige select, body.tema-beige textarea {
+    background: #fdf6ed !important;
+    border: 1px solid #c9a87c !important;
+    color: #1c0f00 !important;
+  }
+  body.tema-beige input:focus, body.tema-beige select:focus, body.tema-beige textarea:focus {
+    border-color: #92400e !important;
+    box-shadow: 0 0 0 3px rgba(146,64,14,.12) !important;
   }
 
   /* Botón primario con glow */
@@ -1111,9 +1137,15 @@
   ═══════════════════════════════════════════════════════════ */
   #pane-industrias { min-height:60vh; }
   .ind-hero { text-align:center; padding:2.5rem 2rem 1.5rem; background:radial-gradient(ellipse at top, #0d1f18 0%, var(--bg) 70%); }
-  .ind-hero h1 { font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-size:clamp(1.8rem,4.5vw,3rem); font-weight:900; letter-spacing:2px; }
+  .ind-hero h1 { font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-size:clamp(1.8rem,4.5vw,3rem); font-weight:900; letter-spacing:2px; color:var(--text); }
   .ind-hero h1 em { color:#10b981; font-style:normal; }
   .ind-hero p { color:var(--muted); font-size:.9rem; margin-top:.5rem; }
+  body.tema-claro .ind-hero { background: linear-gradient(180deg,#ecfdf5 0%,#f7f9fc 100%) !important; }
+  body.tema-claro .ind-hero h1 { color:#0f172a !important; }
+  body.tema-claro .ind-hero h1 em { color:#059669 !important; }
+  body.tema-beige .ind-hero { background: linear-gradient(180deg,#f5e8d5 0%,#fdf6ed 100%) !important; }
+  body.tema-beige .ind-hero h1 { color:#1c0f00 !important; }
+  body.tema-beige .ind-hero h1 em { color:#166534 !important; }
   .ind-container { max-width:1100px; margin:0 auto; padding:1.5rem 2rem 3rem; }
 
   /* Tarjetas picker de industria */
@@ -1173,11 +1205,18 @@
   /* ── PORTALES ── */
   #pane-portales { min-height:60vh; }
   .port-hero { text-align:center; padding:2.5rem 2rem 1.5rem; background:radial-gradient(ellipse at top,#0d1525 0%,var(--bg) 70%); }
-  .port-hero h1 { font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; letter-spacing:2px; }
+  .port-hero h1 { font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; letter-spacing:2px; color:var(--text); }
   .port-hero h1 em { color:#38bdf8; font-style:normal; }
   .port-hero p { color:var(--muted); font-size:.9rem; margin-top:.5rem; }
   .port-container { max-width:1100px; margin:0 auto; padding:1.5rem 2rem 3rem; }
   .port-section-title { font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-size:1.4rem; font-weight:700; color:#38bdf8; margin:1.5rem 0 .8rem; display:flex; align-items:center; gap:.5rem; border-bottom:1px solid var(--border); padding-bottom:.4rem; }
+  /* ── Mismo bug que .proy-hero: el degradado parte siempre oscuro arriba, sin importar el tema ── */
+  body.tema-claro .port-hero { background: linear-gradient(180deg,#eff6ff 0%,#f7f9fc 100%) !important; }
+  body.tema-claro .port-hero h1 { color:#0f172a !important; }
+  body.tema-claro .port-hero h1 em, body.tema-claro .port-section-title { color:#1d4ed8 !important; }
+  body.tema-beige .port-hero { background: linear-gradient(180deg,#f5e8d5 0%,#fdf6ed 100%) !important; }
+  body.tema-beige .port-hero h1 { color:#1c0f00 !important; }
+  body.tema-beige .port-hero h1 em, body.tema-beige .port-section-title { color:#92400e !important; }
   .port-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.8rem; margin-bottom:1rem; }
   .port-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; display:flex; align-items:center; justify-content:space-between; gap:.8rem; transition:all .25s; }
   .port-card:hover { border-color:#38bdf8; transform:translateY(-2px); box-shadow:0 6px 20px rgba(56,189,248,.12); }
@@ -5438,6 +5477,14 @@ function estudiaRenderizar() {
 
   /* Header pane */
   #pane-infogramas .ifr-hdr { background:linear-gradient(135deg,#0f2848 0%,#162f56 45%,#0a1e36 100%); border-radius:16px; padding:1.4rem 1.8rem; margin-bottom:1.4rem; position:relative; overflow:hidden; }
+  body.tema-claro #pane-infogramas .ifr-hdr { background:linear-gradient(135deg,#eff6ff 0%,#f7f9fc 100%) !important; border:1px solid #cbd5e1; }
+  body.tema-claro #pane-infogramas .ifr-hdr * { color:#0f172a !important; }
+  body.tema-claro #pane-infogramas .ifr-hdr span[style*="color:#a78bfa"] { color:#7c3aed !important; }
+  body.tema-claro #pane-infogramas .ifr-hdr span[style*="border-radius:20px"] { background:rgba(124,58,237,.1) !important; border-color:rgba(124,58,237,.3) !important; color:#7c3aed !important; }
+  body.tema-beige #pane-infogramas .ifr-hdr { background:linear-gradient(135deg,#f5e8d5 0%,#fdf6ed 100%) !important; border:1px solid #c9a87c; }
+  body.tema-beige #pane-infogramas .ifr-hdr * { color:#1c0f00 !important; }
+  body.tema-beige #pane-infogramas .ifr-hdr span[style*="color:#a78bfa"] { color:#6b21a8 !important; }
+  body.tema-beige #pane-infogramas .ifr-hdr span[style*="border-radius:20px"] { background:rgba(107,33,168,.1) !important; border-color:rgba(107,33,168,.3) !important; color:#6b21a8 !important; }
   #pane-infogramas .ifr-hdr::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(135deg,transparent,transparent 20px,rgba(99,102,241,.03) 20px,rgba(99,102,241,.03) 21px); }
   #pane-infogramas .ifr-hdr::after  { content:''; position:absolute; top:-30px; right:-30px; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle,rgba(99,102,241,.12),transparent 70%); }
 
