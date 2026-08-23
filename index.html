@@ -1622,6 +1622,75 @@ function convInvertir() {
 if (document.getElementById('conv-categoria')) convActualizarUnidades();
 </script>
 
+<!-- CALENDARIO -->
+<div id="cal-bar" style="background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 16px;font-size:.78rem;">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="document.getElementById('cal-body').style.display = document.getElementById('cal-body').style.display==='none' ? 'block' : 'none';">📅 <strong style="color:var(--text);">Calendario</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
+  </div>
+  <div id="cal-body" style="display:none;margin-top:10px;max-width:320px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;">
+      <button onclick="calCambiarMes(-1)" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 10px;font-size:.85rem;cursor:pointer;">‹</button>
+      <div id="cal-titulo" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:700;color:var(--text);font-size:.9rem;text-transform:capitalize;"></div>
+      <button onclick="calCambiarMes(1)" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 10px;font-size:.85rem;cursor:pointer;">›</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px;">
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">L</div>
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">M</div>
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">M</div>
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">J</div>
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">V</div>
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">S</div>
+      <div style="text-align:center;font-size:.65rem;color:var(--muted);font-weight:700;">D</div>
+    </div>
+    <div id="cal-dias" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;"></div>
+    <div style="text-align:center;margin-top:.6rem;">
+      <button onclick="calIrHoy()" style="background:var(--card);border:1px solid var(--border);color:var(--accent);border-radius:20px;padding:3px 12px;font-size:.7rem;font-weight:600;cursor:pointer;">Ir a hoy</button>
+    </div>
+  </div>
+</div>
+<script>
+const CAL_MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const calHoy = new Date();
+let calVista = new Date(calHoy.getFullYear(), calHoy.getMonth(), 1);
+
+function calRender() {
+  const titulo = document.getElementById('cal-titulo');
+  const dias = document.getElementById('cal-dias');
+  if (!titulo || !dias) return;
+
+  titulo.textContent = `${CAL_MESES[calVista.getMonth()]} ${calVista.getFullYear()}`;
+
+  const primerDia = new Date(calVista.getFullYear(), calVista.getMonth(), 1);
+  const ultimoDia = new Date(calVista.getFullYear(), calVista.getMonth() + 1, 0);
+  // Lunes=0 ... Domingo=6
+  let diaSemanaInicio = primerDia.getDay() - 1;
+  if (diaSemanaInicio < 0) diaSemanaInicio = 6;
+
+  let celdas = '';
+  for (let i = 0; i < diaSemanaInicio; i++) {
+    celdas += `<div></div>`;
+  }
+  for (let d = 1; d <= ultimoDia.getDate(); d++) {
+    const esHoy = d === calHoy.getDate() && calVista.getMonth() === calHoy.getMonth() && calVista.getFullYear() === calHoy.getFullYear();
+    celdas += `<div style="text-align:center;font-size:.75rem;padding:5px 0;border-radius:6px;cursor:default;
+      ${esHoy ? 'background:var(--accent);color:#000;font-weight:800;' : 'color:var(--text);'}">${d}</div>`;
+  }
+  dias.innerHTML = celdas;
+}
+
+function calCambiarMes(delta) {
+  calVista.setMonth(calVista.getMonth() + delta);
+  calRender();
+}
+
+function calIrHoy() {
+  calVista = new Date(calHoy.getFullYear(), calHoy.getMonth(), 1);
+  calRender();
+}
+
+if (document.getElementById('cal-dias')) calRender();
+</script>
+
 <!-- EPP TAB -->
 <div id="pane-epp">
   <div class="hero">
@@ -7407,6 +7476,10 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
         <div style="font-size:1.6rem;margin-bottom:.3rem;">🌡️</div>
         <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Estrés Térmico</div>
       </div>
+      <div onclick="mostrarHerramienta('atmosfera',this)" class="hr-selector-card" style="background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s;">
+        <div style="font-size:1.6rem;margin-bottom:.3rem;">🫧</div>
+        <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Atmósfera Espacio Confinado</div>
+      </div>
     </div>
     <script>
       function mostrarHerramienta(id, el) {
@@ -7752,13 +7825,23 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
         </div>
         <script>document.getElementById('etExterior')?.addEventListener('change', function(){ document.getElementById('etTaWrap').style.display = this.value === 'si' ? 'block' : 'none'; });</script>
 
-        <div style="margin-bottom:.3rem;">
-          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Carga de trabajo física</label>
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Tasa metabólica según actividad <span style="color:var(--muted);font-weight:400;">(M, Tabla 1 ISO 7243)</span></label>
           <select id="etCarga" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
-            <option value="30">Liviano (30.0°C límite) — ej: trabajo sentado, supervisión</option>
-            <option value="26.7">Moderado (26.7°C límite) — ej: caminar con esfuerzo moderado</option>
-            <option value="25">Pesado (25.0°C límite) — ej: trabajo manual continuo</option>
-            <option value="23">Muy pesado (23.0°C límite) — ej: trabajo físico intenso</option>
+            <option value="115">Descanso (M≈115 W)</option>
+            <option value="180">Ligero — de pie, sin esfuerzo notable de brazos (M≈180 W)</option>
+            <option value="300">Moderado — caminar con esfuerzo, trabajo manual sostenido (M≈300 W)</option>
+            <option value="415">Pesado — trabajo manual intenso, palear, cavar (M≈415 W)</option>
+            <option value="520">Muy pesado — trabajo físico máximo sostenido (M≈520 W)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:.3rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">¿Trabajador aclimatado al calor?</label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Aclimatado = expuesto a condiciones de calor similares durante al menos 1 semana completa previa.</div>
+          <select id="etAclimatado" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+            <option value="si">Sí, aclimatado</option>
+            <option value="no">No aclimatado</option>
           </select>
         </div>
 
@@ -7784,7 +7867,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
         <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
           <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📊 Interpretación del resultado</div>
           <div id="etInterpretacion" style="border-radius:12px;padding:1rem 1.1rem;"></div>
-          <div style="font-size:.7rem;color:var(--muted);margin-top:.8rem;line-height:1.5;">Límite para trabajo continuo (100%), según ACGIH TLV. Con ciclos de trabajo-descanso el límite admisible es mayor — consulta la tabla completa ACGIH/ISO 7243 para jornadas con pausas programadas.</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:.8rem;line-height:1.5;">WBGTref calculado según la fórmula logarítmica oficial ISO 7243/NTP 1189 (verificada contra el ejemplo publicado por el INSST). Este límite asume ropa de trabajo estándar de algodón (0.6 clo) y trabajo continuo — con ciclos de trabajo-descanso el límite admisible es mayor (Tabla 3 ACGIH), y con ropa de protección especial (química, impermeable) el límite real es más bajo que el calculado aquí.</div>
         </div>
 
         <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
@@ -7806,13 +7889,123 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
           <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
           <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
             <li>UNE-EN ISO 7243:2017 — Ergonomía del ambiente térmico, evaluación del estrés al calor mediante WBGT</li>
-            <li>ACGIH TLV — límites de referencia por carga de trabajo</li>
+            <li>NTP 1189 (INSST, 2023) — metodología y fórmula de WBGTref verificada con ejemplo oficial</li>
+            <li>ACGIH TLV — criterio de ciclos de trabajo-descanso (Tabla 3)</li>
           </ul>
         </div>
 
         <button onclick="descargarInformeTermico()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
       </div>
     </div> <!-- /hrTool_termico -->
+
+    <!-- ══════════ HERRAMIENTA 5: ATMÓSFERA ESPACIO CONFINADO ══════════ -->
+    <div id="hrTool_atmosfera" class="hr-herramienta" style="display:none;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;">
+          <div style="font-size:1.8rem;">🫧</div>
+          <div>
+            <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);letter-spacing:.3px;line-height:1.1;">Verificación de Atmósfera para Espacio Confinado</div>
+            <div style="font-size:.78rem;color:var(--accent);font-weight:600;">Calculadora profesional de Seguridad Industrial</div>
+          </div>
+        </div>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.55;margin-top:.7rem;">
+          Un tanque, un pozo, una cámara subterránea o una alcantarilla puede verse exactamente igual de segura por fuera y ser letal por dentro — el aire dentro de un espacio confinado no se puede evaluar a simple vista ni por olfato. Por eso ningún trabajador debe entrar sin medir antes. Esta herramienta compara tus 4 lecturas contra los umbrales estándar de la industria (los mismos que traen configurados de fábrica los detectores MSA y Dräger) y te dice si es seguro entrar.
+        </p>
+      </div>
+
+      <!-- Explicación humana de cada gas -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">🤔 Qué mide cada sensor, y por qué importa</div>
+        <div style="display:grid;gap:1rem;">
+          <div>
+            <div style="font-weight:700;color:var(--text);font-size:.85rem;">💨 Oxígeno (O₂)</div>
+            <div style="font-size:.8rem;color:var(--muted);line-height:1.55;">El aire que respiras normalmente en la calle tiene 20.9% de oxígeno — tu cuerpo está calibrado exactamente para eso, ni más ni menos. Dentro de un espacio cerrado, el oxígeno se puede consumir (oxidación de metal, fermentación, combustión) o desplazar (por otro gas que entró). Lo peligroso es que <strong>no se puede sentir la falta de oxígeno</strong> — el juicio se nubla antes de que la persona note que algo anda mal, así que confiar en "cómo me siento" no sirve. Por eso se mide, no se adivina.</div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--text);font-size:.85rem;">🔥 Gases combustibles (%LEL)</div>
+            <div style="font-size:.8rem;color:var(--muted);line-height:1.55;">Este no mide toxicidad — mide qué tan cerca está el aire de poder explotar. LEL es el "Límite Inferior de Explosividad": la concentración mínima de un gas o vapor en el aire necesaria para que se encienda con una chispa. Una herramienta común, un motor, o hasta la electricidad estática de la ropa puede ser esa chispa. A 100% LEL, el ambiente ya está en condición de explotar.</div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--text);font-size:.85rem;">☠️ Monóxido de carbono (CO)</div>
+            <div style="font-size:.8rem;color:var(--muted);line-height:1.55;">Es el gas invisible y sin olor que más mata en espacios cerrados con motores, generadores o combustión cerca. El problema es que el cuerpo no lo detecta — el CO se pega a la sangre en el lugar donde debería ir el oxígeno, y la persona se va debilitando sin darse cuenta hasta que ya es tarde para reaccionar sola.</div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--text);font-size:.85rem;">🥚 Ácido sulfhídrico (H₂S)</div>
+            <div style="font-size:.8rem;color:var(--muted);line-height:1.55;">Huele a huevo podrido — pero solo al principio, y ahí está la trampa: a concentraciones altas, el H₂S anula el sentido del olfato en segundos. Justo cuando se vuelve más peligroso, la persona deja de olerlo y puede pensar que el riesgo pasó. Es muy común en minería, alcantarillado, plantas de tratamiento de aguas y donde hay materia orgánica en descomposición.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">📥 Datos de entrada — lecturas del detector</div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Oxígeno (O₂) <span style="color:var(--muted);font-weight:400;">(%)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Aire normal: 20.9%. Ej: 20.5</div>
+          <input id="acO2" type="number" step="0.1" placeholder="Ej: 20.5" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Gases combustibles <span style="color:var(--muted);font-weight:400;">(%LEL)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 0</div>
+          <input id="acLEL" type="number" step="0.1" placeholder="Ej: 0" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Monóxido de carbono (CO) <span style="color:var(--muted);font-weight:400;">(ppm)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 0</div>
+          <input id="acCO" type="number" step="1" placeholder="Ej: 0" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:.3rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Ácido sulfhídrico (H₂S) <span style="color:var(--muted);font-weight:400;">(ppm)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 0</div>
+          <input id="acH2S" type="number" step="0.1" placeholder="Ej: 0" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div id="acError" style="display:none;color:#ef4444;font-size:.78rem;margin-top:.8rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.6rem .8rem;"></div>
+
+        <button onclick="calcularAtmosfera()" style="width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.85rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.3px;">🧮 Verificar atmósfera</button>
+      </div>
+
+      <div id="acResultados" style="display:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">🧮 Comparación contra umbrales estándar</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.8rem;">Umbrales de fábrica MSA/Dräger (dos niveles: alarma baja y alarma alta):</div>
+          <div id="acTabla" style="display:grid;gap:.5rem;"></div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📊 Veredicto</div>
+          <div id="acInterpretacion" style="border-radius:12px;padding:1rem 1.1rem;"></div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">💡 Recomendación técnica</div>
+          <div id="acRecomendacion" style="font-size:.85rem;color:var(--text);line-height:1.6;"></div>
+        </div>
+
+        <div style="background:rgba(245,158,11,.06);border:1px dashed rgba(245,158,11,.35);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.5rem;text-align:center;">
+          <div style="font-size:.85rem;color:var(--text);margin-bottom:.8rem;">🦺 EPP relacionado con este cálculo</div>
+          <button onclick="showTab('epp');abrirVIP();" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:600;cursor:pointer;">😷 Protección Respiratoria / Detección de Gases — Ver en BuscaEPP</button>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📚 Referencias técnicas y normativas</div>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Chile:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 .8rem 1.2rem;line-height:1.7;">
+            <li>D.S. 594 — Art. 45, exigencia de medición y control de atmósferas peligrosas</li>
+          </ul>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
+            <li>OSHA 29 CFR 1910.146 — Permit-Required Confined Spaces</li>
+            <li>Umbrales de alarma de fábrica — MSA (ALTAIR serie) y Dräger (X-am serie), configuración estándar de la industria</li>
+          </ul>
+        </div>
+
+        <button onclick="descargarInformeAtmosfera()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
+      </div>
+    </div> <!-- /hrTool_atmosfera -->
 
     <!-- 9. ADVERTENCIA — siempre visible, compartida por las 4 herramientas -->
     <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:1rem 1.2rem;font-size:.75rem;color:var(--muted);line-height:1.55;text-align:center;">
@@ -8075,8 +8268,9 @@ function calcularEstresTermico() {
   const tw = parseFloat(document.getElementById('etTw').value);
   const tg = parseFloat(document.getElementById('etTg').value);
   const ta = parseFloat(document.getElementById('etTa').value);
-  const limite = parseFloat(document.getElementById('etCarga').value);
+  const M = parseFloat(document.getElementById('etCarga').value);
   const cargaTexto = document.getElementById('etCarga').selectedOptions[0].text;
+  const aclimatado = document.getElementById('etAclimatado').value === 'si';
   const errEl = document.getElementById('etError');
 
   if (isNaN(tw) || isNaN(tg) || (exterior && isNaN(ta))) {
@@ -8098,8 +8292,16 @@ function calcularEstresTermico() {
     sustTxt = `WBGT = 0.7×${tw} + 0.3×${tg} = ${wbgt.toFixed(1)} °C`;
   }
 
+  // WBGT de referencia (límite admisible) — fórmula logarítmica real, NTP 1189 / ISO 7243, pto. 3.6
+  const limite = aclimatado
+    ? 56.7 - 11.5 * Math.log10(M)
+    : 59.9 - 14.1 * Math.log10(M);
+  const formulaLimite = aclimatado
+    ? `WBGTref = 56.7 − 11.5×log₁₀(${M}) = ${limite.toFixed(1)} °C (aclimatado)`
+    : `WBGTref = 59.9 − 14.1×log₁₀(${M}) = ${limite.toFixed(1)} °C (no aclimatado)`;
+
   document.getElementById('etFormulaUsada').textContent = formulaTxt;
-  document.getElementById('etSustitucion').textContent = sustTxt;
+  document.getElementById('etSustitucion').textContent = sustTxt + '  |  ' + formulaLimite;
   document.getElementById('etResultadoNumero').textContent = wbgt.toFixed(1);
   document.getElementById('etLimiteTexto').textContent = limite.toFixed(1);
 
@@ -8110,24 +8312,24 @@ function calcularEstresTermico() {
 
   if (diferencia <= -2) {
     nivelTexto = '🟢 BAJO / ACEPTABLE'; color = '#10b981'; bg = 'rgba(16,185,129,.1)';
-    recomendacion = 'El WBGT está bajo el límite de referencia con margen adecuado. Mantén hidratación disponible y observación general del personal.';
+    recomendacion = 'El WBGT está bajo el WBGTref con margen adecuado. Mantén hidratación disponible y observación general del personal.';
   } else if (diferencia <= 0) {
     nivelTexto = '🟡 PRECAUCIÓN'; color = '#eab308'; bg = 'rgba(234,179,8,.1)';
-    recomendacion = 'El WBGT está cerca del límite de referencia. Aumenta la frecuencia de hidratación, considera pausas adicionales, y monitorea síntomas de fatiga por calor en el personal.';
+    recomendacion = 'El WBGT está cerca del WBGTref. Aumenta la frecuencia de hidratación, considera pausas adicionales, y monitorea síntomas de fatiga por calor en el personal.';
   } else if (diferencia <= 3) {
     nivelTexto = '🟠 ALTO'; color = '#f97316'; bg = 'rgba(249,115,22,.1)';
-    recomendacion = 'El WBGT supera el límite para trabajo continuo. Se debe implementar un ciclo de trabajo-descanso (consultar tabla ACGIH completa), aumentar la hidratación programada, y evaluar ropa de trabajo que facilite la evaporación del sudor.';
+    recomendacion = 'El WBGT supera el WBGTref para trabajo continuo. Aplica un ciclo de trabajo-descanso (Tabla 3, TLV ACGIH), aumenta la hidratación programada, y evalúa ropa de trabajo que facilite la evaporación del sudor — recuerda que esta fórmula asume ropa estándar de algodón (0.6 clo); ropa de protección química o impermeable exige corrección adicional (CAV) y el riesgo real es mayor al mostrado aquí.';
   } else {
     nivelTexto = '🔴 CRÍTICO'; color = '#ef4444'; bg = 'rgba(239,68,68,.12)';
-    recomendacion = 'El WBGT excede significativamente el límite — riesgo alto de golpe de calor. Se requiere suspender o reprogramar la actividad a un horario más fresco, aclimatación previa del personal, y supervisión médica disponible en terreno.';
+    recomendacion = 'El WBGT excede significativamente el WBGTref — riesgo alto de golpe de calor. Se requiere suspender o reprogramar la actividad a un horario más fresco, aclimatación previa del personal, y supervisión médica disponible en terreno.';
   }
 
   interpEl.style.background = bg;
   interpEl.style.border = `1px solid ${color}55`;
-  interpEl.innerHTML = `<div style="font-weight:800;color:${color};font-size:1rem;margin-bottom:.3rem;">${nivelTexto}</div><div style="font-size:.8rem;color:var(--text);">WBGT calculado: <strong>${wbgt.toFixed(1)}°C</strong> — límite (${cargaTexto}): ${limite.toFixed(1)}°C</div>`;
+  interpEl.innerHTML = `<div style="font-weight:800;color:${color};font-size:1rem;margin-bottom:.3rem;">${nivelTexto}</div><div style="font-size:.8rem;color:var(--text);">WBGT calculado: <strong>${wbgt.toFixed(1)}°C</strong> — WBGTref (${cargaTexto}, ${aclimatado?'aclimatado':'no aclimatado'}): ${limite.toFixed(1)}°C</div>`;
   recoEl.textContent = recomendacion;
 
-  etUltimoResultado = { exterior, tw, tg, ta, limite, cargaTexto, wbgt, formulaTxt, sustTxt, nivelTexto, recomendacion };
+  etUltimoResultado = { exterior, tw, tg, ta, M, cargaTexto, aclimatado, limite, formulaLimite, wbgt, formulaTxt, sustTxt, nivelTexto, recomendacion };
   document.getElementById('etResultados').style.display = 'block';
 }
 
@@ -8139,14 +8341,127 @@ function descargarInformeTermico() {
     ['Temperatura bulbo húmedo (Tw)', `${r.tw} °C`],
     ['Temperatura de globo (Tg)', `${r.tg} °C`],
     ...(r.exterior ? [['Temperatura de aire seco (Ta)', `${r.ta} °C`]] : []),
-    ['Carga de trabajo', r.cargaTexto],
-    ['Fórmula', r.formulaTxt],
-    ['Sustitución', r.sustTxt],
+    ['Tasa metabólica (M)', `${r.M} W — ${r.cargaTexto}`],
+    ['Aclimatación', r.aclimatado ? 'Trabajador aclimatado al calor' : 'Trabajador NO aclimatado'],
+    ['Fórmula WBGT', r.formulaTxt],
+    ['Sustitución WBGT', r.sustTxt],
     ['WBGT calculado', `${r.wbgt.toFixed(1)} °C`],
-    ['Límite de referencia', `${r.limite.toFixed(1)} °C`],
+    ['Fórmula WBGTref', r.formulaLimite],
+    ['WBGTref (límite admisible)', `${r.limite.toFixed(1)} °C`],
     ['Interpretación', r.nivelTexto],
     ['Recomendación técnica', r.recomendacion],
-    ['Referencias', 'Internacional: UNE-EN ISO 7243:2017 · ACGIH TLV. Chile: D.S. 594 (referencia general agente físico calor)'],
+    ['Referencias', 'Internacional: UNE-EN ISO 7243:2017, NTP 1189 INSST. Chile: D.S. 594 (referencia general agente físico calor)'],
+  ]);
+}
+
+// ══════════ HERRAMIENTA 5: ATMÓSFERA ESPACIO CONFINADO ══════════
+// Umbrales de alarma estándar de fábrica MSA (ALTAIR) / Dräger (X-am) — dos niveles cada uno
+const AC_UMBRALES = {
+  o2:  { nombre: 'Oxígeno (O₂)', unidad: '%', normal: 20.9,
+         bajoMin: 19.5,  // deficiencia — bajo este valor: alarma
+         altoMax: 23.5,  // enriquecido — sobre este valor: alarma (riesgo de incendio)
+         critBajo: 16, critAlto: 25 },
+  lel: { nombre: 'Gases combustibles', unidad: '%LEL', normal: 0,
+         alarmaBaja: 10, alarmaAlta: 20 },
+  co:  { nombre: 'Monóxido de carbono (CO)', unidad: 'ppm', normal: 0,
+         alarmaBaja: 25, alarmaAlta: 100 },
+  h2s: { nombre: 'Ácido sulfhídrico (H₂S)', unidad: 'ppm', normal: 0,
+         alarmaBaja: 5, alarmaAlta: 10 },
+};
+
+let acUltimoResultado = null;
+
+function evaluarGasSimple(valor, alarmaBaja, alarmaAlta) {
+  if (valor >= alarmaAlta) return { nivel: 'critico', texto: '🔴 Alarma alta' };
+  if (valor >= alarmaBaja) return { nivel: 'alto', texto: '🟠 Alarma baja' };
+  return { nivel: 'ok', texto: '🟢 Normal' };
+}
+
+function evaluarO2(valor) {
+  const u = AC_UMBRALES.o2;
+  if (valor <= u.critBajo || valor >= u.critAlto) return { nivel: 'critico', texto: '🔴 Crítico' };
+  if (valor < u.bajoMin) return { nivel: 'critico', texto: '🔴 Deficiente' };
+  if (valor > u.altoMax) return { nivel: 'critico', texto: '🔴 Enriquecido' };
+  return { nivel: 'ok', texto: '🟢 Normal' };
+}
+
+function calcularAtmosfera() {
+  const o2 = parseFloat(document.getElementById('acO2').value);
+  const lel = parseFloat(document.getElementById('acLEL').value);
+  const co = parseFloat(document.getElementById('acCO').value);
+  const h2s = parseFloat(document.getElementById('acH2S').value);
+  const errEl = document.getElementById('acError');
+
+  if ([o2, lel, co, h2s].some(isNaN)) {
+    errEl.textContent = '⚠️ Completa las 4 lecturas del detector para verificar la atmósfera.';
+    errEl.style.display = 'block';
+    document.getElementById('acResultados').style.display = 'none';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const evalO2 = evaluarO2(o2);
+  const evalLEL = evaluarGasSimple(lel, AC_UMBRALES.lel.alarmaBaja, AC_UMBRALES.lel.alarmaAlta);
+  const evalCO = evaluarGasSimple(co, AC_UMBRALES.co.alarmaBaja, AC_UMBRALES.co.alarmaAlta);
+  const evalH2S = evaluarGasSimple(h2s, AC_UMBRALES.h2s.alarmaBaja, AC_UMBRALES.h2s.alarmaAlta);
+
+  const filas = [
+    { nombre: AC_UMBRALES.o2.nombre, valor: `${o2}%`, rango: `Seguro: ${AC_UMBRALES.o2.bajoMin}% – ${AC_UMBRALES.o2.altoMax}%`, ev: evalO2 },
+    { nombre: AC_UMBRALES.lel.nombre, valor: `${lel}% LEL`, rango: `Alarma: ${AC_UMBRALES.lel.alarmaBaja}% / ${AC_UMBRALES.lel.alarmaAlta}% LEL`, ev: evalLEL },
+    { nombre: AC_UMBRALES.co.nombre, valor: `${co} ppm`, rango: `Alarma: ${AC_UMBRALES.co.alarmaBaja} / ${AC_UMBRALES.co.alarmaAlta} ppm`, ev: evalCO },
+    { nombre: AC_UMBRALES.h2s.nombre, valor: `${h2s} ppm`, rango: `Alarma: ${AC_UMBRALES.h2s.alarmaBaja} / ${AC_UMBRALES.h2s.alarmaAlta} ppm`, ev: evalH2S },
+  ];
+
+  const colores = { ok: '#10b981', alto: '#f97316', critico: '#ef4444' };
+  document.getElementById('acTabla').innerHTML = filas.map(f => `
+    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border-radius:10px;padding:.7rem .9rem;">
+      <div>
+        <div style="font-size:.82rem;font-weight:700;color:var(--text);">${f.nombre}</div>
+        <div style="font-size:.7rem;color:var(--muted);">${f.rango}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:.9rem;font-weight:800;color:${colores[f.ev.nivel]};">${f.valor}</div>
+        <div style="font-size:.72rem;color:${colores[f.ev.nivel]};">${f.ev.texto}</div>
+      </div>
+    </div>`).join('');
+
+  // Veredicto general: el peor caso de los 4 gases determina el resultado
+  const niveles = [evalO2.nivel, evalLEL.nivel, evalCO.nivel, evalH2S.nivel];
+  const interpEl = document.getElementById('acInterpretacion');
+  const recoEl = document.getElementById('acRecomendacion');
+  let nivelTexto, color, bg, recomendacion;
+
+  if (niveles.includes('critico')) {
+    nivelTexto = '🔴 NO ENTRAR — ATMÓSFERA PELIGROSA'; color = '#ef4444'; bg = 'rgba(239,68,68,.12)';
+    recomendacion = 'Al menos un gas está en alarma alta o fuera del rango seguro de oxígeno. No se debe ingresar bajo ninguna circunstancia sin ventilar y volver a medir, o sin usar equipo de protección respiratoria autónomo (SCBA) y un plan de rescate específico. Ventila el espacio, purga, y vuelve a medir antes de cualquier intento de entrada.';
+  } else if (niveles.includes('alto')) {
+    nivelTexto = '🟠 PRECAUCIÓN — VENTILAR ANTES DE ENTRAR'; color = '#f97316'; bg = 'rgba(249,115,22,.1)';
+    recomendacion = 'Al menos un gas alcanzó su alarma baja. Ventila mecánicamente el espacio antes de ingresar, y vuelve a medir. Si el valor no baja, no entres — trata la condición como peligrosa.';
+  } else {
+    nivelTexto = '🟢 ATMÓSFERA ACEPTABLE'; color = '#10b981'; bg = 'rgba(16,185,129,.1)';
+    recomendacion = 'Las 4 lecturas están dentro de rango normal. Aun así, monitorea de forma continua durante todo el trabajo — la atmósfera puede cambiar mientras la persona está adentro, por eso el detector debe quedarse encendido y con la persona, no solo usarse antes de entrar.';
+  }
+
+  interpEl.style.background = bg;
+  interpEl.style.border = `1px solid ${color}55`;
+  interpEl.innerHTML = `<div style="font-weight:800;color:${color};font-size:1rem;">${nivelTexto}</div>`;
+  recoEl.textContent = recomendacion;
+
+  acUltimoResultado = { o2, lel, co, h2s, evalO2, evalLEL, evalCO, evalH2S, nivelTexto, recomendacion };
+  document.getElementById('acResultados').style.display = 'block';
+}
+
+function descargarInformeAtmosfera() {
+  if (!acUltimoResultado) return;
+  const r = acUltimoResultado;
+  descargarInformeGenerico('Informe de Verificación de Atmósfera - Espacio Confinado', [
+    ['Oxígeno (O₂)', `${r.o2}% — ${r.evalO2.texto} (rango seguro: 19.5%-23.5%)`],
+    ['Gases combustibles (%LEL)', `${r.lel}% — ${r.evalLEL.texto} (alarma: 10%/20% LEL)`],
+    ['Monóxido de carbono (CO)', `${r.co} ppm — ${r.evalCO.texto} (alarma: 25/100 ppm)`],
+    ['Ácido sulfhídrico (H₂S)', `${r.h2s} ppm — ${r.evalH2S.texto} (alarma: 5/10 ppm)`],
+    ['Veredicto', r.nivelTexto],
+    ['Recomendación técnica', r.recomendacion],
+    ['Referencias', 'Chile: D.S. 594 Art. 45. Internacional: OSHA 29 CFR 1910.146. Umbrales de fábrica MSA ALTAIR / Dräger X-am (estándar de industria)'],
   ]);
 }
 </script>
