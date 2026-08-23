@@ -1385,6 +1385,7 @@
   <div class="tab tab-ind"  onclick="showTab('industrias')" id="tab-industrias" title="Centro de Industrias">    <span class="tab-ico">🏗️</span><span class="tab-lbl">INDUST</span></div>
   <div class="tab"        onclick="showTab('estudia')"   id="tab-estudia"  title="Estudia con BuscaEPP"><span class="tab-ico">📚</span><span class="tab-lbl">ESTUDIA</span></div>
   <div class="tab"        onclick="showTab('infogramas')" id="tab-infogramas" title="Infogramas BuscaEPP"><span class="tab-ico">📊</span><span class="tab-lbl">INFOGR</span></div>
+  <div class="tab"        onclick="showTab('herramientas')" id="tab-herramientas" title="Herramientas del Experto en Seguridad Industrial"><span class="tab-ico">🧠</span><span class="tab-lbl">HERRAMIENTAS</span></div>
   <div class="tab"        onclick="showTab('admin')"     id="tab-admin"    title="Administrador"><span class="tab-ico">⚙️</span><span class="tab-lbl">ADMIN</span></div>
 </div>
 
@@ -3151,10 +3152,52 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
 <div id="pane-vip" style="display:none;">
   <div class="hero" style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));">
     <a href="#" onclick="showTab('epp');return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:.6rem;">← Volver al inicio</a>
-    <h1><span>ZONA</span> <span style="color:#f59e0b;">VIP</span></h1>
-    <p id="vipBienvenida">Bienvenido a tu espacio exclusivo</p>
+    <h1><span>ASISTENTE NORMATIVO</span> <span style="color:#f59e0b;">EPP</span></h1>
+    <p id="vipBienvenida">Resuelve tus dudas de EPP con respaldo normativo, siempre actualizado — para prevencionistas, compradores y equipos técnicos</p>
   </div>
   <div class="results-area" style="max-width:960px;margin:0 auto;padding:1rem;">
+
+    <!-- 3 pilares simples -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;">
+        <div style="font-size:1.7rem;margin-bottom:.3rem;">📅</div>
+        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Siempre al día</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Novedades normativas con fecha de verificación, no información que envejece sola</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;">
+        <div style="font-size:1.7rem;margin-bottom:.3rem;">📄</div>
+        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Documentos listos</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Genera matrices y protocolos de EPP en minutos, no desde cero</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;">
+        <div style="font-size:1.7rem;margin-bottom:.3rem;">🤝</div>
+        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Quién lo vende</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Fabricantes y distribuidores verificados, sin buscar por tu cuenta</div>
+      </div>
+    </div>
+
+    <!-- Novedades Normativas — el eje "siempre al día" -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:var(--text);letter-spacing:.3px;">📅 Novedades Normativas</div>
+        <div style="font-size:.68rem;color:var(--muted);background:var(--surface2);border-radius:20px;padding:3px 10px;">✅ Última verificación: 21 de agosto de 2026</div>
+      </div>
+      <div style="display:grid;gap:.6rem;">
+        <div style="display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .8rem;background:var(--surface2);border-radius:10px;">
+          <span style="font-size:.68rem;font-weight:700;color:var(--accent);background:rgba(245,158,11,.12);border-radius:6px;padding:2px 7px;white-space:nowrap;margin-top:1px;">01 FEB 2025</span>
+          <div style="font-size:.8rem;color:var(--text);line-height:1.4;"><strong>DS N°44/2023 MINTRAB</strong> entró en vigencia — deroga los antiguos DS 40 y 54 de 1969 sobre prevención de riesgos y comités paritarios.</div>
+        </div>
+        <div style="display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .8rem;background:var(--surface2);border-radius:10px;">
+          <span style="font-size:.68rem;font-weight:700;color:var(--accent);background:rgba(245,158,11,.12);border-radius:6px;padding:2px 7px;white-space:nowrap;margin-top:1px;">VIGENTE</span>
+          <div style="font-size:.8rem;color:var(--text);line-height:1.4;"><strong>NCh 3749</strong> (adopción ISO 20344) reemplazó a la antigua NCh773/1:1992 para métodos de ensayo de calzado de seguridad.</div>
+        </div>
+        <div style="display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .8rem;background:var(--surface2);border-radius:10px;">
+          <span style="font-size:.68rem;font-weight:700;color:var(--accent);background:rgba(245,158,11,.12);border-radius:6px;padding:2px 7px;white-space:nowrap;margin-top:1px;">2026</span>
+          <div style="font-size:.8rem;color:var(--text);line-height:1.4;"><strong>SEA Chile</strong> mantiene actualizado el listado de proyectos en evaluación ambiental relevantes para EPP en faenas nuevas.</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:.9rem;font-size:.68rem;color:var(--muted);">Este listado se revisa periódicamente contra fuentes oficiales (BCN, ISP, Diario Oficial). ¿Detectaste un cambio que no está aquí? Escríbenos.</div>
+    </div>
 
     <!-- Header usuario + dias restantes -->
     <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:1rem 1.3rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
@@ -3186,6 +3229,7 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
         <button onclick="vipSubTab('historico',this)" class="calc-btn" style="font-size:.8rem;">📊 Histórico</button>
         <button onclick="vipSubTab('manuales',this)" class="calc-btn" style="font-size:.8rem;">📚 Manuales EPP</button>
         <button onclick="vipSubTab('infoepp',this)" class="calc-btn" style="font-size:.8rem;">🏭 Fabricantes y Distribuidores</button>
+        <button onclick="vipSubTab('docs',this)" class="calc-btn" style="font-size:.8rem;">📄 Generar Matriz de EPP</button>
         <button onclick="vipSubTab('buscaigni',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(245,158,11,.1));color:#fca5a5;border-color:rgba(239,68,68,.45);font-weight:700;">🔥 BuscaIgni FR</button>
       </div>
 
@@ -3636,6 +3680,120 @@ function mostrarInfoEpp(cual) {
   }
 }
 </script>
+
+      <!-- ══ GENERADOR DE MATRIZ DE EPP ══════════════════════════════ -->
+      <div id="vipSubDocs" style="display:none;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.5px;">📄 GENERADOR DE MATRIZ DE EPP POR CARGO</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;">Completa los datos, marca el EPP que aplica, y descarga el documento en Word — listo para adjuntar a tu sistema de gestión.</div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;max-width:640px;">
+          <div style="display:grid;gap:.8rem;margin-bottom:1.2rem;">
+            <div>
+              <label style="font-size:.75rem;color:var(--muted);font-weight:600;display:block;margin-bottom:.3rem;">Empresa (opcional)</label>
+              <input id="docEmpresa" type="text" placeholder="Ej: Minera Los Andes SpA" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.6rem .8rem;font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            </div>
+            <div>
+              <label style="font-size:.75rem;color:var(--muted);font-weight:600;display:block;margin-bottom:.3rem;">Nombre del cargo *</label>
+              <input id="docCargo" type="text" placeholder="Ej: Operador de Planta" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.6rem .8rem;font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            </div>
+            <div>
+              <label style="font-size:.75rem;color:var(--muted);font-weight:600;display:block;margin-bottom:.3rem;">Área / Faena</label>
+              <input id="docArea" type="text" placeholder="Ej: Planta de chancado, interior mina" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.6rem .8rem;font-size:.85rem;font-family:'DM Sans',sans-serif;">
+            </div>
+          </div>
+
+          <label style="font-size:.75rem;color:var(--muted);font-weight:600;display:block;margin-bottom:.5rem;">EPP que aplica a este cargo</label>
+          <div id="docEppChecks" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;margin-bottom:1.3rem;"></div>
+
+          <button onclick="generarMatrizEPP()" style="width:100%;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.8rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.9rem;letter-spacing:.3px;">📥 Descargar Matriz en Word</button>
+          <div id="docMsg" style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:.6rem;"></div>
+        </div>
+      </div>
+      <script>
+        const DOC_EPP_FAMILIAS = [
+          { id:'casco', icono:'⛑️', nombre:'Casco de seguridad', norma:'NCh 461-2001' },
+          { id:'calzado', icono:'🥾', nombre:'Calzado de seguridad', norma:'NCh 772/1' },
+          { id:'guantes', icono:'🧤', nombre:'Guantes de protección', norma:'EN 388 / EN 374 / EN 407' },
+          { id:'visual', icono:'🥽', nombre:'Protección visual', norma:'EN 166 / ANSI Z87.1' },
+          { id:'auditiva', icono:'🎧', nombre:'Protección auditiva', norma:'NCh 1358' },
+          { id:'respiratoria', icono:'😷', nombre:'Protección respiratoria', norma:'NIOSH 42 CFR 84 / EN 149' },
+          { id:'altavis', icono:'🦺', nombre:'Ropa alta visibilidad', norma:'NCh 3254' },
+          { id:'caidas', icono:'🪝', nombre:'Protección contra caídas', norma:'NCh 1258' },
+          { id:'ignifuga', icono:'🧯', nombre:'Ropa ignífuga / FR', norma:'EN ISO 11612 / NFPA 2112' },
+          { id:'gases', icono:'☁️', nombre:'Detección de gases', norma:'DS 594 Art. 45' },
+        ];
+
+        function renderDocEppChecks() {
+          const cont = document.getElementById('docEppChecks');
+          if (!cont) return;
+          cont.innerHTML = DOC_EPP_FAMILIAS.map(f => `
+            <label style="display:flex;align-items:center;gap:.5rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;cursor:pointer;font-size:.78rem;color:var(--text);">
+              <input type="checkbox" id="docChk_${f.id}" style="accent-color:var(--accent);width:15px;height:15px;flex-shrink:0;">
+              ${f.icono} ${f.nombre}
+            </label>`).join('');
+        }
+        if (document.getElementById('docEppChecks')) renderDocEppChecks();
+
+        function generarMatrizEPP() {
+          const empresa = (document.getElementById('docEmpresa').value || '').trim();
+          const cargo = (document.getElementById('docCargo').value || '').trim();
+          const area = (document.getElementById('docArea').value || '').trim();
+          const msgEl = document.getElementById('docMsg');
+
+          if (!cargo) {
+            msgEl.textContent = '⚠️ Ingresa el nombre del cargo antes de generar el documento.';
+            msgEl.style.color = '#ef4444';
+            return;
+          }
+          const seleccionados = DOC_EPP_FAMILIAS.filter(f => document.getElementById('docChk_'+f.id)?.checked);
+          if (seleccionados.length === 0) {
+            msgEl.textContent = '⚠️ Marca al menos un tipo de EPP.';
+            msgEl.style.color = '#ef4444';
+            return;
+          }
+
+          const fecha = new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' });
+          const filas = seleccionados.map(f => `
+            <tr>
+              <td style="border:1px solid #999;padding:8px;">${f.icono} ${f.nombre}</td>
+              <td style="border:1px solid #999;padding:8px;">${f.norma}</td>
+              <td style="border:1px solid #999;padding:8px;"></td>
+            </tr>`).join('');
+
+          const html = `
+            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head><meta charset="utf-8"><title>Matriz de EPP</title></head>
+            <body style="font-family:Calibri,Arial,sans-serif;">
+              <h2 style="color:#1a1a1a;">Matriz de Elementos de Protección Personal</h2>
+              ${empresa ? `<p><strong>Empresa:</strong> ${empresa}</p>` : ''}
+              <p><strong>Cargo:</strong> ${cargo}</p>
+              ${area ? `<p><strong>Área / Faena:</strong> ${area}</p>` : ''}
+              <p><strong>Fecha de elaboración:</strong> ${fecha}</p>
+              <table style="border-collapse:collapse;width:100%;margin-top:12px;">
+                <tr style="background:#f59e0b;">
+                  <th style="border:1px solid #999;padding:8px;text-align:left;">EPP requerido</th>
+                  <th style="border:1px solid #999;padding:8px;text-align:left;">Norma de referencia</th>
+                  <th style="border:1px solid #999;padding:8px;text-align:left;">Observaciones</th>
+                </tr>
+                ${filas}
+              </table>
+              <p style="margin-top:20px;font-size:11px;color:#666;">Documento generado como referencia técnica por BuscaEPP.cl — Zona VIP. Verifica siempre la evaluación de riesgo específica de tu faena antes de implementar. No reemplaza la asesoría de un profesional de prevención de riesgos.</p>
+            </body></html>`;
+
+          const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Matriz_EPP_${cargo.replace(/[^a-zA-Z0-9]/g,'_')}.doc`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          msgEl.textContent = '✅ Documento descargado correctamente.';
+          msgEl.style.color = '#10b981';
+        }
+      </script>
 
       <!-- ══ BUSCAIGNI FR VIP ══════════════════════════════ -->
       <div id="vipSubBuscaigni" style="display:none;">
@@ -7221,6 +7379,778 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
 </div><!-- /pane-infogramas -->
 
 <!-- ADMIN TAB -->
+<!-- HERRAMIENTAS DEL EXPERTO EN SEGURIDAD INDUSTRIAL -->
+<div id="pane-herramientas" style="display:none;">
+  <div class="hero">
+    <a href="#" onclick="showTab('epp');return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:.6rem;">← Volver al inicio</a>
+    <h1><span>HERRAMIENTAS</span> <span>DEL EXPERTO</span></h1>
+    <p>Calculadoras profesionales de Seguridad Industrial — cálculo fundamentado, no solo un número</p>
+  </div>
+
+  <div style="max-width:820px;margin:0 auto;padding:1.5rem 1.2rem 3rem;">
+
+    <!-- Selector de herramientas -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.7rem;margin-bottom:2rem;">
+      <div onclick="mostrarHerramienta('auditiva',this)" class="hr-selector-card hr-sel-activa" style="background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s;">
+        <div style="font-size:1.6rem;margin-bottom:.3rem;">🎧</div>
+        <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Atenuación Auditiva</div>
+      </div>
+      <div onclick="mostrarHerramienta('dosis',this)" class="hr-selector-card" style="background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s;">
+        <div style="font-size:1.6rem;margin-bottom:.3rem;">📊</div>
+        <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Dosis de Ruido</div>
+      </div>
+      <div onclick="mostrarHerramienta('caida',this)" class="hr-selector-card" style="background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s;">
+        <div style="font-size:1.6rem;margin-bottom:.3rem;">🪝</div>
+        <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Distancia de Caída</div>
+      </div>
+      <div onclick="mostrarHerramienta('termico',this)" class="hr-selector-card" style="background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s;">
+        <div style="font-size:1.6rem;margin-bottom:.3rem;">🌡️</div>
+        <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Estrés Térmico</div>
+      </div>
+    </div>
+    <script>
+      function mostrarHerramienta(id, el) {
+        document.querySelectorAll('.hr-herramienta').forEach(h => h.style.display = 'none');
+        const target = document.getElementById('hrTool_' + id);
+        if (target) target.style.display = 'block';
+        document.querySelectorAll('.hr-selector-card').forEach(c => {
+          c.style.borderColor = 'var(--border)';
+          c.classList.remove('hr-sel-activa');
+        });
+        if (el) { el.style.borderColor = 'var(--accent)'; el.classList.add('hr-sel-activa'); }
+      }
+    </script>
+
+    <!-- ══════════ HERRAMIENTA 1: ATENUACIÓN AUDITIVA ══════════ -->
+    <div id="hrTool_auditiva" class="hr-herramienta" style="display:block;">
+
+    <!-- 1. ENCABEZADO DE LA HERRAMIENTA -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;">
+        <div style="font-size:1.8rem;">🎧</div>
+        <div>
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);letter-spacing:.3px;line-height:1.1;">Atenuación Real de Protección Auditiva</div>
+          <div style="font-size:.78rem;color:var(--accent);font-weight:600;">Calculadora profesional de Seguridad Industrial</div>
+        </div>
+      </div>
+      <p style="font-size:.83rem;color:var(--muted);line-height:1.55;margin-top:.7rem;">
+        El NRR impreso en un protector auditivo se mide en laboratorio, con calce perfecto — en terreno, con uso real, la protección efectiva es menor. Esta herramienta calcula cuánto ruido llega realmente al oído del trabajador usando el protector elegido, y si eso cumple con el límite legal chileno.
+      </p>
+    </div>
+
+    <!-- 2. DATOS DE ENTRADA -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">📥 Datos de entrada</div>
+
+      <div style="margin-bottom:1.1rem;">
+        <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Nivel de ruido medido <span style="color:var(--muted);font-weight:400;">(dB(A), TWA 8 h)</span></label>
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 97 dB(A) — medido con sonómetro o dosímetro en la posición del oído del trabajador.</div>
+        <input id="hrNivelRuido" type="number" step="0.1" placeholder="Ej: 97" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+      </div>
+
+      <div style="margin-bottom:1.1rem;">
+        <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">NRR del protector auditivo <span style="color:var(--muted);font-weight:400;">(dB)</span></label>
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Está impreso en el envase o la carcasa del protector. Rango típico: 20-33 dB.</div>
+        <input id="hrNRR" type="number" step="0.1" placeholder="Ej: 29" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+      </div>
+
+      <div style="margin-bottom:.3rem;">
+        <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.4rem;">Tipo de protección</label>
+        <select id="hrTipoProteccion" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+          <option value="simple">Protección simple (solo tapones o solo orejeras)</option>
+          <option value="doble">Doble protección (tapones + orejeras juntos)</option>
+        </select>
+      </div>
+
+      <div id="hrError" style="display:none;color:#ef4444;font-size:.78rem;margin-top:.8rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.6rem .8rem;"></div>
+
+      <button onclick="calcularAtenuacion()" style="width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.85rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.3px;">🧮 Calcular atenuación real</button>
+    </div>
+
+    <!-- RESULTADOS (oculto hasta calcular) -->
+    <div id="hrResultados" style="display:none;">
+
+      <!-- 3. CÁLCULO -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">🧮 Desarrollo del cálculo</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;">Método OSHA (Apéndice B, 29 CFR 1910.95) — medición en dB(A):</div>
+        <div style="background:var(--surface2);border-radius:10px;padding:.9rem 1.1rem;font-family:monospace;font-size:.85rem;color:var(--text);line-height:1.8;">
+          Nivel atenuado = Nivel ambiente − (NRR − 7) / 2<span id="hrFormulaDoble"></span><br>
+          <span id="hrSustitucion" style="color:var(--accent);"></span>
+        </div>
+        <div style="text-align:center;margin-top:1rem;">
+          <div style="font-size:.75rem;color:var(--muted);">Nivel de ruido con protección (estimado)</div>
+          <div id="hrResultadoNumero" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;color:var(--accent);"></div>
+          <div style="font-size:.75rem;color:var(--muted);">dB(A) efectivos en el oído</div>
+        </div>
+      </div>
+
+      <!-- 4. INTERPRETACIÓN -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📊 Interpretación del resultado</div>
+        <div id="hrInterpretacion" style="border-radius:12px;padding:1rem 1.1rem;"></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.8rem;line-height:1.5;">Clasificación basada en el límite del D.S. N°594/99 MINSAL (85 dB(A) TWA 8h). El nivel de acción PREXOR es 50% de dosis, equivalente a este mismo umbral evaluado en el tiempo de exposición real.</div>
+      </div>
+
+      <!-- 5. RECOMENDACIÓN -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">💡 Recomendación técnica</div>
+        <div id="hrRecomendacion" style="font-size:.85rem;color:var(--text);line-height:1.6;"></div>
+      </div>
+
+      <!-- 6. CONEXIÓN CON BUSCAEPP -->
+      <div style="background:rgba(245,158,11,.06);border:1px dashed rgba(245,158,11,.35);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.5rem;text-align:center;">
+        <div style="font-size:.85rem;color:var(--text);margin-bottom:.8rem;">🦺 EPP relacionado con este cálculo</div>
+        <button onclick="showTab('epp');abrirVIP();" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:600;cursor:pointer;">🎧 Protección Auditiva — Ver en BuscaEPP</button>
+      </div>
+
+      <!-- 7. REFERENCIAS TÉCNICAS -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📚 Referencias técnicas y normativas</div>
+        <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Chile:</strong></div>
+        <ul style="font-size:.78rem;color:var(--muted);margin:0 0 .8rem 1.2rem;line-height:1.7;">
+          <li>D.S. N°594/99 MINSAL, Título IV, Párrafo 3° — Agentes Físicos (Ruido), límite 85 dB(A) TWA 8h</li>
+          <li>PREXOR — Protocolo de Exposición Ocupacional a Ruido</li>
+          <li>NCh 1358 — Protectores auditivos, terminología y clasificación</li>
+        </ul>
+        <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
+        <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
+          <li>OSHA 29 CFR 1910.95, Apéndice B — método de-rating NRR</li>
+          <li>NIOSH — factor de corrección 50% recomendado para atenuación en terreno</li>
+          <li>ANSI S3.19 — método de laboratorio para determinar el NRR</li>
+        </ul>
+      </div>
+
+      <!-- 8. DESCARGAR INFORME -->
+      <button onclick="descargarInformeAtenuacion()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
+    </div>
+
+    </div> <!-- /hrTool_auditiva -->
+
+    <!-- ══════════ HERRAMIENTA 2: DOSIS DE RUIDO ══════════ -->
+    <div id="hrTool_dosis" class="hr-herramienta" style="display:none;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;">
+          <div style="font-size:1.8rem;">📊</div>
+          <div>
+            <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);letter-spacing:.3px;line-height:1.1;">Dosis de Ruido y Tiempo Máximo de Exposición</div>
+            <div style="font-size:.78rem;color:var(--accent);font-weight:600;">Calculadora profesional de Seguridad Industrial</div>
+          </div>
+        </div>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.55;margin-top:.7rem;">
+          El D.S. 594 define el ruido en términos de "dosis": la energía sonora total recibida en la jornada. Esta herramienta calcula cuánto tiempo puede exponerse un trabajador a un nivel de ruido específico, y qué porcentaje de su dosis diaria permitida representa su jornada real.
+        </p>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">📥 Datos de entrada</div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Nivel de presión sonora <span style="color:var(--muted);font-weight:400;">(NPSeq, dB(A) lento)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 91 dB(A) — medido en la posición del oído del trabajador.</div>
+          <input id="drNivel" type="number" step="0.1" placeholder="Ej: 91" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:.3rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Tiempo real de exposición <span style="color:var(--muted);font-weight:400;">(horas/día)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 8 — cuántas horas al día está expuesto el trabajador a ese nivel.</div>
+          <input id="drHorasReales" type="number" step="0.1" placeholder="Ej: 8" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div id="drError" style="display:none;color:#ef4444;font-size:.78rem;margin-top:.8rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.6rem .8rem;"></div>
+
+        <button onclick="calcularDosisRuido()" style="width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.85rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.3px;">🧮 Calcular dosis y tiempo máximo</button>
+      </div>
+
+      <div id="drResultados" style="display:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">🧮 Desarrollo del cálculo</div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;">Criterio de igual energía sonora (intercambio 3 dB), D.S. 594/99 Título IV Párr. 3°:</div>
+          <div style="background:var(--surface2);border-radius:10px;padding:.9rem 1.1rem;font-family:monospace;font-size:.85rem;color:var(--text);line-height:1.8;">
+            Tiempo máximo (h) = 8 / 2^((NPSeq − 85) / 3)<br>
+            <span id="drSustitucion" style="color:var(--accent);"></span><br><br>
+            Dosis (%) = (Tiempo real / Tiempo máximo) × 100<br>
+            <span id="drSustitucionDosis" style="color:var(--accent);"></span>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.2rem;">
+            <div style="text-align:center;">
+              <div style="font-size:.72rem;color:var(--muted);">Tiempo máximo permitido</div>
+              <div id="drTiempoMax" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;color:var(--accent);"></div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:.72rem;color:var(--muted);">Dosis de ruido diaria</div>
+              <div id="drDosisNumero" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;color:var(--accent);"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📊 Interpretación del resultado</div>
+          <div id="drInterpretacion" style="border-radius:12px;padding:1rem 1.1rem;"></div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:.8rem;line-height:1.5;">La dosis máxima diaria permisible es 100%. PREXOR exige medidas de control obligatorias sobre 50% de dosis, con plazo reducido si supera 1000%.</div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">💡 Recomendación técnica</div>
+          <div id="drRecomendacion" style="font-size:.85rem;color:var(--text);line-height:1.6;"></div>
+        </div>
+
+        <div style="background:rgba(245,158,11,.06);border:1px dashed rgba(245,158,11,.35);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.5rem;text-align:center;">
+          <div style="font-size:.85rem;color:var(--text);margin-bottom:.8rem;">🦺 EPP relacionado con este cálculo</div>
+          <button onclick="showTab('epp');abrirVIP();" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:600;cursor:pointer;">🎧 Protección Auditiva — Ver en BuscaEPP</button>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📚 Referencias técnicas y normativas</div>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Chile:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 .8rem 1.2rem;line-height:1.7;">
+            <li>D.S. N°594/99 MINSAL, Título IV, Párrafo 3° — Art. 74-76, criterio de igual energía sonora</li>
+            <li>PREXOR — Protocolo de Exposición Ocupacional a Ruido, ISP Chile</li>
+            <li>Nota Técnica N°009 ISP — Metodologías para obtener la Dosis de Ruido Diaria</li>
+          </ul>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
+            <li>ISO 1999 — criterio de intercambio de 3 dB (energía equivalente)</li>
+          </ul>
+        </div>
+
+        <button onclick="descargarInformeDosis()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
+      </div>
+    </div> <!-- /hrTool_dosis -->
+
+    <!-- ══════════ HERRAMIENTA 3: DISTANCIA DE CAÍDA ══════════ -->
+    <div id="hrTool_caida" class="hr-herramienta" style="display:none;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;">
+          <div style="font-size:1.8rem;">🪝</div>
+          <div>
+            <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);letter-spacing:.3px;line-height:1.1;">Distancia Libre de Caída</div>
+            <div style="font-size:.78rem;color:var(--accent);font-weight:600;">Calculadora profesional de Seguridad Industrial</div>
+          </div>
+        </div>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.55;margin-top:.7rem;">
+          Antes de trabajar en altura con arnés y absorbedor de impacto, hay que confirmar que existe suficiente espacio libre debajo del punto de trabajo para detener una caída sin que el trabajador golpee el suelo u otro obstáculo.
+        </p>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">📥 Datos de entrada</div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Longitud de la eslinga <span style="color:var(--muted);font-weight:400;">(m)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Ej: 1.8 — largo del elemento de conexión entre arnés y anclaje.</div>
+          <input id="dcEslinga" type="number" step="0.1" placeholder="Ej: 1.8" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Distancia de desaceleración del absorbedor <span style="color:var(--muted);font-weight:400;">(m)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Valor del fabricante. Máximo típico según ANSI Z359.1: 1.2 m.</div>
+          <input id="dcAbsorbedor" type="number" step="0.1" value="1.2" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Estatura del trabajador <span style="color:var(--muted);font-weight:400;">(m, anillo dorsal a pies)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Valor estándar de referencia: 1.5 m.</div>
+          <input id="dcEstatura" type="number" step="0.1" value="1.5" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:.3rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Margen de seguridad <span style="color:var(--muted);font-weight:400;">(m)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Espacio de cortesía bajo los pies. Mínimo obligatorio: 1 m.</div>
+          <input id="dcMargen" type="number" step="0.1" value="1" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div id="dcError" style="display:none;color:#ef4444;font-size:.78rem;margin-top:.8rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.6rem .8rem;"></div>
+
+        <button onclick="calcularDistanciaCaida()" style="width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.85rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.3px;">🧮 Calcular distancia libre requerida</button>
+      </div>
+
+      <div id="dcResultados" style="display:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">🧮 Desarrollo del cálculo</div>
+          <div style="background:var(--surface2);border-radius:10px;padding:.9rem 1.1rem;font-family:monospace;font-size:.85rem;color:var(--text);line-height:1.8;">
+            Distancia libre = Eslinga + Desaceleración + Estatura + Margen<br>
+            <span id="dcSustitucion" style="color:var(--accent);"></span>
+          </div>
+          <div style="text-align:center;margin-top:1rem;">
+            <div style="font-size:.75rem;color:var(--muted);">Distancia libre mínima requerida</div>
+            <div id="dcResultadoNumero" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;color:var(--accent);"></div>
+            <div style="font-size:.75rem;color:var(--muted);">metros bajo el punto de anclaje</div>
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">💡 Recomendación técnica</div>
+          <div style="font-size:.85rem;color:var(--text);line-height:1.6;">Si la altura real disponible entre el punto de anclaje y el suelo/obstáculo más cercano es <strong>menor</strong> a la distancia calculada, este sistema NO es seguro para ese punto de trabajo — se requiere reducir la longitud de la eslinga, usar una línea de vida autorretráctil (que reduce drásticamente la distancia de caída libre), o reubicar el anclaje.</div>
+        </div>
+
+        <div style="background:rgba(245,158,11,.06);border:1px dashed rgba(245,158,11,.35);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.5rem;text-align:center;">
+          <div style="font-size:.85rem;color:var(--text);margin-bottom:.8rem;">🦺 EPP relacionado con este cálculo</div>
+          <button onclick="showTab('epp');abrirVIP();" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:600;cursor:pointer;">🪝 Protección contra Caídas — Ver en BuscaEPP</button>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📚 Referencias técnicas y normativas</div>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Chile:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 .8rem 1.2rem;line-height:1.7;">
+            <li>NCh 1258 — Cinturones de seguridad y arneses para trabajos en altura</li>
+            <li>D.S. 594 — obligación de protección colectiva o personal sobre 1,8 m de altura</li>
+          </ul>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
+            <li>ANSI Z359.1-2007 — distancia máxima de desaceleración 1.2 m (4 ft)</li>
+            <li>OSHA 29 CFR 1926.502 — requisitos de sistemas anticaídas</li>
+          </ul>
+        </div>
+
+        <button onclick="descargarInformeCaida()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
+      </div>
+    </div> <!-- /hrTool_caida -->
+
+    <!-- ══════════ HERRAMIENTA 4: ESTRÉS TÉRMICO ══════════ -->
+    <div id="hrTool_termico" class="hr-herramienta" style="display:none;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;">
+          <div style="font-size:1.8rem;">🌡️</div>
+          <div>
+            <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);letter-spacing:.3px;line-height:1.1;">Índice de Estrés Térmico (WBGT)</div>
+            <div style="font-size:.78rem;color:var(--accent);font-weight:600;">Calculadora profesional de Seguridad Industrial</div>
+          </div>
+        </div>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.55;margin-top:.7rem;">
+          El índice WBGT combina temperatura, humedad y radiación para estimar el riesgo real de estrés térmico por calor, y se compara contra un límite que depende de cuán exigente es físicamente el trabajo.
+        </p>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">📥 Datos de entrada</div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">¿Hay radiación solar directa?</label>
+          <select id="etExterior" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+            <option value="no">No — interior o a la sombra</option>
+            <option value="si">Sí — exterior, exposición solar directa</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Temperatura bulbo húmedo natural <span style="color:var(--muted);font-weight:400;">(Tw, °C)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Medida con termómetro de bulbo húmedo expuesto al aire.</div>
+          <input id="etTw" type="number" step="0.1" placeholder="Ej: 24" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Temperatura de globo <span style="color:var(--muted);font-weight:400;">(Tg, °C)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Medida con termómetro de globo negro.</div>
+          <input id="etTg" type="number" step="0.1" placeholder="Ej: 32" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div id="etTaWrap" style="margin-bottom:1.1rem;display:none;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Temperatura de aire seco <span style="color:var(--muted);font-weight:400;">(Ta, °C)</span></label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Solo si hay radiación solar directa.</div>
+          <input id="etTa" type="number" step="0.1" placeholder="Ej: 30" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+        <script>document.getElementById('etExterior')?.addEventListener('change', function(){ document.getElementById('etTaWrap').style.display = this.value === 'si' ? 'block' : 'none'; });</script>
+
+        <div style="margin-bottom:.3rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Carga de trabajo física</label>
+          <select id="etCarga" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+            <option value="30">Liviano (30.0°C límite) — ej: trabajo sentado, supervisión</option>
+            <option value="26.7">Moderado (26.7°C límite) — ej: caminar con esfuerzo moderado</option>
+            <option value="25">Pesado (25.0°C límite) — ej: trabajo manual continuo</option>
+            <option value="23">Muy pesado (23.0°C límite) — ej: trabajo físico intenso</option>
+          </select>
+        </div>
+
+        <div id="etError" style="display:none;color:#ef4444;font-size:.78rem;margin-top:.8rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.6rem .8rem;"></div>
+
+        <button onclick="calcularEstresTermico()" style="width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.85rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.3px;">🧮 Calcular índice WBGT</button>
+      </div>
+
+      <div id="etResultados" style="display:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">🧮 Desarrollo del cálculo</div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;" id="etFormulaUsada"></div>
+          <div style="background:var(--surface2);border-radius:10px;padding:.9rem 1.1rem;font-family:monospace;font-size:.85rem;color:var(--text);line-height:1.8;">
+            <span id="etSustitucion" style="color:var(--accent);"></span>
+          </div>
+          <div style="text-align:center;margin-top:1rem;">
+            <div style="font-size:.75rem;color:var(--muted);">Índice WBGT calculado</div>
+            <div id="etResultadoNumero" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;color:var(--accent);"></div>
+            <div style="font-size:.75rem;color:var(--muted);">°C — límite para la carga seleccionada: <span id="etLimiteTexto"></span>°C</div>
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📊 Interpretación del resultado</div>
+          <div id="etInterpretacion" style="border-radius:12px;padding:1rem 1.1rem;"></div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:.8rem;line-height:1.5;">Límite para trabajo continuo (100%), según ACGIH TLV. Con ciclos de trabajo-descanso el límite admisible es mayor — consulta la tabla completa ACGIH/ISO 7243 para jornadas con pausas programadas.</div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">💡 Recomendación técnica</div>
+          <div id="etRecomendacion" style="font-size:.85rem;color:var(--text);line-height:1.6;"></div>
+        </div>
+
+        <div style="background:rgba(245,158,11,.06);border:1px dashed rgba(245,158,11,.35);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.5rem;text-align:center;">
+          <div style="font-size:.85rem;color:var(--text);margin-bottom:.8rem;">🦺 EPP relacionado con este cálculo</div>
+          <button onclick="showTab('epp');abrirVIP();" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:.5rem 1.1rem;font-size:.78rem;font-weight:600;cursor:pointer;">🦺 Ropa Alta Visibilidad / Corporativa — Ver en BuscaEPP</button>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📚 Referencias técnicas y normativas</div>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Chile:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 .8rem 1.2rem;line-height:1.7;">
+            <li>D.S. 594 — Título IV, agente físico calor (referencia general de exposición ocupacional)</li>
+          </ul>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
+            <li>UNE-EN ISO 7243:2017 — Ergonomía del ambiente térmico, evaluación del estrés al calor mediante WBGT</li>
+            <li>ACGIH TLV — límites de referencia por carga de trabajo</li>
+          </ul>
+        </div>
+
+        <button onclick="descargarInformeTermico()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
+      </div>
+    </div> <!-- /hrTool_termico -->
+
+    <!-- 9. ADVERTENCIA — siempre visible, compartida por las 4 herramientas -->
+    <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:1rem 1.2rem;font-size:.75rem;color:var(--muted);line-height:1.55;text-align:center;">
+      ⚠️ Esta herramienta es de apoyo para la evaluación técnica y no reemplaza una evaluación profesional, mediciones instrumentales, la legislación vigente ni las instrucciones del fabricante.
+    </div>
+
+  </div>
+</div>
+<script>
+let hrUltimoResultado = null;
+
+function calcularAtenuacion() {
+  const nivel = parseFloat(document.getElementById('hrNivelRuido').value);
+  const nrr = parseFloat(document.getElementById('hrNRR').value);
+  const tipo = document.getElementById('hrTipoProteccion').value;
+  const errEl = document.getElementById('hrError');
+
+  if (isNaN(nivel) || isNaN(nrr)) {
+    errEl.textContent = '⚠️ Ingresa el nivel de ruido y el NRR del protector — ambos son obligatorios.';
+    errEl.style.display = 'block';
+    document.getElementById('hrResultados').style.display = 'none';
+    return;
+  }
+  if (nrr < 0 || nrr > 40) {
+    errEl.textContent = '⚠️ El NRR ingresado está fuera del rango típico (0-40 dB). Verifica el valor impreso en el protector.';
+    errEl.style.display = 'block';
+    document.getElementById('hrResultados').style.display = 'none';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const atenuacionBase = (nrr - 7) / 2;
+  let nivelFinal = nivel - atenuacionBase;
+  let formulaTxt = `Nivel atenuado = ${nivel} − (${nrr} − 7) / 2 = ${nivel} − ${atenuacionBase.toFixed(1)}`;
+  document.getElementById('hrFormulaDoble').textContent = '';
+
+  if (tipo === 'doble') {
+    nivelFinal += 5;
+    formulaTxt += ` + 5 (doble protección)`;
+  }
+  formulaTxt += ` = ${nivelFinal.toFixed(1)} dB(A)`;
+  document.getElementById('hrSustitucion').textContent = formulaTxt;
+  document.getElementById('hrResultadoNumero').textContent = nivelFinal.toFixed(1);
+
+  // Interpretación
+  const interpEl = document.getElementById('hrInterpretacion');
+  const recoEl = document.getElementById('hrRecomendacion');
+  let nivelTexto, color, bg, recomendacion;
+
+  if (nivelFinal <= 80) {
+    nivelTexto = '🟢 BAJO / ACEPTABLE'; color = '#10b981'; bg = 'rgba(16,185,129,.1)';
+    recomendacion = 'El protector seleccionado entrega un margen de seguridad adecuado bajo el límite del D.S. 594 (85 dB(A)). La protección auditiva elegida es suficiente para este nivel de ruido — mantén el uso correcto y verifica el calce periódicamente.';
+  } else if (nivelFinal <= 85) {
+    nivelTexto = '🟡 PRECAUCIÓN'; color = '#eab308'; bg = 'rgba(234,179,8,.1)';
+    recomendacion = 'El nivel resultante está cerca del límite legal, con poco margen de seguridad. Considera un protector con mayor NRR, verificar que el ajuste sea óptimo, o evaluar doble protección si el puesto tiene exposición prolongada.';
+  } else if (nivelFinal <= 90) {
+    nivelTexto = '🟠 ALTO'; color = '#f97316'; bg = 'rgba(249,115,22,.1)';
+    recomendacion = 'El nivel resultante supera el límite del D.S. 594. El protector actual no es suficiente para este nivel de ruido — se requiere un protector con NRR más alto, doble protección (tapones + orejeras), o evaluar controles de ingeniería para reducir el ruido en la fuente.';
+  } else {
+    nivelTexto = '🔴 CRÍTICO'; color = '#ef4444'; bg = 'rgba(239,68,68,.12)';
+    recomendacion = 'El nivel resultante excede significativamente el límite legal, incluso con protección auditiva. Es obligatorio implementar doble protección de inmediato, y evaluar controles de ingeniería (aislación, mantenimiento, encierro de la fuente de ruido) y administrativos (rotación, reducción de tiempo de exposición) — no basta con el EPP.';
+  }
+
+  interpEl.style.background = bg;
+  interpEl.style.border = `1px solid ${color}55`;
+  interpEl.innerHTML = `<div style="font-weight:800;color:${color};font-size:1rem;margin-bottom:.3rem;">${nivelTexto}</div><div style="font-size:.8rem;color:var(--text);">Nivel estimado en el oído: <strong>${nivelFinal.toFixed(1)} dB(A)</strong> — límite legal D.S. 594: 85 dB(A) TWA 8h</div>`;
+  recoEl.textContent = recomendacion;
+
+  hrUltimoResultado = { nivel, nrr, tipo, atenuacionBase, nivelFinal, nivelTexto, recomendacion, formulaTxt };
+  document.getElementById('hrResultados').style.display = 'block';
+}
+
+function descargarInformeAtenuacion() {
+  if (!hrUltimoResultado) return;
+  const r = hrUltimoResultado;
+  const fecha = new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' });
+  const html = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset="utf-8"><title>Informe de Atenuación Auditiva</title></head>
+    <body style="font-family:Calibri,Arial,sans-serif;">
+      <h2 style="color:#1a1a1a;">🎧 Informe de Atenuación Real de Protección Auditiva</h2>
+      <p style="color:#666;">BuscaEPP.cl — Herramientas del Experto en Seguridad Industrial</p>
+      <p><strong>Fecha:</strong> ${fecha}</p>
+      <hr>
+      <h3>Datos ingresados</h3>
+      <p><strong>Nivel de ruido medido:</strong> ${r.nivel} dB(A) TWA 8h</p>
+      <p><strong>NRR del protector:</strong> ${r.nrr} dB</p>
+      <p><strong>Tipo de protección:</strong> ${r.tipo === 'doble' ? 'Doble (tapones + orejeras)' : 'Simple'}</p>
+      <h3>Fórmula utilizada (método OSHA, Apéndice B, 29 CFR 1910.95)</h3>
+      <p style="font-family:Consolas,monospace;background:#f4f4f4;padding:10px;">${r.formulaTxt}</p>
+      <h3>Resultado</h3>
+      <p style="font-size:20px;"><strong>${r.nivelFinal.toFixed(1)} dB(A)</strong> efectivos en el oído del trabajador</p>
+      <h3>Interpretación</h3>
+      <p><strong>${r.nivelTexto}</strong> — límite legal D.S. 594/99 MINSAL: 85 dB(A) TWA 8h</p>
+      <h3>Recomendación técnica</h3>
+      <p>${r.recomendacion}</p>
+      <h3>Referencias técnicas y normativas</h3>
+      <p><strong>Chile:</strong> D.S. N°594/99 MINSAL (Título IV, Párrafo 3°) · PREXOR · NCh 1358</p>
+      <p><strong>Internacional:</strong> OSHA 29 CFR 1910.95 Apéndice B · NIOSH · ANSI S3.19</p>
+      <hr>
+      <p style="font-size:11px;color:#666;">Esta herramienta es de apoyo para la evaluación técnica y no reemplaza una evaluación profesional, mediciones instrumentales, la legislación vigente ni las instrucciones del fabricante. Generado por BuscaEPP.cl</p>
+    </body></html>`;
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Informe_Atenuacion_Auditiva_${new Date().toISOString().slice(0,10)}.doc`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function descargarInformeGenerico(titulo, filas) {
+  const fecha = new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' });
+  const filasHtml = filas.map(f => `<p><strong>${f[0]}:</strong> ${f[1]}</p>`).join('');
+  const html = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset="utf-8"><title>${titulo}</title></head>
+    <body style="font-family:Calibri,Arial,sans-serif;">
+      <h2 style="color:#1a1a1a;">${titulo}</h2>
+      <p style="color:#666;">BuscaEPP.cl — Herramientas del Experto en Seguridad Industrial</p>
+      <p><strong>Fecha:</strong> ${fecha}</p>
+      <hr>
+      ${filasHtml}
+      <hr>
+      <p style="font-size:11px;color:#666;">Esta herramienta es de apoyo para la evaluación técnica y no reemplaza una evaluación profesional, mediciones instrumentales, la legislación vigente ni las instrucciones del fabricante. Generado por BuscaEPP.cl</p>
+    </body></html>`;
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${titulo.replace(/[^a-zA-Z0-9]/g,'_')}_${new Date().toISOString().slice(0,10)}.doc`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ══════════ HERRAMIENTA 2: DOSIS DE RUIDO ══════════
+let drUltimoResultado = null;
+
+function calcularDosisRuido() {
+  const nivel = parseFloat(document.getElementById('drNivel').value);
+  const horasReales = parseFloat(document.getElementById('drHorasReales').value);
+  const errEl = document.getElementById('drError');
+
+  if (isNaN(nivel) || isNaN(horasReales)) {
+    errEl.textContent = '⚠️ Ingresa el nivel de ruido y las horas reales de exposición.';
+    errEl.style.display = 'block';
+    document.getElementById('drResultados').style.display = 'none';
+    return;
+  }
+  if (nivel < 70 || nivel > 140) {
+    errEl.textContent = '⚠️ El nivel ingresado está fuera de un rango típico de medición (70-140 dB(A)). Verifica el dato.';
+    errEl.style.display = 'block';
+    document.getElementById('drResultados').style.display = 'none';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const tiempoMax = 8 / Math.pow(2, (nivel - 85) / 3);
+  const dosis = (horasReales / tiempoMax) * 100;
+
+  document.getElementById('drSustitucion').textContent = `Tiempo máximo = 8 / 2^((${nivel} − 85) / 3) = ${tiempoMax < 0.01 ? tiempoMax.toExponential(2) : tiempoMax.toFixed(2)} horas`;
+  document.getElementById('drSustitucionDosis').textContent = `Dosis = (${horasReales} / ${tiempoMax.toFixed(2)}) × 100 = ${dosis.toFixed(0)}%`;
+
+  const tiempoTexto = tiempoMax >= 1 ? `${tiempoMax.toFixed(2)} h` : `${(tiempoMax*60).toFixed(1)} min`;
+  document.getElementById('drTiempoMax').textContent = tiempoTexto;
+  document.getElementById('drDosisNumero').textContent = dosis.toFixed(0) + '%';
+
+  const interpEl = document.getElementById('drInterpretacion');
+  const recoEl = document.getElementById('drRecomendacion');
+  let nivelTexto, color, bg, recomendacion;
+
+  if (dosis <= 50) {
+    nivelTexto = '🟢 BAJO / ACEPTABLE'; color = '#10b981'; bg = 'rgba(16,185,129,.1)';
+    recomendacion = 'La dosis está bajo el criterio de acción PREXOR (50%). No se requieren medidas de control inmediatas, pero se recomienda seguimiento periódico si el nivel de ruido puede variar.';
+  } else if (dosis <= 100) {
+    nivelTexto = '🟡 PRECAUCIÓN'; color = '#eab308'; bg = 'rgba(234,179,8,.1)';
+    recomendacion = 'La dosis supera el 50% (criterio de acción PREXOR) pero no excede el 100% permitido. Se debe implementar un programa de vigilancia auditiva y evaluar medidas de control en un plazo razonable.';
+  } else if (dosis <= 1000) {
+    nivelTexto = '🟠 ALTO'; color = '#f97316'; bg = 'rgba(249,115,22,.1)';
+    recomendacion = 'La dosis excede el 100% permitido — este puesto de trabajo no cumple el D.S. 594. Se requiere protección auditiva obligatoria y medidas de control en un plazo máximo de 12 meses según PREXOR.';
+  } else {
+    nivelTexto = '🔴 CRÍTICO'; color = '#ef4444'; bg = 'rgba(239,68,68,.12)';
+    recomendacion = 'La dosis supera el 1000% — riesgo crítico de daño auditivo irreversible. PREXOR exige reducir el plazo de implementación de medidas de control a 6 meses. Se requiere intervención inmediata: doble protección auditiva y control de ingeniería en la fuente.';
+  }
+
+  interpEl.style.background = bg;
+  interpEl.style.border = `1px solid ${color}55`;
+  interpEl.innerHTML = `<div style="font-weight:800;color:${color};font-size:1rem;margin-bottom:.3rem;">${nivelTexto}</div><div style="font-size:.8rem;color:var(--text);">Dosis diaria: <strong>${dosis.toFixed(0)}%</strong> — máximo permisible: 100%</div>`;
+  recoEl.textContent = recomendacion;
+
+  drUltimoResultado = { nivel, horasReales, tiempoMax, dosis, nivelTexto, recomendacion };
+  document.getElementById('drResultados').style.display = 'block';
+}
+
+function descargarInformeDosis() {
+  if (!drUltimoResultado) return;
+  const r = drUltimoResultado;
+  descargarInformeGenerico('Informe de Dosis de Ruido', [
+    ['Nivel de presión sonora (NPSeq)', `${r.nivel} dB(A)`],
+    ['Tiempo real de exposición', `${r.horasReales} h/día`],
+    ['Fórmula', 'Tiempo máximo (h) = 8 / 2^((NPSeq − 85) / 3) — criterio de igual energía sonora, D.S. 594'],
+    ['Tiempo máximo permitido', r.tiempoMax >= 1 ? `${r.tiempoMax.toFixed(2)} h` : `${(r.tiempoMax*60).toFixed(1)} min`],
+    ['Dosis de ruido diaria', `${r.dosis.toFixed(0)}%`],
+    ['Interpretación', r.nivelTexto],
+    ['Recomendación técnica', r.recomendacion],
+    ['Referencias', 'Chile: D.S. 594/99 MINSAL Título IV Párr. 3° · PREXOR · NT-009 ISP. Internacional: ISO 1999'],
+  ]);
+}
+
+// ══════════ HERRAMIENTA 3: DISTANCIA DE CAÍDA ══════════
+let dcUltimoResultado = null;
+
+function calcularDistanciaCaida() {
+  const eslinga = parseFloat(document.getElementById('dcEslinga').value);
+  const absorbedor = parseFloat(document.getElementById('dcAbsorbedor').value);
+  const estatura = parseFloat(document.getElementById('dcEstatura').value);
+  const margen = parseFloat(document.getElementById('dcMargen').value);
+  const errEl = document.getElementById('dcError');
+
+  if ([eslinga, absorbedor, estatura, margen].some(isNaN)) {
+    errEl.textContent = '⚠️ Completa los 4 campos para calcular la distancia libre requerida.';
+    errEl.style.display = 'block';
+    document.getElementById('dcResultados').style.display = 'none';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const total = eslinga + absorbedor + estatura + margen;
+  document.getElementById('dcSustitucion').textContent = `${eslinga} + ${absorbedor} + ${estatura} + ${margen} = ${total.toFixed(2)} m`;
+  document.getElementById('dcResultadoNumero').textContent = total.toFixed(2);
+
+  dcUltimoResultado = { eslinga, absorbedor, estatura, margen, total };
+  document.getElementById('dcResultados').style.display = 'block';
+}
+
+function descargarInformeCaida() {
+  if (!dcUltimoResultado) return;
+  const r = dcUltimoResultado;
+  descargarInformeGenerico('Informe de Distancia Libre de Caída', [
+    ['Longitud de la eslinga', `${r.eslinga} m`],
+    ['Distancia de desaceleración del absorbedor', `${r.absorbedor} m`],
+    ['Estatura del trabajador (anillo dorsal a pies)', `${r.estatura} m`],
+    ['Margen de seguridad', `${r.margen} m`],
+    ['Fórmula', 'Distancia libre = Eslinga + Desaceleración + Estatura + Margen'],
+    ['Distancia libre mínima requerida', `${r.total.toFixed(2)} m`],
+    ['Recomendación técnica', 'Si la altura real disponible es menor a la distancia calculada, el sistema no es seguro para ese punto de trabajo.'],
+    ['Referencias', 'Chile: NCh 1258 · D.S. 594. Internacional: ANSI Z359.1-2007 · OSHA 29 CFR 1926.502'],
+  ]);
+}
+
+// ══════════ HERRAMIENTA 4: ESTRÉS TÉRMICO (WBGT) ══════════
+let etUltimoResultado = null;
+
+function calcularEstresTermico() {
+  const exterior = document.getElementById('etExterior').value === 'si';
+  const tw = parseFloat(document.getElementById('etTw').value);
+  const tg = parseFloat(document.getElementById('etTg').value);
+  const ta = parseFloat(document.getElementById('etTa').value);
+  const limite = parseFloat(document.getElementById('etCarga').value);
+  const cargaTexto = document.getElementById('etCarga').selectedOptions[0].text;
+  const errEl = document.getElementById('etError');
+
+  if (isNaN(tw) || isNaN(tg) || (exterior && isNaN(ta))) {
+    errEl.textContent = '⚠️ Completa la temperatura de bulbo húmedo y de globo' + (exterior ? ', y la de aire seco (requerida en exterior).' : '.');
+    errEl.style.display = 'block';
+    document.getElementById('etResultados').style.display = 'none';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  let wbgt, formulaTxt, sustTxt;
+  if (exterior) {
+    wbgt = 0.7*tw + 0.2*tg + 0.1*ta;
+    formulaTxt = 'Ambiente exterior con radiación solar (ISO 7243): WBGT = 0.7×Tw + 0.2×Tg + 0.1×Ta';
+    sustTxt = `WBGT = 0.7×${tw} + 0.2×${tg} + 0.1×${ta} = ${wbgt.toFixed(1)} °C`;
+  } else {
+    wbgt = 0.7*tw + 0.3*tg;
+    formulaTxt = 'Ambiente interior o sin radiación solar (ISO 7243): WBGT = 0.7×Tw + 0.3×Tg';
+    sustTxt = `WBGT = 0.7×${tw} + 0.3×${tg} = ${wbgt.toFixed(1)} °C`;
+  }
+
+  document.getElementById('etFormulaUsada').textContent = formulaTxt;
+  document.getElementById('etSustitucion').textContent = sustTxt;
+  document.getElementById('etResultadoNumero').textContent = wbgt.toFixed(1);
+  document.getElementById('etLimiteTexto').textContent = limite.toFixed(1);
+
+  const interpEl = document.getElementById('etInterpretacion');
+  const recoEl = document.getElementById('etRecomendacion');
+  const diferencia = wbgt - limite;
+  let nivelTexto, color, bg, recomendacion;
+
+  if (diferencia <= -2) {
+    nivelTexto = '🟢 BAJO / ACEPTABLE'; color = '#10b981'; bg = 'rgba(16,185,129,.1)';
+    recomendacion = 'El WBGT está bajo el límite de referencia con margen adecuado. Mantén hidratación disponible y observación general del personal.';
+  } else if (diferencia <= 0) {
+    nivelTexto = '🟡 PRECAUCIÓN'; color = '#eab308'; bg = 'rgba(234,179,8,.1)';
+    recomendacion = 'El WBGT está cerca del límite de referencia. Aumenta la frecuencia de hidratación, considera pausas adicionales, y monitorea síntomas de fatiga por calor en el personal.';
+  } else if (diferencia <= 3) {
+    nivelTexto = '🟠 ALTO'; color = '#f97316'; bg = 'rgba(249,115,22,.1)';
+    recomendacion = 'El WBGT supera el límite para trabajo continuo. Se debe implementar un ciclo de trabajo-descanso (consultar tabla ACGIH completa), aumentar la hidratación programada, y evaluar ropa de trabajo que facilite la evaporación del sudor.';
+  } else {
+    nivelTexto = '🔴 CRÍTICO'; color = '#ef4444'; bg = 'rgba(239,68,68,.12)';
+    recomendacion = 'El WBGT excede significativamente el límite — riesgo alto de golpe de calor. Se requiere suspender o reprogramar la actividad a un horario más fresco, aclimatación previa del personal, y supervisión médica disponible en terreno.';
+  }
+
+  interpEl.style.background = bg;
+  interpEl.style.border = `1px solid ${color}55`;
+  interpEl.innerHTML = `<div style="font-weight:800;color:${color};font-size:1rem;margin-bottom:.3rem;">${nivelTexto}</div><div style="font-size:.8rem;color:var(--text);">WBGT calculado: <strong>${wbgt.toFixed(1)}°C</strong> — límite (${cargaTexto}): ${limite.toFixed(1)}°C</div>`;
+  recoEl.textContent = recomendacion;
+
+  etUltimoResultado = { exterior, tw, tg, ta, limite, cargaTexto, wbgt, formulaTxt, sustTxt, nivelTexto, recomendacion };
+  document.getElementById('etResultados').style.display = 'block';
+}
+
+function descargarInformeTermico() {
+  if (!etUltimoResultado) return;
+  const r = etUltimoResultado;
+  descargarInformeGenerico('Informe de Estrés Térmico WBGT', [
+    ['Condición', r.exterior ? 'Exterior con radiación solar' : 'Interior / sin radiación solar'],
+    ['Temperatura bulbo húmedo (Tw)', `${r.tw} °C`],
+    ['Temperatura de globo (Tg)', `${r.tg} °C`],
+    ...(r.exterior ? [['Temperatura de aire seco (Ta)', `${r.ta} °C`]] : []),
+    ['Carga de trabajo', r.cargaTexto],
+    ['Fórmula', r.formulaTxt],
+    ['Sustitución', r.sustTxt],
+    ['WBGT calculado', `${r.wbgt.toFixed(1)} °C`],
+    ['Límite de referencia', `${r.limite.toFixed(1)} °C`],
+    ['Interpretación', r.nivelTexto],
+    ['Recomendación técnica', r.recomendacion],
+    ['Referencias', 'Internacional: UNE-EN ISO 7243:2017 · ACGIH TLV. Chile: D.S. 594 (referencia general agente físico calor)'],
+  ]);
+}
+</script>
+
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
     <a href="#" onclick="showTab('epp');return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:.6rem;">← Volver al inicio</a>
@@ -11422,7 +12352,7 @@ async function checkAdminPass() {
     adminUnlocked = true;
     indUnlocked = true;
     closeAdminLogin();
-    ['epp','norm','calc','certcomp','ferias','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
+    ['epp','norm','calc','certcomp','ferias','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas','herramientas'].forEach(t => {
       const pane = document.getElementById('pane-'+t);
       const tb = document.getElementById('tab-'+t);
       if (pane) pane.style.display = t==='admin'?'block':'none';
@@ -11463,7 +12393,7 @@ function showTab(tab, skipAuth=false) {
     showIndLogin();
     return;
   }
-  ['epp','norm','calc','certcomp','ferias','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas'].forEach(t => {
+  ['epp','norm','calc','certcomp','ferias','expertos','talentos','vip','corp','admin','industrias','portales','proyectos','estudia','infogramas','herramientas'].forEach(t => {
     const pane = document.getElementById('pane-'+t);
     const tb = document.getElementById('tab-'+t);
     if (pane) pane.style.display = t===tab?'block':'none';
@@ -13659,7 +14589,7 @@ async function solicitarAccesoVIP() {
 
 // ── Mostrar pane VIP ───────────────────────────────────────
 function mostrarPaneVIP() {
-  ['epp','norm','calc','certcomp','expertos','talentos','vip','corp','admin'].forEach(t => {
+  ['epp','norm','calc','certcomp','expertos','talentos','vip','corp','admin','herramientas'].forEach(t => {
     const p = document.getElementById('pane-' + t);
     const tb = document.getElementById('tab-' + t);
     if (p) p.style.display = t === 'vip' ? 'block' : 'none';
@@ -13699,7 +14629,7 @@ function mostrarPaneVIP() {
 
 // ── Sub-tabs zona comprador ────────────────────────────────
 function vipSubTab(tab, btn) {
-  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico','Manuales','Infoepp','Buscaigni'].forEach(t => {
+  ['Fichas','Categorias','Proveedores','Lista','Licitaciones','Alertas','Historico','Manuales','Infoepp','Docs','Buscaigni'].forEach(t => {
     const el = document.getElementById('vipSub'+t);
     if (el) el.style.display = t.toLowerCase() === tab ? 'block' : 'none';
   });
