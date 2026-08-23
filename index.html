@@ -5214,6 +5214,8 @@ function mostrarInfoEpp(cual) {
 
             <div class="mfr-qa"><div class="mfr-q">P14. ¿La EN ISO 11612 también protege contra arco eléctrico?</div><div class="mfr-a">No. Calor/llama y arco eléctrico son dos certificaciones distintas. Una prenda puede tener una sin la otra.</div><div class="mfr-n">EN ISO 11612 / IEC 61482-2</div></div>
 
+            <div class="mfr-qa"><div class="mfr-q">P14.1. ¿La EN ISO 11612 sirve para soldadura?</div><div class="mfr-a">No necesariamente — y es el error más común porque el número se parece mucho. <b>EN ISO 11612</b> certifica riesgo térmico general (calor, llama). <b>EN ISO 11611</b> es la norma específica para soldadura y oxicorte, diseñada para resistir chispas y proyecciones metálicas incandescentes, algo que 11612 no evalúa. Un soldador necesita una prenda certificada bajo 11611 — muchas prendas de soldador combinan ambas normas (11611 + 11612) para cubrir soldadura y calor general a la vez.</div><div class="mfr-n">EN ISO 11611 (soldadura) vs. EN ISO 11612 (calor/llama general)</div></div>
+
             <div class="mfr-qa"><div class="mfr-q">P15. ¿Qué es la EN 1149-5?</div><div class="mfr-a">Certifica que una prenda FR es antiestática: evita que se acumule electricidad estática que pueda generar una chispa. Se usa en zonas con riesgo de explosión por gas o polvo (petroquímica y minería).</div><div class="mfr-n">EN 1149-5</div></div>
 
             <div class="mfr-qa"><div class="mfr-q">P16. Una empresa eléctrica pidió ropa ignífuga sin antiestática. ¿Por qué y qué se le ofrece?</div><div class="mfr-a">Son dos riesgos distintos. La antiestática (EN 1149-5) sirve para evitar que una chispa estática encienda una <b>atmósfera explosiva</b> (gases, vapores — típico de ATEX). El arco eléctrico (IEC 61482-2 / ASTM F1506) es la energía térmica de una falla en equipo energizado. Una empresa eléctrica sin atmósfera explosiva necesita protección de arco pero la antiestática no le aporta nada. Cotizar FR con certificación de arco, sin acabado antiestático.</div><div class="mfr-n">EN 1149-5 (riesgo ATEX) vs. IEC 61482-2 (riesgo de arco)</div></div>
@@ -13989,12 +13991,20 @@ const NORMAS = {
   },
 
   'EN ISO 11612 / NFPA 2112': {
-    titulo: 'Ropa ignífuga / resistente a la llama (FR/AR)',
-    objetivo: 'Chile no cuenta con una NCh específica para ropa ignífuga o resistente al arco eléctrico. El ISP reconoce certificaciones internacionales vía Registro RFI: EN ISO 11612 (protección térmica y contra llama), NFPA 2112 (ropa FR industrial), NFPA 70E (protección arco eléctrico, categorías HRC 1-4).',
-    campo: 'Soldadura, fundición, minería, sector eléctrico (arco eléctrico), petroquímica y cualquier faena con riesgo de llama súbita o calor radiante intenso.',
+    titulo: 'Ropa ignífuga / resistente a la llama (FR/AR) — protección general',
+    objetivo: 'Chile no cuenta con una NCh específica para ropa ignífuga o resistente al arco eléctrico. El ISP reconoce certificaciones internacionales vía Registro RFI: EN ISO 11612 (protección térmica y contra llama, uso general), NFPA 2112 (ropa FR industrial, flash fire), NFPA 70E (protección arco eléctrico, categorías HRC 1-4). ⚠️ Para soldadura específicamente, la norma correcta es EN ISO 11611 (ver ficha aparte) — no esta.',
+    campo: 'Fundición, minería, sector eléctrico (arco eléctrico), petroquímica y cualquier faena con riesgo de llama súbita o calor radiante intenso — riesgo general, no soldadura.',
     requisitos: 'EN ISO 11612 clasifica por códigos A-F según el tipo de protección térmica (llama, calor convectivo, radiante, metal fundido). NFPA 2112 exige ATPV mínimo. NFPA 70E clasifica por categorías de riesgo de arco (HRC 1-4) según la energía incidente en cal/cm².',
     categorias: ['Ropa FR industrial', 'Ropa anti-arco eléctrico', 'Overol/mono ignífugo', 'Ropa corporativa con tratamiento FR'],
-    tags: ['ignífuga', 'fr', 'arco eléctrico', 'llama', 'nfpa', 'soldadura']
+    tags: ['ignífuga', 'fr', 'arco eléctrico', 'llama', 'nfpa']
+  },
+  'EN ISO 11611': {
+    titulo: 'Ropa de protección para soldadura y procesos afines',
+    objetivo: 'Norma específica para soldadura eléctrica, oxicorte y procesos afines — distinta de EN ISO 11612 (que es para riesgo térmico general). Se confunden fácil por el número casi idéntico, pero certifican cosas distintas: 11612 no está diseñada para las chispas y proyecciones metálicas propias de soldar. El ISP la reconoce vía Registro RFI, igual que el resto de la familia ignífuga.',
+    campo: 'Soldadura eléctrica (arco), oxicorte, esmerilado cercano a soldadura, y cualquier tarea con proyección de partículas metálicas incandescentes.',
+    requisitos: 'Clasifica en 2 clases según el nivel de exposición: Clase 1 (procesos con menor riesgo de proyección, menor cantidad de humo) y Clase 2 (procesos con mayor riesgo, técnicas en posiciones difíciles o espacios reducidos). Muchas prendas de soldador combinan EN ISO 11611 (soldadura) con EN ISO 11612 (calor/llama general) para cubrir ambos riesgos a la vez.',
+    categorias: ['Chaqueta de soldador', 'Overol de soldador', 'Delantal de soldador', 'Polaina/manguito de soldador'],
+    tags: ['soldadura', 'soldador', 'oxicorte', 'chispas', 'ignífuga']
   },
   'DS 594 Art. 45 — Detectores de Gas': {
     titulo: 'Instrumentación y detectores de gases',
