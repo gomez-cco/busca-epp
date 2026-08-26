@@ -3178,39 +3178,67 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
       <div class="vip-title">ZONA VIP</div>
     </div>
 
-    <!-- Tabs -->
-    <div style="display:flex;gap:0;margin-bottom:1.2rem;border:1px solid rgba(245,158,11,.3);border-radius:8px;overflow:hidden;">
-      <button id="vipTabLogin" onclick="switchVipTab('login')" style="flex:1;padding:.5rem;font-size:.82rem;font-weight:700;border:none;cursor:pointer;background:rgba(245,158,11,.2);color:var(--accent);font-family:'Google Sans Flex','Barlow Condensed',sans-serif;letter-spacing:.5px;">🔓 INGRESAR</button>
-      <button id="vipTabSolicitar" onclick="switchVipTab('solicitar')" style="flex:1;padding:.5rem;font-size:.82rem;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--muted);font-family:'Google Sans Flex','Barlow Condensed',sans-serif;letter-spacing:.5px;">📝 SOLICITAR ACCESO</button>
-    </div>
-
-    <!-- Panel Login -->
-    <div id="vipPanelLogin">
-      <input id="vipEmail" type="email" class="vip-input" placeholder="Tu email" autocomplete="username">
-      <input id="vipPass" type="password" class="vip-input" placeholder="Contraseña" autocomplete="current-password">
-      <div class="vip-error" id="vipError">❌ Email o contraseña incorrectos</div>
-      <button class="vip-btn" onclick="loginVIP()">🔓 INGRESAR</button>
-      <div style="text-align:center;margin-top:.8rem;font-size:.75rem;color:var(--muted);">
-        ¿No tienes acceso? <a href="#" onclick="switchVipTab('solicitar');return false;" style="color:#f59e0b;">Solicítalo aquí</a>
+    <!-- Banners de entrada: GOVAK / Acceso a Clientes -->
+    <div id="vipLandingBanners">
+      <div onclick="mostrarLoginGovak()" style="cursor:pointer;background:linear-gradient(135deg,rgba(15,23,42,.08),rgba(15,23,42,.03));border:2px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.8rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.6rem;margin-bottom:.2rem;">🏭</div>
+        <div style="font-weight:800;color:var(--text);font-size:.95rem;">GOVAK</div>
+        <div style="font-size:.7rem;color:var(--muted);">Acceso equipo interno</div>
+      </div>
+      <div onclick="mostrarLoginCliente()" style="cursor:pointer;background:rgba(245,158,11,.06);border:2px solid var(--border);border-radius:10px;padding:1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.6rem;margin-bottom:.2rem;">🏢</div>
+        <div style="font-weight:800;color:var(--text);font-size:.95rem;">Acceso a Clientes</div>
+        <div style="font-size:.7rem;color:var(--muted);">Compradores y prevencionistas</div>
       </div>
     </div>
 
-    <!-- Panel Solicitar -->
-    <div id="vipPanelSolicitar" style="display:none;">
-      <select id="vipTipoUsuario" class="vip-input" style="background:var(--surface2);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.7rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;width:100%;margin-bottom:.6rem;">
-        <option value="">Selecciona tu perfil...</option>
-        <option value="comprador">🛒 Comprador de empresa</option>
-        <option value="prevencionista">🦺 Prevencionista de riesgos</option>
-      </select>
-      <input id="vipSolNombre" type="text" class="vip-input" placeholder="Nombre completo">
-      <input id="vipSolEmpresa" type="text" class="vip-input" placeholder="Empresa">
-      <input id="vipSolEmail" type="email" class="vip-input" placeholder="Email de contacto">
-      <input id="vipSolTelefono" type="tel" class="vip-input" placeholder="Teléfono (opcional)">
-      <div class="vip-error" id="vipSolError" style="display:none;">Completa todos los campos</div>
-      <div id="vipSolOk" style="display:none;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.7rem;text-align:center;font-size:.82rem;color:#4ade80;margin-bottom:.6rem;">
-        ✅ Solicitud enviada — te contactaremos pronto
+    <!-- Selector de usuario GOVAK -->
+    <div id="vipGovakSelector" style="display:none;">
+      <a href="#" onclick="volverLandingVIP();return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.75rem;text-decoration:none;margin-bottom:.8rem;">← Volver</a>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem;text-align:center;">Selecciona tu usuario</div>
+      <button onclick="seleccionarUsuarioGovak('jgomez@govak.cl')" class="vip-btn" style="margin-bottom:.6rem;background:linear-gradient(135deg,#1e293b,#0f172a);color:#ffffff;border:1px solid rgba(245,158,11,.4);">👤 jgomez@govak.cl</button>
+      <button onclick="seleccionarUsuarioGovak('kvalenzuela@govak.cl')" class="vip-btn" style="background:linear-gradient(135deg,#1e293b,#0f172a);color:#ffffff;border:1px solid rgba(245,158,11,.4);">👤 kvalenzuela@govak.cl</button>
+    </div>
+
+    <!-- Contenido de login/solicitar (Acceso a Clientes + paso final GOVAK) -->
+    <div id="vipLoginContent" style="display:none;">
+      <a href="#" onclick="volverLandingVIP();return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.75rem;text-decoration:none;margin-bottom:.8rem;">← Volver</a>
+
+      <!-- Tabs (solo visibles en flujo Cliente) -->
+      <div id="vipTabsCliente" style="display:flex;gap:0;margin-bottom:1.2rem;border:1px solid rgba(245,158,11,.3);border-radius:8px;overflow:hidden;">
+        <button id="vipTabLogin" onclick="switchVipTab('login')" style="flex:1;padding:.5rem;font-size:.82rem;font-weight:700;border:none;cursor:pointer;background:rgba(245,158,11,.2);color:var(--accent);font-family:'Google Sans Flex','Barlow Condensed',sans-serif;letter-spacing:.5px;">🔓 INGRESAR</button>
+        <button id="vipTabSolicitar" onclick="switchVipTab('solicitar')" style="flex:1;padding:.5rem;font-size:.82rem;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--muted);font-family:'Google Sans Flex','Barlow Condensed',sans-serif;letter-spacing:.5px;">📝 SOLICITAR ACCESO</button>
       </div>
-      <button class="vip-btn" onclick="solicitarAccesoVIP()">📨 ENVIAR SOLICITUD</button>
+
+      <!-- Panel Login -->
+      <div id="vipPanelLogin">
+        <div id="vipGovakEmailLabel" style="display:none;font-size:.85rem;color:var(--text);text-align:center;margin-bottom:.7rem;background:var(--surface2);border-radius:8px;padding:.6rem;">Ingresando como <strong id="vipGovakEmailTexto"></strong></div>
+        <input id="vipEmail" type="email" class="vip-input" placeholder="Tu email" autocomplete="username">
+        <input id="vipPass" type="password" class="vip-input" placeholder="Contraseña" autocomplete="current-password">
+        <div class="vip-error" id="vipError">❌ Email o contraseña incorrectos</div>
+        <button class="vip-btn" onclick="loginVIP()">🔓 INGRESAR</button>
+        <div id="vipSolicitarLink" style="text-align:center;margin-top:.8rem;font-size:.75rem;color:var(--muted);">
+          ¿No tienes acceso? <a href="#" onclick="switchVipTab('solicitar');return false;" style="color:#f59e0b;">Solicítalo aquí</a>
+        </div>
+      </div>
+
+      <!-- Panel Solicitar -->
+      <div id="vipPanelSolicitar" style="display:none;">
+        <select id="vipTipoUsuario" class="vip-input" style="background:var(--surface2);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:.7rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;width:100%;margin-bottom:.6rem;">
+          <option value="">Selecciona tu perfil...</option>
+          <option value="comprador">🛒 Comprador de empresa</option>
+          <option value="prevencionista">🦺 Prevencionista de riesgos</option>
+        </select>
+        <input id="vipSolNombre" type="text" class="vip-input" placeholder="Nombre completo">
+        <input id="vipSolEmpresa" type="text" class="vip-input" placeholder="Empresa">
+        <input id="vipSolEmail" type="email" class="vip-input" placeholder="Email de contacto">
+        <input id="vipSolTelefono" type="tel" class="vip-input" placeholder="Teléfono (opcional)">
+        <div class="vip-error" id="vipSolError" style="display:none;">Completa todos los campos</div>
+        <div id="vipSolOk" style="display:none;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.7rem;text-align:center;font-size:.82rem;color:#4ade80;margin-bottom:.6rem;">
+          ✅ Solicitud enviada — te contactaremos pronto
+        </div>
+        <button class="vip-btn" onclick="solicitarAccesoVIP()">📨 ENVIAR SOLICITUD</button>
+      </div>
     </div>
 
     <div style="text-align:center;margin-top:.8rem;">
@@ -3228,27 +3256,56 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
   </div>
   <div class="results-area" style="max-width:960px;margin:0 auto;padding:1rem;">
 
-    <!-- 3 pilares simples -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;">
-        <div style="font-size:1.7rem;margin-bottom:.3rem;">📅</div>
-        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Siempre al día</div>
-        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Novedades normativas con fecha de verificación, no información que envejece sola</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;">
-        <div style="font-size:1.7rem;margin-bottom:.3rem;">📄</div>
-        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Documentos listos</div>
-        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Genera matrices y protocolos de EPP en minutos, no desde cero</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;">
-        <div style="font-size:1.7rem;margin-bottom:.3rem;">🤝</div>
-        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Quién lo vende</div>
-        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Fabricantes y distribuidores verificados, sin buscar por tu cuenta</div>
+    <!-- Selector de entrada — se muestra siempre al ingresar a VIP -->
+    <div id="vipSelectorEntrada">
+      <div style="text-align:center;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:1rem;">¿Cómo quieres entrar?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:600px;margin:0 auto;">
+        <div onclick="entrarZonaVIP('cliente')" style="cursor:pointer;background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.6rem 1.2rem;text-align:center;transition:border-color .15s,transform .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="font-size:2.2rem;margin-bottom:.5rem;">🏢</div>
+          <div style="font-weight:800;color:var(--text);font-size:1rem;">Zona Cliente</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Fichas, documentos, proveedores y más</div>
+        </div>
+        <div onclick="entrarZonaVIP('govak')" style="cursor:pointer;background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.6rem 1.2rem;text-align:center;transition:border-color .15s,transform .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="font-size:2.2rem;margin-bottom:.5rem;">🏭</div>
+          <div style="font-weight:800;color:var(--text);font-size:1rem;">GOVAK</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Acceso para el equipo GOVAK</div>
+        </div>
       </div>
     </div>
 
-    <!-- Novedades Normativas — el eje "siempre al día" -->
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.5rem;">
+    <!-- Placeholder GOVAK — sin contenido definido todavía -->
+    <div id="vipZonaGovak" style="display:none;text-align:center;padding:3rem 1rem;">
+      <a href="#" onclick="volverSelectorVIP();return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:1.5rem;">← Cambiar zona</a>
+      <div style="font-size:2.5rem;margin-bottom:.8rem;">🚧</div>
+      <div style="font-weight:800;color:var(--text);font-size:1.1rem;margin-bottom:.4rem;">Zona GOVAK — Próximamente</div>
+      <div style="font-size:.85rem;color:var(--muted);max-width:400px;margin:0 auto;">Este panel está en construcción.</div>
+    </div>
+
+    <!-- Zona Cliente — todo el contenido actual, ahora bajo el selector -->
+    <div id="vipZonaClienteWrap" style="display:none;">
+    <a href="#" onclick="volverSelectorVIP();return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:1rem;">← Cambiar zona</a>
+
+    <!-- Encabezado funcional — las opciones SON el encabezado -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
+      <div onclick="toggleNovedadesVIP()" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.7rem;margin-bottom:.3rem;">📅</div>
+        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Novedades Normativas</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Última verificación: 21 ago 2026 — clic para ver</div>
+      </div>
+      <div onclick="irASubVIP('docs')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.7rem;margin-bottom:.3rem;">📄</div>
+        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Documentos listos</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Genera matrices y protocolos de EPP en minutos</div>
+      </div>
+      <div onclick="irASubVIP('infoepp')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.7rem;margin-bottom:.3rem;">🤝</div>
+        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Quién lo vende</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Fabricantes y distribuidores verificados</div>
+      </div>
+    </div>
+
+    <!-- Novedades Normativas — detalle, colapsado por defecto -->
+    <div id="vipNovedadesDetalle" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.5rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem;">
         <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:var(--text);letter-spacing:.3px;">📅 Novedades Normativas</div>
         <div style="font-size:.68rem;color:var(--muted);background:var(--surface2);border-radius:20px;padding:3px 10px;">✅ Última verificación: 21 de agosto de 2026</div>
@@ -5907,6 +5964,8 @@ function estudiaRenderizar() {
       <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);">Acceso VIP activo</div>
       <div style="font-size:.85rem;margin-top:.5rem;">Tu perfil está siendo configurado. Contacta al administrador.</div>
     </div>
+
+    </div><!-- /vipZonaClienteWrap -->
 
   </div>
 </div>
@@ -14766,6 +14825,46 @@ function switchVipTab(tab) {
   document.getElementById('vipSolError').style.display = 'none';
 }
 
+// ── Banners de entrada: GOVAK / Acceso a Clientes ───────────
+function volverLandingVIP() {
+  document.getElementById('vipLandingBanners').style.display = 'block';
+  document.getElementById('vipGovakSelector').style.display = 'none';
+  document.getElementById('vipLoginContent').style.display = 'none';
+  document.getElementById('vipEmail').value = '';
+  document.getElementById('vipPass').value = '';
+  document.getElementById('vipError').style.display = 'none';
+}
+
+function mostrarLoginGovak() {
+  document.getElementById('vipLandingBanners').style.display = 'none';
+  document.getElementById('vipGovakSelector').style.display = 'block';
+}
+
+function mostrarLoginCliente() {
+  document.getElementById('vipLandingBanners').style.display = 'none';
+  document.getElementById('vipLoginContent').style.display = 'block';
+  document.getElementById('vipTabsCliente').style.display = 'flex';
+  document.getElementById('vipGovakEmailLabel').style.display = 'none';
+  document.getElementById('vipSolicitarLink').style.display = 'block';
+  document.getElementById('vipEmail').style.display = 'block';
+  switchVipTab('login');
+  setTimeout(() => { const el = document.getElementById('vipEmail'); if(el) el.focus(); }, 100);
+}
+
+function seleccionarUsuarioGovak(email) {
+  document.getElementById('vipGovakSelector').style.display = 'none';
+  document.getElementById('vipLoginContent').style.display = 'block';
+  document.getElementById('vipTabsCliente').style.display = 'none';
+  document.getElementById('vipSolicitarLink').style.display = 'none';
+  document.getElementById('vipPanelLogin').style.display = 'block';
+  document.getElementById('vipPanelSolicitar').style.display = 'none';
+  document.getElementById('vipEmail').value = email;
+  document.getElementById('vipEmail').style.display = 'none';
+  document.getElementById('vipGovakEmailLabel').style.display = 'block';
+  document.getElementById('vipGovakEmailTexto').textContent = email;
+  setTimeout(() => { const el = document.getElementById('vipPass'); if(el) el.focus(); }, 100);
+}
+
 // ── Abrir VIP ──────────────────────────────────────────────
 function abrirVIP() {
   const sesion = JSON.parse(sessionStorage.getItem('buscaepp_vip') || 'null');
@@ -14784,15 +14883,16 @@ function abrirVIP() {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-vip').classList.add('active');
   document.getElementById('vipLoginModal').classList.add('open');
-  switchVipTab('login');
-  setTimeout(() => { const el = document.getElementById('vipEmail'); if(el) el.focus(); }, 100);
+  volverLandingVIP();
 }
 
 function cerrarVIPModal() {
   document.getElementById('vipLoginModal').classList.remove('open');
   document.getElementById('vipError').style.display = 'none';
+  volverLandingVIP();
   if (!vipUsuarioActual) showTab('epp');
 }
+
 
 // ── Login VIP (Firebase) ───────────────────────────────────
 async function loginVIP() {
@@ -14942,6 +15042,9 @@ function mostrarPaneVIP() {
     const el = document.getElementById('vipZona'+z);
     if (el) el.style.display = 'none';
   });
+
+  // Siempre reiniciar al selector de entrada (Zona Cliente / GOVAK)
+  if (typeof volverSelectorVIP === 'function') volverSelectorVIP();
   const tipo = u.tipo || '';
   if (tipo === 'comprador' || tipo === 'admin' || tipo === 'proveedor') {
     document.getElementById('vipZonaComprador').style.display = 'block';
@@ -14971,10 +15074,29 @@ function vipSubTab(tab, btn) {
   if (tab === 'corp') renderCorp();
 }
 
+// ── Selector de entrada VIP: Zona Cliente / GOVAK ───────────
+function entrarZonaVIP(zona) {
+  document.getElementById('vipSelectorEntrada').style.display = 'none';
+  document.getElementById('vipZonaGovak').style.display = zona === 'govak' ? 'block' : 'none';
+  document.getElementById('vipZonaClienteWrap').style.display = zona === 'cliente' ? 'block' : 'none';
+}
+function volverSelectorVIP() {
+  document.getElementById('vipSelectorEntrada').style.display = 'block';
+  document.getElementById('vipZonaGovak').style.display = 'none';
+  document.getElementById('vipZonaClienteWrap').style.display = 'none';
+}
+function toggleNovedadesVIP() {
+  const el = document.getElementById('vipNovedadesDetalle');
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
 // Atajo: abre la Zona VIP directo en una sub-pestaña específica
 function irASubVIP(sub) {
   abrirVIP();
-  setTimeout(() => vipSubTab(sub, null), 200);
+  setTimeout(() => {
+    entrarZonaVIP('cliente');
+    vipSubTab(sub, null);
+  }, 200);
 }
 
 // ── Manuales EPP ───────────────────────────────────────────
