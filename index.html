@@ -6044,9 +6044,51 @@ function estudiaRenderizar() {
         <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1.5px;line-height:1;">INFOGRAMAS <span style="color:#a78bfa;">BUSCAEPP</span></div>
         <div style="color:rgba(255,255,255,.42);font-size:.73rem;margin-top:.3rem;">Resúmenes visuales para profesionales de seguridad industrial</div>
       </div>
-      <span style="background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:#c4b5fd;font-size:.67rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;">📊 9 disponibles</span>
+      <span style="background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:#c4b5fd;font-size:.67rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;">📊 11 disponibles</span>
     </div>
   </div>
+
+  <!-- ══ CATEGORÍA: ROPA IGNÍFUGA ══ -->
+  <div class="ifr-cat-hdr">
+    <div class="ifr-cat-ico" style="background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.25);">⚖️</div>
+    <div class="ifr-cat-ttl" style="color:var(--accent);">Normativa Marco</div>
+    <div class="ifr-cat-line" style="background:rgba(148,163,184,.15);"></div>
+    <div class="ifr-cat-count" style="background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.2);color:var(--accent);">2 infogramas</div>
+  </div>
+
+  <div class="ifr-grid">
+    <div class="ifr-card" onclick="abrirInfograma('ley16744')" style="border-top:3px solid #38bdf8;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#0c1e2e,#0f2942);">
+        ⚖️
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(56,189,248,.55);letter-spacing:.4px;">SUSESO · ISL · Mutualidades</div>
+      </div>
+      <div class="ifr-body">
+        <div class="ifr-tag" style="color:#38bdf8;">Seguro Social</div>
+        <div class="ifr-ttl">Ley 16.744 — Guía de Referencia</div>
+        <div class="ifr-desc">Automaticidad, administradores, cotizaciones, prestaciones y obligaciones del empleador.</div>
+      </div>
+      <div class="ifr-foot">
+        <span class="ifr-meta">6 bloques · Última verificación 28 ago 2026</span>
+        <button class="ifr-btn" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);">📊 Ver</button>
+      </div>
+    </div>
+
+    <div class="ifr-card" onclick="abrirInfograma('ds594')" style="border-top:3px solid #a3e635;">
+      <div class="ifr-thumb" style="background:linear-gradient(135deg,#141f0c,#1c2b10);">
+        📋
+        <div style="position:absolute;bottom:7px;right:9px;font-size:.58rem;font-weight:700;color:rgba(163,230,53,.55);letter-spacing:.4px;">MINSAL · SEREMI Salud</div>
+      </div>
+      <div class="ifr-body">
+        <div class="ifr-tag" style="color:#a3e635;">Condiciones de Trabajo</div>
+        <div class="ifr-ttl">DS 594 — Guía de Referencia</div>
+        <div class="ifr-desc">Los 7 títulos, agentes físicos (ruido, calor), obligación de EPP y fiscalización.</div>
+      </div>
+      <div class="ifr-foot">
+        <span class="ifr-meta">6 bloques · Última verificación 28 ago 2026</span>
+        <button class="ifr-btn" style="background:rgba(163,230,53,.15);color:#a3e635;border:1px solid rgba(163,230,53,.3);">📊 Ver</button>
+      </div>
+    </div>
+  </div><!-- /ifr-grid normativa marco -->
 
   <!-- ══ CATEGORÍA: ROPA IGNÍFUGA ══ -->
   <div class="ifr-cat-hdr">
@@ -6331,6 +6373,170 @@ function estudiaRenderizar() {
 
 <script>
 const INFOGRAMAS = {
+  ley16744: {
+    titulo: 'Ley 16.744 — Guía de Referencia Rápida',
+    ico: '⚖️',
+    html: `<style>
+  #mig-content *{box-sizing:border-box;}
+  .ifg{max-width:860px;margin:0 auto;padding:22px 18px 28px;font-family:'Montserrat','DM Sans',sans-serif;color:#cce0f5;}
+  .ifg-sh{display:flex;align-items:center;gap:8px;margin-bottom:9px;margin-top:16px;}
+  .ifg-sn{width:26px;height:26px;border-radius:50%;background:#38bdf8;color:#0f1d30;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ifg-st{font-family:'Google Sans Flex','Barlow Condensed','Montserrat',sans-serif;font-size:1rem;font-weight:900;color:#38bdf8;letter-spacing:1px;text-transform:uppercase;}
+  .ifg-sl{flex:1;height:1px;background:rgba(56,189,248,.2);}
+  .ifg-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .ifg-g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+  .ifg-card{background:#162438;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px 13px;}
+  .ifg-vi{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,78,59,.15));border:1px solid rgba(16,185,129,.3);border-radius:12px;padding:12px 14px;}
+  .ifg-vt{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(30,58,138,.15));border:1px solid rgba(59,130,246,.25);border-radius:12px;padding:12px 14px;}
+  .ifg-vttl{font-size:.81rem;font-weight:700;margin-bottom:6px;}
+  .ifg-vrow{display:flex;gap:6px;margin-bottom:3px;}
+  .ifg-vdot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+  .ifg-vtxt{font-size:.71rem;color:rgba(204,224,245,.7);line-height:1.4;}
+  .ifg-chk{display:flex;align-items:flex-start;gap:8px;background:#162438;border-radius:8px;padding:7px 9px;}
+  .ifg-ci{width:19px;height:19px;border-radius:50%;background:rgba(56,189,248,.2);border:1px solid rgba(56,189,248,.4);color:#38bdf8;font-size:.68rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .ifg-ct{font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.4;}
+  .ifg-c1{background:linear-gradient(135deg,#162438,#1a2e44);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:11px 9px;text-align:center;}
+  .ifg-cnum{font-family:'Google Sans Flex','Barlow Condensed','Montserrat',sans-serif;font-size:1.3rem;font-weight:900;line-height:1;color:#38bdf8;}
+  .ifg-ccal{font-size:.72rem;font-weight:700;color:#fff;margin-top:5px;}
+  .ifg-cuso{font-size:.6rem;color:rgba(204,224,245,.52);line-height:1.35;margin-top:4px;}
+  .ifg-foot{text-align:center;font-size:.64rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;}
+  @media(max-width:560px){.ifg-g2,.ifg-g3{grid-template-columns:1fr 1fr;}}
+</style>
+<div class="ifg">
+  <div style="background:linear-gradient(135deg,#0f2942,#0f1d30);border:2px solid #38bdf8;border-radius:16px;padding:15px 19px 12px;margin-bottom:14px;">
+    <div style="font-size:.64rem;font-weight:700;color:#38bdf8;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:3px;">BuscaEPP · buscaepp.cl · Última verificación: 28 de agosto de 2026</div>
+    <div style="font-family:'Google Sans Flex','Barlow Condensed','Montserrat',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1px;line-height:1.1;">LEY <span style="color:#38bdf8;">16.744</span></div>
+    <div style="font-size:.72rem;color:rgba(204,224,245,.65);margin-top:2px;">Seguro Social contra Riesgos de Accidentes del Trabajo y Enfermedades Profesionales</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;">
+      <span style="background:rgba(56,189,248,.2);border:1px solid rgba(56,189,248,.4);color:#93c5fd;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">📅 Vigente desde 01·02·1968</span>
+      <span style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇨🇱 SUSESO</span>
+    </div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">1</div><div class="ifg-st">Principio de automaticidad</div><div class="ifg-sl"></div></div>
+  <div class="ifg-vi" style="margin-bottom:12px;"><div class="ifg-vttl" style="color:#34d399;">🛡️ Cubre desde el primer día</div><div class="ifg-vrow"><div class="ifg-vdot" style="background:#34d399;"></div><div class="ifg-vtxt">El seguro protege al trabajador <b style="color:#34d399">desde el primer momento</b> en que comienza a trabajar</div></div><div class="ifg-vrow"><div class="ifg-vdot" style="background:#34d399;"></div><div class="ifg-vtxt">Aplica incluso <b style="color:#fff">sin contrato escrito</b> ni cotizaciones pagadas</div></div><div class="ifg-vrow"><div class="ifg-vdot" style="background:#34d399;"></div><div class="ifg-vtxt">Financiado íntegramente por el empleador — nunca descuenta del sueldo del trabajador</div></div></div>
+
+  <div class="ifg-sh"><div class="ifg-sn">2</div><div class="ifg-st">Quién administra el seguro</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g2">
+    <div class="ifg-card"><div style="font-size:.78rem;font-weight:700;color:#93c5fd;margin-bottom:5px;">🏛️ ISL</div><div style="font-size:.69rem;color:rgba(204,224,245,.65);line-height:1.4;">Instituto de Seguridad Laboral — administrador estatal. Afiliación por defecto si la empresa no elige mutualidad.</div></div>
+    <div class="ifg-card"><div style="font-size:.78rem;font-weight:700;color:#6ee7b7;margin-bottom:5px;">🤝 Mutualidades</div><div style="font-size:.69rem;color:rgba(204,224,245,.65);line-height:1.4;">Corporaciones privadas sin fines de lucro: ACHS, Mutual de Seguridad CChC, IST. La empresa se adhiere voluntariamente.</div></div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">3</div><div class="ifg-st">Cómo se financia</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g2">
+    <div class="ifg-c1"><div class="ifg-cnum">~0,90%</div><div class="ifg-ccal">Cotización básica</div><div class="ifg-cuso">Sobre remuneración imponible — igual para todos</div></div>
+    <div class="ifg-c1"><div class="ifg-cnum">Variable</div><div class="ifg-ccal">Cotización adicional diferenciada</div><div class="ifg-cuso">Según riesgo del rubro y accidentabilidad efectiva de la empresa</div></div>
+  </div>
+  <div class="ifg-card" style="margin-bottom:12px;background:rgba(56,189,248,.07);border-color:rgba(56,189,248,.2);"><div style="font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.5;">La tasa de accidentabilidad de tu empresa (ver Herramientas del Experto) <b style="color:#38bdf8;">influye directamente</b> en cuánto pagas de cotización adicional.</div></div>
+
+  <div class="ifg-sh"><div class="ifg-sn">4</div><div class="ifg-st">Qué cubre</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g3">
+    <div class="ifg-card"><div style="font-size:.75rem;font-weight:700;color:#fbbf24;margin-bottom:4px;">🔧 Accidente del trabajo</div><div style="font-size:.66rem;color:rgba(204,224,245,.6);line-height:1.35;">Lesión a causa u ocasión del trabajo, con incapacidad o muerte</div></div>
+    <div class="ifg-card"><div style="font-size:.75rem;font-weight:700;color:#60a5fa;margin-bottom:4px;">🚗 Accidente de trayecto</div><div style="font-size:.66rem;color:rgba(204,224,245,.6);line-height:1.35;">Cubierto por el seguro, pero no cuenta en tasas de frecuencia/gravedad</div></div>
+    <div class="ifg-card"><div style="font-size:.75rem;font-weight:700;color:#f87171;margin-bottom:4px;">🫁 Enfermedad profesional</div><div style="font-size:.66rem;color:rgba(204,224,245,.6);line-height:1.35;">Causada directamente por el ejercicio de la profesión o trabajo</div></div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">5</div><div class="ifg-st">Prestaciones</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g2" style="margin-bottom:8px;">
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Médicas gratuitas</b> — hasta curación completa, incluye hospitalización y rehabilitación</div></div>
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Subsidio incapacidad temporal</b> — desde el primer día, promedio de últimos 3 meses</div></div>
+  </div>
+  <div class="ifg-g2" style="margin-bottom:12px;">
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Indemnización</b> — por incapacidad permanente parcial</div></div>
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Pensión</b> — por invalidez o sobrevivencia en caso de muerte</div></div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">6</div><div class="ifg-st">Obligaciones del empleador</div><div class="ifg-sl"></div></div>
+  <div class="ifg-card" style="margin-bottom:8px;"><div style="font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.6;">
+    • Denunciar accidentes graves y fatales <b style="color:#fff;">de inmediato</b> a SEREMI y Dirección del Trabajo<br>
+    • Constituir Comité Paritario de Higiene y Seguridad (empresas ≥25 trabajadores)<br>
+    • Mantener Departamento de Prevención de Riesgos (empresas ≥100 trabajadores)<br>
+    • Informar a los trabajadores de los riesgos asociados a sus labores
+  </div></div>
+
+  <div class="ifg-foot">BuscaEPP.cl · Guía de referencia — no reemplaza el texto legal vigente ni asesoría profesional · Última verificación: 28 ago 2026</div>
+</div>`
+  },
+  ds594: {
+    titulo: 'DS 594 — Guía de Referencia Rápida',
+    ico: '📋',
+    html: `<style>
+  #mig-content *{box-sizing:border-box;}
+  .ifg{max-width:860px;margin:0 auto;padding:22px 18px 28px;font-family:'Montserrat','DM Sans',sans-serif;color:#cce0f5;}
+  .ifg-sh{display:flex;align-items:center;gap:8px;margin-bottom:9px;margin-top:16px;}
+  .ifg-sn{width:26px;height:26px;border-radius:50%;background:#a3e635;color:#0f1d30;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ifg-st{font-family:'Google Sans Flex','Barlow Condensed','Montserrat',sans-serif;font-size:1rem;font-weight:900;color:#a3e635;letter-spacing:1px;text-transform:uppercase;}
+  .ifg-sl{flex:1;height:1px;background:rgba(163,230,53,.2);}
+  .ifg-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .ifg-g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+  .ifg-card{background:#162438;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px 13px;}
+  .ifg-chk{display:flex;align-items:flex-start;gap:8px;background:#162438;border-radius:8px;padding:7px 9px;}
+  .ifg-ci{width:19px;height:19px;border-radius:50%;background:rgba(163,230,53,.2);border:1px solid rgba(163,230,53,.4);color:#a3e635;font-size:.68rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .ifg-ct{font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.4;}
+  .ifg-c1{background:linear-gradient(135deg,#162438,#1e2b18);border:1px solid rgba(163,230,53,.3);border-radius:12px;padding:9px 6px;text-align:center;}
+  .ifg-cnum{font-family:'Google Sans Flex','Barlow Condensed','Montserrat',sans-serif;font-size:1.05rem;font-weight:900;line-height:1;color:#a3e635;}
+  .ifg-cuso{font-size:.58rem;color:rgba(204,224,245,.55);line-height:1.3;margin-top:4px;}
+  .rtbl{width:100%;border-collapse:collapse;font-size:.71rem;margin-bottom:12px;}
+  .rtbl th{background:#1a2744;color:#a3e635;font-weight:700;padding:7px 9px;text-align:left;border:1px solid rgba(255,255,255,.08);}
+  .rtbl td{padding:5px 9px;border:1px solid rgba(255,255,255,.06);color:rgba(204,224,245,.73);vertical-align:top;}
+  .rtbl tr:nth-child(odd) td{background:rgba(255,255,255,.02);}
+  .ifg-foot{text-align:center;font-size:.64rem;color:rgba(106,151,192,.45);padding-top:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;}
+  @media(max-width:560px){.ifg-g2,.ifg-g4{grid-template-columns:1fr 1fr;}}
+</style>
+<div class="ifg">
+  <div style="background:linear-gradient(135deg,#1c2b10,#0f1d30);border:2px solid #a3e635;border-radius:16px;padding:15px 19px 12px;margin-bottom:14px;">
+    <div style="font-size:.64rem;font-weight:700;color:#a3e635;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:3px;">BuscaEPP · buscaepp.cl · Última verificación: 28 de agosto de 2026</div>
+    <div style="font-family:'Google Sans Flex','Barlow Condensed','Montserrat',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1px;line-height:1.1;">D.S. <span style="color:#a3e635;">N°594</span></div>
+    <div style="font-size:.72rem;color:rgba(204,224,245,.65);margin-top:2px;">Reglamento sobre Condiciones Sanitarias y Ambientales Básicas en los Lugares de Trabajo</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;">
+      <span style="background:rgba(163,230,53,.2);border:1px solid rgba(163,230,53,.4);color:#d9f99d;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">📅 15·09·1999</span>
+      <span style="background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.35);color:#93c5fd;font-size:.61rem;font-weight:700;padding:2px 9px;border-radius:20px;">🇨🇱 MINSAL</span>
+    </div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">1</div><div class="ifg-st">Estructura — 7 títulos</div><div class="ifg-sl"></div></div>
+  <div class="ifg-card" style="margin-bottom:12px;"><div style="font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.7;">
+    <b style="color:#a3e635;">I</b> Disposiciones generales &nbsp;·&nbsp; <b style="color:#a3e635;">II</b> Condiciones sanitarias de construcción &nbsp;·&nbsp; <b style="color:#a3e635;">III</b> Condiciones ambientales &nbsp;·&nbsp; <b style="color:#a3e635;">IV</b> Agentes físicos, químicos y biológicos &nbsp;·&nbsp; <b style="color:#a3e635;">V</b> Elementos de Protección Personal &nbsp;·&nbsp; <b style="color:#a3e635;">VI</b> Prevención de incendios &nbsp;·&nbsp; <b style="color:#a3e635;">VII</b> Disposiciones finales
+  </div></div>
+
+  <div class="ifg-sh"><div class="ifg-sn">2</div><div class="ifg-st">Título IV · Ruido</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g4">
+    <div class="ifg-c1"><div class="ifg-cnum">85 dB(A)</div><div class="ifg-cuso">Límite TWA 8h</div></div>
+    <div class="ifg-c1"><div class="ifg-cnum">3 dB</div><div class="ifg-cuso">Criterio de intercambio (igual energía)</div></div>
+    <div class="ifg-c1"><div class="ifg-cnum">95 dB(C)</div><div class="ifg-cuso">Peak máx. ruido impulsivo</div></div>
+    <div class="ifg-c1"><div class="ifg-cnum">50%</div><div class="ifg-cuso">Dosis — nivel de acción PREXOR</div></div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">3</div><div class="ifg-st">Título IV · Otros agentes físicos</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g2">
+    <div class="ifg-card"><div style="font-size:.76rem;font-weight:700;color:#fbbf24;margin-bottom:5px;">🌡️ Estrés térmico</div><div style="font-size:.68rem;color:rgba(204,224,245,.62);line-height:1.4;">Límites por WBGT según carga metabólica y aclimatación (ver calculadora en Herramientas del Experto)</div></div>
+    <div class="ifg-card"><div style="font-size:.76rem;font-weight:700;color:#60a5fa;margin-bottom:5px;">☁️ Agentes químicos</div><div style="font-size:.68rem;color:rgba(204,224,245,.62);line-height:1.4;">Límites permisibles ponderados (LPP) y absolutos (LPA) por sustancia</div></div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">4</div><div class="ifg-st">Título V · Elementos de Protección Personal</div><div class="ifg-sl"></div></div>
+  <div class="ifg-g2" style="margin-bottom:8px;">
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Gratuidad obligatoria</b> — el empleador provee el EPP sin costo para el trabajador</div></div>
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Certificación exigida</b> — el EPP debe estar aprobado según norma vigente (Registro ISP)</div></div>
+  </div>
+  <div class="ifg-g2" style="margin-bottom:12px;">
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Reposición</b> — cada vez que se deteriora, sin costo para el trabajador</div></div>
+    <div class="ifg-chk"><div class="ifg-ci">✓</div><div class="ifg-ct"><b>Capacitación</b> — el empleador debe instruir sobre el uso correcto</div></div>
+  </div>
+
+  <div class="ifg-sh"><div class="ifg-sn">5</div><div class="ifg-st">Fiscalización</div><div class="ifg-sl"></div></div>
+  <div class="ifg-card" style="margin-bottom:12px;"><div style="font-size:.71rem;color:rgba(204,224,245,.75);line-height:1.5;">Corresponde a los <b style="color:#a3e635;">Servicios de Salud</b> (SEREMI de Salud regional), y en la Región Metropolitana al Servicio de Salud del Ambiente. Las mediciones ambientales deben repetirse al menos una vez al año, o cuando cambien las condiciones de exposición.</div></div>
+
+  <div class="ifg-sh"><div class="ifg-sn">6</div><div class="ifg-st">Relación con otras normas</div><div class="ifg-sl"></div></div>
+  <table class="rtbl">
+    <tr><th>Norma</th><th>Relación con DS 594</th></tr>
+    <tr><td class="rn" style="color:#a3e635;font-weight:700;">Ley 16.744</td><td>DS 594 reglamenta las condiciones básicas que la Ley 16.744 exige resguardar</td></tr>
+    <tr><td class="rn" style="color:#a3e635;font-weight:700;">DS 44/2023</td><td>Reforma el reglamento de prevención de riesgos — deroga DS 40 y 54 de 1969, complementa DS 594</td></tr>
+    <tr><td class="rn" style="color:#a3e635;font-weight:700;">DS 132</td><td>Reglamento de Seguridad Minera — aplica condiciones adicionales específicas sobre esta base</td></tr>
+  </table>
+
+  <div class="ifg-foot">BuscaEPP.cl · Guía de referencia — no reemplaza el texto legal vigente ni asesoría profesional · Última verificación: 28 ago 2026</div>
+</div>`
+  },
   fr: {
     titulo: 'Ropa Ignífuga FR — Guía de Referencia Rápida',
     ico: '🧯',
