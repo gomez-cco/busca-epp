@@ -1443,14 +1443,29 @@ async function cargarClima() {
   const [lat, lon, nombre] = sel.value.split(',');
   resEl.textContent = 'Cargando clima…';
   try {
-    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FSantiago`, { cache: 'no-cache' });
+    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=uv_index_max&timezone=America%2FSantiago`, { cache: 'no-cache' });
     const data = await r.json();
     const t = Math.round(data.current.temperature_2m);
     const viento = Math.round(data.current.wind_speed_10m);
     const code = data.current.weather_code;
     const iconos = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'⛈️',71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️'};
     const icono = iconos[code] || '🌡️';
-    resEl.innerHTML = `<strong style="color:var(--text);">${nombre}</strong>: ${icono} ${t}°C · viento ${viento} km/h`;
+
+    // Índice UV — escala oficial OMS
+    const uv = data.daily?.uv_index_max?.[0];
+    let uvHtml = '';
+    if (uv !== undefined && uv !== null) {
+      const uvRedondeado = Math.round(uv);
+      let uvNivel, uvColor;
+      if (uvRedondeado <= 2)      { uvNivel = 'Bajo';      uvColor = '#4ade80'; }
+      else if (uvRedondeado <= 5) { uvNivel = 'Moderado';  uvColor = '#facc15'; }
+      else if (uvRedondeado <= 7) { uvNivel = 'Alto';      uvColor = '#f97316'; }
+      else if (uvRedondeado <= 10){ uvNivel = 'Muy alto';  uvColor = '#ef4444'; }
+      else                        { uvNivel = 'Extremo';   uvColor = '#a855f7'; }
+      uvHtml = ` · <span title="Índice UV máximo del día — escala OMS" style="color:${uvColor};font-weight:700;">☀️ UV ${uvRedondeado} (${uvNivel})</span>`;
+    }
+
+    resEl.innerHTML = `<strong style="color:var(--text);">${nombre}</strong>: ${icono} ${t}°C · viento ${viento} km/h${uvHtml}`;
   } catch (e) {
     resEl.textContent = `No se pudo cargar el clima de ${nombre}.`;
   }
