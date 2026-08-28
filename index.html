@@ -7559,6 +7559,10 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
         <div style="font-size:1.6rem;margin-bottom:.3rem;">🫧</div>
         <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Atmósfera Espacio Confinado</div>
       </div>
+      <div onclick="mostrarHerramienta('accidentabilidad',this)" class="hr-selector-card" style="background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s;">
+        <div style="font-size:1.6rem;margin-bottom:.3rem;">📈</div>
+        <div style="font-size:.76rem;font-weight:700;color:var(--text);line-height:1.25;">Índices de Accidentabilidad</div>
+      </div>
     </div>
     <script>
       function mostrarHerramienta(id, el) {
@@ -8086,6 +8090,121 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarInf
       </div>
     </div> <!-- /hrTool_atmosfera -->
 
+    <!-- ══════════ HERRAMIENTA 6: ÍNDICES DE ACCIDENTABILIDAD ══════════ -->
+    <div id="hrTool_accidentabilidad" class="hr-herramienta" style="display:none;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;">
+          <div style="font-size:1.8rem;">📈</div>
+          <div>
+            <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);letter-spacing:.3px;line-height:1.1;">Índices de Frecuencia, Gravedad y Accidentabilidad</div>
+            <div style="font-size:.78rem;color:var(--accent);font-weight:600;">Calculadora profesional de Seguridad Industrial</div>
+          </div>
+        </div>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.55;margin-top:.7rem;">
+          Los tres indicadores que todo departamento de prevención debe llevar por obligación legal — para el informe mensual, el informe a gerencia, y la cotización adicional diferenciada de la mutual. Un detalle que se confunde seguido: <b>los accidentes de trayecto no se incluyen</b> en estos cálculos, solo los accidentes del trabajo propiamente tal.
+        </p>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:1rem;">📥 Datos de entrada — del período que estás midiendo</div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">N° de accidentes del trabajo con tiempo perdido</label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Solo accidentes con ausencia ≥ 1 jornada completa. No incluye trayecto. Ej: 3</div>
+          <input id="iaAccidentes" type="number" step="1" placeholder="Ej: 3" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Días de ausencia laboral de los lesionados</label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Días perdidos reales. Si hubo incapacidad permanente o muerte, deben agregarse "días cargo" según tabla internacional — no incluidos aquí, revisa la Guía ISP. Ej: 12</div>
+          <input id="iaDiasPerdidos" type="number" step="1" placeholder="Ej: 12" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1.1rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">Horas-hombre trabajadas en el período</label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Suma de horas reales trabajadas por todo el personal (descuenta ausencias por licencia, permiso, etc.). Ej: 48000</div>
+          <input id="iaHorasHombre" type="number" step="1" placeholder="Ej: 48000" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:.3rem;">
+          <label style="font-size:.8rem;font-weight:700;color:var(--text);display:block;margin-bottom:.2rem;">N° promedio de trabajadores en el período</label>
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:.4rem;">Dotación promedio del período que estás midiendo. Ej: 30</div>
+          <input id="iaTrabajadores" type="number" step="1" placeholder="Ej: 30" style="width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.9rem;font-family:'DM Sans',sans-serif;">
+        </div>
+
+        <div id="iaError" style="display:none;color:#ef4444;font-size:.78rem;margin-top:.8rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.6rem .8rem;"></div>
+
+        <button onclick="calcularAccidentabilidad()" style="width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;border-radius:10px;padding:.85rem;font-weight:800;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;letter-spacing:.3px;">🧮 Calcular los 3 índices</button>
+      </div>
+
+      <div id="iaResultados" style="display:none;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">🧮 Desarrollo del cálculo</div>
+          <div style="display:grid;gap:.9rem;">
+            <div>
+              <div style="font-size:.78rem;color:var(--muted);margin-bottom:.3rem;">Tasa de Frecuencia (mensual) — Art. 12 D.S. 40 / Art. 73 D.S. 44:</div>
+              <div style="background:var(--surface2);border-radius:10px;padding:.7rem .9rem;font-family:monospace;font-size:.82rem;color:var(--text);">
+                Tasa Frecuencia = (N° accidentes / Horas-hombre) × 1.000.000<br>
+                <span id="iaSustFrecuencia" style="color:var(--accent);"></span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:.78rem;color:var(--muted);margin-bottom:.3rem;">Tasa de Gravedad (semestral):</div>
+              <div style="background:var(--surface2);border-radius:10px;padding:.7rem .9rem;font-family:monospace;font-size:.82rem;color:var(--text);">
+                Tasa Gravedad = (Días perdidos / Horas-hombre) × 1.000.000<br>
+                <span id="iaSustGravedad" style="color:var(--accent);"></span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:.78rem;color:var(--muted);margin-bottom:.3rem;">Tasa de Accidentabilidad (anual, base cotización adicional):</div>
+              <div style="background:var(--surface2);border-radius:10px;padding:.7rem .9rem;font-family:monospace;font-size:.82rem;color:var(--text);">
+                Tasa Accidentabilidad = (N° accidentes / N° trabajadores) × 100<br>
+                <span id="iaSustAccidentabilidad" style="color:var(--accent);"></span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.3rem;">
+            <div style="text-align:center;">
+              <div style="font-size:.7rem;color:var(--muted);">Frecuencia</div>
+              <div id="iaResFrecuencia" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--accent);"></div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:.7rem;color:var(--muted);">Gravedad</div>
+              <div id="iaResGravedad" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--accent);"></div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:.7rem;color:var(--muted);">Accidentabilidad</div>
+              <div id="iaResAccidentabilidad" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--accent);"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">💡 Cómo usar estos números</div>
+          <div style="font-size:.85rem;color:var(--text);line-height:1.6;">
+            Estos índices no tienen un umbral único de "bueno" o "malo" fijado por ley — se usan para <b>comparar en el tiempo</b> (¿tu tasa bajó o subió respecto al mes/año anterior?) y para <b>compararte con tu rubro</b>. La Tasa de Accidentabilidad es además la que tu mutual revisa para definir si pagas <b>cotización adicional diferenciada</b> — mientras más baja y estable, mejor tu clasificación de riesgo. Si la Tasa de Gravedad incluye algún caso de incapacidad permanente o fatal, revisa la <i>Guía de Aplicación de Días Cargo</i> del ISP antes de reportar el número final — hay que sumar días adicionales según tablas internacionales, que este cálculo no incluye automáticamente.
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:.8rem;">📚 Referencias técnicas y normativas</div>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Chile:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 .8rem 1.2rem;line-height:1.7;">
+            <li>Art. 12, D.S. N°40 — obligación de llevar tasa mensual de frecuencia y semestral de gravedad</li>
+            <li>Art. 73, D.S. N°44/2023 MINTRAB — definición vigente de tasa de gravedad</li>
+            <li>Guía de Aplicación de Días Cargo para el Cálculo de la Tasa de Gravedad — ISP, 2024</li>
+            <li>Ley 16.744 — base de la cotización adicional diferenciada por accidentabilidad</li>
+          </ul>
+          <div style="font-size:.8rem;color:var(--text);margin-bottom:.5rem;"><strong>Internacional:</strong></div>
+          <ul style="font-size:.78rem;color:var(--muted);margin:0 0 0 1.2rem;line-height:1.7;">
+            <li>OIT — Informe III, Estadísticas de lesiones profesionales, ICLS/16/1998</li>
+          </ul>
+        </div>
+
+        <button onclick="descargarInformeAccidentabilidad()" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.8rem;font-weight:700;cursor:pointer;font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.88rem;margin-bottom:1rem;">📄 Generar informe (Word)</button>
+      </div>
+    </div> <!-- /hrTool_accidentabilidad -->
+
     <!-- 9. ADVERTENCIA — siempre visible, compartida por las 4 herramientas -->
     <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:1rem 1.2rem;font-size:.75rem;color:var(--muted);line-height:1.55;text-align:center;">
       ⚠️ Esta herramienta es de apoyo para la evaluación técnica y no reemplaza una evaluación profesional, mediciones instrumentales, la legislación vigente ni las instrucciones del fabricante.
@@ -8543,11 +8662,68 @@ function descargarInformeAtmosfera() {
     ['Referencias', 'Chile: D.S. 594 Art. 45. Internacional: OSHA 29 CFR 1910.146. Umbrales de fábrica MSA ALTAIR / Dräger X-am (estándar de industria)'],
   ]);
 }
+
+// ══════════ HERRAMIENTA 6: ÍNDICES DE ACCIDENTABILIDAD ══════════
+let iaUltimoResultado = null;
+
+function calcularAccidentabilidad() {
+  const accidentes = parseFloat(document.getElementById('iaAccidentes').value);
+  const diasPerdidos = parseFloat(document.getElementById('iaDiasPerdidos').value);
+  const horasHombre = parseFloat(document.getElementById('iaHorasHombre').value);
+  const trabajadores = parseFloat(document.getElementById('iaTrabajadores').value);
+  const errEl = document.getElementById('iaError');
+
+  if ([accidentes, diasPerdidos, horasHombre, trabajadores].some(isNaN)) {
+    errEl.textContent = '⚠️ Completa los 4 campos para calcular los índices.';
+    errEl.style.display = 'block';
+    document.getElementById('iaResultados').style.display = 'none';
+    return;
+  }
+  if (horasHombre <= 0 || trabajadores <= 0) {
+    errEl.textContent = '⚠️ Las horas-hombre y el número de trabajadores deben ser mayores a 0.';
+    errEl.style.display = 'block';
+    document.getElementById('iaResultados').style.display = 'none';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const tasaFrecuencia = (accidentes / horasHombre) * 1000000;
+  const tasaGravedad = (diasPerdidos / horasHombre) * 1000000;
+  const tasaAccidentabilidad = (accidentes / trabajadores) * 100;
+
+  document.getElementById('iaSustFrecuencia').textContent = `= (${accidentes} / ${horasHombre}) × 1.000.000 = ${tasaFrecuencia.toFixed(2)}`;
+  document.getElementById('iaSustGravedad').textContent = `= (${diasPerdidos} / ${horasHombre}) × 1.000.000 = ${tasaGravedad.toFixed(2)}`;
+  document.getElementById('iaSustAccidentabilidad').textContent = `= (${accidentes} / ${trabajadores}) × 100 = ${tasaAccidentabilidad.toFixed(2)}`;
+
+  document.getElementById('iaResFrecuencia').textContent = tasaFrecuencia.toFixed(2);
+  document.getElementById('iaResGravedad').textContent = tasaGravedad.toFixed(2);
+  document.getElementById('iaResAccidentabilidad').textContent = tasaAccidentabilidad.toFixed(2);
+
+  iaUltimoResultado = { accidentes, diasPerdidos, horasHombre, trabajadores, tasaFrecuencia, tasaGravedad, tasaAccidentabilidad };
+  document.getElementById('iaResultados').style.display = 'block';
+}
+
+function descargarInformeAccidentabilidad() {
+  if (!iaUltimoResultado) return;
+  const r = iaUltimoResultado;
+  descargarInformeGenerico('Informe de Índices de Accidentabilidad', [
+    ['N° de accidentes con tiempo perdido', r.accidentes],
+    ['Días de ausencia laboral', r.diasPerdidos],
+    ['Horas-hombre trabajadas', r.horasHombre],
+    ['N° promedio de trabajadores', r.trabajadores],
+    ['Tasa de Frecuencia', `${r.tasaFrecuencia.toFixed(2)} — (N° accidentes / Horas-hombre) × 1.000.000`],
+    ['Tasa de Gravedad', `${r.tasaGravedad.toFixed(2)} — (Días perdidos / Horas-hombre) × 1.000.000`],
+    ['Tasa de Accidentabilidad', `${r.tasaAccidentabilidad.toFixed(2)} — (N° accidentes / N° trabajadores) × 100`],
+    ['Nota', 'No incluye accidentes de trayecto. Si hay incapacidad permanente o muerte, sumar días cargo según Guía ISP antes del reporte final.'],
+    ['Referencias', 'Chile: Art. 12 D.S. 40, Art. 73 D.S. 44/2023 MINTRAB, Guía Días Cargo ISP 2024, Ley 16.744. Internacional: OIT Informe III ICLS/16/1998'],
+  ]);
+}
 </script>
 
 <div id="pane-admin" style="display:none;">
   <div class="admin-wrap">
     <a href="#" onclick="showTab('epp');return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:.6rem;">← Volver al inicio</a>
+
 
     <!-- ACCESO RÁPIDO A SECCIONES -->
     <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.2rem;">
