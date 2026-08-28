@@ -1332,6 +1332,23 @@
   20%  { opacity:1; }
   100% { width:220px; opacity:1; }
 }
+
+/* ── Animación de entrada al hacer scroll (fade-in-up) ── */
+.scroll-fade { opacity:0; transform:translateY(28px); transition:opacity .6s ease, transform .6s ease; }
+.scroll-fade.in-view { opacity:1; transform:translateY(0); }
+.scroll-fade-stagger > * { opacity:0; transform:translateY(28px); transition:opacity .5s ease, transform .5s ease; }
+.scroll-fade-stagger.in-view > * { opacity:1; transform:translateY(0); }
+.scroll-fade-stagger.in-view > *:nth-child(1) { transition-delay:0ms; }
+.scroll-fade-stagger.in-view > *:nth-child(2) { transition-delay:80ms; }
+.scroll-fade-stagger.in-view > *:nth-child(3) { transition-delay:160ms; }
+.scroll-fade-stagger.in-view > *:nth-child(4) { transition-delay:240ms; }
+.scroll-fade-stagger.in-view > *:nth-child(5) { transition-delay:320ms; }
+.scroll-fade-stagger.in-view > *:nth-child(6) { transition-delay:400ms; }
+
+/* ── Hover dinámico para tarjetas (lift + rotación sutil) ── */
+.card-lift { transition:transform .3s ease, box-shadow .3s ease; }
+.card-lift:hover { transform:translateY(-8px) rotate(.6deg); box-shadow:0 16px 32px rgba(0,0,0,.35); }
+body.tema-claro .card-lift:hover, body.tema-beige .card-lift:hover { box-shadow:0 16px 32px rgba(15,23,42,.14); }
 </style>
 </head>
 <body>
@@ -1780,22 +1797,48 @@ if (document.getElementById('cal-dias')) calRender();
   <!-- Accesos directos a contenido educativo gratuito -->
   <div style="max-width:900px;margin:2rem auto 1rem;padding:0 1.2rem;">
     <div style="text-align:center;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.8rem;">📚 Contenido educativo — siempre gratuito</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;">
-      <div onclick="showTab('norm')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+    <div class="scroll-fade-stagger" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;">
+      <div onclick="showTab('norm')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;">
         <div style="font-size:1.6rem;margin-bottom:.3rem;">📖</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;">Glosario de Normas</div>
       </div>
-      <div onclick="irASubVIP('estudia')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+      <div onclick="irASubVIP('estudia')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;">
         <div style="font-size:1.6rem;margin-bottom:.3rem;">🎓</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;">Estudia con BuscaEPP</div>
       </div>
-      <div onclick="showTab('certcomp')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+      <div onclick="showTab('certcomp')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;">
         <div style="font-size:1.6rem;margin-bottom:.3rem;">🏷️</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;">Glosario Comercial</div>
       </div>
-      <div onclick="showTab('infogramas')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+      <div onclick="showTab('infogramas')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;">
         <div style="font-size:1.6rem;margin-bottom:.3rem;">📊</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;">Infogramas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Franja de confianza — datos reales de BuscaEPP, no cifras de e-commerce inventadas -->
+  <div class="scroll-fade" style="max-width:900px;margin:0 auto 1.5rem;padding:0 1.2rem;">
+    <div class="scroll-fade-stagger" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:1.2rem;">
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;">📚</div>
+        <div style="font-weight:700;color:var(--text);font-size:.8rem;margin-top:.2rem;">11 infogramas técnicos</div>
+        <div style="font-size:.68rem;color:var(--muted);">con norma citada</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;">🧮</div>
+        <div style="font-weight:700;color:var(--text);font-size:.8rem;margin-top:.2rem;">6 calculadoras</div>
+        <div style="font-size:.68rem;color:var(--muted);">de Seguridad Industrial</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;">⚖️</div>
+        <div style="font-weight:700;color:var(--text);font-size:.8rem;margin-top:.2rem;">Normativa verificada</div>
+        <div style="font-size:.68rem;color:var(--muted);">contra fuente oficial</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;">🔄</div>
+        <div style="font-weight:700;color:var(--text);font-size:.8rem;margin-top:.2rem;">Contenido con fecha</div>
+        <div style="font-size:.68rem;color:var(--muted);">de última verificación</div>
       </div>
     </div>
   </div>
@@ -3301,18 +3344,18 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
     <a href="#" onclick="volverSelectorVIP();return false;" style="display:inline-flex;align-items:center;gap:.3rem;color:var(--muted);font-size:.78rem;text-decoration:none;margin-bottom:1rem;">← Cambiar zona</a>
 
     <!-- Encabezado funcional — las opciones SON el encabezado -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
-      <div onclick="toggleNovedadesVIP()" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div class="scroll-fade-stagger" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
+      <div onclick="toggleNovedadesVIP()" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="font-size:1.7rem;margin-bottom:.3rem;">📅</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Novedades Normativas</div>
         <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Última verificación: 21 ago 2026 — clic para ver</div>
       </div>
-      <div onclick="irASubVIP('docs')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="irASubVIP('docs')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="font-size:1.7rem;margin-bottom:.3rem;">📄</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Documentos listos</div>
         <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Genera matrices y protocolos de EPP en minutos</div>
       </div>
-      <div onclick="irASubVIP('infoepp')" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="irASubVIP('infoepp')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="font-size:1.7rem;margin-bottom:.3rem;">🤝</div>
         <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Quién lo vende</div>
         <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Fabricantes y distribuidores verificados</div>
@@ -18335,5 +18378,22 @@ if (_langGuardado !== 'es') setLang(_langGuardado);
   </div>
 </div>
 
+<script>
+// ── Observador de scroll para animaciones fade-in-up (sin dependencias) ──
+(function() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  function observarNuevos() {
+    document.querySelectorAll('.scroll-fade:not(.in-view), .scroll-fade-stagger:not(.in-view)').forEach(el => io.observe(el));
+  }
+  document.addEventListener('DOMContentLoaded', observarNuevos);
+  const origShowTab = window.showTab;
+  if (typeof origShowTab === 'function') {
+    window.showTab = function(...args) { origShowTab.apply(this, args); setTimeout(observarNuevos, 50); };
+  }
+  setTimeout(observarNuevos, 300);
+})();
+</script>
 </body>
 </html>
