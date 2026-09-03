@@ -8978,7 +8978,7 @@ function descargarInformeAccidentabilidad() {
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
           <input id="vipAdmEmail" type="email" placeholder="Email (será el usuario)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-          <input id="vipAdmPass" type="text" placeholder="Contraseña" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
+          <input id="vipAdmPass" type="text" placeholder="Contraseña (opcional — el cliente entra solo con su correo)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.8rem;">
           <select id="vipAdmTipo" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;color:var(--text);font-size:.83rem;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
@@ -15190,6 +15190,8 @@ function mostrarLoginCliente() {
   document.getElementById('vipGovakEmailLabel').style.display = 'none';
   document.getElementById('vipSolicitarLink').style.display = 'block';
   document.getElementById('vipEmail').style.display = 'block';
+  document.getElementById('vipPass').style.display = 'none';
+  document.getElementById('vipPass').value = '';
   switchVipTab('login');
   setTimeout(() => { const el = document.getElementById('vipEmail'); if(el) el.focus(); }, 100);
 }
@@ -15203,6 +15205,7 @@ function seleccionarUsuarioGovak(email) {
   document.getElementById('vipPanelSolicitar').style.display = 'none';
   document.getElementById('vipEmail').value = email;
   document.getElementById('vipEmail').style.display = 'none';
+  document.getElementById('vipPass').style.display = 'block';
   document.getElementById('vipGovakEmailLabel').style.display = 'block';
   document.getElementById('vipGovakEmailTexto').textContent = email;
   setTimeout(() => { const el = document.getElementById('vipPass'); if(el) el.focus(); }, 100);
@@ -15240,9 +15243,41 @@ function cerrarVIPModal() {
 // ── Login VIP (Firebase) ───────────────────────────────────
 async function loginVIP() {
   const email = document.getElementById('vipEmail').value.trim().toLowerCase();
-  const pass  = document.getElementById('vipPass').value.trim();
+  const passField = document.getElementById('vipPass');
+  const modoSoloEmail = passField.style.display === 'none';
+  const pass  = passField.value.trim();
   const errEl = document.getElementById('vipError');
   errEl.style.display = 'none';
+
+  if (modoSoloEmail) {
+    // ── Acceso de clientes: solo correo, sin contraseña ──
+    if (!email) { errEl.style.display = 'block'; errEl.textContent = '❌ Ingresa tu email'; return; }
+    try {
+      const { db, collection, getDocs } = window._FB;
+      const snap = await getDocs(collection(db, 'vip_usuarios'));
+      const hoy = Date.now();
+      let found = null;
+      snap.forEach(d => {
+        const u = d.data();
+        if (u.email && u.email.toLowerCase() === email) found = { _id: d.id, ...u };
+      });
+      if (!found) { errEl.style.display = 'block'; errEl.textContent = '❌ Este correo no tiene acceso VIP. Solicítalo abajo.'; return; }
+      if (found.estado !== 'activo') { errEl.style.display = 'block'; errEl.textContent = '⛔ Acceso bloqueado. Contacta al administrador.'; return; }
+      const vencimiento = found.vencimiento || 0;
+      if (hoy > vencimiento) { errEl.style.display = 'block'; errEl.textContent = '⏰ Tu acceso VIP venció. Contacta al administrador para renovar.'; return; }
+      const diasRestantes = Math.ceil((vencimiento - hoy) / 86400000);
+      vipUsuarioActual = { email: found.email, nombre: found.nombre, tipo: found.tipo, diasRestantes, _id: found._id };
+      sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
+      cerrarVIPModal();
+      mostrarPaneVIP();
+    } catch(e) {
+      console.error(e);
+      errEl.style.display = 'block';
+      errEl.textContent = '❌ Error de conexión. Intenta de nuevo.';
+    }
+    return;
+  }
+
   if (!email || !pass) { errEl.style.display = 'block'; errEl.textContent = '❌ Completa todos los campos'; return; }
 
   // Credenciales Industrias → acceso VIP directo
@@ -16627,13 +16662,13 @@ async function aprobarUsuarioVIP() {
   const nombre  = document.getElementById('vipAdmNombre').value.trim();
   const empresa = document.getElementById('vipAdmEmpresa').value.trim();
   const email   = document.getElementById('vipAdmEmail').value.trim().toLowerCase();
-  const pass    = document.getElementById('vipAdmPass').value.trim();
+  const pass    = document.getElementById('vipAdmPass').value.trim() || Math.random().toString(36).slice(2, 10);
   const tipo    = document.getElementById('vipAdmTipo').value;
   const dias    = parseInt(document.getElementById('vipAdmDias').value);
   const solId   = document.getElementById('vipAdmEmail').dataset.solId;
   const msgEl   = document.getElementById('vipAdmMsg');
 
-  if (!nombre || !email || !pass) { msgEl.innerHTML = '<span style="color:#fca5a5;">Completa los campos obligatorios</span>'; return; }
+  if (!nombre || !email) { msgEl.innerHTML = '<span style="color:#fca5a5;">Completa nombre y email</span>'; return; }
   const vencimiento = Date.now() + dias * 86400000;
   try {
     const { db, collection, addDoc, updateDoc, doc } = window._FB;
@@ -16644,9 +16679,9 @@ async function aprobarUsuarioVIP() {
       ts: Date.now()
     });
     if (solId) await updateDoc(doc(db, 'vip_solicitudes', solId), { estado: 'aprobado' });
-    const msg = encodeURIComponent(`✅ *VIP Aprobado — BuscaEPP*\n\n👤 ${nombre} (${empresa})\n📧 Usuario: ${email}\n🔑 Clave: ${pass}\n⏳ Acceso por ${dias} días`);
+    const msg = encodeURIComponent(`✅ *VIP Aprobado — BuscaEPP*\n\n👤 ${nombre} (${empresa})\n📧 Ingresa con este correo en Zona VIP → Acceso a Clientes: ${email}\n⏳ Acceso por ${dias} días\n\nNo necesitas contraseña, solo tu correo.`);
     window.open(`https://wa.me/${WA_ADMIN}?text=${msg}`, '_blank');
-    msgEl.innerHTML = '<span style="color:#4ade80;">✅ Usuario creado.</span>';
+    msgEl.innerHTML = '<span style="color:#4ade80;">✅ Usuario creado — accede solo con su correo.</span>';
     ['vipAdmNombre','vipAdmEmpresa','vipAdmEmail','vipAdmPass'].forEach(id => {
       const el = document.getElementById(id);
       el.value = ''; el.dataset.solId = '';
