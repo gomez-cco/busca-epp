@@ -4072,12 +4072,13 @@ function mostrarInfoEpp(cual) {
         <div style="width:52px;height:52px;background:linear-gradient(135deg,rgba(59,130,246,.35),rgba(99,102,241,.25));border:1px solid rgba(59,130,246,.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📚</div>
         <div style="flex:1;min-width:200px;">
           <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.85rem;font-weight:900;color:#fff;letter-spacing:1.5px;line-height:1;">ESTUDIA CON BUSCA<span style="color:#60a5fa;"> EPP</span></div>
-          <div style="color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.25rem;letter-spacing:.3px;">Glosarios de terminología profesional — 77 términos en 3 áreas</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.25rem;letter-spacing:.3px;">Glosarios de terminología profesional — 97 términos en 4 áreas</div>
         </div>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
           <span style="background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.4);color:#93c5fd;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">📊 COMERCIAL</span>
-          <span style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">💰 FINANCIERO</span>
+          <span style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#ffffff;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">💰 FINANCIERO</span>
           <span style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.35);color:#fcd34d;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">🚚 LOGÍSTICA</span>
+          <span style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);color:#6ee7b7;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.4px;">🦺 PREVENCIÓN</span>
         </div>
       </div>
       <div style="position:relative;z-index:1;margin-top:1rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
@@ -5330,14 +5331,14 @@ function mostrarInfoEpp(cual) {
     </div>
 
     <!-- Modal — Glosario de Terminología Profesional (Comercial/Financiero/Logística) -->
-    <div id="modal-glosario-negocios" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,12,25,.9);backdrop-filter:blur(4px);" onclick="if(event.target===this)cerrarGlosarioNegocios()">
+    <div id="modal-glosario-negocios" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(8,14,28,.55);backdrop-filter:blur(14px) saturate(130%);-webkit-backdrop-filter:blur(14px) saturate(130%);" onclick="if(event.target===this)cerrarGlosarioNegocios()">
       <div style="position:absolute;inset:2vh 2vw;background:#0f1d30;border:1px solid rgba(59,130,246,.3);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);">
         <!-- Header -->
         <div style="background:linear-gradient(135deg,#0f2848,#162f56);padding:.9rem 1.2rem;display:flex;align-items:center;gap:1rem;border-bottom:2px solid rgba(59,130,246,.35);flex-shrink:0;">
           <span style="font-size:22px;">📚</span>
           <div style="flex:1;">
             <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;color:#fff;letter-spacing:1px;">ESTUDIA CON BUSCAEPP — GLOSARIOS PROFESIONALES</div>
-            <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem;">77 términos · Comercial · Financiero · Logística</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem;">97 términos · Comercial · Financiero · Logística · Prevención</div>
           </div>
           <button onclick="cerrarGlosarioNegocios()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.75rem;font-weight:700;transition:background .12s;" onmouseover="this.style.background='rgba(255,255,255,.16)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">✕ Cerrar</button>
         </div>
@@ -5345,7 +5346,7 @@ function mostrarInfoEpp(cual) {
         <div style="flex:1;overflow-y:auto;padding:1.4rem 1.6rem;scrollbar-color:rgba(59,130,246,.3) transparent;">
 
     <!-- Stats ── Shopify metric cards -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1.2rem;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1.2rem;">
       <div class="estat" onclick="estudiaTab('comercial')" style="background:#1c2d52;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
         <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#93c5fd,rgba(59,130,246,.15));"></div>
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
@@ -5356,13 +5357,13 @@ function mostrarInfoEpp(cual) {
         <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Comercial</div>
         <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
       </div>
-      <div class="estat" onclick="estudiaTab('financiero')" style="background:#0e2e24;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#6ee7b7,rgba(16,185,129,.15));"></div>
+      <div class="estat" onclick="estudiaTab('financiero')" style="background:#232a36;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#ffffff,rgba(255,255,255,.15));"></div>
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
           <span style="font-size:1.3rem;">💰</span>
-          <span class="epill" style="background:rgba(16,185,129,.3);color:#a7f3d0;font-size:.58rem;">5 secc.</span>
+          <span class="epill" style="background:rgba(255,255,255,.2);color:#ffffff;font-size:.58rem;">5 secc.</span>
         </div>
-        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#6ee7b7;line-height:1;margin-bottom:.2rem;">25</div>
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#ffffff;line-height:1;margin-bottom:.2rem;">25</div>
         <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Financiero</div>
         <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
       </div>
@@ -5374,6 +5375,16 @@ function mostrarInfoEpp(cual) {
         </div>
         <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#fcd34d;line-height:1;margin-bottom:.2rem;">26</div>
         <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Logística</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
+      </div>
+      <div class="estat" onclick="estudiaTab('prevencion')" style="background:#0e2a1b;border-radius:14px;padding:1.1rem 1.2rem;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.4);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#86efac,rgba(34,197,94,.15));"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+          <span style="font-size:1.3rem;">🦺</span>
+          <span class="epill" style="background:rgba(34,197,94,.3);color:#bbf7d0;font-size:.58rem;">3 secc.</span>
+        </div>
+        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:#86efac;line-height:1;margin-bottom:.2rem;">20</div>
+        <div style="font-size:.75rem;font-weight:700;color:#ffffff;">Prevención</div>
         <div style="font-size:.65rem;color:rgba(255,255,255,.65);margin-top:.1rem;">Términos</div>
       </div>
     </div>
@@ -5391,6 +5402,7 @@ function mostrarInfoEpp(cual) {
       <button onclick="estudiaTab('comercial')" id="etab-comercial" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">📊 Comercial (26)</button>
       <button onclick="estudiaTab('financiero')" id="etab-financiero" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">💰 Financiero (25)</button>
       <button onclick="estudiaTab('logistica')" id="etab-logistica" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">🚚 Logística (26)</button>
+      <button onclick="estudiaTab('prevencion')" id="etab-prevencion" class="etab-btn" style="padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;letter-spacing:.3px;">🦺 Prevención (20)</button>
     </div>
 
     <!-- Label resultado -->
@@ -5527,6 +5539,32 @@ const GLOSARIO_LOGISTICA = [
   { termino:'Huella de Carbono', seccion:'Logística inversa y sostenibilidad', def:'Cantidad total de gases de efecto invernadero (expresada en CO₂ equivalente) generada directa o indirectamente por las actividades logísticas de una empresa.', ejemplo:'Calcular la huella de carbono de los envíos de EPP permite identificar que el transporte aéreo genera 20x más emisiones que el marítimo, e incentivar el cambio de modo.' },
 ];
 
+const GLOSARIO_PREVENCION = [
+  // Gestión de riesgos y documentos
+  { termino:'IRL', seccion:'Gestión de riesgos y documentos', def:'Información de Riesgos Laborales (ex ODI o "Derecho a Saber"). Documento formal que el empleador entrega al trabajador antes de iniciar sus labores, informando los riesgos de sus tareas, las medidas preventivas y los métodos de trabajo seguros.', ejemplo:'Antes de que un nuevo operario ingrese a una faena minera, se le entrega el IRL de su puesto de trabajo, firmado, con los EPP obligatorios detallados en el documento.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=1205298' },
+  { termino:'MIPER', seccion:'Gestión de riesgos y documentos', def:'Matriz de Identificación de Peligros y Evaluación de Riesgos. Herramienta sistemática que identifica peligros por proceso y puesto de trabajo, evalúa probabilidad × severidad y define medidas de control. Es la base documental del IRL.', ejemplo:'El prevencionista de una empresa de vestuario industrial arma la MIPER del área de bodega, identificando el riesgo de caída de altura al apilar cajas y definiendo el uso de escalera certificada como control.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=1205298' },
+  { termino:'AST / ATS', seccion:'Gestión de riesgos y documentos', def:'Análisis (Seguro) de Trabajo. Análisis paso a paso de una tarea puntual —especialmente no rutinaria o de alta criticidad— hecho en terreno junto al equipo antes de comenzar, identificando peligros y controles específicos de esa jornada.', ejemplo:'Antes de una mantención eléctrica no programada, el equipo llena un AST en terreno identificando el riesgo de arco eléctrico y definiendo el uso de ropa ARC-rated como control inmediato.' },
+  { termino:'PTS', seccion:'Gestión de riesgos y documentos', def:'Procedimiento de Trabajo Seguro. Documento que describe la secuencia correcta y segura para ejecutar una tarea específica, con los controles y EPP requeridos. A diferencia del AST (puntual), el PTS es estándar y reutilizable.', ejemplo:'La empresa tiene un PTS estándar para "Uso de amoladora angular" que todo trabajador debe conocer antes de operar el equipo, independiente de la faena.' },
+  { termino:'CPHS', seccion:'Gestión de riesgos y documentos', def:'Comité Paritario de Higiene y Seguridad. Organismo obligatorio en empresas de 25+ trabajadores, integrado en partes iguales por representantes del empleador y de los trabajadores, encargado de vigilar el cumplimiento de las normas de seguridad.', ejemplo:'El CPHS de una planta industrial se reúne mensualmente para revisar los accidentes del período y proponer mejoras en el uso de EPP en la línea de producción.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=1205298' },
+  { termino:'LOTO', seccion:'Gestión de riesgos y documentos', def:'Bloqueo y Etiquetado (Lock Out / Tag Out). Procedimiento que aísla y bloquea físicamente las fuentes de energía de un equipo (eléctrica, mecánica, hidráulica) durante mantenimiento, evitando una activación accidental que ponga en riesgo al trabajador.', ejemplo:'Antes de reparar una cinta transportadora, el mantenedor aplica LOTO: corta la energía, coloca su candado personal y una tarjeta con su nombre, y solo él puede retirarlos al terminar.' },
+  { termino:'RIOHS', seccion:'Gestión de riesgos y documentos', def:'Reglamento Interno de Orden, Higiene y Seguridad. Documento obligatorio (10+ trabajadores) que regula las condiciones de trabajo, obligaciones, prohibiciones y sanciones dentro de la empresa. Desde la Ley Karin incorpora protocolos de acoso y violencia laboral.', ejemplo:'El RIOHS de una empresa de EPP establece la obligatoriedad de portar calzado de seguridad dentro de bodega, con sanciones progresivas ante incumplimiento reiterado.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=1205298' },
+  { termino:'Espacio Confinado', seccion:'Gestión de riesgos y documentos', def:'Recinto con ventilación deficiente o atmósfera potencialmente peligrosa, no diseñado para ocupación continua (DS 594, Art. 37). Su ingreso exige procedimiento de autorización, monitoreo de gases y personal certificado.', ejemplo:'Antes de ingresar a un estanque de almacenamiento para mantención, se mide la atmósfera interior con detector de gases y se emite un permiso de trabajo específico para espacio confinado.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=167766' },
+  { termino:'Tarjeta Verde', seccion:'Gestión de riesgos y documentos', def:'Herramienta preventiva de origen Codelco que empodera a cualquier trabajador —propio o contratista— para detener una tarea al detectar un riesgo no controlado. De uso personal, intransferible y porte obligatorio. Nació en el proyecto Gaby y se masificó en toda la minería.', ejemplo:'Un contratista detecta que un andamio no tiene barandas completas: levanta su Tarjeta Verde, detiene la tarea y reporta el hallazgo al supervisor antes de continuar.', fuente:'https://www.codelco.com/sustentabilidad/publicaciones/informe-sustentable/proyectos-un-area-de-alto-riesgo' },
+  // Protocolos de vigilancia MINSAL
+  { termino:'TMERT', seccion:'Protocolos de vigilancia MINSAL', def:'Trastornos Músculo-Esqueléticos Relacionados al Trabajo. Protocolo de vigilancia para lesiones de extremidades superiores por movimientos repetitivos, posturas forzadas o fuerza excesiva.', ejemplo:'En una línea de empaque de EPP con movimientos repetitivos de manos, se aplica la evaluación TMERT y se rota a los trabajadores cada 2 horas como medida de control.', fuente:'https://www.minsal.cl/portal/url/item/dbd6275dd3c8a29de040010164011886.pdf' },
+  { termino:'PREXOR', seccion:'Protocolos de vigilancia MINSAL', def:'Protocolo de Exposición Ocupacional a Ruido. Establece la vigilancia ambiental y auditiva de trabajadores expuestos a ruido, con límites de exposición y programas de conservación auditiva.', ejemplo:'En una planta con maquinaria ruidosa, el PREXOR exige mediciones de dosimetría y la entrega de protección auditiva certificada según el nivel de exposición medido.', fuente:'https://www.minsal.cl/salud-ocupacional/' },
+  { termino:'PLANESI', seccion:'Protocolos de vigilancia MINSAL', def:'Plan Nacional de Erradicación de la Sílice. Regula la exposición ocupacional a sílice cristalina (minería, construcción, hormigón), con vigilancia médica y ambiental para prevenir silicosis y otras enfermedades respiratorias.', ejemplo:'En una faena con perforación de roca, el PLANESI exige mediciones de sílice en el aire y el uso de respiradores con filtro específico para partículas.', fuente:'https://www.minsal.cl/salud-ocupacional/' },
+  { termino:'MMC', seccion:'Protocolos de vigilancia MINSAL', def:'Manejo Manual de Cargas. Protocolo que fija límites de peso y condiciones seguras para levantar, transportar o empujar cargas manualmente, buscando prevenir lesiones lumbares y musculoesqueléticas.', ejemplo:'En bodega, el protocolo MMC limita a 25 kg el peso máximo que un trabajador puede levantar manualmente sin ayuda mecánica, según la normativa vigente.', fuente:'https://www.minsal.cl/salud-ocupacional/' },
+  { termino:'PROSEMEH', seccion:'Protocolos de vigilancia MINSAL', def:'Programa de Seguridad en Máquinas, Equipos y Herramientas Motrices. Orientado a controlar riesgos mecánicos derivados del uso de maquinaria, incluyendo resguardos, mantenimiento y capacitación específica del operador.', ejemplo:'Antes de operar una sierra circular, el trabajador debe estar certificado según el PROSEMEH y verificar que el resguardo de la hoja esté en su lugar.' },
+  { termino:'CEAL-SM', seccion:'Protocolos de vigilancia MINSAL', def:'Cuestionario de Evaluación de Ambientes Laborales - Salud Mental. Instrumento del protocolo de vigilancia de riesgos psicosociales (carga mental, liderazgo, violencia laboral), exigido dentro de la MIPER.', ejemplo:'La empresa aplica el cuestionario CEAL-SM anualmente a todo el personal para detectar áreas con niveles de riesgo psicosocial alto y priorizar intervenciones.', fuente:'https://www.minsal.cl/salud-ocupacional/' },
+  // Marco normativo
+  { termino:'Ley 16.744', seccion:'Marco normativo', def:'Ley matriz de la seguridad laboral en Chile (1968). Crea el seguro social obligatorio contra accidentes del trabajo y enfermedades profesionales, y da origen a las mutualidades (ACHS, Mutual, IST) y al ISL.', ejemplo:'Cuando un trabajador sufre un accidente en faena, es la Ley 16.744 la que garantiza su atención médica y subsidio a través de la mutualidad a la que está afiliada la empresa.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=28650' },
+  { termino:'DS 594', seccion:'Marco normativo', def:'Reglamento del MINSAL que fija las condiciones sanitarias y ambientales básicas en los lugares de trabajo: extintores, trabajo en altura (+1,8 m), espacios confinados, andamios, sustancias peligrosas — la norma más citada en terreno.', ejemplo:'Un fiscalizador que visita una faena revisa el cumplimiento del DS 594 en aspectos como iluminación, ventilación y disponibilidad de agua potable para los trabajadores.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=167766' },
+  { termino:'Depto. de Prevención de Riesgos', seccion:'Marco normativo', def:'Obligación de contar con un Departamento de Prevención de Riesgos en empresas con 100+ trabajadores, a cargo de un experto profesional o técnico según el nivel de riesgo. Regulado originalmente por el D.S. 40 (1969), hoy integrado al D.S. 44.', ejemplo:'Una empresa minera con más de 100 trabajadores mantiene un Departamento de Prevención liderado por un ingeniero en prevención de riesgos, que reporta directamente a gerencia.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=1205298' },
+  { termino:'Ley Karin', seccion:'Marco normativo', def:'Ley 21.643. Modifica el Código del Trabajo incorporando protocolos de prevención, investigación y sanción del acoso laboral, sexual y la violencia en el trabajo, integrándose al RIOHS y a la gestión preventiva general.', ejemplo:'Tras la Ley Karin, toda empresa debe tener un canal de denuncias y un protocolo de investigación interna ante casos de acoso, con plazos definidos de resolución.', fuente:'https://www.bcn.cl/leychile/navegar?idNorma=1200096' },
+  { termino:'Tasa de Frecuencia / Gravedad', seccion:'Marco normativo', def:'Indicadores estadísticos de siniestralidad: la Tasa de Frecuencia cuenta accidentes por cada millón de horas trabajadas y la Tasa de Gravedad mide días perdidos por accidente — base de los informes mensuales a la mutualidad.', ejemplo:'El prevencionista reporta mensualmente a la mutualidad la tasa de frecuencia de accidentes de la empresa, comparándola con el promedio del sector para evaluar su desempeño en seguridad.' },
+];
+
 // ── Control de la pestaña activa ───────────────────────────
 let estudiaTabActivo = 'todos';
 let estudiaIniciado = false;
@@ -5535,8 +5573,9 @@ let estudiaQueryActiva = '';
 const ETAB_STYLES = {
   todos:      { active: { background:'rgba(59,130,246,.18)', border:'1px solid rgba(59,130,246,.5)', color:'#60a5fa' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
   comercial:  { active: { background:'rgba(59,130,246,.18)', border:'1px solid rgba(59,130,246,.5)', color:'#60a5fa' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
-  financiero: { active: { background:'rgba(16,185,129,.18)',  border:'1px solid rgba(16,185,129,.5)',  color:'#6ee7b7' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
+  financiero: { active: { background:'rgba(255,255,255,.18)', border:'1px solid rgba(255,255,255,.45)', color:'#ffffff' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
   logistica:  { active: { background:'rgba(245,158,11,.18)', border:'1px solid rgba(245,158,11,.5)', color:'#fcd34d' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
+  prevencion: { active: { background:'rgba(34,197,94,.18)',  border:'1px solid rgba(34,197,94,.5)',  color:'#86efac' },    inactive: { background:'transparent', border:'1px solid var(--border)', color:'var(--muted)' } },
 };
 
 function estudiaTab(id) {
@@ -5570,22 +5609,24 @@ function estudiaRenderizar() {
 
   const META = {
     comercial:  { color:'#93c5fd', rgb:'59,130,246',   bg:'rgba(59,130,246,.12)',  border:'rgba(59,130,246,.3)',  bgAlts:['#1a2848','#1e2e54','#1c2b50'],  pillBg:'rgba(59,130,246,.28)',  exBg:'rgba(59,130,246,.12)'  },
-    financiero: { color:'#6ee7b7', rgb:'52,211,153',   bg:'rgba(16,185,129,.12)',  border:'rgba(16,185,129,.3)',  bgAlts:['#0d2a20','#102e24','#0e2c22'],  pillBg:'rgba(16,185,129,.28)', exBg:'rgba(16,185,129,.12)'  },
+    financiero: { color:'#ffffff', rgb:'255,255,255',  bg:'rgba(255,255,255,.09)', border:'rgba(255,255,255,.3)', bgAlts:['#1e2530','#232a36','#20262f'],  pillBg:'rgba(255,255,255,.18)', exBg:'rgba(255,255,255,.07)' },
     logistica:  { color:'#fcd34d', rgb:'245,158,11',   bg:'rgba(245,158,11,.12)',  border:'rgba(245,158,11,.3)', bgAlts:['#271e07','#2c2409','#2a2108'],  pillBg:'rgba(245,158,11,.28)', exBg:'rgba(245,158,11,.12)'  },
+    prevencion: { color:'#86efac', rgb:'34,197,94',    bg:'rgba(34,197,94,.12)',   border:'rgba(34,197,94,.3)',  bgAlts:['#0c2418','#0e2a1b','#0d271a'],  pillBg:'rgba(34,197,94,.28)',  exBg:'rgba(34,197,94,.12)'   },
   };
 
   let todos = [];
-  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'comercial')  todos = todos.concat(GLOSARIO_COMERCIAL.map(t  => ({...t, glosario:'comercial',  ...META.comercial})));
-  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'financiero') todos = todos.concat(GLOSARIO_FINANCIERO.map(t => ({...t, glosario:'financiero', ...META.financiero})));
-  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'logistica')  todos = todos.concat(GLOSARIO_LOGISTICA.map(t  => ({...t, glosario:'logistica',  ...META.logistica})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'comercial')   todos = todos.concat(GLOSARIO_COMERCIAL.map(t   => ({...t, glosario:'comercial',  ...META.comercial})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'financiero')  todos = todos.concat(GLOSARIO_FINANCIERO.map(t  => ({...t, glosario:'financiero', ...META.financiero})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'logistica')   todos = todos.concat(GLOSARIO_LOGISTICA.map(t   => ({...t, glosario:'logistica',  ...META.logistica})));
+  if (estudiaTabActivo === 'todos' || estudiaTabActivo === 'prevencion')  todos = todos.concat(GLOSARIO_PREVENCION.map(t  => ({...t, glosario:'prevencion', ...META.prevencion})));
 
   if (estudiaQueryActiva) {
     const q = estudiaQueryActiva;
-    todos = todos.filter(t => t.termino.toLowerCase().includes(q) || t.def.toLowerCase().includes(q) || t.ejemplo.toLowerCase().includes(q) || t.seccion.toLowerCase().includes(q));
+    todos = todos.filter(t => t.termino.toLowerCase().includes(q) || t.def.toLowerCase().includes(q) || (t.ejemplo && t.ejemplo.toLowerCase().includes(q)) || t.seccion.toLowerCase().includes(q));
   }
 
   if (label) {
-    const base = { todos:`77 términos — todos los glosarios`, comercial:'Glosario Comercial · 4 secciones · 26 términos', financiero:'Glosario Financiero · 5 secciones · 25 términos', logistica:'Terminología Logística · 5 secciones · 26 términos' };
+    const base = { todos:`97 términos — todos los glosarios`, comercial:'Glosario Comercial · 4 secciones · 26 términos', financiero:'Glosario Financiero · 5 secciones · 25 términos', logistica:'Terminología Logística · 5 secciones · 26 términos', prevencion:'Glosario de Prevención · 3 secciones · 20 términos' };
     label.textContent = estudiaQueryActiva ? `${todos.length} resultado${todos.length !== 1 ? 's' : ''} para "${estudiaQueryActiva}"` : (base[estudiaTabActivo] || '');
   }
 
@@ -5633,13 +5674,18 @@ function estudiaRenderizar() {
       <!-- Definición -->
       <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.7;margin-bottom:.8rem;flex:1;">${t.def}</div>
 
+      ${t.ejemplo ? `
       <!-- Ejemplo — callout estilo Shopify -->
       <div class="eex" style="background:${t.exBg};border-top-color:${t.color};color:rgba(255,255,255,.72);">
         <div style="display:flex;gap:.4rem;align-items:flex-start;">
           <span style="font-weight:800;color:${t.color};font-size:.75rem;margin-top:.05rem;flex-shrink:0;">→</span>
           <span style="font-size:.73rem;line-height:1.6;">${t.ejemplo}</span>
         </div>
-      </div>
+      </div>` : ''}
+
+      ${t.fuente ? `
+      <!-- Fuente oficial -->
+      <a href="${t.fuente}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:.62rem;font-weight:700;color:${t.color};background:${t.exBg};border:1px solid ${t.border};border-radius:6px;padding:5px 10px;text-decoration:none;margin-top:.6rem;align-self:flex-start;" onclick="event.stopPropagation()">🔗 Ver fuente oficial →</a>` : ''}
 
     </div>`;
   });
