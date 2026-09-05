@@ -15431,11 +15431,13 @@ function mostrarPaneVIP() {
   // Siempre reiniciar al selector de entrada (Zona Cliente / GOVAK)
   if (typeof volverSelectorVIP === 'function') volverSelectorVIP();
   const tipo = u.tipo || '';
-  if (tipo === 'comprador' || tipo === 'admin' || tipo === 'proveedor') {
+  // 'prevencionista' se unifica con el resto de clientes: la zona dedicada
+  // (vipZonaPrevencionista) solo tenía 2 tarjetas de "Próximamente" sin funcionalidad real,
+  // mientras que vipZonaComprador ya tiene Manuales, Matriz EPP, Estudia, glosarios,
+  // Infogramas y BuscaIgni completamente funcionales. Todos los clientes VIP ven lo mismo.
+  if (tipo === 'comprador' || tipo === 'admin' || tipo === 'proveedor' || tipo === 'prevencionista') {
     document.getElementById('vipZonaComprador').style.display = 'block';
     iniciarZonaComprador();
-  } else if (tipo === 'prevencionista') {
-    document.getElementById('vipZonaPrevencionista').style.display = 'block';
   } else {
     const el = document.getElementById('vipZonaSinAsignar');
     if (el) el.style.display = 'block';
