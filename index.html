@@ -13111,7 +13111,8 @@ function showTab(tab, skipAuth=false) {
     showAdminLogin();
     return;
   }
-  if (tab === 'industrias' && !indUnlocked && !skipAuth) {
+  if (tab === 'industrias' && !indUnlocked && !vipUsuarioActual && !skipAuth) {
+    // Si ya hay una sesión VIP activa (cliente o GOVAK), no se pide una segunda clave.
     showIndLogin();
     return;
   }
