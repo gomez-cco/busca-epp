@@ -3304,7 +3304,7 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
           <div style="font-weight:800;color:var(--text);font-size:1rem;">Zona Cliente</div>
           <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Manuales, matrices EPP, glosarios y BuscaIgni</div>
         </div>
-        <div onclick="entrarZonaVIP('govak')" style="cursor:pointer;background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.6rem 1.2rem;text-align:center;transition:border-color .15s,transform .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <div id="vipBannerGovak" onclick="entrarZonaVIP('govak')" style="cursor:pointer;background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.6rem 1.2rem;text-align:center;transition:border-color .15s,transform .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
           <div style="font-size:2.2rem;margin-bottom:.5rem;">🏭</div>
           <div style="font-weight:800;color:var(--text);font-size:1rem;">GOVAK</div>
           <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">Fichas, proveedores, licitaciones y proyectos — equipo interno</div>
@@ -15266,7 +15266,8 @@ async function loginVIP() {
       const vencimiento = found.vencimiento || 0;
       if (hoy > vencimiento) { errEl.style.display = 'block'; errEl.textContent = '⏰ Tu acceso VIP venció. Contacta al administrador para renovar.'; return; }
       const diasRestantes = Math.ceil((vencimiento - hoy) / 86400000);
-      vipUsuarioActual = { email: found.email, nombre: found.nombre, tipo: found.tipo, diasRestantes, _id: found._id };
+      // esGovak SIEMPRE false: este es el ingreso de clientes (solo correo, sin contraseña).
+      vipUsuarioActual = { email: found.email, nombre: found.nombre, tipo: found.tipo, diasRestantes, _id: found._id, esGovak: false };
       sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
       cerrarVIPModal();
       mostrarPaneVIP();
@@ -15284,7 +15285,7 @@ async function loginVIP() {
   const passHashInd = await hashPass(pass);
   if (email === IND_EMAIL && passHashInd === IND_PASS_HASH) {
     indUnlocked = true;
-    vipUsuarioActual = { email, nombre: '⭐ Usuario Industrias', tipo: 'admin', diasRestantes: 9999 };
+    vipUsuarioActual = { email, nombre: '⭐ Usuario Industrias', tipo: 'admin', diasRestantes: 9999, esGovak: true };
     sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
     cerrarVIPModal();
     mostrarPaneVIP();
@@ -15293,7 +15294,7 @@ async function loginVIP() {
 
   // Clave maestra admin
   if (pass === VIP_MASTER_PASS) {
-    vipUsuarioActual = { email, nombre: '⚙️ Administrador', tipo: 'admin', diasRestantes: 9999 };
+    vipUsuarioActual = { email, nombre: '⚙️ Administrador', tipo: 'admin', diasRestantes: 9999, esGovak: true };
     sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
     cerrarVIPModal();
     mostrarPaneVIP();
@@ -15320,7 +15321,8 @@ async function loginVIP() {
     if (hoy > vencimiento) { errEl.style.display = 'block'; errEl.textContent = '⏰ Tu acceso VIP venció. Contacta al administrador para renovar.'; return; }
 
     const diasRestantes = Math.ceil((vencimiento - hoy) / 86400000);
-    vipUsuarioActual = { email: found.email, nombre: found.nombre, tipo: found.tipo, diasRestantes, _id: found._id };
+    // esGovak SIEMPRE true: a este bloque solo se llega ingresando contraseña (selector GOVAK).
+    vipUsuarioActual = { email: found.email, nombre: found.nombre, tipo: found.tipo, diasRestantes, _id: found._id, esGovak: true };
     sessionStorage.setItem('buscaepp_vip', JSON.stringify(vipUsuarioActual));
     cerrarVIPModal();
     mostrarPaneVIP();
@@ -15406,6 +15408,10 @@ function mostrarPaneVIP() {
   document.getElementById('vipEmailUsuario').textContent  = u.email;
   document.getElementById('vipBienvenida').textContent    = `Bienvenido, ${u.nombre} 👋`;
 
+  // Ocultar el banner GOVAK a cualquiera que no haya entrado con contraseña de equipo interno
+  const bannerGovak = document.getElementById('vipBannerGovak');
+  if (bannerGovak) bannerGovak.style.display = u.esGovak ? '' : 'none';
+
   // Días restantes
   const diasEl = document.getElementById('vipDiasRestantes');
   if (u.diasRestantes < 9999) {
@@ -15453,6 +15459,10 @@ function vipSubTab(tab, btn) {
 
 // ── Selector de entrada VIP: Zona Cliente / GOVAK ───────────
 function entrarZonaVIP(zona) {
+  if (zona === 'govak' && !(vipUsuarioActual && vipUsuarioActual.esGovak)) {
+    alert('⛔ Esta sección es exclusiva del equipo GOVAK.');
+    return;
+  }
   document.getElementById('vipSelectorEntrada').style.display = 'none';
   document.getElementById('vipZonaGovakIntro').style.display = zona === 'govak' ? 'block' : 'none';
   document.getElementById('vipZonaClienteWrap').style.display = 'block';
@@ -15879,8 +15889,8 @@ function buscarFichaVIP(q) {
   const res = document.getElementById('vipFichasResultados');
   const termino = q.toLowerCase().trim();
   const productos = termino.length < 2
-    ? PRODUCTS.slice(0, 12)
-    : PRODUCTS.filter(p =>
+    ? products.slice(0, 12)
+    : products.filter(p =>
         p.name.toLowerCase().includes(termino) ||
         (p.tags || []).some(t => t.includes(termino)) ||
         (p.desc || '').toLowerCase().includes(termino)
@@ -15923,7 +15933,7 @@ function renderVipFamilias() {
 function filtrarCategoriaVIP(familia, btn) {
   document.querySelectorAll('#vipFamiliasBtns .calc-btn').forEach(b => b.classList.remove('selected'));
   if (btn) btn.classList.add('selected');
-  const prods = PRODUCTS.filter(p => p.family === familia).slice(0, 30);
+  const prods = products.filter(p => p.family === familia).slice(0, 30);
   document.getElementById('vipCategoriasResultados').innerHTML =
     prods.length === 0
       ? '<div style="text-align:center;padding:1.5rem;color:var(--muted);">Sin productos en esta categoría</div>'
@@ -15948,7 +15958,7 @@ function buscarProveedoresVIP(q) {
   const res = document.getElementById('vipProvResultados');
   if (!q || q.length < 2) { res.innerHTML = ''; return; }
   const termino = q.toLowerCase();
-  const prods = PRODUCTS.filter(p =>
+  const prods = products.filter(p =>
     p.name.toLowerCase().includes(termino) || (p.tags||[]).some(t => t.includes(termino))
   ).slice(0, 5);
 
@@ -15973,7 +15983,7 @@ function buscarProveedoresVIP(q) {
 
 // ── Lista de compra VIP ────────────────────────────────────
 function agregarAListaVIP(id) {
-  const p = PRODUCTS.find(pr => pr.id === id);
+  const p = products.find(pr => pr.id === id);
   if (!p) return;
   if (vipListaCompra.find(i => i.id === id)) { showToast('Ya está en tu lista'); return; }
   vipListaCompra.push({ id: p.id, name: p.name, family: p.family, desc: p.desc });
