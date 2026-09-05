@@ -16692,10 +16692,8 @@ async function aprobarUsuarioVIP() {
       ts: Date.now()
     });
     if (solId) await updateDoc(doc(db, 'vip_solicitudes', solId), { estado: 'aprobado' });
-    // Ya no se abre WhatsApp automáticamente — el acceso queda aprobado directo en la página.
-    // Se deja un enlace opcional por si igual quieres avisarle al cliente por WhatsApp.
-    const msg = encodeURIComponent(`✅ *VIP Aprobado — BuscaEPP*\n\n👤 ${nombre} (${empresa})\n📧 Ingresa con este correo en Zona VIP → Acceso a Clientes: ${email}\n⏳ Acceso por ${dias} días\n\nNo necesitas contraseña, solo tu correo.`);
-    msgEl.innerHTML = `<span style="color:#4ade80;">✅ Usuario creado — accede solo con su correo.</span> <a href="https://wa.me/?text=${msg}" target="_blank" rel="noopener" style="margin-left:.6rem;color:#25D366;text-decoration:underline;">📲 Notificar por WhatsApp (opcional)</a>`;
+    // Aprobación 100% en la página — sin WhatsApp, ni automático ni como opción.
+    msgEl.innerHTML = '<span style="color:#4ade80;">✅ Usuario creado — accede solo con su correo.</span>';
     ['vipAdmNombre','vipAdmEmpresa','vipAdmEmail','vipAdmPass'].forEach(id => {
       const el = document.getElementById(id);
       el.value = ''; el.dataset.solId = '';
