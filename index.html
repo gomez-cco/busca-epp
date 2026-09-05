@@ -8997,7 +8997,10 @@ function descargarInformeAccidentabilidad() {
 
       <!-- Lista usuarios activos -->
       <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem;">
-        <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;letter-spacing:.5px;">👥 USUARIOS ACTIVOS</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem;">
+          <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);letter-spacing:.5px;">👥 USUARIOS ACTIVOS</div>
+          <button onclick="limpiarVencidosVIP()" style="background:rgba(107,114,128,.15);color:#9ca3af;border:1px solid rgba(107,114,128,.3);border-radius:6px;padding:3px 10px;cursor:pointer;font-size:.72rem;">🧹 Borrar vencidos/bloqueados</button>
+        </div>
         <div id="adminVipUsuarios" style="font-size:.82rem;color:var(--muted);">Cargando...</div>
       </div>
     </div>
@@ -16647,6 +16650,7 @@ async function cargarAdminVIP() {
           <div style="display:flex;gap:.4rem;">
             <button onclick="renovarVIP('${u._id}')" style="background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🔄 +30d</button>
             <button onclick="bloquearVIP('${u._id}')" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">⛔ Bloquear</button>
+            <button onclick="borrarVIP('${u._id}','${(u.nombre||'').replace(/'/g,"\\'")}')" style="background:rgba(107,114,128,.15);color:#9ca3af;border:1px solid rgba(107,114,128,.3);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;">🗑️ Borrar</button>
           </div></div>`;
       }).join('');
     }
@@ -16722,6 +16726,31 @@ async function bloquearVIP(uid) {
   const { db, updateDoc, doc } = window._FB;
   await updateDoc(doc(db, 'vip_usuarios', uid), { estado: 'bloqueado', vencimiento: 0 });
   showToast('⛔ Usuario bloqueado');
+  cargarAdminVIP();
+}
+
+async function borrarVIP(uid, nombre) {
+  if (!confirm(`¿Borrar definitivamente el acceso de "${nombre}"? Esta acción no se puede deshacer.`)) return;
+  const { db, deleteDoc, doc } = window._FB;
+  await deleteDoc(doc(db, 'vip_usuarios', uid));
+  showToast('🗑️ Usuario eliminado');
+  cargarAdminVIP();
+}
+
+async function limpiarVencidosVIP() {
+  const { db, collection, getDocs, deleteDoc, doc } = window._FB;
+  const snap = await getDocs(collection(db, 'vip_usuarios'));
+  const hoy = Date.now();
+  const aBorrar = snap.docs.filter(d => {
+    const u = d.data();
+    return u.estado === 'bloqueado' || (u.vencimiento || 0) < hoy;
+  });
+  if (!aBorrar.length) { showToast('✅ No hay vencidos ni bloqueados para borrar'); return; }
+  if (!confirm(`¿Borrar ${aBorrar.length} usuario(s) vencido(s) o bloqueado(s)? Esta acción no se puede deshacer.`)) return;
+  for (const d of aBorrar) {
+    await deleteDoc(doc(db, 'vip_usuarios', d.id));
+  }
+  showToast(`🗑️ ${aBorrar.length} usuario(s) eliminado(s)`);
   cargarAdminVIP();
 }
 
