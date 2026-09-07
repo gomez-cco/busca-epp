@@ -15298,7 +15298,12 @@ async function loginVIP() {
   if (!email || !pass) { errEl.style.display = 'block'; errEl.textContent = '❌ Completa todos los campos'; return; }
 
   // Credenciales Industrias → acceso VIP directo
-  const passHashInd = await hashPass(pass);
+  // El hash se calcula dentro de un try/catch: si crypto.subtle no está disponible
+  // en el navegador (pasaba en algunos navegadores/webviews de celular), antes esto
+  // lanzaba un error y cortaba loginVIP() ANTES de siquiera revisar la clave maestra
+  // de abajo — por eso "buscaepp2026" podía fallar en el celular sin mostrar ningún error.
+  let passHashInd = '';
+  try { passHashInd = await hashPass(pass); } catch(e) { console.warn('hashPass falló, se sigue sin hash:', e); }
   if (email === IND_EMAIL && passHashInd === IND_PASS_HASH) {
     indUnlocked = true;
     vipUsuarioActual = { email, nombre: '⭐ Usuario Industrias', tipo: 'admin', diasRestantes: 9999, esGovak: true };
