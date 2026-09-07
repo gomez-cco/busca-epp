@@ -3253,7 +3253,10 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
       <div id="vipPanelLogin">
         <div id="vipGovakEmailLabel" style="display:none;font-size:.85rem;color:var(--text);text-align:center;margin-bottom:.7rem;background:var(--surface2);border-radius:8px;padding:.6rem;">Ingresando como <strong id="vipGovakEmailTexto"></strong></div>
         <input id="vipEmail" type="email" class="vip-input" placeholder="Tu email" autocomplete="username">
-        <input id="vipPass" type="password" class="vip-input" placeholder="Contraseña" autocomplete="current-password">
+        <div style="position:relative;">
+          <input id="vipPass" type="password" class="vip-input" placeholder="Contraseña" autocomplete="current-password" style="padding-right:44px;">
+          <button type="button" id="vipPassToggle" onclick="toggleVipPass()" style="position:absolute;right:12px;top:14px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem;line-height:1;">👁</button>
+        </div>
         <div class="vip-error" id="vipError">❌ Email o contraseña incorrectos</div>
         <button class="vip-btn" onclick="loginVIP()">🔓 INGRESAR</button>
         <div id="vipSolicitarLink" style="text-align:center;margin-top:.8rem;font-size:.75rem;color:var(--muted);">
@@ -15243,6 +15246,15 @@ function cerrarVIPModal() {
   if (!vipUsuarioActual) showTab('epp');
 }
 
+
+// ── Mostrar/ocultar contraseña VIP ──────────────────────────
+function toggleVipPass() {
+  const inp = document.getElementById('vipPass');
+  const btn = document.getElementById('vipPassToggle');
+  if (!inp) return;
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+}
 
 // ── Login VIP (Firebase) ───────────────────────────────────
 async function loginVIP() {
