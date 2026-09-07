@@ -3345,25 +3345,6 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
       </div>
     </div>
 
-    <!-- Encabezado funcional — las opciones SON el encabezado -->
-    <div class="scroll-fade-stagger" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
-      <div onclick="toggleNovedadesVIP()" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="font-size:1.7rem;margin-bottom:.3rem;">📅</div>
-        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Novedades Normativas</div>
-        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Última verificación: 21 ago 2026 — clic para ver</div>
-      </div>
-      <div onclick="irASubVIP('docs')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="font-size:1.7rem;margin-bottom:.3rem;">📄</div>
-        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Documentos listos</div>
-        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Genera matrices y protocolos de EPP en minutos</div>
-      </div>
-      <div onclick="irASubVIP('estudia')" class="card-lift" style="cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1rem;text-align:center;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="font-size:1.7rem;margin-bottom:.3rem;">🎓</div>
-        <div style="font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:.2rem;">Estudia con BuscaEPP</div>
-        <div style="font-size:.72rem;color:var(--muted);line-height:1.4;">Glosarios técnicos, comerciales y de prevención</div>
-      </div>
-    </div>
-
     <!-- Novedades Normativas — detalle, colapsado por defecto -->
     <div id="vipNovedadesDetalle" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.5rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem;">
@@ -3407,7 +3388,9 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
     <div id="vipZonaComprador" style="display:none;">
 
       <!-- Sub-tabs — Zona Cliente -->
+      <div id="vipMenuClienteLabel" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:.6rem;">📋 MENÚ</div>
       <div id="vipMenuCliente" class="vipMenuRow" style="display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <button onclick="toggleNovedadesVIP()" class="calc-btn" style="font-size:.8rem;">📅 Novedades Normativas</button>
         <button onclick="vipSubTab('manuales',this)" class="calc-btn selected" style="font-size:.8rem;">📚 Manuales EPP</button>
         <button onclick="vipSubTab('docs',this)" class="calc-btn" style="font-size:.8rem;">📄 Generar Matriz de EPP</button>
         <button onclick="vipSubTab('estudia',this)" class="calc-btn" style="font-size:.8rem;">📚 Estudia con BuscaEPP</button>
@@ -3419,7 +3402,9 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
       </div>
 
       <!-- Sub-tabs — Zona GOVAK (equipo interno) -->
+      <div id="vipMenuGovakLabel" style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:.6rem;display:none;">📋 MENÚ</div>
       <div id="vipMenuGovak" class="vipMenuRow" style="display:none;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <button onclick="toggleNovedadesVIP()" class="calc-btn" style="font-size:.8rem;">📅 Novedades Normativas</button>
         <button onclick="vipSubTab('fichas',this)" class="calc-btn selected" style="font-size:.8rem;">🔍 Buscador de Fichas</button>
         <button onclick="vipSubTab('categorias',this)" class="calc-btn" style="font-size:.8rem;">📦 Por Categoría</button>
         <button onclick="vipSubTab('proveedores',this)" class="calc-btn" style="font-size:.8rem;">🏭 Comparar Proveedores</button>
@@ -15557,8 +15542,12 @@ function entrarZonaVIP(zona) {
   document.getElementById('vipZonaClienteWrap').style.display = 'block';
   const menuCliente = document.getElementById('vipMenuCliente');
   const menuGovak = document.getElementById('vipMenuGovak');
+  const menuClienteLabel = document.getElementById('vipMenuClienteLabel');
+  const menuGovakLabel = document.getElementById('vipMenuGovakLabel');
   if (menuCliente) menuCliente.style.display = zona === 'cliente' ? 'flex' : 'none';
   if (menuGovak) menuGovak.style.display = zona === 'govak' ? 'flex' : 'none';
+  if (menuClienteLabel) menuClienteLabel.style.display = zona === 'cliente' ? '' : 'none';
+  if (menuGovakLabel) menuGovakLabel.style.display = zona === 'govak' ? '' : 'none';
   if (typeof vipSubTab === 'function') {
     vipSubTab(zona === 'govak' ? 'fichas' : 'manuales', null);
   }
