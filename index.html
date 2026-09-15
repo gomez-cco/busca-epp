@@ -3471,6 +3471,7 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
         <button onclick="showTab('infogramas')" class="calc-btn" style="font-size:.8rem;">📊 Infogramas BuscaEPP</button>
         <button onclick="vipSubTab('trinorma',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.05));color:#c4b5fd;border-color:rgba(139,92,246,.45);font-weight:700;">🔺 Tri-Norma ISO</button>
         <button onclick="vipSubTab('noconformidades',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(244,63,94,.2),rgba(244,63,94,.05));color:#fda4af;border-color:rgba(244,63,94,.45);font-weight:700;">⚠️ No Conformidades</button>
+        <button onclick="vipSubTab('prevencion',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(100,116,139,.28),rgba(100,116,139,.08));color:#e2e8f0;border-color:rgba(148,163,184,.5);font-weight:700;">🦺 Documentos Prevencionista</button>
       </div>
 
       <!-- Sub-tabs — Zona GOVAK (equipo interno) -->
@@ -3495,6 +3496,7 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
         <button onclick="showTab('infogramas')" class="calc-btn" style="font-size:.8rem;">📊 Infogramas BuscaEPP</button>
         <button onclick="vipSubTab('trinorma',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.05));color:#c4b5fd;border-color:rgba(139,92,246,.45);font-weight:700;">🔺 Tri-Norma ISO</button>
         <button onclick="vipSubTab('noconformidades',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(244,63,94,.2),rgba(244,63,94,.05));color:#fda4af;border-color:rgba(244,63,94,.45);font-weight:700;">⚠️ No Conformidades</button>
+        <button onclick="vipSubTab('prevencion',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(100,116,139,.28),rgba(100,116,139,.08));color:#e2e8f0;border-color:rgba(148,163,184,.5);font-weight:700;">🦺 Documentos Prevencionista</button>
       </div>
 
       <!-- Buscador de fichas técnicas -->
@@ -4109,6 +4111,451 @@ function generarGuiaNoConformidades() {
   showToast('Guia descargada');
 }
 
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- ══ ZONA PREVENCIONISTA — GENERADORES DE DOCUMENTOS EDITABLES ══ -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<style>
+  /* Selector de documentos */
+  .pv-card { cursor:pointer; background:var(--card); border:2px solid var(--border); border-radius:14px; padding:1rem .9rem; transition:transform .15s,border-color .15s; }
+  .pv-card:hover { transform:translateY(-2px); }
+  .pv-card-activa { border-color:#94a3b8 !important; box-shadow:0 0 0 1px rgba(148,163,184,.3); }
+  /* La "hoja" de documento: fondo claro, texto oscuro — máximo contraste, distinto del tema oscuro del sitio */
+  .pv-page {
+    background:#fffdf8; color:#1c1408; max-width:100%; box-sizing:border-box;
+    border-radius:10px; padding:1.8rem 2rem; line-height:1.65; font-size:.92rem;
+    box-shadow:0 4px 22px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.06);
+    font-family:'DM Sans',Calibri,Arial,sans-serif;
+  }
+  .pv-page:focus { outline:2px solid #64748b; outline-offset:3px; }
+  .pv-page h2 { color:#7c2d12; font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-weight:800; font-size:1.25rem; margin:0 0 2px; letter-spacing:.2px; }
+  .pv-page h3 { color:#92400e; font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-weight:800; font-size:1rem; margin:1.15rem 0 .4rem; border-bottom:2px solid #fde68a; padding-bottom:3px; }
+  .pv-page p { margin:.35rem 0; color:#1c1408; }
+  .pv-page ul, .pv-page ol { margin:.3rem 0 .5rem; padding-left:1.3rem; color:#1c1408; }
+  .pv-page li { margin-bottom:.2rem; }
+  .pv-page table { border-collapse:collapse; width:100%; margin:.5rem 0 .8rem; font-size:.82rem; }
+  .pv-page th { background:#78350f; color:#fff7ed; border:1px solid #78350f; padding:7px 8px; text-align:left; font-weight:700; }
+  .pv-page td { border:1px solid #d6c9ad; padding:7px 8px; vertical-align:top; color:#1c1408; background:#fffefb; }
+  .pv-meta { font-size:.74rem; color:#6b5d3f; margin:.15rem 0 .9rem; border-bottom:1px solid #ecd9a8; padding-bottom:.6rem; }
+  .pv-disc { font-size:.68rem; color:#8a5a00; background:#fef3c7; border:1px solid #fde68a; border-radius:6px; padding:.55rem .7rem; margin-top:1rem; }
+  .pv-input { width:100%; box-sizing:border-box; background:var(--surface2); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:.55rem .75rem; font-size:.8rem; font-family:'DM Sans',sans-serif; }
+  .pv-label { font-size:.72rem; color:var(--muted); font-weight:700; display:block; margin-bottom:.25rem; }
+</style>
+<div id="vipSubPrevencion" style="display:none;">
+  <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:800;color:#cbd5e1;margin-bottom:.3rem;letter-spacing:.5px;">🦺 DOCUMENTOS PARA PREVENCIONISTAS</div>
+  <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.3rem;max-width:640px;">Completa los datos de tu empresa, revisa y <strong style="color:var(--text);">edita directamente el texto</strong> en la vista previa (haz clic dentro y escribe) y luego descarga en Word. Todos los documentos son de referencia técnica — antes de usarlos formalmente, valida la redacción con tu equipo legal o un profesional de prevención habilitado.</p>
+
+  <div id="pvGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.7rem;margin-bottom:1.8rem;"></div>
+  <div id="pvPaneles"></div>
+</div>
+<script>
+(function(){
+  const PV_FECHA = new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' });
+
+  function pvFila(cols){
+    return '<tr>' + cols.map(function(c){ return '<td>'+c+'</td>'; }).join('') + '</tr>';
+  }
+  function pvEnc(cols){
+    return '<tr>' + cols.map(function(c){ return '<th>'+c+'</th>'; }).join('') + '</tr>';
+  }
+  function pvVal(d, key, txt){ return d[key] ? d[key] : '[Completar '+txt+']'; }
+
+  const PV_DOCS = [
+
+  // ── 1. RIOHS ─────────────────────────────────────────────
+  { id:'riohs', icono:'📕', titulo:'Reglamento Interno de Orden, Higiene y Seguridad (RIOHS)',
+    resumen:'Obligatorio en empresas de 10+ trabajadores. Código del Trabajo y DS N°44/2023.',
+    campos:[
+      {id:'empresa', label:'Razón social', placeholder:'Ej: Minera Los Andes SpA'},
+      {id:'rut', label:'RUT empresa', placeholder:'Ej: 76.123.456-7'},
+      {id:'giro', label:'Giro', placeholder:'Ej: Servicios de seguridad industrial'},
+      {id:'domicilio', label:'Domicilio', placeholder:'Ej: Av. Principal 123, Curicó'},
+    ],
+    plantilla: function(d){
+      return '<h2>Reglamento Interno de Orden, Higiene y Seguridad</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','razón social')+'</strong> · RUT: '+pvVal(d,'rut','RUT')+' · Giro: '+pvVal(d,'giro','giro')+' · Domicilio: '+pvVal(d,'domicilio','domicilio')+' · Fecha de elaboración: '+PV_FECHA+'</p>'
+      +'<h3>Título I — Disposiciones generales</h3>'
+      +'<p>El presente Reglamento Interno regula las condiciones, requisitos, derechos, obligaciones y prohibiciones a que deben sujetarse '+pvVal(d,'empresa','la empresa')+' y todos sus trabajadores, en conformidad con el Código del Trabajo y sus modificaciones, incluyendo la Ley N°21.643 (Ley Karin).</p>'
+      +'<h3>Título II — Jornada de trabajo</h3>'
+      +'<p>[Completar: jornada ordinaria, horarios de colación, turnos, sistema de control de asistencia.]</p>'
+      +'<h3>Título III — Obligaciones de los trabajadores</h3>'
+      +'<ul><li>Cumplir con las instrucciones y normas de higiene y seguridad impartidas por la empresa.</li>'
+      +'<li>Usar correctamente los Elementos de Protección Personal (EPP) entregados.</li>'
+      +'<li>Informar de inmediato cualquier condición insegura, accidente o incidente.</li>'
+      +'<li>Someterse a los exámenes de vigilancia de la salud que correspondan (PLANESI, PREXOR, TMERT, entre otros según exposición).</li></ul>'
+      +'<h3>Título IV — Prohibiciones</h3>'
+      +'<ul><li>Trabajar bajo la influencia del alcohol o drogas.</li><li>Retirar, modificar o anular dispositivos de seguridad de máquinas o EPP.</li>'
+      +'<li>Ejecutar trabajos sin la autorización o supervisión correspondiente.</li></ul>'
+      +'<h3>Título V — Higiene y seguridad</h3>'
+      +'<p>La empresa entregará gratuitamente los EPP necesarios según la evaluación de riesgos de cada puesto de trabajo, conforme al DS N°44/2023 del Ministerio del Trabajo (que deroga los antiguos DS N°40 y DS N°54 de 1969), y verificará su uso correcto y permanente.</p>'
+      +'<h3>Título VI — Prevención del acoso laboral, sexual y violencia en el trabajo (Ley Karin)</h3>'
+      +'<p>[Completar: canal de denuncias, procedimiento de investigación interna, plazos, medidas de resguardo.]</p>'
+      +'<h3>Título VII — Sanciones</h3>'
+      +'<p>El incumplimiento de las obligaciones de este reglamento será sancionado según la gravedad de la falta, pudiendo llegar a la terminación del contrato de trabajo por las causales del Art. 160 del Código del Trabajo.</p>'
+      +'<h3>Título VIII — Procedimiento de reclamos (Ley N°16.744)</h3>'
+      +'<p>Todo trabajador que sufra un accidente del trabajo o enfermedad profesional podrá reclamar ante los organismos administradores de la Ley N°16.744 conforme al Art. 76 de dicha ley.</p>'
+      +'<div class="pv-disc">⚠️ Plantilla referencial. El RIOHS es un documento exigible por la Dirección del Trabajo: antes de publicarlo, revisa su redacción con un abogado laboral o prevencionista habilitado, y completa los títulos marcados como [Completar].</div>';
+    }
+  },
+
+  // ── 2. Reglamento especial contratistas ────────────────
+  { id:'contratistas', icono:'🏗️', titulo:'Reglamento Especial para Empresas Contratistas y Subcontratistas',
+    resumen:'Coordinación de seguridad en régimen de subcontratación. Ley N°20.123, Art. 66 bis Ley N°16.744.',
+    campos:[
+      {id:'mandante', label:'Empresa mandante', placeholder:'Ej: GOVAK SpA'},
+      {id:'rut', label:'RUT mandante', placeholder:'Ej: 76.123.456-7'},
+      {id:'faena', label:'Faena / obra', placeholder:'Ej: Planta de proceso Curicó'},
+    ],
+    plantilla: function(d){
+      return '<h2>Reglamento Especial para Empresas Contratistas y Subcontratistas</h2>'
+      +'<p class="pv-meta">Empresa mandante: <strong>'+pvVal(d,'mandante','empresa mandante')+'</strong> · RUT: '+pvVal(d,'rut','RUT')+' · Faena/obra: '+pvVal(d,'faena','faena')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<h3>1. Objetivo</h3>'
+      +'<p>Regular la coordinación de las actividades de prevención de riesgos entre '+pvVal(d,'mandante','la empresa mandante')+' y las empresas contratistas y subcontratistas que presten servicios en sus faenas, en conformidad con la Ley N°20.123 y el Art. 66 bis de la Ley N°16.744.</p>'
+      +'<h3>2. Obligaciones de la empresa principal (mandante)</h3>'
+      +'<ul><li>Vigilar el cumplimiento de las normas de higiene y seguridad de todos los trabajadores, propios y de terceros, en la faena.</li>'
+      +'<li>Constituir Comité Paritario de Faena y Departamento de Prevención de Riesgos de Faena cuando el número de trabajadores lo exija.</li>'
+      +'<li>Confeccionar y difundir el Reglamento de Faena.</li></ul>'
+      +'<h3>3. Obligaciones de la empresa contratista/subcontratista</h3>'
+      +'<ul><li>Entregar la Información de Riesgos Laborales (IRL) a cada trabajador antes de iniciar labores.</li>'
+      +'<li>Acreditar entrega y uso de EPP certificados y acordes al riesgo de la faena.</li>'
+      +'<li>Participar del Comité Paritario de Faena y coordinar sus procedimientos con los del mandante.</li>'
+      +'<li>Informar accidentes e incidentes de sus trabajadores al mandante en un plazo máximo de 24 horas.</li></ul>'
+      +'<h3>4. Ingreso a faena</h3>'
+      +'<p>Ningún trabajador de empresa contratista podrá ingresar a faena sin: (a) IRL firmada, (b) inducción de seguridad realizada, (c) EPP certificado entregado y verificado, (d) documentación laboral y previsional al día.</p>'
+      +'<h3>5. Sanciones y paralización de faenas</h3>'
+      +'<p>'+pvVal(d,'mandante','La empresa mandante')+' podrá paralizar labores de la empresa contratista ante incumplimientos graves de seguridad, sin perjuicio de las responsabilidades contractuales que correspondan.</p>'
+      +'<div class="pv-disc">⚠️ Plantilla referencial. Ajusta según el número real de trabajadores en faena (que determina la obligatoriedad del Comité Paritario y Departamento de Prevención de Faena) y valida con asesoría legal.</div>';
+    }
+  },
+
+  // ── 3. Procedimiento de Trabajo Seguro ─────────────────
+  { id:'pts', icono:'📝', titulo:'Procedimiento de Trabajo Seguro (PTS)',
+    resumen:'Genera un PTS editable para cualquier tarea, con pasos, riesgos y controles.',
+    campos:[
+      {id:'tarea', label:'Nombre de la tarea', placeholder:'Ej: Trabajo en altura sobre andamio'},
+      {id:'area', label:'Área / proceso', placeholder:'Ej: Mantención planta'},
+      {id:'elaborado', label:'Elaborado por', placeholder:'Ej: Nombre del prevencionista'},
+    ],
+    plantilla: function(d){
+      return '<h2>Procedimiento de Trabajo Seguro</h2>'
+      +'<p class="pv-meta">Tarea: <strong>'+pvVal(d,'tarea','nombre de la tarea')+'</strong> · Área/proceso: '+pvVal(d,'area','área')+' · Elaborado por: '+pvVal(d,'elaborado','responsable')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<h3>1. Objetivo y alcance</h3>'
+      +'<p>Establecer la secuencia segura de ejecución de la tarea "'+pvVal(d,'tarea','la tarea')+'", aplicable a todo trabajador propio o de empresa contratista que la realice.</p>'
+      +'<h3>2. Elementos de Protección Personal requeridos</h3>'
+      +'<p>[Completar según IPER de la tarea — ej: casco, arnés, calzado de seguridad, guantes, protección visual.]</p>'
+      +'<h3>3. Secuencia de trabajo</h3>'
+      +'<table>'+pvEnc(['N°','Paso','Riesgo asociado','Medida de control'])
+      +pvFila(['1','Verificación de EPP y equipos antes de iniciar','Uso de EPP en mal estado','Inspección visual previa, checklist de EPP'])
+      +pvFila(['2','[Completar paso 2]','[Completar riesgo]','[Completar control]'])
+      +pvFila(['3','[Completar paso 3]','[Completar riesgo]','[Completar control]'])
+      +pvFila(['4','Cierre y orden del área de trabajo','Objetos en tránsito, caída de materiales','Despeje y orden al finalizar la tarea'])
+      +'</table>'
+      +'<h3>4. Responsabilidades</h3>'
+      +'<p>El supervisor directo verifica el cumplimiento de este PTS antes y durante la ejecución de la tarea. El trabajador es responsable de detener la actividad ante cualquier condición insegura.</p>'
+      +'<h3>5. Referencias normativas</h3>'
+      +'<p>DS N°594/1999 (Reglamento sobre condiciones sanitarias y ambientales), DS N°44/2023 (gestión preventiva), y normativa específica según el tipo de tarea (ej. DS N°594 Art. 36 para trabajo en altura).</p>'
+      +'<div class="pv-disc">⚠️ Completa los pasos según el IPER específico de esta tarea en tu faena antes de autorizar su uso.</div>';
+    }
+  },
+
+  // ── 4. Checklist SGSSO ─────────────────────────────────
+  { id:'sgsso', icono:'📊', titulo:'Checklist de Documentos del Sistema de Gestión SST (SGSSO)',
+    resumen:'Verifica qué documentos obligatorios de tu sistema de gestión están al día.',
+    campos:[
+      {id:'empresa', label:'Empresa', placeholder:'Ej: Minera Los Andes SpA'},
+      {id:'revisado', label:'Revisado por', placeholder:'Ej: Nombre del prevencionista'},
+    ],
+    plantilla: function(d){
+      return '<h2>Checklist — Sistema de Gestión de Seguridad y Salud Ocupacional</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','empresa')+'</strong> · Revisado por: '+pvVal(d,'revisado','responsable')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<table>'+pvEnc(['Documento','Estado (Sí / No / En proceso)','Observación'])
+      +pvFila(['Política de Seguridad y Salud en el Trabajo','','' ])
+      +pvFila(['Matriz de identificación legal (normativa aplicable)','',''])
+      +pvFila(['Matriz IPER / MIPER por proceso','',''])
+      +pvFila(['Reglamento Interno de Orden, Higiene y Seguridad (RIOHS)','',''])
+      +pvFila(['Comité Paritario de Higiene y Seguridad constituido','',''])
+      +pvFila(['Programa anual de prevención de riesgos','',''])
+      +pvFila(['Plan de emergencia y respuesta ante incidentes','',''])
+      +pvFila(['Programa de capacitación (con registros de asistencia)','',''])
+      +pvFila(['Procedimientos de trabajo seguro por tarea crítica','',''])
+      +pvFila(['Registro y análisis de accidentes/incidentes','',''])
+      +pvFila(['Protocolos MINSAL aplicables vigentes (PLANESI, PREXOR, etc.)','',''])
+      +pvFila(['Indicadores de gestión SST (tasa de frecuencia/gravedad)','',''])
+      +'</table>'
+      +'<div class="pv-disc">💡 Marca "En proceso" para los documentos que estás elaborando y usa la columna Observación para anotar la fecha comprometida de cierre.</div>';
+    }
+  },
+
+  // ── 5. Matriz IPER/MIPER ───────────────────────────────
+  { id:'iper', icono:'🛡️', titulo:'Matriz de Identificación de Peligros y Evaluación de Riesgos (IPER / MIPER)',
+    resumen:'Matriz de riesgo general por proceso o cargo — distinta a la matriz de EPP.',
+    campos:[
+      {id:'empresa', label:'Empresa', placeholder:'Ej: Minera Los Andes SpA'},
+      {id:'proceso', label:'Área / proceso evaluado', placeholder:'Ej: Bodega y logística'},
+      {id:'elaborado', label:'Elaborado por', placeholder:'Ej: Nombre del prevencionista'},
+    ],
+    plantilla: function(d){
+      return '<h2>Matriz de Identificación de Peligros y Evaluación de Riesgos</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','empresa')+'</strong> · Área/proceso: '+pvVal(d,'proceso','área')+' · Elaborado por: '+pvVal(d,'elaborado','responsable')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<table>'+pvEnc(['Peligro','Riesgo','Probabilidad (1-4)','Severidad (1-4)','Nivel de riesgo','Medida de control'])
+      +pvFila(['Manejo manual de carga','Lesión lumbar / TMERT','3','2','Moderado','Capacitación en manejo manual de carga, uso de ayudas mecánicas'])
+      +pvFila(['Superficies de trabajo en altura','Caída de distinto nivel','2','4','Alto','Arnés certificado, línea de vida, PTS de trabajo en altura'])
+      +pvFila(['[Completar peligro]','[Completar riesgo]','','','','[Completar control]'])
+      +'</table>'
+      +'<p style="font-size:.75rem;color:#6b5d3f;">Escala referencial: Probabilidad 1 (rara vez) a 4 (frecuente) · Severidad 1 (leve) a 4 (fatal) · Nivel de riesgo = Probabilidad × Severidad (1-4 Bajo, 5-9 Moderado, 10-16 Alto).</p>'
+      +'<div class="pv-disc">⚠️ Esta matriz es la base documental del IRL que se entrega a cada trabajador. Actualízala al menos una vez al año o ante cualquier cambio de proceso, equipo o EPP.</div>';
+    }
+  },
+
+  // ── 6. Checklist Protocolos MINSAL ─────────────────────
+  { id:'minsal', icono:'⚕️', titulo:'Checklist de Protocolos de Vigilancia MINSAL',
+    resumen:'PLANESI, PREXOR, radiación UV, riesgo psicosocial, MMC y TMERT, hipobaria intermitente crónica.',
+    campos:[
+      {id:'empresa', label:'Empresa', placeholder:'Ej: Minera Los Andes SpA'},
+      {id:'revisado', label:'Revisado por', placeholder:'Ej: Nombre del prevencionista'},
+    ],
+    plantilla: function(d){
+      return '<h2>Checklist — Protocolos de Vigilancia MINSAL</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','empresa')+'</strong> · Revisado por: '+pvVal(d,'revisado','responsable')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<table>'+pvEnc(['Protocolo','¿Aplica en esta faena?','Riesgo que vigila','Acción de vigilancia requerida'])
+      +pvFila(['PLANESI (Plan de Erradicación de la Silicosis)','','Exposición a sílice cristalina (minería, construcción, hormigón)','Medición ambiental de sílice + vigilancia médica respiratoria'])
+      +pvFila(['PREXOR (Exposición Ocupacional a Ruido)','','Hipoacusia por exposición a ruido','Dosimetría/sonometría + audiometría periódica + protección auditiva'])
+      +pvFila(['Radiación UV ocupacional','','Exposición solar en trabajo a la intemperie','Índice UV diario, EPP (lentes, ropa, protector solar), pausas'])
+      +pvFila(['Riesgo psicosocial (SUSESO-ISTAS21)','','Estrés laboral, organización del trabajo','Aplicación de cuestionario, plan de intervención según resultado'])
+      +pvFila(['TMERT (Trastornos Músculo-Esqueléticos)','','Movimientos repetitivos, posturas forzadas','Evaluación ergonómica, rotación de tareas, pausas activas'])
+      +pvFila(['MMC (Manejo Manual de Carga)','','Lesión lumbar por manejo de carga','Evaluación de peso/frecuencia, ayudas mecánicas, capacitación'])
+      +pvFila(['Hipobaria intermitente crónica','','Trabajo en altitud geográfica (faena en gran altura)','Evaluación médica de altitud, aclimatación, turnos controlados'])
+      +'</table>'
+      +'<div class="pv-disc">⚠️ Marca "Sí" o "No" según la exposición real de cada puesto de trabajo. Un protocolo aplicable sin vigilancia activa es una no conformidad frecuente en auditoría.</div>';
+    }
+  },
+
+  // ── 7. Acta constitución CPHS ──────────────────────────
+  { id:'cphs', icono:'🤝', titulo:'Acta de Constitución del Comité Paritario de Higiene y Seguridad (CPHS)',
+    resumen:'Obligatorio en empresas de 25+ trabajadores. Ley N°16.744, DS N°54.',
+    campos:[
+      {id:'empresa', label:'Empresa', placeholder:'Ej: Minera Los Andes SpA'},
+      {id:'rut', label:'RUT empresa', placeholder:'Ej: 76.123.456-7'},
+      {id:'trabajadores', label:'N° total de trabajadores', placeholder:'Ej: 48'},
+    ],
+    plantilla: function(d){
+      return '<h2>Acta de Constitución del Comité Paritario de Higiene y Seguridad</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','empresa')+'</strong> · RUT: '+pvVal(d,'rut','RUT')+' · N° de trabajadores: '+pvVal(d,'trabajadores','número de trabajadores')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<p>En '+pvVal(d,'empresa','la empresa')+', con fecha '+PV_FECHA+', en cumplimiento del Art. 66 de la Ley N°16.744 y su reglamento (DS N°54), se procede a constituir el Comité Paritario de Higiene y Seguridad, integrado en partes iguales por representantes del empleador y representantes de los trabajadores.</p>'
+      +'<h3>Representantes titulares</h3>'
+      +'<table>'+pvEnc(['Nombre completo','RUT','Cargo','Representa a'])
+      +pvFila(['[Completar]','[Completar]','[Completar]','Empleador'])
+      +pvFila(['[Completar]','[Completar]','[Completar]','Empleador'])
+      +pvFila(['[Completar]','[Completar]','[Completar]','Trabajadores (elegido por votación)'])
+      +pvFila(['[Completar]','[Completar]','[Completar]','Trabajadores (elegido por votación)'])
+      +'</table>'
+      +'<h3>Representantes suplentes</h3>'
+      +'<table>'+pvEnc(['Nombre completo','RUT','Representa a'])
+      +pvFila(['[Completar]','[Completar]','Empleador'])
+      +pvFila(['[Completar]','[Completar]','Trabajadores'])
+      +'</table>'
+      +'<h3>Funciones del comité</h3>'
+      +'<ul><li>Asesorar e instruir a los trabajadores en la correcta utilización de los EPP.</li>'
+      +'<li>Vigilar el cumplimiento de las medidas de prevención de riesgos.</li>'
+      +'<li>Investigar las causas de accidentes del trabajo y enfermedades profesionales.</li>'
+      +'<li>Participar en la selección y validación de nuevos EPP antes de su adopción masiva.</li></ul>'
+      +'<h3>Firmas</h3>'
+      +'<p>______________________________&nbsp;&nbsp;&nbsp;&nbsp;______________________________<br>Representante del empleador&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Representante de los trabajadores</p>'
+      +'<div class="pv-disc">⚠️ La elección de representantes de los trabajadores debe hacerse por votación secreta y directa. Completa los datos reales antes de formalizar el acta.</div>';
+    }
+  },
+
+  // ── 8. Plan de emergencias ──────────────────────────────
+  { id:'emergencia', icono:'🚨', titulo:'Plan de Emergencias',
+    resumen:'Estructura base para evacuación, roles y contactos ante emergencias.',
+    campos:[
+      {id:'empresa', label:'Empresa', placeholder:'Ej: Minera Los Andes SpA'},
+      {id:'faena', label:'Faena / instalación', placeholder:'Ej: Planta Curicó'},
+      {id:'elaborado', label:'Elaborado por', placeholder:'Ej: Nombre del prevencionista'},
+    ],
+    plantilla: function(d){
+      return '<h2>Plan de Emergencias</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','empresa')+'</strong> · Faena/instalación: '+pvVal(d,'faena','faena')+' · Elaborado por: '+pvVal(d,'elaborado','responsable')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<h3>1. Objetivo</h3>'
+      +'<p>Establecer la respuesta organizada de '+pvVal(d,'empresa','la empresa')+' ante emergencias que puedan afectar a personas, instalaciones o el medio ambiente en '+pvVal(d,'faena','la faena')+'.</p>'
+      +'<h3>2. Tipos de emergencia contempladas</h3>'
+      +'<ul><li>Incendio</li><li>Sismo</li><li>Accidente con lesionado grave</li><li>Derrame de sustancias peligrosas</li><li>[Completar otros riesgos propios de la faena]</li></ul>'
+      +'<h3>3. Roles y responsabilidades</h3>'
+      +'<table>'+pvEnc(['Rol','Nombre / cargo','Responsabilidad principal'])
+      +pvFila(['Jefe de emergencia','[Completar]','Coordina la respuesta general y decide evacuación'])
+      +pvFila(['Encargado de evacuación por área','[Completar]','Guía a los trabajadores al punto de encuentro'])
+      +pvFila(['Brigada de primeros auxilios','[Completar]','Atención inicial a lesionados hasta la llegada de ayuda externa'])
+      +pvFila(['Encargado de comunicaciones','[Completar]','Contacta a servicios de emergencia y a la jefatura'])
+      +'</table>'
+      +'<h3>4. Procedimiento de evacuación</h3>'
+      +'<p>Al activarse la alarma, todo el personal debe dirigirse por las vías de evacuación señalizadas hacia el punto de encuentro: <strong>[Completar ubicación del punto de encuentro]</strong>. El encargado de cada área verifica la nómina de personal presente.</p>'
+      +'<h3>5. Teléfonos de emergencia</h3>'
+      +'<table>'+pvEnc(['Servicio','Teléfono'])
+      +pvFila(['Bomberos','132'])
+      +pvFila(['SAMU (ambulancia)','131'])
+      +pvFila(['Carabineros','133'])
+      +pvFila(['Mutualidad (accidentes laborales)','[Completar número]'])
+      +'</table>'
+      +'<h3>6. Simulacros</h3>'
+      +'<p>Se realizarán simulacros de evacuación con una frecuencia mínima de [Completar: ej. semestral], dejando registro de asistencia y observaciones de mejora.</p>'
+      +'<div class="pv-disc">⚠️ Plantilla base. Ajusta los riesgos y rutas de evacuación según el layout real de tu faena e incorpora un plano de evacuación como anexo.</div>';
+    }
+  },
+
+  // ── 9. Formato ingreso contratistas ────────────────────
+  { id:'ingreso', icono:'📋', titulo:'Formato de Ingreso de Trabajador Contratista',
+    resumen:'IRL, recepción de reglamentos, entrega de EPP y difusión — todo en un solo formato.',
+    campos:[
+      {id:'trabajador', label:'Nombre del trabajador', placeholder:'Ej: Juan Pérez González'},
+      {id:'rut', label:'RUT trabajador', placeholder:'Ej: 12.345.678-9'},
+      {id:'empresa', label:'Empresa contratista', placeholder:'Ej: Servicios Industriales Ltda.'},
+      {id:'cargo', label:'Cargo', placeholder:'Ej: Ayudante de bodega'},
+      {id:'faena', label:'Faena de destino', placeholder:'Ej: Planta Curicó'},
+    ],
+    plantilla: function(d){
+      return '<h2>Formato de Ingreso de Trabajador Contratista</h2>'
+      +'<p class="pv-meta">Trabajador: <strong>'+pvVal(d,'trabajador','nombre del trabajador')+'</strong> · RUT: '+pvVal(d,'rut','RUT')+' · Empresa contratista: '+pvVal(d,'empresa','empresa')+' · Cargo: '+pvVal(d,'cargo','cargo')+' · Faena: '+pvVal(d,'faena','faena')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<h3>1. Información de Riesgos Laborales (IRL)</h3>'
+      +'<p>Declaro haber recibido información sobre los riesgos que entraña mi labor, las medidas preventivas y los métodos de trabajo correctos, conforme al derecho establecido en el Art. 21 del DS N°40.</p>'
+      +'<p>Firma trabajador: ______________________________</p>'
+      +'<h3>2. Recepción del Reglamento Interno de Orden, Higiene y Seguridad</h3>'
+      +'<p>Declaro haber recibido un ejemplar del RIOHS de '+pvVal(d,'faena','la faena')+' y comprometo su cumplimiento.</p>'
+      +'<p>Firma trabajador: ______________________________</p>'
+      +'<h3>3. Entrega de Elementos de Protección Personal</h3>'
+      +'<table>'+pvEnc(['EPP entregado','Marca / modelo','Talla','Norma','Firma recepción'])
+      +pvFila(['Casco de seguridad','','','NCh 461',''])
+      +pvFila(['Calzado de seguridad','','','NCh 772/1',''])
+      +pvFila(['Guantes de protección','','','EN 388',''])
+      +pvFila(['[Completar otro EPP]','','','',''])
+      +'</table>'
+      +'<h3>4. Difusión de procedimientos e inducción</h3>'
+      +'<p>Declaro haber recibido inducción de seguridad de '+pvVal(d,'faena','la faena')+', incluyendo procedimientos de trabajo seguro, plan de emergencia y puntos de encuentro.</p>'
+      +'<p>Firma trabajador: ______________________________&nbsp;&nbsp;&nbsp;&nbsp;Firma responsable de faena: ______________________________</p>'
+      +'<div class="pv-disc">⚠️ Este formato reemplaza en un solo documento las 4 firmas que normalmente se piden por separado al ingreso de un contratista. Archívalo en la carpeta de arranque de la faena.</div>';
+    }
+  },
+
+  // ── 10. Expediente de acreditación ─────────────────────
+  { id:'acreditacion', icono:'🏅', titulo:'Expediente de Acreditación de Empresa',
+    resumen:'Checklist de documentos típicos exigidos por estándar minero o de construcción.',
+    campos:[
+      {id:'empresa', label:'Empresa', placeholder:'Ej: Servicios Industriales Ltda.'},
+      {id:'rubro', label:'Rubro', placeholder:'Ej: Minería / Construcción'},
+      {id:'faena', label:'Faena a la que postula', placeholder:'Ej: Contrato mantención planta X'},
+    ],
+    plantilla: function(d){
+      return '<h2>Expediente de Acreditación de Empresa</h2>'
+      +'<p class="pv-meta">Empresa: <strong>'+pvVal(d,'empresa','empresa')+'</strong> · Rubro: '+pvVal(d,'rubro','rubro')+' · Faena a la que postula: '+pvVal(d,'faena','faena')+' · Fecha: '+PV_FECHA+'</p>'
+      +'<table>'+pvEnc(['Documento exigido','¿Adjunto? (Sí/No)','Observación'])
+      +pvFila(['RIOHS vigente y actualizado','',''])
+      +pvFila(['Comité Paritario de Higiene y Seguridad constituido (acta)','',''])
+      +pvFila(['Departamento de Prevención de Riesgos (si corresponde por dotación)','',''])
+      +pvFila(['Tasa de accidentabilidad y siniestralidad de los últimos 2 años','',''])
+      +pvFila(['Certificado de adhesión a mutualidad vigente','',''])
+      +pvFila(['Matriz IPER / MIPER de las actividades a realizar','',''])
+      +pvFila(['Plan de emergencia de la empresa','',''])
+      +pvFila(['Programa de capacitación en SST del último período','',''])
+      +pvFila(['Pólizas de seguro (responsabilidad civil, accidentes)','',''])
+      +pvFila(['Certificados de conformidad de EPP a utilizar','',''])
+      +pvFila(['Registro de cumplimiento de obligaciones laborales y previsionales (F30-1)','',''])
+      +'</table>'
+      +'<div class="pv-disc">⚠️ Los requisitos exactos varían según el mandante y el estándar específico (ej. estándar minero interno de cada faena). Usa este checklist como base y confírmalo con las bases de licitación o el departamento de prevención del mandante.</div>';
+    }
+  },
+
+  ];
+
+  function pvGet(docId, fieldId){
+    const el = document.getElementById('pv_'+docId+'_'+fieldId);
+    return el ? el.value.trim() : '';
+  }
+  function pvDatos(doc){
+    const datos = {};
+    doc.campos.forEach(function(c){ datos[c.id] = pvGet(doc.id, c.id); });
+    return datos;
+  }
+  window.pvRegenerar = function(docId){
+    const doc = PV_DOCS.find(function(x){ return x.id === docId; });
+    if (!doc) return;
+    const body = document.getElementById('pvBody_'+docId);
+    body.innerHTML = doc.plantilla(pvDatos(doc));
+    body.dataset.generado = '1';
+  };
+  window.pvMostrar = function(docId, btnEl){
+    document.querySelectorAll('.pv-panel').forEach(function(p){ p.style.display = 'none'; });
+    document.querySelectorAll('.pv-card').forEach(function(c){ c.classList.remove('pv-card-activa'); });
+    const panel = document.getElementById('pvPanel_'+docId);
+    if (panel) panel.style.display = 'block';
+    if (btnEl) btnEl.classList.add('pv-card-activa');
+    const body = document.getElementById('pvBody_'+docId);
+    if (body && !body.dataset.generado) pvRegenerar(docId);
+  };
+  window.pvDescargar = function(docId){
+    const doc = PV_DOCS.find(function(x){ return x.id === docId; });
+    const body = document.getElementById('pvBody_'+docId);
+    const msgEl = document.getElementById('pvMsg_'+docId);
+    const contenido = body.innerHTML;
+    const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
+      +'<head><meta charset="utf-8"><title>'+doc.titulo+'</title></head>'
+      +'<body style="font-family:Calibri,Arial,sans-serif;color:#1a1408;">'+contenido
+      +'<p style="margin-top:20px;font-size:11px;color:#666;">Documento generado como referencia técnica por BuscaEPP.cl — Zona VIP, Documentos Prevencionista. Editado y descargado el '+PV_FECHA+'. Verifica siempre la redacción con tu equipo legal o un profesional de prevención de riesgos habilitado antes de darle uso formal.</p>'
+      +'</body></html>';
+    const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = doc.titulo.replace(/[^a-zA-Z0-9]+/g,'_').slice(0,60) + '.doc';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    if (msgEl) { msgEl.textContent = '✅ Documento descargado — se guardaron tus ediciones.'; msgEl.style.color = '#cbd5e1'; }
+  };
+
+  function pvInit(){
+    const grid = document.getElementById('pvGrid');
+    const paneles = document.getElementById('pvPaneles');
+    if (!grid || !paneles || grid.dataset.armado) return;
+    grid.dataset.armado = '1';
+
+    grid.innerHTML = PV_DOCS.map(function(doc, i){
+      return '<div class="pv-card'+(i===0?' pv-card-activa':'')+'" onclick="pvMostrar(\''+doc.id+'\',this)">'
+        +'<div style="font-size:1.5rem;margin-bottom:.35rem;">'+doc.icono+'</div>'
+        +'<div style="font-family:\'Google Sans Flex\',\'Barlow Condensed\',sans-serif;font-weight:700;color:var(--text);font-size:.78rem;line-height:1.25;margin-bottom:.25rem;">'+doc.titulo+'</div>'
+        +'<div style="font-size:.68rem;color:var(--muted);line-height:1.4;">'+doc.resumen+'</div>'
+        +'</div>';
+    }).join('');
+
+    paneles.innerHTML = PV_DOCS.map(function(doc, i){
+      const camposHtml = doc.campos.map(function(c){
+        return '<div><label class="pv-label">'+c.label+'</label>'
+          +'<input class="pv-input" id="pv_'+doc.id+'_'+c.id+'" type="text" placeholder="'+c.placeholder+'"></div>';
+      }).join('');
+      return '<div class="pv-panel" id="pvPanel_'+doc.id+'" style="display:'+(i===0?'block':'none')+';">'
+        +'<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1rem;">'
+          +'<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;">'
+            +'<div style="font-size:1.6rem;">'+doc.icono+'</div>'
+            +'<div style="font-family:\'Google Sans Flex\',\'Barlow Condensed\',sans-serif;font-weight:800;color:var(--text);font-size:1.05rem;line-height:1.2;">'+doc.titulo+'</div>'
+          +'</div>'
+          +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin-bottom:1rem;">'+camposHtml+'</div>'
+          +'<div style="display:flex;gap:.6rem;flex-wrap:wrap;">'
+            +'<button onclick="pvRegenerar(\''+doc.id+'\')" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.55rem 1rem;font-size:.78rem;font-weight:700;cursor:pointer;">🔄 Regenerar con estos datos</button>'
+            +'<button onclick="pvDescargar(\''+doc.id+'\')" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#1c1408;border:none;border-radius:8px;padding:.55rem 1.1rem;font-size:.78rem;font-weight:800;cursor:pointer;">📥 Descargar en Word (con tus ediciones)</button>'
+          +'</div>'
+          +'<div id="pvMsg_'+doc.id+'" style="font-size:.7rem;margin-top:.5rem;"></div>'
+        +'</div>'
+        +'<div class="pv-page" id="pvBody_'+doc.id+'" contenteditable="true" spellcheck="false"></div>'
+      +'</div>';
+    }).join('');
+
+    // Generar el contenido inicial del primer documento (visible por defecto)
+    pvRegenerar(PV_DOCS[0].id);
+  }
+
+  // Inicializar en cuanto el DOM de este bloque exista (independiente de si la pestaña está visible)
+  pvInit();
+})();
 </script>
 
 <div id="vipSubCorp" style="display:none;">
@@ -16126,7 +16573,7 @@ function mostrarPaneVIP() {
 
 // ── Sub-tabs zona comprador ────────────────────────────────
 function vipSubTab(tab, btn) {
-  ['Fichas','Categorias','Proveedores','Lista','Alertas','Historico','Manuales','Infoepp','Docs','Corp','Estudia','Buscaigni','Trinorma','Noconformidades'].forEach(t => {
+  ['Fichas','Categorias','Proveedores','Lista','Alertas','Historico','Manuales','Infoepp','Docs','Corp','Estudia','Buscaigni','Trinorma','Noconformidades','Prevencion'].forEach(t => {
     const el = document.getElementById('vipSub'+t);
     if (el) el.style.display = t.toLowerCase() === tab ? 'block' : 'none';
   });
