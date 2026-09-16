@@ -1673,25 +1673,59 @@ if (document.getElementById('conv-categoria')) convActualizarUnidades();
 let FIN_RATES = { uf: null, utm: null, dolar: null, euro: null };
 let finInvertido = false; // false: índice→CLP · true: CLP→índice
 
-async function finFetchInd(serie) {
+async function finFetchIndPrimario(serie) {
   const r = await fetch(`https://mindicador.cl/api/${serie}`, { cache: 'no-cache' });
   if (!r.ok) throw new Error(serie);
   const j = await r.json();
   return j.serie?.[0]?.valor ?? null;
 }
 
+// Respaldo con API Gael Cloud (también con datos del Banco Central) si mindicador.cl
+// falla o bloquea CORS. Un solo llamado trae los 4 valores.
+let finGaelCache = null;
+async function finFetchGaelTodos() {
+  if (finGaelCache) return finGaelCache;
+  const r = await fetch('https://api.gael.cloud/general/public/monedas', { cache: 'no-cache' });
+  if (!r.ok) throw new Error('gael');
+  const arr = await r.json();
+  const buscar = (codigo) => {
+    const item = arr.find(x => (x.Codigo || '').trim() === codigo);
+    if (!item) return null;
+    const v = parseFloat(String(item.Valor).replace(',', '.'));
+    return isNaN(v) ? null : v;
+  };
+  finGaelCache = { dolar: buscar('USD'), uf: buscar('UF'), utm: buscar('UTM'), euro: buscar('EUR') };
+  return finGaelCache;
+}
+
+async function finFetchInd(serie) {
+  try {
+    const v = await finFetchIndPrimario(serie);
+    if (v === null) throw new Error('vacio');
+    return v;
+  } catch (e) {
+    try {
+      const todos = await finFetchGaelTodos();
+      return todos[serie] ?? null;
+    } catch (e2) {
+      return null;
+    }
+  }
+}
+
 async function finCargarValores() {
   const statusEl = document.getElementById('fin-status');
-  try {
-    const [uf, utm, dolar, euro] = await Promise.all([
-      finFetchInd('uf'), finFetchInd('utm'), finFetchInd('dolar'), finFetchInd('euro')
-    ]);
-    FIN_RATES = { uf, utm, dolar, euro };
+  finGaelCache = null; // refrescar el respaldo en cada carga
+  const [uf, utm, dolar, euro] = await Promise.all([
+    finFetchInd('uf'), finFetchInd('utm'), finFetchInd('dolar'), finFetchInd('euro')
+  ]);
+  FIN_RATES = { uf, utm, dolar, euro };
+  if ([uf, utm, dolar, euro].some(v => v !== null)) {
     if (statusEl) statusEl.textContent = 'Valores actualizados hoy';
-    finCalcular();
-  } catch (e) {
-    if (statusEl) statusEl.textContent = '⚠️ No se pudo cargar los valores';
+  } else if (statusEl) {
+    statusEl.textContent = '⚠️ No se pudo cargar los valores';
   }
+  finCalcular();
 }
 
 function finCalcular() {
@@ -3471,7 +3505,7 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
         <button onclick="showTab('infogramas')" class="calc-btn" style="font-size:.8rem;">📊 Infogramas BuscaEPP</button>
         <button onclick="vipSubTab('trinorma',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.05));color:#c4b5fd;border-color:rgba(139,92,246,.45);font-weight:700;">🔺 Tri-Norma ISO</button>
         <button onclick="vipSubTab('noconformidades',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(244,63,94,.2),rgba(244,63,94,.05));color:#fda4af;border-color:rgba(244,63,94,.45);font-weight:700;">⚠️ No Conformidades</button>
-        <button onclick="vipSubTab('prevencion',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(16,185,129,.05));color:#6ee7b7;border-color:rgba(16,185,129,.45);font-weight:700;">🦺 Documentos Prevencionista</button>
+        <button onclick="vipSubTab('prevencion',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(100,116,139,.28),rgba(100,116,139,.08));color:#e2e8f0;border-color:rgba(148,163,184,.5);font-weight:700;">🦺 Documentos Prevencionista</button>
       </div>
 
       <!-- Sub-tabs — Zona GOVAK (equipo interno) -->
@@ -3496,7 +3530,7 @@ if (document.getElementById('glosComResultado')) renderGlosarioComercial();
         <button onclick="showTab('infogramas')" class="calc-btn" style="font-size:.8rem;">📊 Infogramas BuscaEPP</button>
         <button onclick="vipSubTab('trinorma',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.05));color:#c4b5fd;border-color:rgba(139,92,246,.45);font-weight:700;">🔺 Tri-Norma ISO</button>
         <button onclick="vipSubTab('noconformidades',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(244,63,94,.2),rgba(244,63,94,.05));color:#fda4af;border-color:rgba(244,63,94,.45);font-weight:700;">⚠️ No Conformidades</button>
-        <button onclick="vipSubTab('prevencion',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(16,185,129,.05));color:#6ee7b7;border-color:rgba(16,185,129,.45);font-weight:700;">🦺 Documentos Prevencionista</button>
+        <button onclick="vipSubTab('prevencion',this)" class="calc-btn" style="font-size:.8rem;background:linear-gradient(135deg,rgba(100,116,139,.28),rgba(100,116,139,.08));color:#e2e8f0;border-color:rgba(148,163,184,.5);font-weight:700;">🦺 Documentos Prevencionista</button>
       </div>
 
       <!-- Buscador de fichas técnicas -->
@@ -4120,7 +4154,7 @@ function generarGuiaNoConformidades() {
   /* Selector de documentos */
   .pv-card { cursor:pointer; background:var(--card); border:2px solid var(--border); border-radius:14px; padding:1rem .9rem; transition:transform .15s,border-color .15s; }
   .pv-card:hover { transform:translateY(-2px); }
-  .pv-card-activa { border-color:#10b981 !important; }
+  .pv-card-activa { border-color:#94a3b8 !important; box-shadow:0 0 0 1px rgba(148,163,184,.3); }
   /* La "hoja" de documento: fondo claro, texto oscuro — máximo contraste, distinto del tema oscuro del sitio */
   .pv-page {
     background:#fffdf8; color:#1c1408; max-width:100%; box-sizing:border-box;
@@ -4128,7 +4162,7 @@ function generarGuiaNoConformidades() {
     box-shadow:0 4px 22px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.06);
     font-family:'DM Sans',Calibri,Arial,sans-serif;
   }
-  .pv-page:focus { outline:2px solid #10b981; outline-offset:3px; }
+  .pv-page:focus { outline:2px solid #64748b; outline-offset:3px; }
   .pv-page h2 { color:#7c2d12; font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-weight:800; font-size:1.25rem; margin:0 0 2px; letter-spacing:.2px; }
   .pv-page h3 { color:#92400e; font-family:'Google Sans Flex','Barlow Condensed',sans-serif; font-weight:800; font-size:1rem; margin:1.15rem 0 .4rem; border-bottom:2px solid #fde68a; padding-bottom:3px; }
   .pv-page p { margin:.35rem 0; color:#1c1408; }
@@ -4143,7 +4177,7 @@ function generarGuiaNoConformidades() {
   .pv-label { font-size:.72rem; color:var(--muted); font-weight:700; display:block; margin-bottom:.25rem; }
 </style>
 <div id="vipSubPrevencion" style="display:none;">
-  <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:800;color:#6ee7b7;margin-bottom:.3rem;letter-spacing:.5px;">🦺 DOCUMENTOS PARA PREVENCIONISTAS</div>
+  <div style="font-family:'Google Sans Flex','Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:800;color:#cbd5e1;margin-bottom:.3rem;letter-spacing:.5px;">🦺 DOCUMENTOS PARA PREVENCIONISTAS</div>
   <p style="font-size:.8rem;color:var(--muted);margin-bottom:1.3rem;max-width:640px;">Completa los datos de tu empresa, revisa y <strong style="color:var(--text);">edita directamente el texto</strong> en la vista previa (haz clic dentro y escribe) y luego descarga en Word. Todos los documentos son de referencia técnica — antes de usarlos formalmente, valida la redacción con tu equipo legal o un profesional de prevención habilitado.</p>
 
   <div id="pvGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.7rem;margin-bottom:1.8rem;"></div>
@@ -4510,7 +4544,7 @@ function generarGuiaNoConformidades() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    if (msgEl) { msgEl.textContent = '✅ Documento descargado — se guardaron tus ediciones.'; msgEl.style.color = '#10b981'; }
+    if (msgEl) { msgEl.textContent = '✅ Documento descargado — se guardaron tus ediciones.'; msgEl.style.color = '#cbd5e1'; }
   };
 
   function pvInit(){
@@ -4541,7 +4575,7 @@ function generarGuiaNoConformidades() {
           +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin-bottom:1rem;">'+camposHtml+'</div>'
           +'<div style="display:flex;gap:.6rem;flex-wrap:wrap;">'
             +'<button onclick="pvRegenerar(\''+doc.id+'\')" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.55rem 1rem;font-size:.78rem;font-weight:700;cursor:pointer;">🔄 Regenerar con estos datos</button>'
-            +'<button onclick="pvDescargar(\''+doc.id+'\')" style="background:linear-gradient(135deg,#10b981,#059669);color:#052e21;border:none;border-radius:8px;padding:.55rem 1.1rem;font-size:.78rem;font-weight:800;cursor:pointer;">📥 Descargar en Word (con tus ediciones)</button>'
+            +'<button onclick="pvDescargar(\''+doc.id+'\')" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#1c1408;border:none;border-radius:8px;padding:.55rem 1.1rem;font-size:.78rem;font-weight:800;cursor:pointer;">📥 Descargar en Word (con tus ediciones)</button>'
           +'</div>'
           +'<div id="pvMsg_'+doc.id+'" style="font-size:.7rem;margin-top:.5rem;"></div>'
         +'</div>'
@@ -20800,48 +20834,122 @@ setTimeout(registrarVisita, 1500);
 (function initIndicadores() {
   const fmt = n => n.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const show = (id) => { const el = document.getElementById(id); if(el) el.style.display='flex'; };
+  const CACHE_KEY = 'buscaepp_indicadores_cache_v1';
 
-  async function fetchInd(serie) {
+  function leerCache() {
+    try { return JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'); }
+    catch(e) { return null; }
+  }
+  function guardarCache(datos) {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify(datos)); } catch(e) {}
+  }
+
+  async function fetchIndPrimario(serie) {
     const r = await fetch(`https://mindicador.cl/api/${serie}`, { cache:'no-cache' });
     if (!r.ok) throw new Error(serie);
     const j = await r.json();
     return j.serie?.[0]?.valor ?? null;
   }
 
-  async function cargarIndicadores() {
+  // API Gael Cloud (también toma sus datos del Banco Central de Chile) como respaldo
+  // cuando mindicador.cl no responde o bloquea CORS. Un solo llamado trae los 4 valores.
+  let gaelCache = null;
+  async function fetchGaelTodos() {
+    if (gaelCache) return gaelCache;
+    const r = await fetch('https://api.gael.cloud/general/public/monedas', { cache:'no-cache' });
+    if (!r.ok) throw new Error('gael');
+    const arr = await r.json();
+    const buscar = (codigo) => {
+      const item = arr.find(x => (x.Codigo || '').trim() === codigo);
+      if (!item) return null;
+      const v = parseFloat(String(item.Valor).replace(',', '.'));
+      return isNaN(v) ? null : v;
+    };
+    gaelCache = { dolar: buscar('USD'), uf: buscar('UF'), utm: buscar('UTM'), euro: buscar('EUR') };
+    return gaelCache;
+  }
+
+  async function fetchInd(serie) {
     try {
-      const [dolar, uf, utm, euro] = await Promise.all([
-        fetchInd('dolar'), fetchInd('uf'), fetchInd('utm'), fetchInd('euro')
-      ]);
-
-      const loading = document.getElementById('ind-loading');
-      if (loading) loading.style.display = 'none';
-
-      if (dolar !== null) {
-        document.getElementById('ind-dolar-val').textContent = '$ ' + fmt(dolar);
-        show('ind-dolar');
+      const v = await fetchIndPrimario(serie);
+      if (v === null) throw new Error('vacio');
+      return v;
+    } catch (e) {
+      // mindicador.cl falló (caído, rate-limit o CORS) — reintenta con Gael Cloud
+      try {
+        const todos = await fetchGaelTodos();
+        return todos[serie] ?? null;
+      } catch (e2) {
+        return null;
       }
-      if (uf !== null) {
-        document.getElementById('ind-uf-val').textContent = '$ ' + fmt(uf);
-        show('ind-uf');
-      }
-      if (utm !== null) {
-        document.getElementById('ind-utm-val').textContent = '$ ' + fmt(utm);
-        show('ind-utm');
-      }
-      if (euro !== null) {
-        document.getElementById('ind-euro-val').textContent = '$ ' + fmt(euro);
-        show('ind-euro');
-      }
-
-      const hoy = new Date();
-      const fechaEl = document.getElementById('ind-fecha');
-      if (fechaEl) fechaEl.textContent = `Actualizado ${hoy.toLocaleDateString('es-CL', {day:'2-digit',month:'short',year:'numeric'})}`;
-
-    } catch(e) {
-      const loading = document.getElementById('ind-loading');
-      if (loading) { loading.textContent = '⚠️ No se pudo cargar los indicadores'; }
     }
+  }
+
+  function pintar(id, valId, valor, esCache) {
+    const val = document.getElementById(valId);
+    if (!val || valor === null || valor === undefined) return;
+    val.textContent = '$ ' + fmt(valor) + (esCache ? ' 🕓' : '');
+    val.title = esCache ? 'Último valor conocido — no se pudo actualizar en este momento' : '';
+    show(id);
+  }
+
+  async function cargarIndicadores() {
+    gaelCache = null; // refrescar el respaldo en cada ciclo
+    const loading = document.getElementById('ind-loading');
+    // Cada indicador se resuelve por separado: si uno falla, los demás igual se muestran
+    const resultados = await Promise.allSettled([
+      fetchInd('dolar'), fetchInd('uf'), fetchInd('utm'), fetchInd('euro')
+    ]);
+    const [rDolar, rUf, rUtm, rEuro] = resultados;
+    const cacheAnterior = leerCache() || {};
+
+    const dolar = rDolar.status === 'fulfilled' ? rDolar.value : null;
+    const uf    = rUf.status    === 'fulfilled' ? rUf.value    : null;
+    const utm   = rUtm.status   === 'fulfilled' ? rUtm.value   : null;
+    const euro  = rEuro.status  === 'fulfilled' ? rEuro.value  : null;
+
+    const huboExito = [dolar, uf, utm, euro].some(v => v !== null);
+
+    if (loading) loading.style.display = 'none';
+
+    // Dólar: valor fresco, o el último guardado si falló
+    if (dolar !== null) { pintar('ind-dolar','ind-dolar-val', dolar, false); }
+    else if (cacheAnterior.dolar != null) { pintar('ind-dolar','ind-dolar-val', cacheAnterior.dolar, true); }
+
+    if (uf !== null) { pintar('ind-uf','ind-uf-val', uf, false); }
+    else if (cacheAnterior.uf != null) { pintar('ind-uf','ind-uf-val', cacheAnterior.uf, true); }
+
+    if (utm !== null) { pintar('ind-utm','ind-utm-val', utm, false); }
+    else if (cacheAnterior.utm != null) { pintar('ind-utm','ind-utm-val', cacheAnterior.utm, true); }
+
+    if (euro !== null) { pintar('ind-euro','ind-euro-val', euro, false); }
+    else if (cacheAnterior.euro != null) { pintar('ind-euro','ind-euro-val', cacheAnterior.euro, true); }
+
+    const fechaEl = document.getElementById('ind-fecha');
+    if (fechaEl) {
+      const hoy = new Date();
+      const fechaTxt = hoy.toLocaleDateString('es-CL', {day:'2-digit',month:'short',year:'numeric'});
+      fechaEl.textContent = huboExito
+        ? `Actualizado ${fechaTxt}`
+        : (cacheAnterior.fecha ? `Sin conexión — mostrando valores del ${cacheAnterior.fecha}` : '');
+    }
+
+    // Ningún valor cargó, ni fresco ni en caché: recién ahí mostramos el error
+    const nadaQueMostrar = dolar===null && uf===null && utm===null && euro===null
+      && cacheAnterior.dolar==null && cacheAnterior.uf==null && cacheAnterior.utm==null && cacheAnterior.euro==null;
+    if (nadaQueMostrar && loading) {
+      loading.style.display = '';
+      loading.textContent = '⚠️ No se pudo cargar los indicadores';
+    }
+
+    // Guardar en caché lo que sí tengamos (nuevo o el que ya había)
+    guardarCache({
+      dolar: dolar !== null ? dolar : cacheAnterior.dolar,
+      uf:    uf    !== null ? uf    : cacheAnterior.uf,
+      utm:   utm   !== null ? utm   : cacheAnterior.utm,
+      euro:  euro  !== null ? euro  : cacheAnterior.euro,
+      fecha: huboExito ? new Date().toLocaleDateString('es-CL', {day:'2-digit',month:'short',year:'numeric'}) : cacheAnterior.fecha
+    });
   }
 
   // Cargar al inicio y refrescar cada hora
