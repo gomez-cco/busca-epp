@@ -1674,10 +1674,16 @@ let FIN_RATES = { uf: null, utm: null, dolar: null, euro: null };
 let finInvertido = false; // false: índice→CLP · true: CLP→índice
 
 async function finFetchIndPrimario(serie) {
-  const r = await fetch(`https://mindicador.cl/api/${serie}`, { cache: 'no-cache' });
-  if (!r.ok) throw new Error(serie);
-  const j = await r.json();
-  return j.serie?.[0]?.valor ?? null;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 4000); // no esperar más de 4s a mindicador.cl
+  try {
+    const r = await fetch(`https://mindicador.cl/api/${serie}`, { cache: 'no-cache', signal: controller.signal });
+    if (!r.ok) throw new Error(serie);
+    const j = await r.json();
+    return j.serie?.[0]?.valor ?? null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 // Respaldo con API Gael Cloud (también con datos del Banco Central) si mindicador.cl
@@ -1685,9 +1691,16 @@ async function finFetchIndPrimario(serie) {
 let finGaelCache = null;
 async function finFetchGaelTodos() {
   if (finGaelCache) return finGaelCache;
-  const r = await fetch('https://api.gael.cloud/general/public/monedas', { cache: 'no-cache' });
-  if (!r.ok) throw new Error('gael');
-  const arr = await r.json();
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+  let arr;
+  try {
+    const r = await fetch('https://api.gael.cloud/general/public/monedas', { cache: 'no-cache', signal: controller.signal });
+    if (!r.ok) throw new Error('gael');
+    arr = await r.json();
+  } finally {
+    clearTimeout(timeoutId);
+  }
   const buscar = (codigo) => {
     const item = arr.find(x => (x.Codigo || '').trim() === codigo);
     if (!item) return null;
@@ -20845,10 +20858,16 @@ setTimeout(registrarVisita, 1500);
   }
 
   async function fetchIndPrimario(serie) {
-    const r = await fetch(`https://mindicador.cl/api/${serie}`, { cache:'no-cache' });
-    if (!r.ok) throw new Error(serie);
-    const j = await r.json();
-    return j.serie?.[0]?.valor ?? null;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000); // no esperar más de 4s a mindicador.cl
+    try {
+      const r = await fetch(`https://mindicador.cl/api/${serie}`, { cache:'no-cache', signal: controller.signal });
+      if (!r.ok) throw new Error(serie);
+      const j = await r.json();
+      return j.serie?.[0]?.valor ?? null;
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
 
   // API Gael Cloud (también toma sus datos del Banco Central de Chile) como respaldo
@@ -20856,9 +20875,16 @@ setTimeout(registrarVisita, 1500);
   let gaelCache = null;
   async function fetchGaelTodos() {
     if (gaelCache) return gaelCache;
-    const r = await fetch('https://api.gael.cloud/general/public/monedas', { cache:'no-cache' });
-    if (!r.ok) throw new Error('gael');
-    const arr = await r.json();
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+    let arr;
+    try {
+      const r = await fetch('https://api.gael.cloud/general/public/monedas', { cache:'no-cache', signal: controller.signal });
+      if (!r.ok) throw new Error('gael');
+      arr = await r.json();
+    } finally {
+      clearTimeout(timeoutId);
+    }
     const buscar = (codigo) => {
       const item = arr.find(x => (x.Codigo || '').trim() === codigo);
       if (!item) return null;
