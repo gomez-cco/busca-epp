@@ -1653,7 +1653,7 @@ if (document.getElementById('conv-categoria')) convActualizarUnidades();
 <!-- CALCULADORA FINANCIERA (UF / UTM / USD / EUR) -->
 <div id="fin-bar" style="background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 16px;font-size:.78rem;">
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-    <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="document.getElementById('fin-body').style.display = document.getElementById('fin-body').style.display==='none' ? 'flex' : 'none';">💰 <strong style="color:var(--text);">Calculadora financiera</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
+    <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="const nuevoEstado = document.getElementById('fin-body').style.display==='none' ? 'flex' : 'none'; document.getElementById('fin-body').style.display = nuevoEstado; document.getElementById('fin-body-monedas').style.display = nuevoEstado;">💰 <strong style="color:var(--text);">Calculadora financiera</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
   </div>
   <div id="fin-body" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;">
     <input id="fin-valor" type="number" value="1" step="any" oninput="finCalcular()" style="width:90px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
@@ -1668,9 +1668,25 @@ if (document.getElementById('conv-categoria')) convActualizarUnidades();
     <button onclick="finInvertir()" title="Invertir (CLP → índice)" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 9px;font-size:.8rem;cursor:pointer;">⇄</button>
     <span id="fin-status" style="color:var(--muted);font-size:.68rem;">Cargando valores…</span>
   </div>
+  <div id="fin-body-monedas" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);">
+    <span style="opacity:.85;">🌎 <strong style="color:var(--text);">Conversión de monedas</strong></span>
+    <input id="fin-monto-moneda" type="number" value="1000" step="any" min="0" oninput="finCalcularMonedas()" style="width:100px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+    <select id="fin-moneda-origen" onchange="finCalcularMonedas()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <option value="clp">CLP (peso chileno)</option>
+      <option value="usd">USD (dólar)</option>
+      <option value="pen">PEN (sol peruano)</option>
+      <option value="ars">ARS (peso argentino)</option>
+      <option value="cop">COP (peso colombiano)</option>
+      <option value="brl">BRL (real)</option>
+    </select>
+    <span style="color:var(--muted);">=</span>
+    <span id="fin-monedas-resultado" style="display:flex;gap:12px;flex-wrap:wrap;color:var(--text);font-weight:600;font-size:.76rem;"></span>
+    <span id="fin-monedas-status" style="color:var(--muted);font-size:.68rem;">Cargando cotizaciones…</span>
+  </div>
 </div>
 <script>
 let FIN_RATES = { uf: null, utm: null, dolar: null, euro: null };
+let FIN_MONEDAS = { usd: null, pen: null, ars: null, cop: null, brl: null };
 let finInvertido = false; // false: índice→CLP · true: CLP→índice
 
 async function finFetchIndPrimario(serie) {
@@ -1707,7 +1723,10 @@ async function finFetchGaelTodos() {
     const v = parseFloat(String(item.Valor).replace(',', '.'));
     return isNaN(v) ? null : v;
   };
-  finGaelCache = { dolar: buscar('USD'), uf: buscar('UF'), utm: buscar('UTM'), euro: buscar('EUR') };
+  finGaelCache = {
+    dolar: buscar('USD'), uf: buscar('UF'), utm: buscar('UTM'), euro: buscar('EUR'),
+    pen: buscar('PEN'), ars: buscar('ARS'), cop: buscar('COP'), brl: buscar('BRL')
+  };
   return finGaelCache;
 }
 
@@ -1739,6 +1758,9 @@ async function finCargarValores() {
     statusEl.textContent = '⚠️ No se pudo cargar los valores';
   }
   finCalcular();
+  // El conversor de monedas usa el dólar ya obtenido aquí, así que se recalcula
+  // recién cuando este valor está disponible (evita una condición de carrera).
+  if (document.getElementById('fin-monto-moneda')) finCargarMonedas();
 }
 
 function finCalcular() {
@@ -1762,6 +1784,136 @@ function finInvertir() {
   const valorInput = document.getElementById('fin-valor');
   valorInput.title = finInvertido ? 'Monto en pesos (CLP)' : 'Monto en el índice elegido';
   finCalcular();
+}
+
+// ─── CONVERSIÓN DE MONEDAS (CLP / USD / PEN / ARS / COP / BRL, cualquiera como origen) ──
+// Fuente principal: open.er-api.com — API gratuita, sin key, con CORS abierto, que
+// actualiza sus tasas TODOS los días (incluidos fines de semana y feriados), a diferencia
+// de Gael Cloud/mindicador.cl que dependen de publicaciones oficiales del Banco Central
+// solo en días hábiles. Todas las tasas guardadas en FIN_MONEDAS son "unidades de esa
+// moneda por 1 CLP" (ej: FIN_MONEDAS.usd = 0.00104 significa 1 CLP = 0.00104 USD).
+const FIN_MONEDAS_INFO = {
+  clp: { etiqueta: 'CLP', simbolo: '$' },
+  usd: { etiqueta: 'USD', simbolo: 'US$' },
+  pen: { etiqueta: 'PEN', simbolo: 'S/' },
+  ars: { etiqueta: 'ARS', simbolo: 'AR$' },
+  cop: { etiqueta: 'COP', simbolo: 'COL$' },
+  brl: { etiqueta: 'BRL', simbolo: 'R$' },
+};
+
+// Caché local por si alguna vez fallan todas las fuentes en vivo.
+const FIN_MONEDAS_CACHE_KEY = 'buscaepp_monedas_cache_v2';
+let finMonedasCacheUsada = {};
+
+function finLeerCacheMonedas() {
+  try { return JSON.parse(localStorage.getItem(FIN_MONEDAS_CACHE_KEY) || 'null') || {}; }
+  catch (e) { return {}; }
+}
+function finGuardarCacheMonedas(datos) {
+  try { localStorage.setItem(FIN_MONEDAS_CACHE_KEY, JSON.stringify(datos)); } catch (e) {}
+}
+
+// Fuente principal: tasas "por 1 CLP" directamente desde open.er-api.com.
+async function finFetchTasasPorClp() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/CLP', { cache: 'no-cache', signal: controller.signal });
+    if (!r.ok) throw new Error('er-api');
+    const j = await r.json();
+    if (j.result !== 'success' || !j.rates) throw new Error('er-api-sin-datos');
+    return { usd: j.rates.USD ?? null, pen: j.rates.PEN ?? null, ars: j.rates.ARS ?? null, cop: j.rates.COP ?? null, brl: j.rates.BRL ?? null };
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+// Respaldo: Gael Cloud entrega "CLP por unidad", así que se invierte (1/valor) para
+// llevarlo a la misma convención "unidades por 1 CLP" que usa el resto del conversor.
+async function finFetchTasasPorClpRespaldo() {
+  const todos = await finFetchGaelTodos();
+  const invertir = (v) => (v ? 1 / v : null);
+  const usdGael = invertir(todos.dolar);
+  // El dólar de mindicador.cl (ya cargado por finCargarValores) suele ser más confiable
+  // en fin de semana que el de Gael Cloud, así que se prioriza si está disponible.
+  const usd = FIN_RATES.dolar ? invertir(FIN_RATES.dolar) : usdGael;
+  return { usd, pen: invertir(todos.pen), ars: invertir(todos.ars), cop: invertir(todos.cop), brl: invertir(todos.brl) };
+}
+
+async function finCargarMonedas() {
+  const statusEl = document.getElementById('fin-monedas-status');
+  finMonedasCacheUsada = {};
+  const cacheAnterior = finLeerCacheMonedas();
+
+  let frescos = { usd: null, pen: null, ars: null, cop: null, brl: null };
+  let fuenteOk = false;
+  try {
+    frescos = await finFetchTasasPorClp();
+    fuenteOk = Object.values(frescos).some(v => v !== null && v !== undefined);
+  } catch (e) { /* sigue al respaldo */ }
+
+  if (!fuenteOk) {
+    try {
+      const respaldo = await finFetchTasasPorClpRespaldo();
+      // Combina: usa el respaldo solo para los campos que la fuente principal no trajo.
+      Object.keys(frescos).forEach(k => { if (frescos[k] == null && respaldo[k] != null) frescos[k] = respaldo[k]; });
+      fuenteOk = Object.values(frescos).some(v => v !== null && v !== undefined);
+    } catch (e2) { /* sin respaldo disponible */ }
+  }
+
+  FIN_MONEDAS = {};
+  Object.keys(frescos).forEach(key => {
+    if (frescos[key] !== null && frescos[key] !== undefined) {
+      FIN_MONEDAS[key] = frescos[key];
+    } else if (cacheAnterior[key] != null) {
+      FIN_MONEDAS[key] = cacheAnterior[key];
+      finMonedasCacheUsada[key] = true;
+    } else {
+      FIN_MONEDAS[key] = null;
+    }
+  });
+
+  const hayAlgo = Object.values(FIN_MONEDAS).some(v => v !== null && v !== undefined);
+
+  if (statusEl) {
+    if (fuenteOk) statusEl.textContent = 'Cotizaciones actualizadas hoy';
+    else if (hayAlgo) statusEl.textContent = '🕓 Mostrando el último valor conocido';
+    else statusEl.textContent = '⚠️ No se pudo cargar las cotizaciones';
+  }
+
+  finGuardarCacheMonedas({ ...cacheAnterior, ...Object.fromEntries(Object.entries(FIN_MONEDAS).filter(([,v]) => v != null)) });
+  finCalcularMonedas();
+}
+
+// Tasa de una moneda "por 1 CLP" (CLP siempre vale 1 respecto de sí mismo)
+function finTasaPorClp(key) {
+  return key === 'clp' ? 1 : FIN_MONEDAS[key];
+}
+
+function finCalcularMonedas() {
+  const monto = parseFloat(document.getElementById('fin-monto-moneda').value) || 0;
+  const origen = document.getElementById('fin-moneda-origen').value;
+  const contenedor = document.getElementById('fin-monedas-resultado');
+  const tasaOrigen = finTasaPorClp(origen);
+
+  if (!tasaOrigen) {
+    contenedor.innerHTML = '<span style="color:var(--muted);">— (sin cotización disponible para la moneda de origen)</span>';
+    return;
+  }
+
+  // tasaOrigen = unidades de "origen" por 1 CLP → CLP = monto / tasaOrigen (si origen no es CLP)
+  const montoClp = origen === 'clp' ? monto : monto / tasaOrigen;
+  const destinos = Object.keys(FIN_MONEDAS_INFO).filter(k => k !== origen);
+
+  contenedor.innerHTML = destinos.map(key => {
+    const info = FIN_MONEDAS_INFO[key];
+    const tasa = finTasaPorClp(key);
+    if (!tasa) return `<span style="color:var(--muted);">${info.etiqueta}: —</span>`;
+    // tasa = unidades de "key" por 1 CLP → valor = montoClp * tasa (si key no es CLP)
+    const valor = key === 'clp' ? montoClp : montoClp * tasa;
+    const marcaCache = finMonedasCacheUsada[key] ? ' 🕓' : '';
+    return `<span>${info.etiqueta} <span style="color:var(--accent);" title="${finMonedasCacheUsada[key] ? 'Último valor conocido' : ''}">${info.simbolo} ${valor.toLocaleString('es-CL', { maximumFractionDigits: 2 })}${marcaCache}</span></span>`;
+  }).join('');
 }
 
 if (document.getElementById('fin-indice')) finCargarValores();
