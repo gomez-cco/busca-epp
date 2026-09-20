@@ -1674,10 +1674,12 @@ if (document.getElementById('conv-categoria')) convActualizarUnidades();
     <select id="fin-moneda-origen" onchange="finCalcularMonedas()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
       <option value="clp">CLP (peso chileno)</option>
       <option value="usd">USD (dólar)</option>
+      <option value="eur">EUR (euro)</option>
       <option value="pen">PEN (sol peruano)</option>
       <option value="ars">ARS (peso argentino)</option>
       <option value="cop">COP (peso colombiano)</option>
       <option value="brl">BRL (real)</option>
+      <option value="cny">CNY (yuan chino)</option>
     </select>
     <span style="color:var(--muted);">=</span>
     <span id="fin-monedas-resultado" style="display:flex;gap:12px;flex-wrap:wrap;color:var(--text);font-weight:600;font-size:.76rem;"></span>
@@ -1725,7 +1727,7 @@ async function finFetchGaelTodos() {
   };
   finGaelCache = {
     dolar: buscar('USD'), uf: buscar('UF'), utm: buscar('UTM'), euro: buscar('EUR'),
-    pen: buscar('PEN'), ars: buscar('ARS'), cop: buscar('COP'), brl: buscar('BRL')
+    pen: buscar('PEN'), ars: buscar('ARS'), cop: buscar('COP'), brl: buscar('BRL'), cny: buscar('CNY')
   };
   return finGaelCache;
 }
@@ -1795,10 +1797,12 @@ function finInvertir() {
 const FIN_MONEDAS_INFO = {
   clp: { etiqueta: 'CLP', simbolo: '$' },
   usd: { etiqueta: 'USD', simbolo: 'US$' },
+  eur: { etiqueta: 'EUR', simbolo: '€' },
   pen: { etiqueta: 'PEN', simbolo: 'S/' },
   ars: { etiqueta: 'ARS', simbolo: 'AR$' },
   cop: { etiqueta: 'COP', simbolo: 'COL$' },
   brl: { etiqueta: 'BRL', simbolo: 'R$' },
+  cny: { etiqueta: 'CNY', simbolo: '¥' }, // yuan chino (el "yen" es la moneda de Japón)
 };
 
 // Caché local por si alguna vez fallan todas las fuentes en vivo.
@@ -1822,7 +1826,7 @@ async function finFetchTasasPorClp() {
     if (!r.ok) throw new Error('er-api');
     const j = await r.json();
     if (j.result !== 'success' || !j.rates) throw new Error('er-api-sin-datos');
-    return { usd: j.rates.USD ?? null, pen: j.rates.PEN ?? null, ars: j.rates.ARS ?? null, cop: j.rates.COP ?? null, brl: j.rates.BRL ?? null };
+    return { usd: j.rates.USD ?? null, eur: j.rates.EUR ?? null, pen: j.rates.PEN ?? null, ars: j.rates.ARS ?? null, cop: j.rates.COP ?? null, brl: j.rates.BRL ?? null, cny: j.rates.CNY ?? null };
   } finally {
     clearTimeout(timeoutId);
   }
@@ -1834,10 +1838,11 @@ async function finFetchTasasPorClpRespaldo() {
   const todos = await finFetchGaelTodos();
   const invertir = (v) => (v ? 1 / v : null);
   const usdGael = invertir(todos.dolar);
-  // El dólar de mindicador.cl (ya cargado por finCargarValores) suele ser más confiable
-  // en fin de semana que el de Gael Cloud, así que se prioriza si está disponible.
+  // El dólar y el euro de mindicador.cl (ya cargados por finCargarValores) suelen ser
+  // más confiables en fin de semana que los de Gael Cloud, así que se priorizan si existen.
   const usd = FIN_RATES.dolar ? invertir(FIN_RATES.dolar) : usdGael;
-  return { usd, pen: invertir(todos.pen), ars: invertir(todos.ars), cop: invertir(todos.cop), brl: invertir(todos.brl) };
+  const eur = FIN_RATES.euro ? invertir(FIN_RATES.euro) : invertir(todos.euro);
+  return { usd, eur, pen: invertir(todos.pen), ars: invertir(todos.ars), cop: invertir(todos.cop), brl: invertir(todos.brl), cny: invertir(todos.cny) };
 }
 
 async function finCargarMonedas() {
@@ -1845,7 +1850,7 @@ async function finCargarMonedas() {
   finMonedasCacheUsada = {};
   const cacheAnterior = finLeerCacheMonedas();
 
-  let frescos = { usd: null, pen: null, ars: null, cop: null, brl: null };
+  let frescos = { usd: null, eur: null, pen: null, ars: null, cop: null, brl: null, cny: null };
   let fuenteOk = false;
   try {
     frescos = await finFetchTasasPorClp();
