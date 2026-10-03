@@ -1924,6 +1924,42 @@ function finCalcularMonedas() {
 if (document.getElementById('fin-indice')) finCargarValores();
 </script>
 
+<!-- CALCULADORA DE DESCUENTOS / INCREMENTOS -->
+<div id="desc-bar" style="background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 16px;font-size:.78rem;">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="document.getElementById('desc-body').style.display = document.getElementById('desc-body').style.display==='none' ? 'flex' : 'none';">🏷️ <strong style="color:var(--text);">Calculadora de descuentos</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
+  </div>
+  <div id="desc-body" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;">
+    <span style="color:var(--muted);">Precio inicial</span>
+    <input id="desc-precio-inicial" type="number" value="1000" step="any" min="0" oninput="descCalcular()" style="width:110px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+    <select id="desc-tipo" onchange="descCalcular()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <option value="descuento">⬇️ Descuento</option>
+      <option value="incremento">⬆️ Incremento</option>
+    </select>
+    <input id="desc-porcentaje" type="number" value="10" step="any" oninput="descCalcular()" style="width:70px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+    <span style="color:var(--muted);">%</span>
+    <span style="color:var(--muted);">=</span>
+    <span style="color:var(--muted);">Precio final</span>
+    <span id="desc-resultado" style="color:var(--accent);font-weight:700;min-width:110px;"></span>
+    <span id="desc-diferencia" style="color:var(--muted);font-size:.7rem;"></span>
+  </div>
+</div>
+<script>
+function descCalcular() {
+  const precioInicial = parseFloat(document.getElementById('desc-precio-inicial').value) || 0;
+  const tipo = document.getElementById('desc-tipo').value;
+  const porcentaje = parseFloat(document.getElementById('desc-porcentaje').value) || 0;
+  const factor = tipo === 'descuento' ? (1 - porcentaje / 100) : (1 + porcentaje / 100);
+  const precioFinal = precioInicial * factor;
+  const diferencia = precioFinal - precioInicial;
+  const fmt = (n) => n.toLocaleString('es-CL', { maximumFractionDigits: 2 });
+  document.getElementById('desc-resultado').textContent = `$${fmt(precioFinal)}`;
+  const signo = diferencia >= 0 ? '+' : '−';
+  document.getElementById('desc-diferencia').textContent = `(${signo}$${fmt(Math.abs(diferencia))})`;
+}
+if (document.getElementById('desc-precio-inicial')) descCalcular();
+</script>
+
 <!-- CALENDARIO -->
 <div id="cal-bar" style="background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 16px;font-size:.78rem;">
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
