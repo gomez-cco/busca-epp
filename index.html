@@ -2013,6 +2013,8 @@ if (document.getElementById('fin-indice')) finCargarValores();
     <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="document.getElementById('desc-body').style.display = document.getElementById('desc-body').style.display==='none' ? 'flex' : 'none';">🏷️ <strong style="color:var(--text);">Calculadora de descuentos</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
   </div>
   <div id="desc-body" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;">
+    <span style="color:var(--muted);">Cantidad</span>
+    <input id="desc-cantidad" type="number" value="1" step="1" min="1" oninput="descCalcular()" style="width:60px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
     <span style="color:var(--muted);">Precio inicial</span>
     <input id="desc-precio-inicial" type="number" value="1000" step="any" min="0" oninput="descCalcular()" style="width:110px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
     <select id="desc-tipo" onchange="descCalcular()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
@@ -2022,23 +2024,33 @@ if (document.getElementById('fin-indice')) finCargarValores();
     <input id="desc-porcentaje" type="number" value="10" step="any" oninput="descCalcular()" style="width:70px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
     <span style="color:var(--muted);">%</span>
     <span style="color:var(--muted);">=</span>
-    <span style="color:var(--muted);">Precio final</span>
+    <span id="desc-resultado-label" style="color:var(--muted);">Precio final</span>
     <span id="desc-resultado" style="color:var(--accent);font-weight:700;min-width:110px;"></span>
     <span id="desc-diferencia" style="color:var(--muted);font-size:.7rem;"></span>
+    <label style="display:flex;align-items:center;gap:5px;color:var(--muted);cursor:pointer;border-left:1px dashed var(--border);padding-left:10px;margin-left:2px;">
+      <input id="desc-iva" type="checkbox" onchange="descCalcular()" style="cursor:pointer;">
+      Agregar IVA (19%)
+    </label>
   </div>
 </div>
 <script>
 function descCalcular() {
+  const cantidad = parseInt(document.getElementById('desc-cantidad').value) || 1;
   const precioInicial = parseFloat(document.getElementById('desc-precio-inicial').value) || 0;
   const tipo = document.getElementById('desc-tipo').value;
   const porcentaje = parseFloat(document.getElementById('desc-porcentaje').value) || 0;
+  const conIva = document.getElementById('desc-iva').checked;
   const factor = tipo === 'descuento' ? (1 - porcentaje / 100) : (1 + porcentaje / 100);
-  const precioFinal = precioInicial * factor;
-  const diferencia = precioFinal - precioInicial;
-  const fmt = (n) => n.toLocaleString('es-CL', { maximumFractionDigits: 2 });
+  const precioFinalNetoUnit = Math.round(precioInicial * factor);
+  const precioFinalUnit = conIva ? Math.round(precioFinalNetoUnit * 1.19) : precioFinalNetoUnit;
+  const precioFinal = precioFinalUnit * cantidad;
+  const diferencia = (precioFinalNetoUnit - precioInicial) * cantidad;
+  const fmt = (n) => Math.round(n).toLocaleString('es-CL');
+  const sufijoCantidad = cantidad > 1 ? ` (${cantidad} un.)` : '';
+  document.getElementById('desc-resultado-label').textContent = (conIva ? 'Precio final (IVA incluido)' : 'Precio final (neto)') + sufijoCantidad;
   document.getElementById('desc-resultado').textContent = `$${fmt(precioFinal)}`;
   const signo = diferencia >= 0 ? '+' : '−';
-  document.getElementById('desc-diferencia').textContent = `(${signo}$${fmt(Math.abs(diferencia))})`;
+  document.getElementById('desc-diferencia').textContent = `(${signo}$${fmt(Math.abs(diferencia))} neto)`;
 }
 if (document.getElementById('desc-precio-inicial')) descCalcular();
 </script>
@@ -2257,6 +2269,95 @@ function dotGenerarReportePDF() {
 }
 
 if (document.getElementById('dot-trabajadores')) dotAplicarPreset();
+</script>
+
+<!-- CALCULADORA ELÉCTRICA -->
+<div id="elec-bar" style="background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 16px;font-size:.78rem;">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="opacity:.85;cursor:pointer;user-select:none;" onclick="document.getElementById('elec-body').style.display = document.getElementById('elec-body').style.display==='none' ? 'flex' : 'none';">⚡ <strong style="color:var(--text);">Calculadora eléctrica</strong> <span style="color:var(--muted);font-size:.7rem;">(clic para abrir/cerrar)</span></span>
+  </div>
+  <div id="elec-body" style="display:none;flex-direction:column;gap:10px;margin-top:8px;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <select id="elec-tipo" onchange="elecCambiarTipo()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+        <option value="mono">🔌 Monofásica</option>
+        <option value="tri">⚡ Trifásica</option>
+      </select>
+      <span style="color:var(--muted);">Potencia</span>
+      <input id="elec-potencia" type="number" value="5500" min="0" step="any" oninput="elecCalcular()" style="width:90px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">W</span>
+      <span style="color:var(--muted);">Voltaje</span>
+      <input id="elec-voltaje" type="number" value="220" min="1" step="any" oninput="elecCalcular()" style="width:70px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">V</span>
+      <span style="color:var(--muted);">Distancia</span>
+      <input id="elec-distancia" type="number" value="35" min="0" step="any" oninput="elecCalcular()" style="width:70px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">m</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="color:var(--muted);">cos φ</span>
+      <input id="elec-cosphi" type="number" value="1" min="0.1" max="1" step="0.01" oninput="elecCalcular()" style="width:55px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">Uso del circuito</span>
+      <select id="elec-uso" onchange="elecCalcular()" style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+        <option value="3">💡 Iluminación (máx. 3%)</option>
+        <option value="5" selected>🔌 Fuerza motriz (máx. 5%)</option>
+      </select>
+    </div>
+
+    <div style="border-top:1px dashed var(--border);padding-top:10px;display:flex;flex-direction:column;gap:6px;">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:.78rem;">
+        <span style="color:var(--muted);">Corriente estimada <strong id="elec-corriente" style="color:var(--accent);"></strong></span>
+        <span style="color:var(--muted);">Sección mínima recomendada <strong id="elec-seccion" style="color:var(--accent);"></strong></span>
+        <span style="color:var(--muted);">Caída de tensión real <strong id="elec-caida" style="color:var(--accent);"></strong></span>
+        <span style="color:var(--muted);">Potencia <strong id="elec-potencia-kw" style="color:var(--accent);"></strong></span>
+      </div>
+      <div style="font-size:.7rem;color:var(--muted);">⚠️ Estimación preliminar de dimensionamiento de conductor de cobre (caída de tensión únicamente). No reemplaza el cálculo de un profesional eléctrico ni considera agrupamiento, temperatura ambiente o ampacidad real según NCh Elec. 4/2003. Verifica las condiciones reales de tu instalación.</div>
+      <div style="font-size:.78rem;color:var(--muted);">🛡️ Trabaja seguro: 🥽 lentes · 🧤 guantes dieléctricos · ⛑️ casco clase E · 🥾 calzado aislante · 🦺 ropa de trabajo</div>
+    </div>
+  </div>
+</div>
+<script>
+const ELEC_SECCIONES = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
+const ELEC_RHO_COBRE = 0.017241; // Ω·mm²/m — resistividad del cobre a 20°C
+
+function elecCambiarTipo() {
+  const tipo = document.getElementById('elec-tipo').value;
+  document.getElementById('elec-voltaje').value = tipo === 'tri' ? 380 : 220;
+  elecCalcular();
+}
+
+function elecCalcular() {
+  const tipo = document.getElementById('elec-tipo').value;
+  const potencia = parseFloat(document.getElementById('elec-potencia').value) || 0;
+  const voltaje = parseFloat(document.getElementById('elec-voltaje').value) || 1;
+  const distancia = parseFloat(document.getElementById('elec-distancia').value) || 0;
+  const cosphi = parseFloat(document.getElementById('elec-cosphi').value) || 1;
+  const caidaMaxPct = parseFloat(document.getElementById('elec-uso').value) || 5;
+
+  const corriente = tipo === 'tri'
+    ? potencia / (Math.sqrt(3) * voltaje * cosphi)
+    : potencia / (voltaje * cosphi);
+
+  const kFactor = tipo === 'tri' ? Math.sqrt(3) : 2;
+  const caidaMaxV = voltaje * (caidaMaxPct / 100);
+  const seccionTeorica = (distancia > 0 && caidaMaxV > 0)
+    ? (kFactor * distancia * corriente * ELEC_RHO_COBRE) / caidaMaxV
+    : 0;
+
+  let seccionComercial = ELEC_SECCIONES.find(s => s >= seccionTeorica);
+  if (!seccionComercial) seccionComercial = ELEC_SECCIONES[ELEC_SECCIONES.length - 1];
+
+  const caidaRealV = (distancia > 0)
+    ? (kFactor * distancia * corriente * ELEC_RHO_COBRE) / seccionComercial
+    : 0;
+  const caidaRealPct = voltaje > 0 ? (caidaRealV / voltaje) * 100 : 0;
+
+  const fmt = (n, dec = 1) => n.toLocaleString('es-CL', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+  document.getElementById('elec-corriente').textContent = `${fmt(corriente)} A`;
+  document.getElementById('elec-seccion').textContent = `${seccionComercial} mm²`;
+  document.getElementById('elec-caida').textContent = `${fmt(caidaRealPct, 2)} %`;
+  document.getElementById('elec-potencia-kw').textContent = `${fmt(potencia / 1000, 2)} kW`;
+}
+if (document.getElementById('elec-potencia')) elecCalcular();
 </script>
 
 <!-- CALENDARIO -->
