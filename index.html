@@ -84,7 +84,15 @@
   body.tema-claro .tab:hover .tab-ico, body.tema-claro .tab.active .tab-ico { filter:grayscale(0) opacity(1) !important; }
 
   /* ── Hero — azul marino elegante, con franja de seguridad como firma ── */
-  body.tema-claro .hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important; position:relative; }
+  body.tema-claro .hero {
+    background:
+      linear-gradient(135deg, rgba(15,23,42,.82) 0%, rgba(30,41,59,.82) 100%),
+      url('fondo-epp.jpg') !important;
+    background-size: cover, cover !important;
+    background-position: center, center 30% !important;
+    background-repeat: no-repeat, no-repeat !important;
+    position:relative;
+  }
   body.tema-claro .hero::before {
     content:''; position:absolute; top:0; left:0; right:0; height:5px;
     background:repeating-linear-gradient(135deg,#fbbf24 0 14px,#0f172a 14px 28px);
@@ -146,7 +154,14 @@
   body.tema-beige .tab-bar { background: #fdf6ed; border-bottom: 2px solid #c9a87c; }
   body.tema-beige .tab { color: #3d1f08; font-weight:600; }
   body.tema-beige .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  body.tema-beige .hero { background: linear-gradient(135deg, #3d1f08 0%, #78350f 100%) !important; }
+  body.tema-beige .hero {
+    background:
+      linear-gradient(135deg, rgba(61,31,8,.82) 0%, rgba(120,53,15,.82) 100%),
+      url('fondo-epp.jpg') !important;
+    background-size: cover, cover !important;
+    background-position: center, center 30% !important;
+    background-repeat: no-repeat, no-repeat !important;
+  }
   body.tema-beige .hero h1, body.tema-beige .hero h2, body.tema-beige .hero p, body.tema-beige .hero .hero-sub { color: #fdf6ed !important; }
   body.tema-beige .hero h1 span:last-child, body.tema-beige .hero h2 span { color: #fcd34d !important; }
   body.tema-beige .search-input { background:#fdf6ed; color:#1c0f00; border-color:#c9a87c; }
@@ -422,17 +437,36 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
     background:
-      radial-gradient(ellipse 900px 500px at 15% 0%, rgba(251,191,36,.05), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(217,119,6,.04), transparent 55%),
-      linear-gradient(135deg, var(--bg) 0%, var(--bg2, var(--bg)) 100%) fixed;
+      radial-gradient(ellipse 900px 500px at 15% 0%, rgba(251,191,36,.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(217,119,6,.06), transparent 55%),
+      linear-gradient(135deg, rgba(30,20,8,.86) 0%, rgba(42,28,10,.86) 100%),
+      url('fondo-epp.jpg');
+    background-size: auto, auto, auto, cover;
+    background-position: 0 0, 0 0, 0 0, center top;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
     background-attachment:fixed;
     color:var(--text); font-family:'Montserrat','DM Sans',sans-serif; min-height:100vh; overflow-x:hidden;
   }
   body.tema-claro {
     background:
-      radial-gradient(ellipse 900px 500px at 15% 0%, rgba(15,23,42,.025), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(37,99,235,.03), transparent 55%),
-      linear-gradient(135deg, #f1f5f9 0%, #eef1f5 100%) fixed !important;
+      radial-gradient(ellipse 900px 500px at 15% 0%, rgba(15,23,42,.04), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(37,99,235,.05), transparent 55%),
+      linear-gradient(135deg, rgba(241,245,249,.82) 0%, rgba(238,241,245,.82) 100%),
+      url('fondo-epp.jpg') !important;
+    background-size: auto, auto, auto, cover !important;
+    background-position: 0 0, 0 0, 0 0, center top !important;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat !important;
+    background-attachment:fixed;
+  }
+  body.tema-beige {
+    background:
+      radial-gradient(ellipse 900px 500px at 15% 0%, rgba(146,64,14,.05), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(146,64,14,.04), transparent 55%),
+      linear-gradient(135deg, rgba(253,246,237,.85) 0%, rgba(245,232,213,.85) 100%),
+      url('fondo-epp.jpg') !important;
+    background-size: auto, auto, auto, cover !important;
+    background-position: 0 0, 0 0, 0 0, center top !important;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat !important;
     background-attachment:fixed;
   }
 
@@ -592,7 +626,15 @@
   .ind-spinner { color:var(--muted); font-size:.75rem; padding:5px 0; }
 
   /* HERO / SEARCH */
-  .hero { padding:3rem 2rem 2rem; text-align:center; background: radial-gradient(ellipse at top, #3a2808 0%, #1e1408 70%); position:relative; overflow:hidden; }
+  .hero {
+    padding:3rem 2rem 2rem; text-align:center; position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse at top, rgba(58,40,8,.82) 0%, rgba(30,20,8,.88) 70%),
+      url('fondo-epp.jpg');
+    background-size: cover, cover;
+    background-position: center, center 30%;
+    background-repeat: no-repeat, no-repeat;
+  }
   .hero::before {
     content:''; position:absolute; inset:0; pointer-events:none;
     background-image: repeating-linear-gradient(115deg, rgba(251,191,36,.025) 0 2px, transparent 2px 26px);
