@@ -1580,6 +1580,7 @@ if (document.getElementById('clima-resultado')) cargarClima();
       <option value="volumen">💧 Volumen</option>
       <option value="presion">🎛️ Presión</option>
       <option value="talla">👕 Talla de ropa</option>
+      <option value="guantes">🧤 Guantes (unidades → cajas)</option>
     </select>
     <span id="conv-unidades-wrap" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
       <input id="conv-valor" type="number" value="1" oninput="convCalcular()" style="width:90px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
@@ -1599,6 +1600,19 @@ if (document.getElementById('clima-resultado')) cargarClima();
       <span style="color:var(--muted);">→</span>
       <span id="conv-talla-resultado" style="color:var(--accent);font-weight:700;min-width:50px;"></span>
       <span style="color:var(--muted);font-size:.68rem;">Referencial — puede variar según fabricante</span>
+    </span>
+    <!-- UI alternativa para Guantes: convierte unidades cotizadas a cajitas y cajas master -->
+    <span id="conv-guantes-wrap" style="display:none;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="color:var(--muted);">Unidades a cotizar</span>
+      <input id="conv-guantes-unidades" type="number" value="10000" min="0" step="1" oninput="convCalcularGuantes()" style="width:90px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">÷</span>
+      <span style="color:var(--muted);">un. por cajita</span>
+      <input id="conv-guantes-por-cajita" type="number" value="100" min="1" step="1" oninput="convCalcularGuantes()" style="width:60px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">÷</span>
+      <span style="color:var(--muted);">cajitas por caja master</span>
+      <input id="conv-guantes-cajitas-master" type="number" value="10" min="1" step="1" oninput="convCalcularGuantes()" style="width:55px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:.76rem;font-family:'DM Sans',sans-serif;">
+      <span style="color:var(--muted);">=</span>
+      <span id="conv-guantes-resultado" style="color:var(--accent);font-weight:700;"></span>
     </span>
   </div>
 </div>
@@ -1640,14 +1654,24 @@ function convActualizarUnidades() {
   const cat = document.getElementById('conv-categoria').value;
   const unidadesWrap = document.getElementById('conv-unidades-wrap');
   const tallaWrap = document.getElementById('conv-talla-wrap');
+  const guantesWrap = document.getElementById('conv-guantes-wrap');
   if (cat === 'talla') {
     unidadesWrap.style.display = 'none';
     tallaWrap.style.display = 'flex';
+    guantesWrap.style.display = 'none';
     convCalcularTalla();
+    return;
+  }
+  if (cat === 'guantes') {
+    unidadesWrap.style.display = 'none';
+    tallaWrap.style.display = 'none';
+    guantesWrap.style.display = 'flex';
+    convCalcularGuantes();
     return;
   }
   unidadesWrap.style.display = 'flex';
   tallaWrap.style.display = 'none';
+  guantesWrap.style.display = 'none';
   const conf = CONV_UNIDADES[cat];
   const desdeSel = document.getElementById('conv-desde');
   const hastaSel = document.getElementById('conv-hasta');
@@ -1691,6 +1715,27 @@ function convCalcularTalla() {
   const tabla = CONV_TALLAS[tipo];
   const fila = tabla.find(f => valor <= f.max);
   document.getElementById('conv-talla-resultado').textContent = fila ? fila.letra : '—';
+}
+
+// ── Guantes/EPP desechable: convierte unidades cotizadas a cajitas y cajas master ──
+function convCalcularGuantes() {
+  const unidades = parseFloat(document.getElementById('conv-guantes-unidades').value) || 0;
+  const porCajita = parseFloat(document.getElementById('conv-guantes-por-cajita').value) || 1;
+  const cajitasPorMaster = parseFloat(document.getElementById('conv-guantes-cajitas-master').value) || 1;
+
+  const cajitasExactas = unidades / porCajita;
+  const cajitas = Math.ceil(cajitasExactas);
+  const cajasMasterExactas = cajitas / cajitasPorMaster;
+  const cajasMaster = Math.ceil(cajasMasterExactas);
+  const unidadesCubiertas = cajitas * porCajita;
+  const sobrante = unidadesCubiertas - unidades;
+
+  const fmt = (n) => Math.round(n).toLocaleString('es-CL');
+  let texto = `${fmt(cajitas)} cajita${cajitas === 1 ? '' : 's'} (${fmt(cajasMaster)} caja${cajasMaster === 1 ? '' : 's'} master)`;
+  if (sobrante > 0) {
+    texto += ` — cubre ${fmt(unidadesCubiertas)} un. (+${fmt(sobrante)} de sobra)`;
+  }
+  document.getElementById('conv-guantes-resultado').textContent = texto;
 }
 
 function convTemperatura(valor, desde, hasta) {
