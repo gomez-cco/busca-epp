@@ -2971,6 +2971,7 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
             <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Define estándares para cascos (Z89.1), lentes (Z87.1), ropa de alta visibilidad (107), calzado (Z41) y protección auditiva (S3.19).</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
               <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">⛑️ Z89.1 · Z87.1</span>
+              <span style="font-size:.7rem;background:rgba(163,230,53,.15);color:#a3e635;padding:2px 8px;border-radius:20px;">🆕 Z89.1-2026 · Z87.1-2025</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver estándares →</span>
             </div>
           </div>
@@ -2986,9 +2987,10 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
                 <div style="font-size:.7rem;color:var(--muted);">Reglamento UE 2016/425</div>
               </div>
             </div>
-            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Certificación obligatoria para EPP comercializados en Europa. Basada en normas EN: EN 352 (auditivos), EN 166 (ojos), EN 397 (cascos), EN 388 (guantes).</div>
+            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem;">Certificación obligatoria para EPP comercializados en Europa. Basada en normas EN: EN 352 (auditivos), EN ISO 16321 (ojos, reemplazó a EN 166 en nov. 2025), EN 397:2025 (cascos), EN 388 (guantes, en revisión).</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">🏷️ EN 166 · EN 352 · EN 388</span>
+              <span style="font-size:.7rem;background:rgba(34,197,94,.1);color:#4ade80;padding:2px 8px;border-radius:20px;">🏷️ EN ISO 16321 · EN 352 · EN 388</span>
+              <span style="font-size:.7rem;background:rgba(163,230,53,.15);color:#a3e635;padding:2px 8px;border-radius:20px;">🆕 EN 397:2025</span>
               <span style="font-size:.7rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:20px;">Ver reglamento →</span>
             </div>
           </div>
@@ -3089,6 +3091,9 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
             </div>
           </div>
         </div>
+        <div style="margin:0 1.2rem 1rem;font-size:.75rem;color:#a3e635;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.2);border-radius:8px;padding:.6rem .8rem;">
+          🆕 <strong>Actualización normativa (2025–2026):</strong> ANSI/ISEA publicó <strong>Z89.1-2026</strong> (clasificaciones opcionales Type I+/II+, exigen barboquejo y retención del casco), Europa renovó <strong>EN 397:2025</strong> (elimina la opción eléctrica 440V, ahora bajo EN 50365:2023; exige ensayar el casco con accesorios) e <strong>ISO 3873:2025</strong> reemplazó a la edición de 1977. Son cambios aditivos o de reemplazo internacional: no modifican la norma chilena NCh 461 (2001) ni el DS 594/DS 132. Si tu casco certifica NCh 461, sigue vigente sin cambios.
+        </div>
       </div>
 
       <!-- Lentes -->
@@ -3119,6 +3124,9 @@ Responde en formato HTML simple (usa <strong>, <br>, listas <ul><li>), máximo 3
               ✅ ANSI Z87.1 establece que un lente rayado o dañado pierde su certificación y debe retirarse.
             </div>
           </div>
+        </div>
+        <div style="margin:0 1.2rem 1rem;font-size:.75rem;color:#a3e635;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.2);border-radius:8px;padding:.6rem .8rem;">
+          🆕 <strong>Actualización normativa (2025–2026):</strong> en EE.UU., <strong>ANSI/ISEA Z87.1-2025</strong> reemplazó a Z87.1-2020 (marcado de producto más claro, desempeño de impacto actualizado). En Europa, la familia <strong>EN ISO 16321</strong> (parte 1, 2022+A1:2025) reemplazó formalmente a EN 166, EN 170, EN 171, EN 172 y EN 379 desde el 11-nov-2025 — es la única norma válida para nuevas certificaciones CE/UKCA, aunque productos ya certificados bajo EN 166 pueden seguir vendiéndose hasta vencer su certificado. NCh 1301 (Chile) no tiene edición ni cambios verificables públicamente.
         </div>
       </div>
 
@@ -4564,7 +4572,7 @@ function mostrarInfoEpp(cual) {
           { id:'casco', icono:'⛑️', nombre:'Casco de seguridad', norma:'NCh 461-2001' },
           { id:'calzado', icono:'🥾', nombre:'Calzado de seguridad', norma:'NCh 772/1' },
           { id:'guantes', icono:'🧤', nombre:'Guantes de protección', norma:'EN 388 / EN 374 / EN 407' },
-          { id:'visual', icono:'🥽', nombre:'Protección visual', norma:'EN 166 / ANSI Z87.1' },
+          { id:'visual', icono:'🥽', nombre:'Protección visual', norma:'EN ISO 16321 / ANSI Z87.1-2025' },
           { id:'auditiva', icono:'🎧', nombre:'Protección auditiva', norma:'NCh 1358' },
           { id:'respiratoria', icono:'😷', nombre:'Protección respiratoria', norma:'NIOSH 42 CFR 84 / EN 149' },
           { id:'altavis', icono:'🦺', nombre:'Ropa alta visibilidad', norma:'NCh 3254' },
@@ -15861,7 +15869,7 @@ const EPP_INFO = {
   casco_forestal: { nombre:'Casco forestal con pantalla y orejeras', icono:'⛑️', norma:'NCh 461 / EN 397', motivo:'Integra protección facial y auditiva para faenas con motosierra.' },
   casco_lampara: { nombre:'Casco con lámpara de minero', icono:'⛑️', norma:'NCh 461', motivo:'Obligatorio en interior mina para visibilidad y protección craneal.' },
   lentes: { nombre:'Lentes de seguridad', icono:'🥽', norma:'NCh 1301 / ANSI Z87.1', motivo:'Protegen contra partículas proyectadas, polvo y salpicaduras.' },
-  lentes_panoramicas: { nombre:'Gafas panorámicas', icono:'🥽', norma:'NCh 1301 / EN 166', motivo:'Sellado perimetral para protección química o en ambientes con polvo intenso.' },
+  lentes_panoramicas: { nombre:'Gafas panorámicas', icono:'🥽', norma:'NCh 1301 / EN ISO 16321-1', motivo:'Sellado perimetral para protección química o en ambientes con polvo intenso.' },
   lentes_extra: { nombre:'Lentes de seguridad adicionales bajo careta', icono:'🥽', norma:'NCh 1301', motivo:'Protección adicional contra destellos en corte por plasma.' },
   careta_soldar: { nombre:'Careta de soldador (shade 10–13)', icono:'🪖', norma:'NCh 1562', motivo:'Obligatoria para soldar al arco, protege contra radiación UV/IR y salpicaduras.' },
   careta_soldar_auto: { nombre:'Careta de oscurecimiento automático', icono:'🪖', norma:'NCh 1562 / EN 175', motivo:'Se oscurece automáticamente al iniciarse el arco. Recomendada para MIG/TIG.' },
@@ -15869,14 +15877,14 @@ const EPP_INFO = {
   tapones: { nombre:'Tapones o protectores auditivos', icono:'🎧', norma:'NCh 1358 / ANSI S3.19', motivo:'Obligatorios cuando el ruido supera 85 dB(A) según DS 594.' },
   guantes_mecanicos: { nombre:'Guantes de protección mecánica', icono:'🧤', norma:'NCh 1805 / EN 388', motivo:'Protegen contra cortes, abrasión y golpes en manejo de materiales.' },
   guantes_anticorte: { nombre:'Guantes anticorte (nivel 4–5)', icono:'🧤', norma:'NCh 1805 / EN 388', motivo:'Obligatorios en operación de máquinas con riesgo de corte severo.' },
-  guantes_quimicos: { nombre:'Guantes químicos (nitrilo grueso o neopreno)', icono:'🧤', norma:'NCh 1805 / EN 374', motivo:'Resistencia a ácidos, bases y solventes. Tipo según ficha de datos de seguridad.' },
-  guantes_nitrilo: { nombre:'Guantes de nitrilo desechables', icono:'🧤', norma:'EN 374', motivo:'Protección básica contra químicos de laboratorio y fluidos biológicos.' },
-  guantes_nitrilo_grueso: { nombre:'Guantes de nitrilo grueso', icono:'🧤', norma:'EN 374', motivo:'Mayor resistencia para manejo de residuos con mayor concentración química.' },
-  guantes_latex: { nombre:'Guantes de látex (o nitrilo si alergia)', icono:'🧤', norma:'EN 374', motivo:'Protección en procedimientos clínicos. Usar nitrilo si hay alergia al látex.' },
+  guantes_quimicos: { nombre:'Guantes químicos (nitrilo grueso o neopreno)', icono:'🧤', norma:'NCh 1805 / ISO 374-1:2024', motivo:'Resistencia a ácidos, bases y solventes. Tipo según ficha de datos de seguridad.' },
+  guantes_nitrilo: { nombre:'Guantes de nitrilo desechables', icono:'🧤', norma:'ISO 374-1:2024', motivo:'Protección básica contra químicos de laboratorio y fluidos biológicos.' },
+  guantes_nitrilo_grueso: { nombre:'Guantes de nitrilo grueso', icono:'🧤', norma:'ISO 374-1:2024', motivo:'Mayor resistencia para manejo de residuos con mayor concentración química.' },
+  guantes_latex: { nombre:'Guantes de látex (o nitrilo si alergia)', icono:'🧤', norma:'ISO 374-1:2024', motivo:'Protección en procedimientos clínicos. Usar nitrilo si hay alergia al látex.' },
   guantes_latex_esteril: { nombre:'Guantes de látex estériles', icono:'🧤', norma:'ISO 10282', motivo:'Obligatorios en cirugía y procedimientos invasivos.' },
   guantes_dielectricos: { nombre:'Guantes dieléctricos (hasta 600V)', icono:'🧤', norma:'NCh 2147 / EN 60903 Clase 00', motivo:'Aislamiento eléctrico en baja tensión. Prueba semestral obligatoria.' },
   guantes_dielectricos_at: { nombre:'Guantes dieléctricos alta tensión (Clase 2–4)', icono:'🧤', norma:'EN 60903', motivo:'Para trabajos en alta tensión. Certificados según nivel de tensión de trabajo.' },
-  guantes_soldador: { nombre:'Guantes de soldador (cuero manga larga)', icono:'🧤', norma:'NCh 1115 / EN 12477', motivo:'Protegen de chispas, salpicaduras y calor radiante en soldadura.' },
+  guantes_soldador: { nombre:'Guantes de soldador (cuero manga larga)', icono:'🧤', norma:'NCh 1115 / EN 12477:2026', motivo:'Protegen de chispas, salpicaduras y calor radiante en soldadura.' },
   guantes_termicos: { nombre:'Guantes térmicos (frío)', icono:'🧤', norma:'EN 511', motivo:'Aislamiento térmico para trabajos en cámaras frigoríficas bajo 0°C.' },
   guantes_criogenicos: { nombre:'Guantes criogénicos', icono:'🧤', norma:'EN 511', motivo:'Para manejo de gases criogénicos (nitrógeno líquido, CO2). Protegen hasta -196°C.' },
   guantes_neopreno: { nombre:'Guantes de neopreno impermeables', icono:'🧤', norma:'NCh 1805', motivo:'Para trabajo en ambiente marino con agua fría y riesgo de corte.' },
@@ -15902,7 +15910,7 @@ const EPP_INFO = {
   pantalon_anticorte: { nombre:'Pantalón anticorte para motosierra', icono:'🧥', norma:'EN ISO 11393', motivo:'Obligatorio para operadores de motosierra. Capas de fibra que detienen la cadena.' },
   bata_lab: { nombre:'Bata de laboratorio', icono:'🧥', norma:'EN 13034', motivo:'Barrera básica contra salpicaduras en laboratorio. Algodón o FR según riesgo.' },
   delantal_impermeable: { nombre:'Delantal impermeable', icono:'🧥', norma:'NCh 1303', motivo:'Protección contra agua, sangre y fluidos en procesamiento de alimentos.' },
-  mascarilla_quirurgica: { nombre:'Mascarilla quirúrgica', icono:'😷', norma:'EN 14683 Tipo II', motivo:'Barrera contra fluidos y partículas grandes en atención sanitaria básica.' },
+  mascarilla_quirurgica: { nombre:'Mascarilla quirúrgica', icono:'😷', norma:'EN 14683:2025 Tipo II', motivo:'Barrera contra fluidos y partículas grandes en atención sanitaria básica.' },
   mascarilla_n95: { nombre:'Mascarilla N95 / FFP2', icono:'😷', norma:'NIOSH N95 / EN 149 FFP2', motivo:'Filtra ≥95% de partículas. Obligatoria en procedimientos aerosol-generadores.' },
   faja_lumbar: { nombre:'Faja lumbar ergonómica', icono:'🩺', norma:'DS 594 / Guía MINSAL ergonomía', motivo:'Recomendada en manejo manual de cargas superiores a 25 kg (hombres) o 15 kg (mujeres).' },
   equipo_buceo: { nombre:'Equipo de buceo industrial certificado', icono:'🤿', norma:'DS 430 MINTRAB', motivo:'Obligatorio para buceo industrial según reglamento específico.' },
@@ -15912,7 +15920,7 @@ const EPP_INFO = {
   bota_mina: { nombre:'Bota de seguridad caña alta impermeable (uso mina)', icono:'🥾', norma:'NCh 772/1 Of.92 / NCh 1796', motivo:'En interior mina se usa bota (no botín) por la humedad y agua acumulada en galerías. Debe tener punta de acero, plantilla antiperforación y suela antideslizante en superficies húmedas.' },
   detector_gas_portatil: { nombre:'Detector de gas portátil (4 en 1)', icono:'☁️', norma:'DS 594 Art. 45 / IEC 60079 / MSHA', motivo:'Obligatorio en espacios confinados y zonas con riesgo de gases tóxicos o explosivos. Detecta O2, CO, H2S y LEL simultáneamente.' },
   ropa_impermeable_mina: { nombre:'Ropa impermeable para interior mina', icono:'🧥', norma:'DS 132 / DS 594', motivo:'Las galerías subterráneas presentan alta humedad y goteo constante. La ropa impermeable (chaqueta y pantalón PVC o similar) protege al trabajador de la humedad y el frío.' },
-  rodilleras: { nombre:'Rodilleras de protección', icono:'🦵', norma:'EN 14404', motivo:'Para trabajos que requieren arrodillarse en superficies duras o abrasivas.' },
+  rodilleras: { nombre:'Rodilleras de protección', icono:'🦵', norma:'EN 14404:2024', motivo:'Para trabajos que requieren arrodillarse en superficies duras o abrasivas. La edición 2024 agregó un Tipo 2 interoperable y el nivel de resistencia a perforación "1U".' },
   protector_lumbar: { nombre:'Faja lumbar ergonómica', icono:'🩺', norma:'DS 594 / Guía MINSAL ergonomía', motivo:'Recomendada en manejo manual de cargas superiores a 25 kg (hombres) o 15 kg (mujeres) según ley de ergonomía.' },
   chaleco_reflectante_mina: { nombre:'Chaleco reflectante clase 3 (uso minero)', icono:'🦺', norma:'ANSI 107 Clase 3 / NCh 1303', motivo:'En minas con tráfico de maquinaria, se exige clase 3 (máxima visibilidad) con mangas reflectantes para ser visible en condiciones de baja luminosidad.' },
   pantalla_facial: { nombre:'Pantalla facial / careta de protección', icono:'🥽', norma:'NCh 1301 / ANSI Z87.1', motivo:'Protección total del rostro contra proyecciones, salpicaduras y esquirlas. Complementa los lentes de seguridad.' },
@@ -20091,7 +20099,7 @@ const FABRICANTES = {
   visual:      { label:'👓 Visual',      color:'#34d399', items:[
     { nombre:'Libus',       tipo:'⭐ Fabricante Nacional', desc:'Lentes y antiparras certificados. Fabricante con distribución nacional.', url:'https://www.libus.cl/visual.html', norma:'NCh 712', destacado:false },
     { nombre:'3M',          tipo:'Fabricante Mundial',    desc:'Lentes SecureFit, Virtua, BX. Protección para impacto, soldadura y químicos.', url:'https://www.3mchile.cl', norma:'NCh 712 / ANSI Z87.1', destacado:false },
-    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Lentes Uvex, Howard Leight. Antiparras y caretas de protección facial.', url:'https://www.honeywellsafety.com', norma:'NCh 712 / EN 166', destacado:false },
+    { nombre:'Honeywell',   tipo:'Fabricante Mundial',    desc:'Lentes Uvex, Howard Leight. Antiparras y caretas de protección facial.', url:'https://www.honeywellsafety.com', norma:'NCh 712 / EN ISO 16321-1', destacado:false },
     { nombre:'MSA Safety',  tipo:'Fabricante Mundial',    desc:'Lentes y caretas para ambientes industriales extremos.', url:'https://cl.msasafety.com', norma:'NCh 712', destacado:false },
   ]},
   auditiva:    { label:'🎧 Auditiva',    color:'#f59e0b', items:[
@@ -21808,9 +21816,9 @@ const NORMAS_MAP = {
   fundicion:    { primaria:'ISO 11612 A1-B1-C2-F1', secundaria:'NFPA 2112', ds:'DS 594', extra:'Máxima protección térmica. Cubrecara FR y guantes alta temperatura.' },
 };
 
-// ── Actualización normativa vigente (verificada — abril 2026) ──
+// ── Actualización normativa vigente (verificada — oct. 2026) ──
 const ACTUALIZACION_NORMATIVA = {
-  fecha_revision: '20 de junio de 2026',
+  fecha_revision: '20 de octubre de 2026',
   cambios: [
     {
       titulo: 'RFI — Renovación automática (Res. Exenta N°45/2023, ISP)',
@@ -21818,9 +21826,19 @@ const ACTUALIZACION_NORMATIVA = {
       impacto: 'Verificar que todas las prendas EPP muestren el N° de registro RFI actualizado en su folleto informativo y etiqueta.'
     },
     {
-      titulo: 'NFPA 2112 — Edición 2023 vigente (sin cambios mayores en 2026)',
-      detalle: 'La edición 2023 de NFPA 2112 (vigente) incorporó como exigencia la certificación completa de cubrecaras (Barrier Face Coverings) bajo ASTM F3502-21, revirtiendo una flexibilización de la edición 2018.',
+      titulo: 'NFPA 2112 — Edición 2023 vigente, con 3 enmiendas (TIA) posteriores',
+      detalle: 'La edición 2023 exige certificación completa de cubrecaras (Barrier Face Coverings) bajo ASTM F3502-21. Tras su publicación se emitieron TIA 23-1, 23-2 y 23-3, que ajustaron requisitos de forros/ventilación, plazos de cumplimiento (12→18 meses) y una exención de certificación para cubrecaras.',
       impacto: 'Cubrecaras o balaclavas FR comercializadas como accesorio deben venir certificadas bajo este estándar.'
+    },
+    {
+      titulo: 'NFPA 70E — nueva edición 2024 (reemplaza 2021)',
+      detalle: 'Cambios principales: terminología unificada ("electric shock"), política ESWC formal obligatoria, tablas de PPE para corriente continua revisadas (>150V y <600V CD), y nuevo Anexo S sobre evaluación de condición de mantenimiento. El ciclo de revisión 2027 ya está en curso, sin fecha de publicación.',
+      impacto: 'Verificar que las fichas de ropa con protección de arco eléctrico citen la edición 2024, no 2021.'
+    },
+    {
+      titulo: 'ISO 11612 (calor y llama) — en revisión activa, sin nueva edición aún',
+      detalle: 'La edición vigente (ISO 11612:2015) está marcada "to be revised" desde sept. 2022; existe un documento sucesor en balloteo DIS desde dic. 2024, sin fecha confirmada de publicación.',
+      impacto: 'Seguir citando ISO 11612:2015 mientras no se publique la nueva edición; monitorear este ítem.'
     },
     {
       titulo: 'INN Chile — normas aprobadas enero 2026',
@@ -21828,9 +21846,9 @@ const ACTUALIZACION_NORMATIVA = {
       impacto: 'Sin impacto en ropa FR ignífuga. Para ropa anti-químico líquido, revisar NCh3272 vigente.'
     },
     {
-      titulo: 'Sin cambios en NFPA 70E, ISO 11612 ni DS 594',
-      detalle: 'Estas normas siguen vigentes en su versión actual. No se identificaron actualizaciones que afecten los EPP certificados vigentes.',
-      impacto: 'Los EPP certificados con estas normas siguen siendo válidos sin necesidad de recertificación.'
+      titulo: 'Sin cambios en DS 594',
+      detalle: 'DS 594 (MINSAL) sigue vigente; ha tenido modificaciones puntuales recientes (no relacionadas a ropa FR) desde 2024. No se identificaron cambios que afecten los EPP ignífugos certificados.',
+      impacto: 'Los EPP certificados bajo DS 594 siguen siendo válidos sin necesidad de recertificación.'
     }
   ]
 };
