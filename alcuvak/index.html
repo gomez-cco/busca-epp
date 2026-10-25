@@ -1,0 +1,1446 @@
+<title>Calcuvak</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: una sola carcasa azul marino con dos pestañas (Estándar, Financiera); teclas y acentos naranja Govak. */
+:root {
+  --bg: #e8ecf4;
+  --shell: #14306b;
+  --shell-edge: #0e2352;
+  --screen: #0c1d44;
+  --screen-fg: #ffffff;
+  --screen-sub: #9fb1d6;
+  --key: #f4f6fb;
+  --key-fg: #0e1f45;
+  --key-fn: #2b4a8f;
+  --key-fn-fg: #ffffff;
+  --key-mem: transparent;
+  --key-mem-fg: #b9c7e6;
+  --op: #f47b20;
+  --op-fg: #0e1f45;
+  --op-active: #ffa04d;
+  --brand-fg: #14306b;
+  --muted: #55648a;
+  --panel: #0c1d44;
+  --panel-line: #24427f;
+  --focus: #ffa04d;
+  --link: #14306b;
+  --font-ui: "Archivo", system-ui, "Segoe UI", Arial, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #070f22;
+    --shell: #12285a;
+    --shell-edge: #0b1a3c;
+    --screen: #070f22;
+    --screen-sub: #8fa3cf;
+    --key: #1c3470;
+    --key-fg: #f1f4fb;
+    --key-fn: #2f4f98;
+    --brand-fg: #e8eefc;
+    --muted: #8fa3cf;
+    --panel: #070f22;
+    --link: #ffa04d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #070f22;
+  --shell: #12285a;
+  --shell-edge: #0b1a3c;
+  --screen: #070f22;
+  --screen-sub: #8fa3cf;
+  --key: #1c3470;
+  --key-fg: #f1f4fb;
+  --key-fn: #2f4f98;
+  --brand-fg: #e8eefc;
+  --muted: #8fa3cf;
+  --panel: #070f22;
+  --link: #ffa04d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--key-fg);
+  font-family: var(--font-ui);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.bar {
+  width: 100%; max-width: 380px; background: var(--screen); border-radius: 12px; padding: 10px 14px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px;
+}
+.bar div { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.bar b { font: 700 .62rem var(--font-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--screen-sub); }
+.bar span { font: 500 .98rem var(--font-num); color: var(--screen-fg); font-variant-numeric: tabular-nums; }
+.bar small { grid-column: 1 / -1; font-size: .7rem; color: var(--screen-sub); }
+.brand { width: 100%; max-width: 380px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.wordmark { margin: 0; font-size: 1.55rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-fg); line-height: 1; }
+.wordmark b { color: var(--op); font-weight: 800; }
+.byline { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); text-align: right; }
+
+.calc {
+  width: 100%; max-width: 380px;
+  background: var(--shell);
+  border-radius: 22px;
+  padding: 14px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 18px 40px -18px rgba(8, 20, 55, .55), 0 0 0 1px var(--shell-edge);
+  position: relative;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: var(--screen); padding: 4px; border-radius: 12px; }
+.tab {
+  appearance: none; border: 0; background: transparent; color: var(--screen-sub);
+  font: 700 .72rem var(--font-ui); letter-spacing: .04em; text-transform: uppercase;
+  padding: 10px 4px; border-radius: 9px; cursor: pointer;
+}
+.tab[aria-selected="true"] { background: var(--op); color: var(--op-fg); }
+.view { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+.screen {
+  background: var(--screen);
+  border-radius: 14px;
+  padding: 12px 16px 14px;
+  min-height: 128px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 4px;
+  min-width: 0;
+}
+.screen-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 28px; }
+.tools { display: flex; gap: 6px; align-items: center; }
+.mem-flag { font: 600 0.72rem var(--font-num); color: var(--op); letter-spacing: .06em; min-width: 1.6em; }
+.tool {
+  appearance: none; border: 1px solid var(--panel-line); background: transparent; color: var(--screen-sub);
+  font: 600 0.72rem var(--font-ui); letter-spacing: .06em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 999px; cursor: pointer;
+}
+.tool:hover { color: var(--screen-fg); border-color: var(--screen-sub); }
+.expr {
+  font: 400 0.95rem var(--font-num); color: var(--screen-sub);
+  text-align: right; min-height: 1.4em; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+}
+.expr::-webkit-scrollbar { display: none; }
+.main {
+  font: 500 2.9rem/1.1 var(--font-num); color: var(--screen-fg);
+  text-align: right; white-space: nowrap; overflow: hidden; font-variant-numeric: tabular-nums;
+}
+.main.error { font-size: 1.15rem; line-height: 1.4; color: var(--op-active); white-space: normal; }
+
+.keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.keys button {
+  appearance: none; border: 0; cursor: pointer;
+  font: 600 1.35rem var(--font-ui);
+  height: 62px; border-radius: 14px;
+  background: var(--key); color: var(--key-fg);
+  box-shadow: 0 2px 0 rgba(0,0,0,.22);
+  transition: transform .06s ease, filter .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.keys button:active { transform: translateY(2px); box-shadow: 0 0 0 rgba(0,0,0,0); filter: brightness(.94); }
+.keys .fn { background: var(--key-fn); color: var(--key-fn-fg); }
+.keys .op { background: var(--op); color: var(--op-fg); font-size: 1.6rem; }
+.keys .eq { background: var(--op); color: var(--op-fg); font-size: 1.7rem; font-weight: 800; }
+.keys .mem { height: 34px; border-radius: 10px; background: var(--key-mem); color: var(--key-mem-fg); font-size: .8rem; letter-spacing: .06em; box-shadow: none; border: 1px solid var(--panel-line); }
+button:focus-visible, .tool:focus-visible, .tab:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.history {
+  position: absolute; inset: 14px; z-index: 2;
+  background: var(--panel); border-radius: 14px; padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.history[hidden] { display: none; }
+.history-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--screen-fg); }
+.history-head h2 { margin: 0; font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.history ul { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.history li button {
+  width: 100%; text-align: right; background: transparent; border: 0; border-bottom: 1px solid var(--panel-line);
+  padding: 8px 2px; cursor: pointer; color: var(--screen-fg); font-family: var(--font-num);
+}
+.history li small { display: block; color: var(--screen-sub); font-size: .8rem; }
+.history li span { font-size: 1.25rem; }
+.history .empty { color: var(--screen-sub); font-size: .9rem; line-height: 1.5; padding: 8px 2px; }
+
+/* Financiera */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  appearance: none; border: 1px solid var(--panel-line); background: transparent; color: var(--key-mem-fg);
+  font: 700 .74rem var(--font-ui); letter-spacing: .06em; text-transform: uppercase;
+  padding: 8px 12px; border-radius: 999px; cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--op); border-color: var(--op); color: var(--op-fg); }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form[hidden], .field[hidden], .extra[hidden], .chips[hidden] { display: none; }
+.field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.field.wide { grid-column: 1 / -1; }
+.field > span.lbl { font: 700 .66rem var(--font-ui); letter-spacing: .09em; text-transform: uppercase; color: var(--key-mem-fg); }
+.inp { position: relative; }
+.inp input, .field select {
+  width: 100%; height: 44px; border: 0; border-radius: 10px;
+  background: var(--key); color: var(--key-fg);
+  font: 500 1rem var(--font-num); padding: 0 12px;
+}
+.field select { font-family: var(--font-ui); font-weight: 600; font-size: .92rem; }
+.inp input { padding-right: 34px; text-align: right; }
+.inp .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font: 600 .85rem var(--font-ui); color: var(--muted); pointer-events: none; }
+.results { background: var(--screen); border-radius: 14px; padding: 4px 16px; margin: 0; }
+.results .row { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--panel-line); }
+.results .row:last-child { border-bottom: 0; }
+.results dt { color: var(--screen-sub); font-size: .84rem; }
+.results dd { margin: 0; color: var(--screen-fg); font: 500 .95rem var(--font-num); text-align: right; font-variant-numeric: tabular-nums; }
+.results .none { color: var(--screen-sub); font-size: .88rem; padding: 12px 0; }
+.extra { display: flex; flex-direction: column; gap: 10px; }
+.extra h3 { margin: 4px 0 0; font: 700 .72rem var(--font-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--key-mem-fg); }
+.status { font-size: .78rem; line-height: 1.5; color: var(--screen-sub); }
+.status a { color: var(--op-active); }
+.note { font-size: .76rem; line-height: 1.5; color: var(--key-mem-fg); margin: 0; }
+.reset { align-self: flex-start; }
+.add { align-self: stretch; padding: 10px; text-align: center; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  background: var(--op); color: var(--op-fg); font-weight: 700; font-size: .85rem;
+  padding: 8px 16px; border-radius: 999px; z-index: 20;
+}
+.toast[hidden] { display: none; }
+.hint { max-width: 380px; font-size: .78rem; line-height: 1.5; color: var(--muted); text-align: center; margin: 0; }
+.hint[hidden] { display: none; }
+
+@media (max-width: 380px) {
+  .keys button { height: 56px; font-size: 1.25rem; }
+  .main { font-size: 2.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .keys button { transition: none; } }
+</style>
+
+<header class="brand">
+  <h1 class="wordmark">Calcu<span>VA</span><b>K</b></h1>
+  <span class="byline">Una calculadora de GOVAK</span>
+</header>
+
+<div class="bar" id="bar" aria-label="Indicadores del día"></div>
+
+<main class="calc" id="calc">
+  <div class="tabs" role="tablist" aria-label="Tipo de calculadora">
+    <button class="tab" id="tabStd" role="tab" aria-selected="true" aria-controls="viewStd" type="button">Estándar</button>
+    <button class="tab" id="tabFin" role="tab" aria-selected="false" aria-controls="viewFin" type="button">Financiera</button>
+    <button class="tab" id="tabCom" role="tab" aria-selected="false" aria-controls="viewFin" type="button">Comercial</button>
+    <button class="tab" id="tabUni" role="tab" aria-selected="false" aria-controls="viewFin" type="button">Unidades</button>
+    <button class="tab" id="tabCon" role="tab" aria-selected="false" aria-controls="viewFin" type="button">Construcción</button>
+    <button class="tab" id="tabPre" role="tab" aria-selected="false" aria-controls="viewFin" type="button">Prevención</button>
+  </div>
+
+  <!-- ESTÁNDAR -->
+  <div class="view" id="viewStd" role="tabpanel" aria-labelledby="tabStd">
+    <section class="screen" aria-label="Pantalla">
+      <div class="screen-top">
+        <span class="mem-flag" id="memFlag" aria-live="polite"></span>
+        <div class="tools">
+          <button class="tool" id="btnCopy" type="button">Copiar</button>
+          <button class="tool" id="btnHistory" type="button" aria-expanded="false" aria-controls="history">Historial</button>
+        </div>
+      </div>
+      <div class="expr" id="expr" aria-live="off"></div>
+      <div class="main" id="main" role="status" aria-live="polite">0</div>
+    </section>
+
+    <div class="keys" id="keys">
+      <button class="mem" data-key="MC" aria-label="Borrar memoria">MC</button>
+      <button class="mem" data-key="MR" aria-label="Recuperar memoria">MR</button>
+      <button class="mem" data-key="M-" aria-label="Restar de la memoria">M−</button>
+      <button class="mem" data-key="M+" aria-label="Sumar a la memoria">M+</button>
+
+      <button class="fn" data-key="C" aria-label="Borrar todo">AC</button>
+      <button class="fn" data-key="B" aria-label="Borrar último dígito">⌫</button>
+      <button class="fn" data-key="%" aria-label="Porcentaje">%</button>
+      <button class="op" data-key="/" aria-label="Dividir">÷</button>
+
+      <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+      <button class="op" data-key="*" aria-label="Multiplicar">×</button>
+
+      <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+      <button class="op" data-key="-" aria-label="Restar">−</button>
+
+      <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+      <button class="op" data-key="+" aria-label="Sumar">+</button>
+
+      <button class="fn" data-key="N" aria-label="Cambiar signo">±</button>
+      <button data-key="0">0</button>
+      <button data-key="." aria-label="Coma decimal">,</button>
+      <button class="eq" data-key="=" aria-label="Igual">=</button>
+    </div>
+
+    <aside class="history" id="history" hidden aria-label="Historial de cálculos">
+      <div class="history-head">
+        <h2>Historial</h2>
+        <div class="tools">
+          <button class="tool" id="btnClearHistory" type="button">Vaciar</button>
+          <button class="tool" id="btnCloseHistory" type="button">Cerrar</button>
+        </div>
+      </div>
+      <ul id="historyList"></ul>
+    </aside>
+  </div>
+
+  <!-- FINANCIERA -->
+  <div class="view" id="viewFin" role="tabpanel" aria-labelledby="tabFin" hidden>
+    <section class="screen" aria-label="Resultado financiero">
+      <div class="screen-top">
+        <span class="mem-flag" id="finTitle"></span>
+        <div class="tools"><button class="tool" id="btnFinCopy" type="button">Copiar</button></div>
+      </div>
+      <div class="expr" id="finLabel">&nbsp;</div>
+      <div class="main" id="finMain" role="status" aria-live="polite">—</div>
+    </section>
+    <div class="chips" id="chips" role="group" aria-label="Herramienta financiera"></div>
+    <div class="form" id="finForm"></div>
+    <dl class="results" id="finResults"></dl>
+    <p class="note" id="finNote"></p>
+    <div class="extra" id="finExtra" hidden></div>
+  </div>
+</main>
+
+<p class="hint" id="hint">Funciona también con el teclado: números, + − * /, Enter para igual, Retroceso para borrar y Esc para limpiar.</p>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/*ENGINE*/
+function fmt(str) {
+  if (/e/i.test(str)) return str.replace('.', ',');
+  var neg = str[0] === '-';
+  if (neg) str = str.slice(1);
+  var parts = str.split('.');
+  var int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  var out = int + (parts.length > 1 ? ',' + parts[1] : '');
+  return (neg ? '-' : '') + out;
+}
+function clean(r) {
+  if (!isFinite(r)) throw new Error('Resultado no válido');
+  return Number(r.toPrecision(12));
+}
+function evaluate(t) {
+  var a = [t[0]], i, op, n, prev;
+  for (i = 1; i < t.length; i += 2) {
+    op = t[i]; n = t[i + 1];
+    if (op === '×' || op === '÷') {
+      prev = a.pop();
+      if (op === '÷' && n === 0) throw new Error('No se puede dividir por 0');
+      a.push(op === '×' ? prev * n : prev / n);
+    } else { a.push(op, n); }
+  }
+  var r = a[0];
+  for (i = 1; i < a.length; i += 2) r = a[i] === '+' ? r + a[i + 1] : r - a[i + 1];
+  return clean(r);
+}
+function createCalc(initialHistory) {
+  var tokens = [], entry = '0', awaiting = false, replace = false, done = false;
+  var error = null, lastExpr = '', mem = 0, hasMem = false;
+  var history = Array.isArray(initialHistory) ? initialHistory.slice(0, 30) : [];
+  var OPS = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+
+  function reset() { tokens = []; entry = '0'; awaiting = false; replace = false; done = false; lastExpr = ''; }
+  function startFresh() { if (done) { tokens = []; done = false; lastExpr = ''; entry = '0'; replace = false; } }
+  function exprText(list) {
+    return list.map(function (x) { return typeof x === 'number' ? fmt(String(x)) : x; }).join(' ');
+  }
+  function fail(msg) { reset(); error = msg; }
+
+  function press(k) {
+    if (error) { error = null; reset(); if (k === 'C') return; }
+    try {
+      if (/^[0-9]$/.test(k)) {
+        startFresh();
+        if (awaiting || replace || entry === '0') { entry = k; awaiting = false; replace = false; }
+        else if (entry === '-0') { entry = '-' + k; }
+        else if (entry.replace(/[-.]/g, '').length < 15) { entry += k; }
+      } else if (k === '.') {
+        startFresh();
+        if (awaiting || replace) { entry = '0.'; awaiting = false; replace = false; }
+        else if (entry.indexOf('.') < 0) { entry += '.'; }
+      } else if (OPS[k]) {
+        var op = OPS[k];
+        if (done) { tokens = [Number(entry)]; done = false; lastExpr = ''; tokens.push(op); awaiting = true; replace = false; }
+        else if (awaiting) { tokens[tokens.length - 1] = op; }
+        else { tokens.push(Number(entry), op); awaiting = true; replace = false; }
+      } else if (k === '=') {
+        if (done) return;
+        var list = tokens.concat([Number(entry)]);
+        if (list.length === 1) { lastExpr = fmt(entry) + ' ='; done = true; tokens = []; awaiting = false; return; }
+        var res = evaluate(list);
+        var text = exprText(list);
+        history.unshift({ expr: text, result: String(res) });
+        if (history.length > 30) history.length = 30;
+        lastExpr = text + ' =';
+        entry = String(res); tokens = []; awaiting = false; replace = false; done = true;
+      } else if (k === 'C') {
+        reset();
+      } else if (k === 'B') {
+        if (done || awaiting || replace) return;
+        entry = entry.slice(0, -1);
+        if (entry === '' || entry === '-') entry = '0';
+      } else if (k === 'N') {
+        if (done) { tokens = []; lastExpr = ''; done = false; }
+        awaiting = false;
+        if (entry === '0' && !replace) { entry = '-0'; }
+        else if (entry === '-0') { entry = '0'; }
+        else entry = entry[0] === '-' ? entry.slice(1) : '-' + entry;
+      } else if (k === '%') {
+        var cur = Number(entry), val;
+        if (tokens.length >= 2 && typeof tokens[tokens.length - 1] === 'string') {
+          var base = evaluate(tokens.slice(0, -1));
+          var o = tokens[tokens.length - 1];
+          val = (o === '+' || o === '−') ? base * cur / 100 : cur / 100;
+        } else { val = cur / 100; }
+        if (done) { tokens = []; lastExpr = ''; done = false; }
+        entry = String(clean(val)); awaiting = false; replace = false;
+      } else if (k === 'MC') { mem = 0; hasMem = false; }
+      else if (k === 'MR') {
+        if (!hasMem) return;
+        if (done) { tokens = []; done = false; lastExpr = ''; }
+        entry = String(mem); awaiting = false; replace = true;
+      } else if (k === 'M+' || k === 'M-') {
+        var v = Number(entry);
+        mem = clean(k === 'M+' ? mem + v : mem - v); hasMem = true; replace = true;
+      }
+    } catch (e) { fail(e.message); }
+  }
+  function view() {
+    return {
+      main: error ? error : fmt(entry),
+      raw: entry,
+      expr: error ? '' : (done ? lastExpr : exprText(tokens)),
+      error: !!error,
+      hasMem: hasMem,
+      history: history
+    };
+  }
+  function clearHistory() { history = []; }
+  function useResult(res) { reset(); entry = res; done = false; replace = true; error = null; }
+  return { press: press, view: view, clearHistory: clearHistory, useResult: useResult };
+}
+/*END*/
+
+/*FIN*/
+function parseNum(s) {
+  if (s == null) return NaN;
+  s = String(s).trim().replace(/[\s$%]/g, '');
+  if (s === '') return NaN;
+  if (s.indexOf(',') >= 0) s = s.replace(/\./g, '').replace(',', '.');
+  else if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+  var n = Number(s);
+  return isFinite(n) ? n : NaN;
+}
+function fmtN(n, dec) {
+  dec = dec == null ? 0 : dec;
+  var s = Math.abs(n).toFixed(dec), p = s.split('.');
+  var out = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + (p[1] ? ',' + p[1] : '');
+  return (n < 0 && Number(s) !== 0 ? '-' : '') + out;
+}
+function peso(n) { return '$ ' + fmtN(Math.round(n), 0); }
+function pct(n, d) { return fmtN(n, d == null ? 2 : d) + ' %'; }
+function monthlyRate(rate, unit, mode) {
+  var r = rate / 100;
+  if (unit === 'm') return r;
+  return mode === 'simple' ? r / 12 : Math.pow(1 + r, 1 / 12) - 1;
+}
+var IND_DEFAULT = {
+  uf:  { name: 'UF',  value: 41210.47, dec: 2, when: '24-oct-2026' },
+  utm: { name: 'UTM', value: 72151,    dec: 0, when: 'octubre 2026' },
+  usd: { name: 'USD', value: 986.58,   dec: 2, when: '23-oct-2026' },
+  eur: { name: 'EUR', value: 1107.27,  dec: 2, when: '23-oct-2026' },
+  cny: { name: 'CNY', value: 147.28,   dec: 2, when: '24-oct-2026' },
+  pen: { name: 'PEN', value: 284.9,    dec: 2, when: '24-oct-2026' },
+  ars: { name: 'ARS', value: 0.6443,   dec: 4, when: '24-oct-2026' },
+  cop: { name: 'COP', value: 0.3081,   dec: 4, when: '24-oct-2026' },
+  brl: { name: 'BRL', value: 194.93,   dec: 2, when: '24-oct-2026' }
+};
+var CONV_OPTS = [['CLP', 'Pesos chilenos'], ['UF', 'UF'], ['UTM', 'UTM'], ['USD', 'Dólar (US$)'], ['EUR', 'Euro'], ['CNY', 'Yuan'], ['PEN', 'Sol peruano'], ['ARS', 'Peso argentino'], ['COP', 'Peso colombiano'], ['BRL', 'Real brasileño']];
+var ind = {};
+function resetInd() { Object.keys(IND_DEFAULT).forEach(function (k) { ind[k] = IND_DEFAULT[k].value; }); }
+resetInd();
+function rateOf(code) {
+  if (code === 'CLP') return 1;
+  var v = ind[code.toLowerCase()];
+  return v > 0 ? v : null;
+}
+var EMPTY = { empty: true };
+var FIN_TOOLS = [
+  { id: 'iva', name: 'IVA', title: 'IVA',
+    fields: [
+      { id: 'monto', label: 'Monto', kind: 'num', def: '100.000', unit: '$' },
+      { id: 'tasa', label: 'Tasa de IVA', kind: 'num', def: '19', unit: '%' },
+      { id: 'modo', label: 'El monto es', kind: 'sel', wide: true, def: 'neto', opts: [['neto', 'Neto (sin IVA)'], ['bruto', 'Bruto (con IVA)']] }
+    ],
+    run: function (v) {
+      if (!(v.monto >= 0) || !(v.tasa >= 0)) return EMPTY;
+      var t = v.tasa / 100, neto, iva, bruto;
+      if (v.modo === 'neto') { neto = Math.round(v.monto); iva = Math.round(neto * t); bruto = neto + iva; }
+      else { bruto = Math.round(v.monto); neto = Math.round(bruto / (1 + t)); iva = bruto - neto; }
+      return {
+        main: peso(v.modo === 'neto' ? bruto : neto), raw: String(v.modo === 'neto' ? bruto : neto),
+        label: v.modo === 'neto' ? 'Total con IVA' : 'Valor neto',
+        rows: [['Neto', peso(neto)], ['IVA (' + fmtN(v.tasa, 2).replace(/,00$/, '') + ' %)', peso(iva)], ['Bruto', peso(bruto)]]
+      };
+    },
+    note: 'El IVA se redondea al peso, como en una factura.' },
+
+  { id: 'margen', name: 'Margen', title: 'Margen y markup',
+    fields: [
+      { id: 'costo', label: 'Costo (neto)', kind: 'num', def: '6.000', unit: '$' },
+      { id: 'modo', label: 'Quiero calcular', kind: 'sel', wide: true, def: 'margen', opts: [['margen', 'Precio con un margen dado'], ['precio', 'Margen con un precio dado']] },
+      { id: 'margen', label: 'Margen sobre venta', kind: 'num', def: '40', unit: '%', when: { modo: 'margen' } },
+      { id: 'precio', label: 'Precio de venta (neto)', kind: 'num', def: '10.000', unit: '$', when: { modo: 'precio' } }
+    ],
+    run: function (v) {
+      if (!(v.costo > 0)) return EMPTY;
+      var precio, m;
+      if (v.modo === 'margen') {
+        if (!(v.margen >= 0)) return EMPTY;
+        if (v.margen >= 100) return { error: 'El margen debe ser menor a 100 %' };
+        precio = v.costo / (1 - v.margen / 100); m = v.margen;
+      } else {
+        if (!(v.precio > 0)) return EMPTY;
+        precio = v.precio; m = (precio - v.costo) / precio * 100;
+      }
+      var util = precio - v.costo, markup = util / v.costo * 100;
+      return {
+        main: v.modo === 'margen' ? peso(precio) : pct(m), raw: v.modo === 'margen' ? String(Math.round(precio)) : String(Math.round(m * 100) / 100),
+        label: v.modo === 'margen' ? 'Precio de venta neto' : 'Margen sobre venta',
+        rows: [['Utilidad por unidad', peso(util)], ['Margen sobre venta', pct(m)], ['Markup sobre costo', pct(markup)], ['Precio con IVA (19 %)', peso(precio * 1.19)]]
+      };
+    },
+    note: 'Margen = utilidad ÷ precio de venta. Markup = utilidad ÷ costo.' },
+
+  { id: 'interes', name: 'Interés', title: 'Interés simple y compuesto',
+    fields: [
+      { id: 'calc', label: 'Quiero calcular', kind: 'sel', wide: true, def: 'final', opts: [['final', 'Monto final'], ['inicial', 'Capital necesario hoy']] },
+      { id: 'capital', label: function (v) { return v.calc === 'final' ? 'Capital inicial' : 'Monto final deseado'; }, kind: 'num', def: '1.000.000', unit: '$', wide: true },
+      { id: 'tasa', label: 'Tasa', kind: 'num', def: '1', unit: '%' },
+      { id: 'tunit', label: 'Tasa', kind: 'sel', def: 'm', opts: [['m', 'mensual'], ['a', 'anual']] },
+      { id: 'plazo', label: 'Plazo', kind: 'num', def: '12' },
+      { id: 'punit', label: 'Plazo', kind: 'sel', def: 'm', opts: [['m', 'meses'], ['a', 'años']] },
+      { id: 'tipo', label: 'Tipo de interés', kind: 'sel', wide: true, def: 'compuesto', opts: [['compuesto', 'Compuesto'], ['simple', 'Simple']] }
+    ],
+    run: function (v) {
+      if (!(v.capital > 0) || !(v.tasa >= 0) || !(v.plazo > 0)) return EMPTY;
+      var months = v.plazo * (v.punit === 'a' ? 12 : 1), i = monthlyRate(v.tasa, v.tunit, v.tipo), f, c;
+      var k = v.tipo === 'simple' ? 1 + i * months : Math.pow(1 + i, months);
+      if (v.calc === 'final') { c = v.capital; f = c * k; } else { f = v.capital; c = f / k; }
+      return {
+        main: peso(v.calc === 'final' ? f : c), raw: String(Math.round(v.calc === 'final' ? f : c)),
+        label: v.calc === 'final' ? 'Monto final' : 'Capital inicial',
+        rows: [['Capital inicial', peso(c)], ['Interés ganado', peso(f - c)], ['Monto final', peso(f)], ['Tasa mensual equivalente', pct(i * 100, 4)]]
+      };
+    },
+    note: 'En interés compuesto, una tasa anual se trata como efectiva y se convierte a su equivalente mensual. En interés simple se divide por 12.' },
+
+  { id: 'credito', name: 'Crédito', title: 'Cuota de crédito',
+    fields: [
+      { id: 'monto', label: 'Monto del crédito', kind: 'num', def: '10.000.000', unit: '$', wide: true },
+      { id: 'tasa', label: 'Tasa', kind: 'num', def: '1', unit: '%' },
+      { id: 'tunit', label: 'Tasa', kind: 'sel', def: 'm', opts: [['m', 'mensual'], ['a', 'anual']] },
+      { id: 'cuotas', label: 'Número de cuotas', kind: 'num', def: '12', wide: true }
+    ],
+    run: function (v) {
+      if (!(v.monto > 0) || !(v.tasa >= 0) || !(v.cuotas >= 1)) return EMPTY;
+      var n = Math.round(v.cuotas), i = monthlyRate(v.tasa, v.tunit, 'compuesto');
+      var c = i === 0 ? v.monto / n : v.monto * i / (1 - Math.pow(1 + i, -n));
+      var total = c * n, int1 = v.monto * i;
+      return {
+        main: peso(c), raw: String(Math.round(c)), label: 'Cuota mensual (' + n + ' cuotas)',
+        rows: [['Total a pagar', peso(total)], ['Intereses totales', peso(total - v.monto)], ['Interés sobre el monto', pct((total - v.monto) / v.monto * 100)], ['En la 1ª cuota: interés', peso(int1)], ['En la 1ª cuota: capital', peso(c - int1)], ['Tasa mensual equivalente', pct(i * 100, 4)]]
+      };
+    },
+    note: 'Sistema de cuota fija (francés). No incluye seguros, comisiones ni impuesto de timbres.' },
+
+  { id: 'conv', name: 'Indicadores', title: 'UF, UTM y divisas', extra: 'ind',
+    fields: [
+      { id: 'cant', label: 'Cantidad', kind: 'num', def: '1', wide: true },
+      { id: 'de', label: 'De', kind: 'sel', def: 'UF', opts: CONV_OPTS },
+      { id: 'a', label: 'A', kind: 'sel', def: 'CLP', opts: CONV_OPTS }
+    ],
+    run: function (v) {
+      if (!(v.cant >= 0)) return EMPTY;
+      var rd = rateOf(v.de), ra = rateOf(v.a);
+      if (!rd) return { error: 'Falta el valor de ' + v.de + ' en pesos. Ingrésalo abajo.' };
+      if (!ra) return { error: 'Falta el valor de ' + v.a + ' en pesos. Ingrésalo abajo.' };
+      var out = v.cant * rd / ra, dec = v.a === 'CLP' && Math.abs(out) >= 100 ? 0 : 2;
+      return {
+        main: fmtN(out, dec) + ' ' + v.a, raw: out.toFixed(dec),
+        label: fmtN(v.cant, 2).replace(/,00$/, '') + ' ' + v.de + ' equivale a',
+        rows: [v.de, v.a].filter(function (c, i, arr) { return c !== 'CLP' && arr.indexOf(c) === i; }).map(function (c) {
+          var r = rateOf(c); return ['1 ' + c + ' en pesos', '$ ' + fmtN(r, r % 1 === 0 ? 0 : IND_DEFAULT[c.toLowerCase()].dec)];
+        })
+      };
+    },
+    note: '' }
+];
+function n0(x) { return isNaN(x) ? 0 : x; }
+var COM_TOOLS = [
+  { id: 'precio', name: 'Precio', title: 'Precio con IVA',
+    fields: [
+      { id: 'cant', label: 'Cantidad', kind: 'num', def: '1' },
+      { id: 'valor', label: 'Precio unitario', kind: 'num', def: '10.000', unit: '$' },
+      { id: 'iva', label: '¿El precio incluye IVA?', kind: 'sel', wide: true, def: 'no', opts: [['no', 'No, es neto (sin IVA)'], ['si', 'Sí, ya incluye IVA']] },
+      { id: 'ajuste', label: 'Ajuste', kind: 'sel', def: 'inc', opts: [['inc', 'Incremento'], ['des', 'Descuento'], ['no', 'Sin ajuste']] },
+      { id: 'pct', label: function (v) { return v.ajuste === 'des' ? 'Descuento' : 'Incremento'; }, kind: 'num', def: '20', unit: '%', when: { ajuste: ['inc', 'des'] } },
+      { id: 'ver', label: 'Mostrar en pantalla', kind: 'sel', wide: true, def: 'bruto', opts: [['bruto', 'Valor bruto (con IVA)'], ['neto', 'Valor neto (sin IVA)']] }
+    ],
+    run: function (v) {
+      if (!(v.valor > 0) || !(v.cant > 0)) return EMPTY;
+      var t = 0.19, p = n0(v.pct), conAjuste = v.ajuste !== 'no', tot = v.valor * v.cant;
+      if (conAjuste && (p < 0 || (v.ajuste === 'des' && p >= 100))) return { error: v.ajuste === 'des' ? 'El descuento debe estar entre 0 y 100 %' : 'El incremento no puede ser negativo' };
+      var neto0 = v.iva === 'si' ? tot / (1 + t) : tot;
+      var base = Math.round(neto0), neto, iva, bruto;
+      if (!conAjuste && v.iva === 'si') { bruto = Math.round(tot); neto = base; iva = bruto - neto; }
+      else {
+        var f = !conAjuste ? 1 : (v.ajuste === 'inc' ? 1 + p / 100 : 1 - p / 100);
+        neto = Math.round(neto0 * f); iva = Math.round(neto * t); bruto = neto + iva;
+      }
+      var pt = fmtN(p, 2).replace(/,00$/, '');
+      var rows = [[v.iva === 'si' ? 'Neto inicial (IVA separado)' : 'Neto inicial (sin IVA)', peso(base)]];
+      if (conAjuste) rows.push([(v.ajuste === 'inc' ? 'Incremento (' : 'Descuento (') + pt + ' %)', (neto >= base ? '+ ' : '- ') + peso(Math.abs(neto - base))]);
+      rows.push(['Neto final (sin IVA)', peso(neto)]);
+      if (v.cant > 1) rows.push(['Precio unitario neto final', '$ ' + fmtN(neto / v.cant, (neto / v.cant) % 1 === 0 ? 0 : 2)]);
+      rows.push(['IVA (19 %)', peso(iva)], ['Bruto final (con IVA)', peso(bruto)]);
+      if (v.ver === 'neto') return { main: peso(neto), raw: String(neto), label: 'Valor NETO (sin IVA)', rows: rows };
+      return { main: peso(bruto), raw: String(bruto), label: 'Valor BRUTO (con IVA)', rows: rows };
+    },
+    note: 'Si el precio ya incluye IVA, primero se separa el IVA y el ajuste se aplica sobre el neto.' }
+];
+function fmtSig(x) {
+  if (x === 0) return '0';
+  if (!isFinite(x)) return '—';
+  var ax = Math.abs(x);
+  if (ax >= 1e12 || ax < 1e-5) return x.toExponential(4).replace(/\.?0+e/, 'e').replace('.', ',').replace('e+', ' × 10^').replace('e-', ' × 10^-');
+  var r = Number(x.toPrecision(7)), d = (String(r).split('.')[1] || '').length;
+  return fmtN(r, d);
+}
+function mkUnits(id, name, title, units, def, note, conv) {
+  var byCode = {};
+  units.forEach(function (u) { byCode[u[0]] = u; });
+  var toB = conv ? conv.to : function (q, c) { return q * byCode[c][2]; };
+  var fromB = conv ? conv.from : function (b, c) { return b / byCode[c][2]; };
+  var opts = units.map(function (u) { return [u[0], u[0] + ' · ' + u[1]]; });
+  return {
+    id: id, name: name, title: title, extra: 'swap', note: note || '',
+    fields: [
+      { id: 'cant', label: 'Cantidad', kind: 'num', def: '1', wide: true },
+      { id: 'de', label: 'De', kind: 'sel', def: def[0], opts: opts },
+      { id: 'a', label: 'A', kind: 'sel', def: def[1], opts: opts }
+    ],
+    run: function (v) {
+      if (isNaN(v.cant)) return EMPTY;
+      var base = toB(v.cant, v.de), out = fromB(base, v.a);
+      return {
+        main: fmtSig(out) + ' ' + v.a, raw: String(Number(out.toPrecision(10))),
+        label: fmtSig(v.cant) + ' ' + v.de + ' equivale a',
+        rows: units.filter(function (u) { return u[0] !== v.a; }).map(function (u) { return [u[1], fmtSig(fromB(base, u[0])) + ' ' + u[0]]; })
+      };
+    }
+  };
+}
+var UNI_TOOLS = [
+  mkUnits('long', 'Longitud', 'Longitud', [['mm', 'milímetro', 0.001], ['cm', 'centímetro', 0.01], ['m', 'metro', 1], ['km', 'kilómetro', 1000], ['in', 'pulgada', 0.0254], ['ft', 'pie', 0.3048], ['yd', 'yarda', 0.9144], ['mi', 'milla', 1609.344], ['nmi', 'milla náutica', 1852]], ['m', 'ft']),
+  mkUnits('masa', 'Masa', 'Masa y peso', [['mg', 'miligramo', 0.000001], ['g', 'gramo', 0.001], ['kg', 'kilogramo', 1], ['t', 'tonelada', 1000], ['lb', 'libra', 0.45359237], ['oz', 'onza', 0.028349523125]], ['kg', 'lb']),
+  mkUnits('area', 'Área', 'Área', [['cm²', 'centímetro cuadrado', 0.0001], ['m²', 'metro cuadrado', 1], ['ha', 'hectárea', 10000], ['km²', 'kilómetro cuadrado', 1000000], ['in²', 'pulgada cuadrada', 0.00064516], ['ft²', 'pie cuadrado', 0.09290304], ['ac', 'acre', 4046.8564224]], ['m²', 'ha']),
+  mkUnits('vol', 'Volumen', 'Volumen', [['mL', 'mililitro', 0.001], ['cm³', 'centímetro cúbico', 0.001], ['L', 'litro', 1], ['m³', 'metro cúbico', 1000], ['gal', 'galón (EE. UU.)', 3.785411784], ['gal UK', 'galón imperial', 4.54609], ['fl oz', 'onza líquida (EE. UU.)', 0.0295735295625], ['in³', 'pulgada cúbica', 0.016387064], ['ft³', 'pie cúbico', 28.316846592], ['bbl', 'barril de petróleo', 158.987294928]], ['L', 'm³']),
+  mkUnits('temp', 'Temperatura', 'Temperatura', [['°C', 'grado Celsius'], ['°F', 'grado Fahrenheit'], ['K', 'kelvin']], ['°C', '°F'], '',
+    { to: function (q, u) { return u === '°C' ? q : u === '°F' ? (q - 32) * 5 / 9 : q - 273.15; },
+      from: function (b, u) { return u === '°C' ? b : u === '°F' ? b * 9 / 5 + 32 : b + 273.15; } }),
+  mkUnits('pres', 'Presión', 'Presión', [['Pa', 'pascal', 1], ['kPa', 'kilopascal', 1000], ['MPa', 'megapascal', 1000000], ['bar', 'bar', 100000], ['mbar', 'milibar', 100], ['atm', 'atmósfera', 101325], ['psi', 'libra por pulgada²', 6894.757293168], ['kgf/cm²', 'kilogramo fuerza por cm²', 98066.5], ['mmHg', 'milímetro de mercurio', 133.322387415], ['mca', 'metro columna de agua', 9806.65]], ['bar', 'psi'],
+    'mca es el metro de columna de agua: 1 kgf/cm² equivale a unos 10 mca.'),
+  mkUnits('fza', 'Fuerza', 'Fuerza: kilos a newton', [['N', 'newton', 1], ['kN', 'kilonewton', 1000], ['daN', 'decanewton', 10], ['kgf', 'kilogramo fuerza', 9.80665], ['tf', 'tonelada fuerza', 9806.65], ['lbf', 'libra fuerza', 4.4482216152605]], ['kgf', 'N'],
+    'Un kilogramo fuerza (kgf) es lo que pesa un kilo en la Tierra: 9,80665 N.'),
+  mkUnits('tor', 'Torque', 'Torque', [['N·m', 'newton metro', 1], ['kN·m', 'kilonewton metro', 1000], ['kgf·m', 'kilogramo fuerza metro', 9.80665], ['lbf·ft', 'libra fuerza pie', 1.3558179483314], ['lbf·in', 'libra fuerza pulgada', 0.1129848290276]], ['kgf·m', 'N·m']),
+  mkUnits('cau', 'Caudal', 'Caudal', [['L/s', 'litro por segundo', 1], ['L/min', 'litro por minuto', 1 / 60], ['L/h', 'litro por hora', 1 / 3600], ['m³/s', 'metro cúbico por segundo', 1000], ['m³/h', 'metro cúbico por hora', 1000 / 3600], ['gpm', 'galón por minuto (EE. UU.)', 3.785411784 / 60], ['cfm', 'pie cúbico por minuto', 28.316846592 / 60]], ['L/s', 'm³/h']),
+  mkUnits('ene', 'Energía', 'Energía', [['J', 'joule', 1], ['kJ', 'kilojoule', 1000], ['MJ', 'megajoule', 1000000], ['Wh', 'watt hora', 3600], ['kWh', 'kilowatt hora', 3600000], ['cal', 'caloría', 4.184], ['kcal', 'kilocaloría', 4184], ['BTU', 'BTU', 1055.05585262]], ['kWh', 'MJ']),
+  mkUnits('pot', 'Potencia', 'Potencia', [['W', 'watt', 1], ['kW', 'kilowatt', 1000], ['MW', 'megawatt', 1000000], ['HP', 'caballo de fuerza', 745.699872], ['CV', 'caballo de vapor', 735.49875], ['BTU/h', 'BTU por hora', 0.29307107], ['kcal/h', 'kilocaloría por hora', 1.163]], ['HP', 'kW']),
+  mkUnits('vel', 'Velocidad', 'Velocidad', [['m/s', 'metro por segundo', 1], ['km/h', 'kilómetro por hora', 1 / 3.6], ['mph', 'milla por hora', 0.44704], ['ft/s', 'pie por segundo', 0.3048], ['kn', 'nudo', 1852 / 3600]], ['km/h', 'm/s'])
+];
+var GLOVE = [
+  { n: 6, l: 'XS', circ: 152, len: 160 }, { n: 7, l: 'S', circ: 178, len: 171 }, { n: 8, l: 'M', circ: 203, len: 182 },
+  { n: 9, l: 'L', circ: 229, len: 192 }, { n: 10, l: 'XL', circ: 254, len: 204 }, { n: 11, l: 'XXL', circ: 279, len: 215 }
+];
+function gloveRows(g) {
+  return [['Talla numérica (EN 420)', String(g.n)], ['Talla en letras', g.l], ['Contorno de la mano', fmtN(g.circ / 10, 1) + ' cm (' + g.circ + ' mm)'], ['Largo de la mano', fmtN(g.len / 10, 1) + ' cm (' + g.len + ' mm)'], ['Contorno en pulgadas', fmtN(g.circ / 25.4, 1) + ' in']];
+}
+UNI_TOOLS.push({
+  id: 'guante', name: 'Guantes', title: 'Guantes: tallas y cajas',
+  fields: [
+    { id: 'modo', label: 'Calcular', kind: 'sel', wide: true, def: 'talla', opts: [['talla', 'Medidas de una talla'], ['medida', 'Talla según mi mano'], ['cajas', 'Cajas (unidades → cajas)']] },
+    { id: 'talla', label: 'Talla', kind: 'sel', wide: true, def: '8', when: { modo: 'talla' },
+      opts: GLOVE.map(function (g) { return [String(g.n), g.n + ' · ' + g.l]; }) },
+    { id: 'medida', label: 'Contorno de la mano', kind: 'num', def: '20,5', unit: 'cm', wide: true, when: { modo: 'medida' } },
+    { id: 'unid', label: 'Unidades a cotizar', kind: 'num', def: '10.000', wide: true, when: { modo: 'cajas' } },
+    { id: 'porcaja', label: 'Unidades por cajita', kind: 'num', def: '100', when: { modo: 'cajas' } },
+    { id: 'cajas', label: 'Cajitas por caja master', kind: 'num', def: '10', when: { modo: 'cajas' } }
+  ],
+  run: function (v) {
+    var g, alt = null, i;
+    if (v.modo === 'cajas') {
+      if (!(v.unid > 0) || !(v.porcaja >= 1) || !(v.cajas >= 1)) return EMPTY;
+      var u = Math.ceil(v.unid), pc = Math.floor(v.porcaja), pm = Math.floor(v.cajas);
+      var cajitas = Math.ceil(u / pc), masters = Math.ceil(cajitas / pm), cubren = cajitas * pc;
+      var rows2 = [['Cajitas necesarias', fmtN(cajitas, 0)], ['Cajas master', fmtN(masters, 0)], ['Cajas master exactas', fmtN(u / (pc * pm), 2)]];
+      if (cubren > u) rows2.push(['Unidades en las cajitas', fmtN(cubren, 0)], ['Sobrante', fmtN(cubren - u, 0) + ' unid.']);
+      return { main: fmtN(cajitas, 0) + ' cajitas (' + fmtN(masters, 0) + ' master)', raw: String(cajitas), label: 'Para ' + fmtN(u, 0) + ' unidades', rows: rows2 };
+    }
+    if (v.modo === 'talla') {
+      g = GLOVE.filter(function (x) { return String(x.n) === v.talla; })[0];
+      return { main: g.l, raw: g.l, label: 'Talla ' + g.n + ' equivale a', rows: gloveRows(g) };
+    }
+    if (!(v.medida > 0)) return EMPTY;
+    var mm = v.medida * 10;
+    if (mm < 140 || mm > 292) return { error: 'Fuera del rango de las tallas 6 a 11 (de 14 a 29 cm de contorno)' };
+    var best = 0;
+    GLOVE.forEach(function (x, k) { if (Math.abs(x.circ - mm) < Math.abs(GLOVE[best].circ - mm)) best = k; });
+    g = GLOVE[best];
+    var rows = gloveRows(g);
+    if (mm > g.circ && best < GLOVE.length - 1) { alt = GLOVE[best + 1]; rows.push(['Si prefieres más holgura', 'talla ' + alt.n + ' · ' + alt.l]); }
+    return { main: g.n + ' · ' + g.l, raw: String(g.n), label: 'Talla recomendada para ' + fmtN(v.medida, 1).replace(/,0$/, '') + ' cm', rows: rows };
+  },
+  note: function (v) {
+    return v.modo === 'cajas'
+      ? 'Las cajitas y las cajas master se redondean hacia arriba, porque no se venden fracciones. Revisa el embalaje de cada fabricante.'
+      : 'Mide con una huincha el contorno de la mano con la que trabajas, justo bajo los nudillos y sin el pulgar. Las tallas numéricas vienen de la norma EN 420 (hoy EN ISO 21420). Las letras son referenciales y cada fabricante puede variar: revisa su tabla.';
+  }
+});
+function numTxt(x) { return fmtN(x, 2).replace(/,?0+$/, ''); }
+function allPos() { for (var i = 0; i < arguments.length; i++) if (!(arguments[i] > 0)) return false; return true; }
+var CON_TOOLS = [
+  { id: 'horm', name: 'Hormigón', title: 'Hormigón y cemento',
+    fields: [
+      { id: 'l', label: 'Largo', kind: 'num', def: '5', unit: 'm' },
+      { id: 'a', label: 'Ancho', kind: 'num', def: '4', unit: 'm' },
+      { id: 'e', label: 'Espesor', kind: 'num', def: '10', unit: 'cm' },
+      { id: 'm', label: 'Merma', kind: 'num', def: '5', unit: '%' },
+      { id: 'g', label: 'Grado de hormigón', kind: 'sel', def: '300', opts: [['255', 'H-15 · 255 kg/m³'], ['300', 'H-20 · 300 kg/m³'], ['340', 'H-25 · 340 kg/m³']] },
+      { id: 's', label: 'Saco de cemento', kind: 'sel', def: '25', opts: [['25', '25 kg'], ['42.5', '42,5 kg'], ['otro', 'Otro (manual)']] },
+      { id: 'sm', label: 'Kilos por saco', kind: 'num', def: '40', unit: 'kg', wide: true, when: { s: 'otro' } },
+      { id: 'p', label: 'Precio por m³ (opcional)', kind: 'num', def: '', unit: '$', wide: true }
+    ],
+    run: function (v) {
+      var sk = v.s === 'otro' ? v.sm : Number(v.s);
+      if (!allPos(v.l, v.a, v.e, sk)) return EMPTY;
+      var vol = v.l * v.a * v.e / 100, vm = vol * (1 + n0(v.m) / 100), kg = vm * Number(v.g), sacos = Math.ceil(kg / sk);
+      var rows = [['Volumen sin merma', fmtN(vol, 2) + ' m³'], ['Cemento', fmtN(kg, 0) + ' kg'], ['Sacos de ' + numTxt(sk) + ' kg', fmtN(sacos, 0)]];
+      if (v.p > 0) rows.push(['Costo del hormigón', peso(vm * v.p)]);
+      return { main: fmtN(vm, 2) + ' m³', raw: String(Math.round(vm * 100) / 100), label: 'Hormigón con merma', rows: rows };
+    },
+    note: 'Las dosis de cemento son referenciales por m³. La dosificación real la define tu proveedor de hormigón.' },
+
+  { id: 'rad', name: 'Radier', title: 'Radier',
+    fields: [
+      { id: 'l', label: 'Largo', kind: 'num', def: '6', unit: 'm' },
+      { id: 'a', label: 'Ancho', kind: 'num', def: '4', unit: 'm' },
+      { id: 'e', label: 'Espesor del radier', kind: 'num', def: '10', unit: 'cm' },
+      { id: 'r', label: 'Espesor del ripio', kind: 'num', def: '10', unit: 'cm' },
+      { id: 'm', label: 'Merma', kind: 'num', def: '5', unit: '%' },
+      { id: 'pano', label: 'Paño de malla', kind: 'num', def: '13', unit: 'm²' }
+    ],
+    run: function (v) {
+      if (!allPos(v.l, v.a, v.e)) return EMPTY;
+      var area = v.l * v.a, h = area * v.e / 100 * (1 + n0(v.m) / 100), rip = area * n0(v.r) / 100;
+      var rows = [['Superficie', fmtN(area, 2) + ' m²'], ['Ripio compactado', fmtN(rip, 2) + ' m³'], ['Ripio a comprar (suelto)', fmtN(rip * 1.25, 2) + ' m³']];
+      if (v.pano > 0) rows.push(['Paños de malla (10 % de traslape)', fmtN(Math.ceil(area * 1.1 / v.pano), 0)]);
+      return { main: fmtN(h, 2) + ' m³', raw: String(Math.round(h * 100) / 100), label: 'Hormigón con merma', rows: rows };
+    },
+    note: 'El ripio suelto se calcula con un 25 % más que el compactado. El paño de malla (13 m² es 2,6 × 5 m) cámbialo según la que compres.' },
+
+  { id: 'pin', name: 'Pintura', title: 'Pintura',
+    fields: [
+      { id: 'a', label: 'Superficie a pintar', kind: 'num', def: '60', unit: 'm²' },
+      { id: 'manos', label: 'Manos', kind: 'num', def: '2' },
+      { id: 'rend', label: 'Rendimiento por mano', kind: 'num', def: '10', unit: 'm²/L' },
+      { id: 'm', label: 'Merma', kind: 'num', def: '10', unit: '%' },
+      { id: 'env', label: 'Envase', kind: 'sel', wide: true, def: '3.785', opts: [['1', '1 litro'], ['3.785', 'Galón (3,785 L)'], ['18.9', 'Tineta (18,9 L)'], ['otro', 'Otro (manual)']] },
+      { id: 'envm', label: 'Litros por envase', kind: 'num', def: '4', unit: 'L', wide: true, when: { env: 'otro' } }
+    ],
+    run: function (v) {
+      var env = v.env === 'otro' ? v.envm : Number(v.env);
+      if (!allPos(v.a, v.manos, v.rend, env)) return EMPTY;
+      var net = v.a * v.manos / v.rend, lt = net * (1 + n0(v.m) / 100), n = Math.ceil(lt / env);
+      var nom = v.env === 'otro' ? (n === 1 ? 'envase' : 'envases') + ' de ' + numTxt(env) + ' L' : v.env === '1' ? (n === 1 ? 'litro' : 'litros') : v.env === '3.785' ? (n === 1 ? 'galón' : 'galones') : (n === 1 ? 'tineta' : 'tinetas');
+      return { main: fmtN(lt, 1) + ' L', raw: String(Math.round(lt * 10) / 10), label: 'Pintura necesaria con merma',
+        rows: [['Superficie total (todas las manos)', fmtN(v.a * v.manos, 0) + ' m²'], ['Litros sin merma', fmtN(net, 1) + ' L'], ['A comprar', fmtN(n, 0) + ' ' + nom], ['Sobrante', fmtN(n * env - lt, 1) + ' L']] };
+    },
+    note: 'El rendimiento depende de la pintura y de la superficie. Usa el que indica la etiqueta del fabricante.' },
+
+  { id: 'cer', name: 'Cerámica', title: 'Cerámica y adhesivo',
+    fields: [
+      { id: 'a', label: 'Superficie', kind: 'num', def: '20', unit: 'm²' },
+      { id: 'm', label: 'Merma', kind: 'num', def: '10', unit: '%' },
+      { id: 'bl', label: 'Largo baldosa', kind: 'num', def: '60', unit: 'cm' },
+      { id: 'ba', label: 'Ancho baldosa', kind: 'num', def: '60', unit: 'cm' },
+      { id: 'caja', label: 'Baldosas por caja', kind: 'num', def: '4' },
+      { id: 'ad', label: 'Adhesivo', kind: 'num', def: '4,5', unit: 'kg/m²' },
+      { id: 'sa', label: 'Saco de adhesivo', kind: 'sel', def: '25', opts: [['25', '25 kg'], ['20', '20 kg'], ['otro', 'Otro (manual)']] },
+      { id: 'sam', label: 'Kilos por saco', kind: 'num', def: '30', unit: 'kg', wide: true, when: { sa: 'otro' } }
+    ],
+    run: function (v) {
+      var sak = v.sa === 'otro' ? v.sam : Number(v.sa);
+      if (!allPos(v.a, v.bl, v.ba, v.caja, sak)) return EMPTY;
+      var am = v.a * (1 + n0(v.m) / 100), nb = Math.ceil(am / (v.bl * v.ba / 10000)), cajas = Math.ceil(nb / Math.floor(v.caja));
+      var rows = [['Superficie con merma', fmtN(am, 2) + ' m²'], ['Baldosas', fmtN(nb, 0)], ['m² por caja', fmtN(Math.floor(v.caja) * v.bl * v.ba / 10000, 2) + ' m²']];
+      if (v.ad > 0) rows.push(['Adhesivo', fmtN(am * v.ad, 0) + ' kg (' + fmtN(Math.ceil(am * v.ad / sak), 0) + ' sacos de ' + numTxt(sak) + ' kg)']);
+      return { main: fmtN(cajas, 0) + ' cajas', raw: String(cajas), label: 'Cerámica a comprar', rows: rows };
+    },
+    note: 'Si la cerámica es en diagonal o tiene dibujo, sube la merma a 15 %. El consumo de adhesivo depende del producto y de la llana.' },
+
+  { id: 'tab', name: 'Tabique', title: 'Tabique metalcon',
+    fields: [
+      { id: 'l', label: 'Largo del tabique', kind: 'num', def: '6', unit: 'm' },
+      { id: 'h', label: 'Alto', kind: 'num', def: '2,4', unit: 'm' },
+      { id: 'sep', label: 'Separación de montantes', kind: 'num', def: '40', unit: 'cm' },
+      { id: 'caras', label: 'Caras con plancha', kind: 'sel', def: '2', opts: [['1', 'Una cara'], ['2', 'Dos caras']] },
+      { id: 'perfil', label: 'Largo del perfil', kind: 'sel', def: '2.4', opts: [['2.4', '2,40 m'], ['3', '3,00 m']] },
+      { id: 'm', label: 'Merma', kind: 'num', def: '5', unit: '%' }
+    ],
+    run: function (v) {
+      if (!allPos(v.l, v.h, v.sep)) return EMPTY;
+      var pf = Number(v.perfil);
+      if (v.h > pf) return { error: 'El alto del tabique supera el largo del perfil' };
+      var mont = Math.ceil(v.l * 100 / v.sep) + 1, canal = Math.ceil(2 * v.l / pf);
+      var ap = v.l * v.h * Number(v.caras) * (1 + n0(v.m) / 100);
+      var pl = Math.ceil(ap / 2.88);
+      return { main: fmtN(pl, 0) + ' planchas', raw: String(pl), label: 'Planchas de 1,2 × 2,4 m',
+        rows: [['Superficie de tabique', fmtN(v.l * v.h, 2) + ' m²'], ['Montantes', fmtN(mont, 0)], ['Canales (soleras)', fmtN(canal, 0)], ['Tornillos de plancha (aprox.)', fmtN(Math.ceil(ap * 25), 0)]] };
+    },
+    note: 'Considera 1 montante extra por esquina o puerta. Los tornillos son una cifra referencial de 25 por m² de plancha.' },
+
+  { id: 'tec', name: 'Techumbre', title: 'Techumbre',
+    fields: [
+      { id: 'l', label: 'Largo en planta', kind: 'num', def: '8', unit: 'm' },
+      { id: 'a', label: 'Ancho en planta', kind: 'num', def: '5', unit: 'm' },
+      { id: 'pend', label: 'Pendiente', kind: 'num', def: '30', unit: '%' },
+      { id: 'm', label: 'Merma y traslapes', kind: 'num', def: '8', unit: '%' },
+      { id: 'pl', label: 'Largo de plancha', kind: 'num', def: '3,66', unit: 'm' },
+      { id: 'pa', label: 'Ancho útil de plancha', kind: 'num', def: '0,85', unit: 'm' }
+    ],
+    run: function (v) {
+      if (!allPos(v.l, v.a)) return EMPTY;
+      var ang = Math.atan(n0(v.pend) / 100), f = 1 / Math.cos(ang), area = v.l * v.a * f;
+      var rows = [['Superficie en planta', fmtN(v.l * v.a, 2) + ' m²'], ['Ángulo del techo', fmtN(ang * 180 / Math.PI, 1) + ' °'], ['Factor de pendiente', fmtN(f, 3)]];
+      if (allPos(v.pl, v.pa)) rows.push(['Planchas', fmtN(Math.ceil(area * (1 + n0(v.m) / 100) / (v.pl * v.pa)), 0)]);
+      return { main: fmtN(area, 2) + ' m²', raw: String(Math.round(area * 100) / 100), label: 'Superficie inclinada', rows: rows };
+    },
+    note: 'Sirve para un techo simple. Para varias aguas, calcula cada agua por separado y súmalas.' },
+
+  { id: 'mur', name: 'Muro', title: 'Muro de block o ladrillo',
+    fields: [
+      { id: 'a', label: 'Superficie de muro', kind: 'num', def: '30', unit: 'm²' },
+      { id: 'm', label: 'Merma', kind: 'num', def: '5', unit: '%' },
+      { id: 'pl', label: 'Largo de la pieza', kind: 'num', def: '39', unit: 'cm' },
+      { id: 'pa', label: 'Alto de la pieza', kind: 'num', def: '19', unit: 'cm' },
+      { id: 'j', label: 'Junta de mortero', kind: 'num', def: '1', unit: 'cm', wide: true }
+    ],
+    run: function (v) {
+      if (!allPos(v.a, v.pl, v.pa)) return EMPTY;
+      var j = n0(v.j), upm = 1 / (((v.pl + j) / 100) * ((v.pa + j) / 100)), tot = Math.ceil(v.a * upm * (1 + n0(v.m) / 100));
+      return { main: fmtN(tot, 0) + ' piezas', raw: String(tot), label: 'Piezas con merma',
+        rows: [['Piezas por m²', fmtN(upm, 1)], ['Piezas sin merma', fmtN(Math.ceil(v.a * upm), 0)]] };
+    },
+    note: 'Ingresa las medidas de la pieza que compras. El block de 39 × 19 cm con junta de 1 cm usa 12,5 piezas por m².' },
+
+  { id: 'est', name: 'Estuco', title: 'Estuco y yeso',
+    fields: [
+      { id: 'a', label: 'Superficie', kind: 'num', def: '40', unit: 'm²' },
+      { id: 'e', label: 'Espesor total', kind: 'num', def: '15', unit: 'mm' },
+      { id: 'prod', label: 'Producto', kind: 'sel', wide: true, def: '1.7', opts: [['1.7', 'Estuco · aprox. 1,7 kg/m² por mm'], ['1', 'Yeso · aprox. 1,0 kg/m² por mm']] },
+      { id: 'm', label: 'Merma', kind: 'num', def: '10', unit: '%' },
+      { id: 'saco', label: 'Saco', kind: 'sel', def: '25', opts: [['25', '25 kg'], ['40', '40 kg'], ['otro', 'Otro (manual)']] },
+      { id: 'sm', label: 'Kilos por saco', kind: 'num', def: '30', unit: 'kg', wide: true, when: { saco: 'otro' } }
+    ],
+    run: function (v) {
+      var sk = v.saco === 'otro' ? v.sm : Number(v.saco);
+      if (!allPos(v.a, v.e, sk)) return EMPTY;
+      var kg = v.a * v.e * Number(v.prod) * (1 + n0(v.m) / 100), sacos = Math.ceil(kg / sk);
+      return { main: fmtN(kg, 0) + ' kg', raw: String(Math.round(kg)), label: 'Material con merma', rows: [['Sacos de ' + numTxt(sk) + ' kg', fmtN(sacos, 0)], ['Por m²', fmtN(kg / v.a, 1) + ' kg']] };
+    },
+    note: 'Los rendimientos son referenciales. Revisa la ficha técnica del producto y ajusta el espesor.' }
+];
+/* ===== PREVENCIÓN ===== */
+function hm(h) {
+  if (!isFinite(h)) return '—';
+  var m = Math.round(h * 60), hh = Math.floor(m / 60), mm = m % 60;
+  return hh > 0 ? (hh + ' h ' + (mm < 10 ? '0' : '') + mm + ' min') : (mm + ' min');
+}
+var WBGT_LIM = { c: [30.0, 26.7, 25.0], r75: [30.6, 28.0, 25.9], r50: [31.4, 29.4, 27.9], r25: [32.2, 31.1, 30.0] };
+var MIN_SIL = [['cuarzo', 'Cuarzo · LPP 0,08 mg/m³'], ['cris', 'Cristobalita · LPP 0,04 mg/m³'], ['trid', 'Tridimita · LPP 0,04 mg/m³']];
+var LPP_SIL = { cuarzo: 0.08, cris: 0.04, trid: 0.04 };
+function silGrade(r) {
+  if (r <= 1) return ['Grado 1', 'cada 4 años'];
+  if (r < 1.5) return ['Grado 2', 'cada 3 años'];
+  if (r < 2) return ['Grado 3', 'cada 2 años'];
+  return ['Grado 4', 'anual'];
+}
+var NEW_RUIDO = { id: 'ruido', name: 'Ruido', title: 'Ruido (DS 594 y PREXOR)',
+  fields: [
+    { id: 'm', label: 'Qué quieres calcular', kind: 'sel', def: 'dosis', wide: true, opts: [['dosis', 'Dosis diaria (varias exposiciones)'], ['tmax', 'Tiempo máximo de exposición'], ['imp', 'Ruido impulsivo (pico)'], ['nrr', 'Protector auditivo (NRR)']] },
+    { id: 'l', label: 'Nivel de presión sonora', kind: 'num', def: '92', unit: 'dB(A)', when: { m: ['tmax', 'nrr'] } },
+    { id: 'nrr', label: 'NRR del protector', kind: 'num', def: '25', unit: 'dB', when: { m: 'nrr' } },
+    { id: 'pk', label: 'Nivel pico', kind: 'num', def: '137', unit: 'dB(C)', when: { m: 'imp' } },
+    { id: 'l1', label: 'Exposición 1 · nivel', kind: 'num', def: '88', unit: 'dB(A)', when: { m: 'dosis' } },
+    { id: 'h1', label: 'Exposición 1 · horas', kind: 'num', def: '3', unit: 'h', when: { m: 'dosis' } },
+    { id: 'l2', label: 'Exposición 2 · nivel', kind: 'num', def: '82', unit: 'dB(A)', when: { m: 'dosis' } },
+    { id: 'h2', label: 'Exposición 2 · horas', kind: 'num', def: '5', unit: 'h', when: { m: 'dosis' } },
+    { id: 'l3', label: 'Exposición 3 · nivel', kind: 'num', def: '', unit: 'dB(A)', when: { m: 'dosis' } },
+    { id: 'h3', label: 'Exposición 3 · horas', kind: 'num', def: '', unit: 'h', when: { m: 'dosis' } }
+  ],
+  run: function (v) {
+    if (v.m === 'tmax') {
+      if (isNaN(v.l)) return EMPTY;
+      var t = Math.min(24, 8 / Math.pow(2, (v.l - 85) / 3));
+      var rows = [['Límite base', '85 dB(A) lento · 8 h'], ['Criterio de intercambio', '3 dB']];
+      if (v.l > 115) rows.push(['Aviso', 'Supera el máximo de 115 dB(A) lento']);
+      return { main: hm(t), raw: String(Math.round(t * 100) / 100), label: 'Tiempo máximo por día a ' + fmtN(v.l, 1) + ' dB(A)', rows: rows };
+    }
+    if (v.m === 'imp') {
+      if (isNaN(v.pk)) return EMPTY;
+      var est = v.pk >= 140 ? 'Supera el límite de 140 dB(C) pico' : v.pk >= 135 ? 'Sobre el nivel de acción PREXOR (135 dB(C) pico)' : 'Bajo el nivel de acción (135 dB(C) pico)';
+      return { main: fmtN(v.pk, 1) + ' dB(C)', raw: String(v.pk), label: 'Nivel pico', rows: [['Resultado', est], ['Trabajador expuesto (PREXOR)', v.pk >= 135 ? 'Sí' : 'No']] };
+    }
+    if (v.m === 'nrr') {
+      if (isNaN(v.l) || !(v.nrr >= 0)) return EMPTY;
+      var att = (v.nrr - 7) / 2, ef = v.l - att;
+      return { main: fmtN(ef, 1) + ' dB(A)', raw: String(Math.round(ef * 10) / 10), label: 'Nivel estimado bajo el protector',
+        rows: [['Atenuación estimada', fmtN(att, 1) + ' dB'], ['Nivel sin protección', fmtN(v.l, 1) + ' dB(A)'], ['¿Bajo 85 dB(A)?', ef <= 85 ? 'Sí' : 'No, necesitas más atenuación']] };
+    }
+    var D = 0, hs = 0, any = false;
+    [1, 2, 3].forEach(function (i) {
+      if (!isNaN(v['l' + i]) && v['h' + i] > 0) { any = true; D += v['h' + i] / Math.min(24, 8 / Math.pow(2, (v['l' + i] - 85) / 3)); hs += v['h' + i]; }
+    });
+    if (!any) return EMPTY;
+    var leq = D > 0 ? 85 + 3 * Math.log(D) / Math.LN2 : 0;
+    var prex = D >= 0.5 ? 'Sí: dosis desde 50 %' + (D >= 10 ? ' · plazo de medidas: 6 meses' : ' · plazo de medidas: 1 año') : 'No: bajo el 50 %';
+    return { main: fmtN(D * 100, 1) + ' %', raw: String(Math.round(D * 1000) / 10), label: 'Dosis diaria de ruido',
+      rows: [['Nivel equivalente (8 h)', fmtN(leq, 1) + ' dB(A)'], ['Horas expuestas', fmtN(hs, 1) + ' h'], ['Límite DS 594 (100 %)', D <= 1 ? 'Dentro del límite' : 'Superado'], ['Trabajador expuesto (PREXOR)', prex]] };
+  },
+  note: 'Tiempo máximo = 8 h ÷ 2^((nivel − 85) ÷ 3). Dosis = suma de horas ÷ tiempo máximo. PREXOR considera expuesto desde dosis 50 % (equivale a 82 dB(A) por 8 h) o pico de 135 dB(C). El límite de 140 dB(C) pico del DS 594 está anotado de memoria: confírmalo. La atenuación usa (NRR − 7) ÷ 2. Es referencial: la medición oficial usa dosímetro o sonómetro calibrado.' };
+
+var NEW_MMC = { id: 'mmc', name: 'Ergonomía MMC', title: 'Manejo manual de carga (Ley del Saco)',
+  fields: [
+    { id: 'g', label: 'Trabajador', kind: 'sel', def: 'h', wide: true, opts: [['h', 'Hombre adulto · máx. 25 kg'], ['m', 'Mujer · máx. 20 kg'], ['j', 'Menor de 18 años · máx. 20 kg']] },
+    { id: 'p', label: 'Peso de cada carga', kind: 'num', def: '30', unit: 'kg' },
+    { id: 'tot', label: 'Total a mover (opcional)', kind: 'num', def: '', unit: 'kg' },
+    { id: 'ay', label: '¿Hay ayuda mecánica?', kind: 'sel', def: 'no', opts: [['no', 'No, es manual'], ['si', 'Sí, hay ayuda']] },
+    { id: 'ag', label: 'Factores agravantes', kind: 'sel', def: 'no', opts: [['no', 'No hay'], ['si', 'Sí (frecuencia, altura, torsión)']] }
+  ],
+  run: function (v) {
+    if (!allPos(v.p)) return EMPTY;
+    var lim = v.g === 'h' ? 25 : 20, ok = v.p <= lim, rows = [['Máximo legal', fmtN(lim, 0) + ' kg'], ['Carga sobre el máximo', fmtN(v.p / lim * 100, 0) + ' %']];
+    if (!ok) rows.push(['Exceso', fmtN(v.p - lim, 1) + ' kg']);
+    rows.push(['Resultado', v.ay === 'si' ? 'Usa la ayuda mecánica: el límite aplica a lo manual' : ok ? 'Dentro del máximo' : 'No se permite manual: usa ayuda mecánica o divide la carga']);
+    if (v.ag === 'si' && ok && v.ay !== 'si') rows.push(['Aviso', 'Con agravantes, el peso seguro es menor: evalúa con la Guía Técnica']);
+    if (v.tot > 0) {
+      rows.push(['Cargas de ' + fmtN(v.p, 1) + ' kg', fmtN(Math.ceil(v.tot / v.p), 0)]);
+      if (!ok) rows.push(['Cargas de ' + fmtN(lim, 0) + ' kg o menos', fmtN(Math.ceil(v.tot / lim), 0)]);
+    }
+    return { main: v.ay === 'si' ? 'Con ayuda' : ok ? 'Dentro del límite' : 'Supera el límite', raw: String(Math.round(v.p * 10) / 10), label: 'Carga de ' + fmtN(v.p, 1) + ' kg · máx. ' + fmtN(lim, 0) + ' kg', rows: rows };
+  },
+  note: 'Ley 20.949 (Código del Trabajo, art. 211-H y 211-J): 25 kg para hombres adultos y 20 kg para mujeres y menores de 18 años, cuando la manipulación manual es inevitable. Con factores agravantes el límite baja según el DS 63 y la Guía Técnica del Ministerio del Trabajo.' };
+
+var NEW_SIL = { id: 'silice', name: 'Sílice', title: 'Sílice (PLANESI)',
+  fields: [
+    { id: 'mi', label: 'Tipo de sílice cristalina', kind: 'sel', def: 'cuarzo', wide: true, opts: MIN_SIL },
+    { id: 'm', label: 'Cómo ingresas la medición', kind: 'sel', def: 'dir', wide: true, opts: [['dir', 'Concentración ponderada ya calculada'], ['pond', 'Por tareas (calcular ponderada)']] },
+    { id: 'c', label: 'Concentración respirable', kind: 'num', def: '0,05', unit: 'mg/m³', when: { m: 'dir' } },
+    { id: 'j', label: 'Jornada de referencia', kind: 'num', def: '8', unit: 'h', when: { m: 'pond' } },
+    { id: 'c1', label: 'Tarea 1 · concentración', kind: 'num', def: '0,12', unit: 'mg/m³', when: { m: 'pond' } },
+    { id: 'h1', label: 'Tarea 1 · horas', kind: 'num', def: '3', unit: 'h', when: { m: 'pond' } },
+    { id: 'c2', label: 'Tarea 2 · concentración', kind: 'num', def: '0,02', unit: 'mg/m³', when: { m: 'pond' } },
+    { id: 'h2', label: 'Tarea 2 · horas', kind: 'num', def: '5', unit: 'h', when: { m: 'pond' } },
+    { id: 'c3', label: 'Tarea 3 · concentración', kind: 'num', def: '', unit: 'mg/m³', when: { m: 'pond' } },
+    { id: 'h3', label: 'Tarea 3 · horas', kind: 'num', def: '', unit: 'h', when: { m: 'pond' } }
+  ],
+  run: function (v) {
+    var C, lpp = LPP_SIL[v.mi];
+    if (v.m === 'dir') { if (isNaN(v.c)) return EMPTY; C = v.c; }
+    else {
+      if (!allPos(v.j)) return EMPTY;
+      var s = 0, any = false;
+      [1, 2, 3].forEach(function (i) { if (!isNaN(v['c' + i]) && v['h' + i] > 0) { any = true; s += v['c' + i] * v['h' + i]; } });
+      if (!any) return EMPTY;
+      C = s / v.j;
+    }
+    var r = C / lpp, niv;
+    if (r < 0.25) niv = 'Nivel 1 · muestreo cada 5 años';
+    else if (r < 0.5) niv = 'Nivel 2 · muestreo cada 3 años';
+    else if (r <= 1) niv = 'Nivel 3 · muestreo cada 2 años';
+    else niv = 'Nivel 4 · controlar, informar y re-muestrear';
+    var rows = [['Concentración ponderada', fmtN(C, 4) + ' mg/m³'], ['LPP del DS 594', fmtN(lpp, 2) + ' mg/m³'], ['Riesgo ambiental', niv], ['Trabajador expuesto', r >= 0.5 ? 'Sí (desde 50 % del LPP)' : 'No']];
+    if (r > 0.5 && r <= 5) { var g = silGrade(r); rows.push(['Vigilancia de salud', g[0] + ' · radiografía y cuestionario ' + g[1]]); }
+    if (r > 5) rows.push(['Aviso', 'Más de 5 veces el LPP: cambios inmediatos, riesgo de silicosis aguda']);
+    return { main: fmtN(r * 100, 1) + ' %', raw: String(Math.round(r * 1000) / 10), label: 'Concentración respecto del LPP', rows: rows };
+  },
+  note: 'Valores del DS 594 art. 66 para fracción respirable, jornada de hasta 48 horas semanales y hasta 1.000 m s.n.m. El muestreo es válido si cubre al menos el 70 % de la jornada. La vigilancia de salud es para trabajadores con menos de 20 años de exposición; con más de 20 años se considera grado 3 de forma permanente.' };
+
+var NEW_EXP = { id: 'expuesto', name: 'Expuesto', title: 'Filtro inicial: ¿trabajador expuesto?',
+  fields: [
+    { id: 'ag', label: 'Agente', kind: 'sel', def: 'ruido', wide: true, opts: [['ruido', 'Ruido (PREXOR)'], ['sil', 'Sílice (PLANESI)']] },
+    { id: 'l', label: 'Nivel equivalente de 8 h', kind: 'num', def: '83', unit: 'dB(A)', when: { ag: 'ruido' } },
+    { id: 'pk', label: 'Nivel pico (opcional)', kind: 'num', def: '', unit: 'dB(C)', when: { ag: 'ruido' } },
+    { id: 'mi', label: 'Tipo de sílice cristalina', kind: 'sel', def: 'cuarzo', wide: true, opts: MIN_SIL, when: { ag: 'sil' } },
+    { id: 'c', label: 'Concentración medida (opcional)', kind: 'num', def: '', unit: 'mg/m³', when: { ag: 'sil' } },
+    { id: 'pj', label: 'Jornada semanal en puestos con sílice', kind: 'num', def: '40', unit: '%', when: { ag: 'sil' } }
+  ],
+  run: function (v) {
+    if (v.ag === 'ruido') {
+      if (isNaN(v.l) && isNaN(v.pk)) return EMPTY;
+      var D = isNaN(v.l) ? 0 : Math.pow(2, (v.l - 85) / 3), imp = v.pk >= 135, ex = D >= 0.5 || imp;
+      return { main: ex ? 'EXPUESTO' : 'NO EXPUESTO', raw: ex ? 'Expuesto' : 'No expuesto', label: 'Ruido · criterio PREXOR',
+        rows: [['Dosis diaria', fmtN(D * 100, 1) + ' %'], ['Criterio', 'Dosis desde 50 % o pico desde 135 dB(C)'], ['Siguiente paso', ex ? 'Evaluar y entrar al programa de vigilancia' : 'Sin acción; reevalúa si cambia el proceso']] };
+    }
+    var lpp = LPP_SIL[v.mi];
+    if (v.c > 0) {
+      var r = v.c / lpp, e = r >= 0.5;
+      return { main: e ? 'EXPUESTO' : 'NO EXPUESTO', raw: e ? 'Expuesto' : 'No expuesto', label: 'Sílice · con medición',
+        rows: [['Concentración respecto del LPP', fmtN(r * 100, 1) + ' %'], ['Criterio', 'Desde 50 % del LPP'], ['Siguiente paso', e ? 'Vigilancia de salud según el grado' : 'Sin acción; reevalúa según periodicidad']] };
+    }
+    if (isNaN(v.pj)) return EMPTY;
+    var e2 = v.pj > 30;
+    return { main: e2 ? 'EXPUESTO' : 'NO EXPUESTO', raw: e2 ? 'Expuesto' : 'No expuesto', label: 'Sílice · sin medición',
+      rows: [['Jornada semanal con sílice', fmtN(v.pj, 0) + ' %'], ['Criterio', 'Más del 30 % de la jornada semanal'], ['Siguiente paso', e2 ? 'Medir la concentración para calificar el riesgo' : 'Sin acción; reevalúa si cambia el puesto']] };
+  },
+  note: 'PREXOR: expuesto con dosis diaria desde 50 % (82 dB(A) por 8 h) o pico desde 135 dB(C). PLANESI: expuesto con concentración desde 50 % del LPP o, sin medición, con más del 30 % de la jornada semanal en puestos con sílice.' };
+
+var PRE_TOOLS = [
+  { id: 'tasas', name: 'Estadístico', title: 'Estadístico (factor 1.000.000)',
+    fields: [
+      { id: 'trab', label: 'Trabajadores promedio', kind: 'num', def: '120' },
+      { id: 'acc', label: 'Accidentes con tiempo perdido', kind: 'num', def: '3' },
+      { id: 'dias', label: 'Días perdidos', kind: 'num', def: '25' },
+      { id: 'mue', label: 'Muertes o invalideces totales', kind: 'num', def: '0' },
+      { id: 'otros', label: 'Otros días de cargo', kind: 'num', def: '0' },
+      { id: 'hh', label: 'Horas hombre trabajadas (HH)', kind: 'num', def: '250000' }
+    ],
+    run: function (v) {
+      if (!allPos(v.trab)) return EMPTY;
+      var acc = n0(v.acc), dias = n0(v.dias), cargo = n0(v.mue) * 6000 + n0(v.otros);
+      var ta = acc / v.trab * 100, ts = dias / v.trab * 100;
+      var rows = [['Tasa de siniestralidad', fmtN(ts, 2) + ' días perdidos por 100 trab.']];
+      if (cargo > 0) rows.push(['Días de cargo', fmtN(cargo, 0)]);
+      if (v.hh > 0) {
+        var tf = acc * 1e6 / v.hh, tg = (dias + cargo) * 1e6 / v.hh;
+        rows.push(['Tasa de frecuencia', fmtN(tf, 2) + ' por 1.000.000 de HH']);
+        rows.push(['Tasa de gravedad', fmtN(tg, 2) + ' por 1.000.000 de HH']);
+        rows.push(['Índice de peligrosidad', fmtN(tf * tg / 1000, 2)]);
+      }
+      if (acc > 0) rows.push(['Días promedio por accidente', fmtN((dias + cargo) / acc, 1)]);
+      return { main: fmtN(ta, 2) + ' %', raw: String(Math.round(ta * 100) / 100), label: 'Tasa de accidentabilidad', rows: rows };
+    },
+    note: 'Accidentabilidad = accidentes con tiempo perdido ÷ trabajadores × 100. Siniestralidad = días perdidos ÷ trabajadores × 100. Frecuencia y gravedad se expresan por 1.000.000 de HH (DS 40, art. 12). Cada muerte o invalidez total suma 6.000 días de cargo (tabla internacional). Peligrosidad = frecuencia × gravedad ÷ 1.000.' },
+
+  { id: 'hh', name: 'Horas hombre', title: 'Horas hombre trabajadas (HH)',
+    fields: [
+      { id: 'trab', label: 'Trabajadores promedio', kind: 'num', def: '120' },
+      { id: 'hs', label: 'Horas por semana', kind: 'num', def: '42', unit: 'h' },
+      { id: 'per', label: 'Período', kind: 'sel', def: '52', opts: [['4.345', 'Mes'], ['13', 'Trimestre'], ['26', 'Semestre'], ['52', 'Año']] },
+      { id: 'ext', label: 'Horas extra', kind: 'num', def: '0', unit: 'h' },
+      { id: 'aus', label: 'Horas de ausencia (licencias, vacaciones)', kind: 'num', def: '0', unit: 'h', wide: true }
+    ],
+    run: function (v) {
+      if (!allPos(v.trab, v.hs)) return EMPTY;
+      var hh = v.trab * v.hs * Number(v.per) + n0(v.ext) - n0(v.aus);
+      if (hh <= 0) return { error: 'Las ausencias superan las horas' };
+      return { main: fmtN(hh, 0) + ' HH', raw: String(Math.round(hh)), label: 'Horas hombre trabajadas',
+        rows: [['Horas teóricas', fmtN(v.trab * v.hs * Number(v.per), 0)], ['Horas extra', fmtN(n0(v.ext), 0)], ['Ausencias descontadas', fmtN(n0(v.aus), 0)]] };
+    },
+    note: 'HH = trabajadores × horas semanales × semanas + horas extra − horas de ausencia. La jornada legal en Chile es de 42 horas desde abril de 2026; si tu empresa usa otra, cámbiala.' },
+
+  NEW_RUIDO,
+
+  NEW_MMC,
+
+  NEW_SIL,
+
+  { id: 'wbgt', name: 'TGBH', title: 'Índice TGBH (estrés térmico)',
+    fields: [
+      { id: 'u', label: 'Lugar de trabajo', kind: 'sel', def: 'int', wide: true, opts: [['int', 'Interior o exterior sin sol'], ['ext', 'Exterior con sol']] },
+      { id: 'tnw', label: 'Bulbo húmedo natural', kind: 'num', def: '24', unit: '°C' },
+      { id: 'tg', label: 'Temperatura de globo', kind: 'num', def: '32', unit: '°C' },
+      { id: 'ts', label: 'Temperatura del aire (seca)', kind: 'num', def: '30', unit: '°C', wide: true, when: { u: 'ext' } },
+      { id: 'c', label: 'Carga de trabajo', kind: 'sel', def: '1', opts: [['0', 'Liviana (menos de 200 kcal/h)'], ['1', 'Moderada (200 a 350)'], ['2', 'Pesada (más de 350)']] },
+      { id: 'r', label: 'Régimen trabajo / descanso', kind: 'sel', def: 'c', opts: [['c', 'Trabajo continuo'], ['r75', '75 % trabajo · 25 % descanso'], ['r50', '50 % · 50 %'], ['r25', '25 % trabajo · 75 % descanso']] }
+    ],
+    run: function (v) {
+      if (isNaN(v.tnw) || isNaN(v.tg)) return EMPTY;
+      var w;
+      if (v.u === 'ext') { if (isNaN(v.ts)) return EMPTY; w = 0.7 * v.tnw + 0.2 * v.tg + 0.1 * v.ts; } else w = 0.7 * v.tnw + 0.3 * v.tg;
+      var lim = WBGT_LIM[v.r][Number(v.c)], d = lim - w;
+      return { main: fmtN(w, 1) + ' °C', raw: String(Math.round(w * 10) / 10), label: 'Índice TGBH',
+        rows: [['Límite permitido', fmtN(lim, 1) + ' °C'], ['Diferencia', (d >= 0 ? '+' : '−') + fmtN(Math.abs(d), 1) + ' °C'], ['Resultado', d >= 0 ? 'Cumple el límite' : 'Supera el límite']] };
+    },
+    note: 'Sin sol: TGBH = 0,7 × húmedo natural + 0,3 × globo. Con sol: 0,7 × húmedo natural + 0,2 × globo + 0,1 × temperatura seca. Los límites son los de la tabla del DS 594 sobre carga térmica; confírmalos en el texto vigente antes de informar.' },
+
+  NEW_EXP,
+
+  { id: 'ext', name: 'Extintores', title: 'Extintores (DS 594)',
+    fields: [
+      { id: 's', label: 'Superficie a proteger', kind: 'num', def: '800', unit: 'm²' },
+      { id: 'c', label: 'Superficie por extintor', kind: 'num', def: '150', unit: 'm²' },
+      { id: 'p', label: 'Pisos o niveles', kind: 'num', def: '1' }
+    ],
+    run: function (v) {
+      if (!allPos(v.s, v.c)) return EMPTY;
+      var pisos = v.p > 0 ? Math.round(v.p) : 1, n = Math.ceil(v.s / v.c);
+      return { main: fmtN(n, 0) + (n === 1 ? ' extintor' : ' extintores'), raw: String(n), label: 'Mínimo para la superficie',
+        rows: [['Extintores por superficie', fmtN(n, 0)], ['Distancia máxima de recorrido', '23 m'], ['Potencial mínimo', '4 A']].concat(pisos > 1 ? [['Mínimo en total si cada piso tiene esa superficie', fmtN(n * pisos, 0)]] : []) };
+    },
+    note: 'Referencia del DS 594: un extintor de al menos 4 A por cada 150 m² y con recorrido máximo de 23 m. Si hay materiales de mayor riesgo o equipos eléctricos, cambia el tipo y la cantidad según tu evaluación.' },
+
+  { id: 'lux', name: 'Iluminación', title: 'Iluminación (método de lúmenes)',
+    fields: [
+      { id: 'l', label: 'Largo del recinto', kind: 'num', def: '10', unit: 'm' },
+      { id: 'a', label: 'Ancho del recinto', kind: 'num', def: '6', unit: 'm' },
+      { id: 'e', label: 'Nivel requerido', kind: 'num', def: '300', unit: 'lux' },
+      { id: 'f', label: 'Flujo de cada luminaria', kind: 'num', def: '4000', unit: 'lm' },
+      { id: 'cu', label: 'Coeficiente de utilización', kind: 'num', def: '0,6' },
+      { id: 'fm', label: 'Factor de mantenimiento', kind: 'num', def: '0,8' }
+    ],
+    run: function (v) {
+      if (!allPos(v.l, v.a, v.e, v.f, v.cu, v.fm)) return EMPTY;
+      var s = v.l * v.a, n = Math.ceil(v.e * s / (v.f * v.cu * v.fm));
+      return { main: fmtN(n, 0) + (n === 1 ? ' luminaria' : ' luminarias'), raw: String(n), label: 'Luminarias necesarias',
+        rows: [['Superficie', fmtN(s, 2) + ' m²'], ['Flujo total necesario', fmtN(v.e * s / (v.cu * v.fm), 0) + ' lm'], ['Nivel con ese número', fmtN(n * v.f * v.cu * v.fm / s, 0) + ' lux']] };
+    },
+    note: 'N = nivel × superficie ÷ (flujo × coeficiente de utilización × factor de mantenimiento). El nivel mínimo según la actividad está en la tabla del DS 594 sobre iluminación. La medición oficial se hace con luxómetro.' },
+
+  { id: 'caida', name: 'Altura', title: 'Trabajo en altura',
+    fields: [
+      { id: 'm', label: 'Qué quieres calcular', kind: 'sel', def: 'dist', wide: true, opts: [['dist', 'Distancia libre de caída requerida'], ['fc', 'Factor de caída']] },
+      { id: 'es', label: 'Largo de la eslinga', kind: 'num', def: '1,8', unit: 'm', when: { m: 'dist' } },
+      { id: 'ab', label: 'Absorbedor desplegado', kind: 'num', def: '1,2', unit: 'm', when: { m: 'dist' } },
+      { id: 'al', label: 'Altura del trabajador (pies a argolla)', kind: 'num', def: '1,5', unit: 'm', when: { m: 'dist' } },
+      { id: 'mg', label: 'Margen de seguridad', kind: 'num', def: '1', unit: 'm', when: { m: 'dist' } },
+      { id: 'lib', label: 'Altura libre disponible (opcional)', kind: 'num', def: '', unit: 'm', wide: true, when: { m: 'dist' } },
+      { id: 'h', label: 'Altura de caída libre', kind: 'num', def: '1,8', unit: 'm', when: { m: 'fc' } },
+      { id: 'lc', label: 'Largo de la línea de vida', kind: 'num', def: '1,8', unit: 'm', when: { m: 'fc' } }
+    ],
+    run: function (v) {
+      if (v.m === 'fc') {
+        if (!allPos(v.h, v.lc)) return EMPTY;
+        var fc = v.h / v.lc;
+        return { main: fmtN(fc, 2), raw: String(Math.round(fc * 100) / 100), label: 'Factor de caída',
+          rows: [['Clasificación', fc > 1 ? 'Factor 2 o más: el más peligroso' : fc > 0 ? 'Factor 1 o menos' : 'Sin caída libre']] };
+      }
+      if (!allPos(v.es, v.al)) return EMPTY;
+      var tot = v.es + n0(v.ab) + v.al + n0(v.mg);
+      var rows = [['Eslinga', fmtN(v.es, 2) + ' m'], ['Absorbedor', fmtN(n0(v.ab), 2) + ' m'], ['Altura del trabajador', fmtN(v.al, 2) + ' m'], ['Margen', fmtN(n0(v.mg), 2) + ' m']];
+      if (v.lib > 0) rows.push(['Resultado', v.lib >= tot ? 'Hay espacio suficiente' : 'Falta espacio: faltan ' + fmtN(tot - v.lib, 2) + ' m']);
+      return { main: fmtN(tot, 2) + ' m', raw: String(Math.round(tot * 100) / 100), label: 'Distancia libre requerida bajo los pies', rows: rows };
+    },
+    note: 'Suma largo de eslinga, absorbedor desplegado, altura del trabajador y margen. Usa los datos del fabricante de tu equipo: esos valores mandan sobre los de ejemplo. Anclar sobre la cabeza (factor 0 o 1) reduce la fuerza del impacto.' }
+];
+var GROUPS = { fin: FIN_TOOLS, com: COM_TOOLS, uni: UNI_TOOLS, con: CON_TOOLS, pre: PRE_TOOLS };
+var TOOLS = FIN_TOOLS.concat(COM_TOOLS, UNI_TOOLS, CON_TOOLS, PRE_TOOLS);
+/*FINEND*/
+
+(function () {
+  var STORE = 'calcuvak.history', STORE_IND = 'calcuvak.ind';
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(STORE) || '[]'); } catch (e) { saved = []; }
+  var calc = createCalc(saved);
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elMain = $('main'), elExpr = $('expr'), elMem = $('memFlag'), elHist = $('history'), elList = $('historyList');
+  var toastTimer, tab = 'std';
+
+  function toast(msg) {
+    var t = $('toast'); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 1400);
+  }
+  function copyText(text, okMsg, selectEl) {
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(selectEl);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      toast('Selecciona y copia el número');
+    }
+    try { navigator.clipboard.writeText(text).then(function () { toast(okMsg); }, fallback); } catch (e) { fallback(); }
+  }
+  function fitFont(el, n, error) {
+    el.style.fontSize = error ? '' : (n > 22 ? '1.35rem' : n > 17 ? '1.7rem' : n > 13 ? '2.1rem' : n > 10 ? '2.5rem' : '');
+  }
+
+  /* ---------- Estándar ---------- */
+  function persist(v) { try { localStorage.setItem(STORE, JSON.stringify(v.history)); } catch (e) {} }
+  function render() {
+    var v = calc.view();
+    elMain.textContent = v.main;
+    elMain.classList.toggle('error', v.error);
+    fitFont(elMain, v.main.length, v.error);
+    elExpr.textContent = v.expr || ' ';
+    elExpr.scrollLeft = elExpr.scrollWidth;
+    elMem.textContent = v.hasMem ? 'M' : '';
+    renderHistory(v.history);
+    persist(v);
+  }
+  function renderHistory(items) {
+    elList.textContent = '';
+    if (!items.length) {
+      var p = document.createElement('li'); p.className = 'empty';
+      p.textContent = 'Aquí aparecen tus últimos cálculos. Toca uno para seguir trabajando con su resultado.';
+      elList.appendChild(p); return;
+    }
+    items.forEach(function (it) {
+      var li = document.createElement('li');
+      var b = document.createElement('button'); b.type = 'button';
+      var s = document.createElement('small'); s.textContent = it.expr + ' =';
+      var r = document.createElement('span'); r.textContent = fmt(it.result);
+      b.appendChild(s); b.appendChild(r);
+      b.addEventListener('click', function () { calc.useResult(it.result); setHistory(false); render(); });
+      li.appendChild(b); elList.appendChild(li);
+    });
+  }
+  function setHistory(open) {
+    elHist.hidden = !open;
+    $('btnHistory').setAttribute('aria-expanded', String(open));
+  }
+  function press(k) { calc.press(k); render(); }
+
+  $('keys').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-key]'); if (!b) return;
+    press(b.getAttribute('data-key')); b.blur();
+  });
+  $('btnHistory').addEventListener('click', function () { setHistory(elHist.hidden); });
+  $('btnCloseHistory').addEventListener('click', function () { setHistory(false); $('btnHistory').focus(); });
+  $('btnClearHistory').addEventListener('click', function () { calc.clearHistory(); render(); });
+  $('btnCopy').addEventListener('click', function () {
+    var v = calc.view(); if (v.error) return;
+    var text = v.raw.replace('.', ',');
+    copyText(text, 'Copiado: ' + text, elMain);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (tab !== 'std') return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key, map = null;
+    if (/^[0-9]$/.test(k)) map = k;
+    else if (k === '.' || k === ',') map = '.';
+    else if (k === '+' || k === '-' || k === '*' || k === '/') map = k;
+    else if (k === 'x' || k === 'X') map = '*';
+    else if (k === '%') map = '%';
+    else if (k === 'Enter' || k === '=') { if (e.target.tagName === 'BUTTON') return; map = '='; }
+    else if (k === 'Backspace') map = 'B';
+    else if (k === 'Escape') { if (!elHist.hidden) { setHistory(false); return; } map = 'C'; }
+    if (!map) return;
+    e.preventDefault(); press(map);
+  });
+
+  /* ---------- Pestañas ---------- */
+  function setTab(t) {
+    tab = t;
+    $('tabStd').setAttribute('aria-selected', String(t === 'std'));
+    $('tabFin').setAttribute('aria-selected', String(t === 'fin'));
+    $('tabCom').setAttribute('aria-selected', String(t === 'com'));
+    $('tabUni').setAttribute('aria-selected', String(t === 'uni'));
+    $('tabCon').setAttribute('aria-selected', String(t === 'con'));
+    $('tabPre').setAttribute('aria-selected', String(t === 'pre'));
+    $('viewStd').hidden = t !== 'std';
+    $('viewFin').hidden = t === 'std';
+    $('viewFin').setAttribute('aria-labelledby', t === 'com' ? 'tabCom' : t === 'uni' ? 'tabUni' : t === 'con' ? 'tabCon' : t === 'pre' ? 'tabPre' : 'tabFin');
+    $('hint').hidden = t !== 'std';
+    if (t !== 'std') buildTool();
+  }
+  $('tabStd').addEventListener('click', function () { setTab('std'); });
+  $('tabFin').addEventListener('click', function () { setTab('fin'); });
+  $('tabCom').addEventListener('click', function () { setTab('com'); });
+  $('tabUni').addEventListener('click', function () { setTab('uni'); });
+  $('tabCon').addEventListener('click', function () { setTab('con'); });
+  $('tabPre').addEventListener('click', function () { setTab('pre'); });
+
+  /* ---------- Financiera ---------- */
+  var activeBy = { fin: 'iva', com: 'precio', uni: 'long', con: 'horm', pre: 'tasas' }, state = {}, lastRaw = '', manual = {}, indStatus = 'ref';
+  try { manual = JSON.parse(localStorage.getItem(STORE_IND) || '{}') || {}; } catch (e) { manual = {}; }
+  Object.keys(manual).forEach(function (k) { if (k in ind && typeof manual[k] === 'number') ind[k] = manual[k]; });
+
+  function toolById(id) { return TOOLS.filter(function (t) { return t.id === id; })[0]; }
+  function fieldEl(tool, f) { return $('f_' + tool.id + '_' + f.id); }
+
+  function renderBar() {
+    var bar = $('bar'); bar.textContent = '';
+    [['usd', 'Dólar'], ['uf', 'UF'], ['utm', 'UTM'], ['eur', 'Euro']].forEach(function (it) {
+      var d = document.createElement('div'), b = document.createElement('b'), sp = document.createElement('span');
+      b.textContent = it[1]; sp.textContent = ind[it[0]] > 0 ? '$ ' + fmtN(ind[it[0]], ind[it[0]] % 1 === 0 ? 0 : 2) : '—';
+      d.appendChild(b); d.appendChild(sp); bar.appendChild(d);
+    });
+    var sm = document.createElement('small');
+    sm.textContent = indStatus === 'live' ? 'En vivo desde mindicador.cl' : 'Valores de referencia al 24 oct 2026 (UTM de octubre)';
+    bar.appendChild(sm);
+  }
+  function renderChips() {
+    var box = $('chips'); box.textContent = ''; box.hidden = GROUPS[tab].length < 2;
+    GROUPS[tab].forEach(function (t) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t.name;
+      b.setAttribute('aria-pressed', String(t.id === activeBy[tab]));
+      b.addEventListener('click', function () { activeBy[tab] = t.id; buildTool(); });
+      box.appendChild(b);
+    });
+  }
+  function buildTool() {
+    var tool = toolById(activeBy[tab]);
+    renderChips();
+    $('finTitle').textContent = tool.title;
+    var form = $('finForm'); form.textContent = '';
+    var st = state[tool.id] || (state[tool.id] = {});
+    tool.fields.forEach(function (f) {
+      var wrap = document.createElement('div'); wrap.className = 'field' + (f.wide ? ' wide' : ''); wrap.id = 'w_' + tool.id + '_' + f.id;
+      var lbl = document.createElement('span'); lbl.className = 'lbl'; lbl.id = 'l_' + tool.id + '_' + f.id;
+      lbl.textContent = typeof f.label === 'function' ? f.label({}) : f.label;
+      var ctl;
+      if (f.kind === 'sel') {
+        ctl = document.createElement('select');
+        f.opts.forEach(function (o) { var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; ctl.appendChild(op); });
+      } else {
+        ctl = document.createElement('input'); ctl.type = 'text'; ctl.inputMode = 'decimal'; ctl.autocomplete = 'off';
+      }
+      ctl.id = 'f_' + tool.id + '_' + f.id;
+      ctl.value = st[f.id] != null ? st[f.id] : (typeof f.def === 'function' ? f.def() : f.def);
+      ctl.setAttribute('aria-label', typeof f.label === 'function' ? f.label({}) : f.label);
+      ctl.addEventListener('input', recompute);
+      ctl.addEventListener('change', recompute);
+      wrap.appendChild(lbl);
+      if (f.kind === 'num') {
+        var box = document.createElement('div'); box.className = 'inp'; box.appendChild(ctl);
+        if (f.unit) { var u = document.createElement('span'); u.className = 'unit'; u.textContent = f.unit; box.appendChild(u); }
+        wrap.appendChild(box);
+      } else wrap.appendChild(ctl);
+      form.appendChild(wrap);
+    });
+    $('finNote').textContent = typeof tool.note === 'function' ? '' : (tool.note || '');
+    $('chips').style.order = 1; form.style.order = 2; $('finResults').style.order = 4; $('finNote').style.order = 5;
+    $('finExtra').style.order = tool.extra === 'swap' ? 3 : 6;
+    buildExtra(tool);
+    recompute();
+  }
+  function readValues(tool) {
+    var v = {}, st = state[tool.id];
+    tool.fields.forEach(function (f) {
+      var el = fieldEl(tool, f);
+      st[f.id] = el.value;
+      v[f.id] = f.kind === 'num' ? parseNum(el.value) : el.value;
+    });
+    return v;
+  }
+  function recompute() {
+    var tool = toolById(activeBy[tab]), v = readValues(tool);
+    tool.fields.forEach(function (f) {
+      var w = $('w_' + tool.id + '_' + f.id);
+      if (f.when) { var show = Object.keys(f.when).every(function (k) { var w = f.when[k]; return Array.isArray(w) ? w.indexOf(v[k]) >= 0 : v[k] === w; }); w.hidden = !show; }
+      if (typeof f.label === 'function') { var t = f.label(v); $('l_' + tool.id + '_' + f.id).textContent = t; fieldEl(tool, f).setAttribute('aria-label', t); }
+    });
+    $('finNote').textContent = typeof tool.note === 'function' ? tool.note(v) : (tool.note || '');
+    var r = tool.run(v), main = $('finMain'), res = $('finResults');
+    res.textContent = '';
+    if (r.error) {
+      main.textContent = r.error; main.classList.add('error'); main.style.fontSize = '';
+      $('finLabel').textContent = ' '; lastRaw = '';
+    } else if (r.empty) {
+      main.textContent = '—'; main.classList.remove('error'); main.style.fontSize = '';
+      $('finLabel').textContent = 'Completa los datos'; lastRaw = '';
+      var none = document.createElement('div'); none.className = 'none'; none.textContent = 'Ingresa los valores para ver el detalle.'; res.appendChild(none);
+    } else {
+      main.textContent = r.main; main.classList.remove('error'); fitFont(main, r.main.length, false);
+      $('finLabel').textContent = r.label; lastRaw = r.raw || '';
+      r.rows.forEach(function (row) {
+        var d = document.createElement('div'); d.className = 'row';
+        var dt = document.createElement('dt'); dt.textContent = row[0];
+        var dd = document.createElement('dd'); dd.textContent = row[1];
+        d.appendChild(dt); d.appendChild(dd); res.appendChild(d);
+      });
+    }
+  }
+  $('btnFinCopy').addEventListener('click', function () {
+    if (!lastRaw) return;
+    var text = lastRaw.replace('.', ',');
+    copyText(text, 'Copiado: ' + text, $('finMain'));
+  });
+
+  /* Indicadores editables */
+  function indText(k) {
+    var v = ind[k]; if (v == null) return '';
+    return fmtN(v, v % 1 === 0 ? 0 : IND_DEFAULT[k].dec);
+  }
+  function statusHtml() {
+    var s = $('finStatus'); if (!s) return;
+    s.textContent = '';
+    if (indStatus === 'live') s.appendChild(document.createTextNode('Valores en vivo desde mindicador.cl. Puedes corregirlos a mano. '));
+    else s.appendChild(document.createTextNode('Valores de referencia al 24-oct-2026. Sol, pesos argentino y colombiano, real y yuan son aproximados, tomados de las cotizaciones de BuscaEPP. Edítalos cuando cambien. Revisa el valor oficial en '));
+    var a1 = document.createElement('a'); a1.href = 'https://www.sii.cl/valores_y_fechas/uf/uf2026.htm'; a1.target = '_blank'; a1.rel = 'noopener'; a1.textContent = 'SII';
+    var a2 = document.createElement('a'); a2.href = 'https://www.bcentral.cl/en/inicio/-/details/content-exchange-rates-and-parities'; a2.target = '_blank'; a2.rel = 'noopener'; a2.textContent = 'Banco Central';
+    s.appendChild(a1); s.appendChild(document.createTextNode(' y ')); s.appendChild(a2); s.appendChild(document.createTextNode('.'));
+  }
+  function buildSwap(ex, tool) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'tool add'; b.textContent = '⇄ Invertir unidades';
+    b.addEventListener('click', function () {
+      var a = fieldEl(tool, { id: 'de' }), c = fieldEl(tool, { id: 'a' }), t = a.value;
+      a.value = c.value; c.value = t; recompute();
+    });
+    ex.appendChild(b);
+  }
+  function buildExtra(tool) {
+    var ex = $('finExtra'); ex.textContent = '';
+    ex.hidden = !tool.extra;
+    if (!tool.extra) return;
+    if (tool.extra === 'swap') { buildSwap(ex, tool); return; }
+    var h = document.createElement('h3'); h.textContent = 'Valor de cada indicador en pesos'; ex.appendChild(h);
+    var grid = document.createElement('div'); grid.className = 'form';
+    Object.keys(IND_DEFAULT).forEach(function (k) {
+      var wrap = document.createElement('div'); wrap.className = 'field';
+      var lbl = document.createElement('span'); lbl.className = 'lbl'; lbl.textContent = IND_DEFAULT[k].name + ' · ' + IND_DEFAULT[k].when;
+      var box = document.createElement('div'); box.className = 'inp';
+      var inp = document.createElement('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.id = 'ind_' + k; inp.value = indText(k); inp.autocomplete = 'off';
+      inp.setAttribute('aria-label', 'Valor de ' + IND_DEFAULT[k].name + ' en pesos');
+      inp.addEventListener('input', function () {
+        var n = parseNum(inp.value);
+        if (n > 0) { ind[k] = n; manual[k] = n; } else { ind[k] = null; delete manual[k]; }
+        try { localStorage.setItem(STORE_IND, JSON.stringify(manual)); } catch (e) {}
+        renderBar(); recompute();
+      });
+      var u = document.createElement('span'); u.className = 'unit'; u.textContent = '$';
+      box.appendChild(inp); box.appendChild(u); wrap.appendChild(lbl); wrap.appendChild(box); grid.appendChild(wrap);
+    });
+    ex.appendChild(grid);
+    var st = document.createElement('p'); st.className = 'status'; st.id = 'finStatus'; ex.appendChild(st);
+    var rs = document.createElement('button'); rs.type = 'button'; rs.className = 'tool reset'; rs.textContent = 'Restablecer valores';
+    rs.addEventListener('click', function () {
+      manual = {}; try { localStorage.removeItem(STORE_IND); } catch (e) {}
+      resetInd(); applyLive(); renderBar(); buildTool();
+    });
+    ex.appendChild(rs);
+    statusHtml();
+  }
+
+  /* Valores en vivo: funciona cuando la página corre en un sitio que permite la consulta (por ejemplo buscaepp.cl). */
+  var live = null;
+  function applyLive() {
+    if (!live) return;
+    var map = { uf: 'uf', utm: 'utm', usd: 'dolar', eur: 'euro' };
+    Object.keys(map).forEach(function (k) {
+      var item = live[map[k]];
+      if (item && item.valor > 0 && !(k in manual)) ind[k] = item.valor;
+    });
+    indStatus = 'live';
+  }
+  try {
+    var ctl = new AbortController(); var to = setTimeout(function () { ctl.abort(); }, 4000);
+    fetch('https://mindicador.cl/api', { signal: ctl.signal }).then(function (r) { return r.json(); }).then(function (d) {
+      clearTimeout(to); live = d; applyLive(); renderBar(); if (tab !== 'std') buildTool();
+    }).catch(function () {});
+  } catch (e) {}
+
+  renderBar();
+  render();
+})();
+</script>
