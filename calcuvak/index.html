@@ -622,7 +622,49 @@ var COM_TOOLS = [
       if (v.ver === 'neto') return { main: peso(neto), raw: String(neto), label: 'Valor NETO (sin IVA)', rows: rows };
       return { main: peso(bruto), raw: String(bruto), label: 'Valor BRUTO (con IVA)', rows: rows };
     },
-    note: 'Si el precio ya incluye IVA, primero se separa el IVA y el ajuste se aplica sobre el neto.' }
+    note: 'Si el precio ya incluye IVA, primero se separa el IVA y el ajuste se aplica sobre el neto.' },
+
+  { id: 'desc', name: 'Descuento y margen', title: 'Descuento y margen',
+    fields: [
+      { id: 'precio', label: 'Precio de venta', kind: 'num', def: '15.000', unit: '$' },
+      { id: 'iva', label: 'Ese precio es', kind: 'sel', def: 'no', opts: [['no', 'Neto (sin IVA)'], ['si', 'Con IVA']] },
+      { id: 'cm', label: 'Costo del producto', kind: 'sel', def: 'sabe', wide: true, opts: [['sabe', 'Conozco el costo'], ['est', 'No lo sé: estimo el margen']] },
+      { id: 'costo', label: 'Costo (neto)', kind: 'num', def: '10.000', unit: '$', wide: true, when: { cm: 'sabe' } },
+      { id: 'mk', label: 'Margen estimado sobre el costo', kind: 'num', def: '30', unit: '%', wide: true, when: { cm: 'est' } },
+      { id: 'd', label: 'Descuento a aplicar', kind: 'num', def: '5', unit: '%' },
+      { id: 'min', label: 'Margen mínimo a conservar (opcional)', kind: 'num', def: '', unit: '%', wide: true }
+    ],
+    run: function (v) {
+      if (!(v.precio > 0)) return EMPTY;
+      var t = 0.19, pn = v.iva === 'si' ? v.precio / (1 + t) : v.precio, costo;
+      if (v.cm === 'sabe') { if (!(v.costo > 0)) return EMPTY; costo = v.costo; }
+      else { if (!(v.mk >= 0)) return EMPTY; costo = pn / (1 + v.mk / 100); }
+      var d = n0(v.d);
+      if (d < 0 || d >= 100) return { error: 'El descuento debe estar entre 0 y 100 %' };
+      var np = pn * (1 - d / 100), u0 = pn - costo, u1 = np - costo;
+      var mk0 = u0 / costo * 100, mk1 = u1 / costo * 100, ms0 = u0 / pn * 100, ms1 = u1 / np * 100;
+      var rows = [
+        [v.cm === 'sabe' ? 'Costo (neto)' : 'Costo estimado (neto)', peso(costo)],
+        ['Precio original (neto)', peso(pn)],
+        ['Descuento (' + fmtN(d, 2).replace(/,00$/, '') + ' %)', '- ' + peso(pn - np)],
+        ['Precio con descuento (neto)', peso(np)],
+        ['Precio con descuento (con IVA)', peso(np * (1 + t))],
+        ['Utilidad antes', (u0 < 0 ? '- ' : '') + peso(Math.abs(u0))],
+        ['Utilidad después', (u1 < 0 ? '- ' : '') + peso(Math.abs(u1))],
+        ['Margen sobre costo', pct(mk0, 1) + ' → ' + pct(mk1, 1)],
+        ['Margen sobre venta', pct(ms0, 1) + ' → ' + pct(ms1, 1)]
+      ];
+      if (u0 > 0) rows.push(['Descuento máximo sin perder', pct(u0 / pn * 100, 1)]);
+      if (v.min > 0) {
+        var dmax = (1 - costo * (1 + v.min / 100) / pn) * 100;
+        rows.push(['Descuento máximo con ' + fmtN(v.min, 1).replace(/,0$/, '') + ' % de margen', dmax >= 0 ? pct(dmax, 1) : 'Ya estás bajo ese margen']);
+      }
+      if (u1 < 0) rows.push(['Aviso', 'Con ese descuento vendes bajo el costo']);
+      var showCon = v.iva === 'si';
+      return { main: peso(showCon ? np * (1 + t) : np), raw: String(Math.round(showCon ? np * (1 + t) : np)),
+        label: 'Precio con ' + fmtN(d, 2).replace(/,00$/, '') + ' % de descuento' + (showCon ? ' (con IVA)' : ' (neto)'), rows: rows };
+    },
+    note: 'Margen sobre costo = utilidad ÷ costo. Margen sobre venta = utilidad ÷ precio. Si no conoces el costo, el margen es una estimación: ajústalo con lo que sabes de tu producto. Los cálculos se hacen sobre el valor neto.' }
 ];
 function fmtSig(x) {
   if (x === 0) return '0';
